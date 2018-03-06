@@ -45,7 +45,7 @@ int parse(const char* xml_path) {
 
   int ctxt;
   // Carregar o ficheiro
-  if((ctxt = xmlSAXUserParseFile(&handler, garray, xml_path)))
+  ctxt = xmlSAXUserParseFile(&handler, garray, xml_path);
 
 //char* s = g_ptr_array_index(garray, 99);
 //printf("retrieving %s\n", s);
@@ -55,4 +55,3 @@ xmlCleanupParser(); // Limpar o parser
 g_ptr_array_free (garray, TRUE); // Limpar o array
 return ctxt;
 }
-

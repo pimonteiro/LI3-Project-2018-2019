@@ -1,7 +1,8 @@
 #include <date.h>
 #include <stdio.h>
 
-#include "parse.h"
+#include "parser.h"
+
 int main(int argc, char *argv[]){
   Date d = createDate(1,2,2017);
   printf("Dia: %i\n", get_day(d));
