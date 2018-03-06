@@ -4,7 +4,7 @@ LDIR=lib
 OLDIR=$(ODIR)/lib
 
 CC=gcc
-CFLAGS = -Wall -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0` -I$(IDIR)
+CFLAGS = -march=native -O3 -pipe -D_GNU_SOURCE -pedantic -Wall -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0` -I$(IDIR)
 
 DEPS=$(IDIR)/$(wildcard *.h)
 SOURCES=$(wildcard *.c)
@@ -13,6 +13,9 @@ SOURCES_OBJ=$(ODIR)/$(patsubst %.c,%.o,$(SOURCES))
 MY_LIBS_OBJ=$(foreach o, $(patsubst %.c,%.o,$(MY_LIBS)), $(ODIR)/$o)
 LIBS = `pkg-config --libs libxml-2.0` `pkg-config --libs glib-2.0`
 
+DEBUG=-Wall -Wextra -O0 -g -Wextra
+MEMLEAK=-ggdb -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined
+
 print-% : ; @echo $* = $($*)
 
 $(ODIR)/%.o : %.c $(DEPS)
@@ -20,6 +23,12 @@ $(ODIR)/%.o : %.c $(DEPS)
 
 program: $(SOURCES_OBJ) $(MY_LIBS_OBJ)
 	$(CC) $(CFLAGS) $(wildcard $(ODIR)/*.o)  $(wildcard $(OLDIR)/*.o) -o program $(LIBS)
+
+debug: $(SOURCES_OBJ) $(MY_LIBS_OBJ)
+	$(CC) $(DEBUG) $(wildcard $(ODIR)/*.o)  $(wildcard $(OLDIR)/*.o) -o programD $(LIBS)
+
+memleak: $(SOURCES_OBJ) $(MY_LIBS_OBJ)
+	$(CC) $(MEMLEAK) $(wildcard $(ODIR)/*.o)  $(wildcard $(OLDIR)/*.o) -o programM $(LIBS)
 
 clean:
 	rm obj/*.o
