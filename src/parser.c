@@ -26,6 +26,14 @@ void xmlSAX2StartElement(void* user_data, const xmlChar *fullname, const xmlChar
  }
 }
 
+void my_error(void* user_data, const char* msg,...){
+  va_list args;
+
+  va_start(args, msg);
+  g_logv("XML", G_LOG_LEVEL_CRITICAL, msg, args);
+  va_end(args);
+
+}
 /**Função que faz parse aos ficheiros :D
  * Recebe o caminho do xml
  */
@@ -42,6 +50,8 @@ int parse(const char* xml_path) {
   xmlSAXHandler handler = {0};
   // Atribuir a função que é chamada quando um elemento é encontrado
   handler.startElement = xmlSAX2StartElement;
+  handler.error = my_error;
+
 
   int ctxt;
   // Carregar o ficheiro
