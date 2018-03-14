@@ -4,7 +4,8 @@
 #include "user.h"
 
 typedef struct TCD_community {
-
+    UserHash users;
+    GArray post_data;
 
 }* TAD_community;
 

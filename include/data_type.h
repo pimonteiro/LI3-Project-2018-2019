@@ -3,7 +3,9 @@ typedef struct profile {
     size_t id;
     char name[50];
     long int reputation;
-
+    
+    GArray *id_questions;
+    GArrau *id_awnsers;
 } *PROFILE;
 
 typedef GHashTable *UserHash;
