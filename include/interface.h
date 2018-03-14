@@ -3,7 +3,10 @@
 #include "list.h"
 #include "user.h"
 
-typedef struct TCD_community * TAD_community;
+typedef struct TCD_community {
+
+
+}* TAD_community;
 
 TAD_community init();
 
