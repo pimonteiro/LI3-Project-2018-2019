@@ -3,34 +3,32 @@ typedef struct profile {
     size_t id;
     char name[50];
     long int reputation;
-    
+
     GArray *id_questions;
-    GArrau *id_awnsers;
+    GArray *id_awnsers;
 } *PROFILE;
 
-typedef GHashTable *UserHash;
+typedef GHashTable* UserHash;
 
-typedef struct awnser {
+typedef struct answer {
     size_t id;   //guardamos o id do pai? compensa?
     Data creationDate;
-    long int score;
+    ssize_t score;
     // TODO TAGS?
-} AWNSER;
+} *ANSWER; // TUDO
 
 typedef struct question {
     size_t id;
-    char title[70];
+    char* title;
     // TODO TAGS?
     size_t owner_id;
 } *QUESTION;
 
 
-typedef struct question_awnser {
-    QUESTION question;
-    GArray *awnsers;  
-    DATA init;
+typedef struct question_answer {
+    QUESTION* question;
+    GArray *answers;
+    DATA start;
     DATA end;
-    size_t n_awnser;
-} *QUESTION_AWNSER;
-
-
+    size_t n_answer;
+} *QUESTION_ANSWER;
