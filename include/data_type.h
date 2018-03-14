@@ -1,7 +1,10 @@
+#include "date.h"
+#include <sys/types.h>
+#include <glib.h>
 typedef struct profile {
     char* about_me;
     size_t id;
-    char name[50];
+    char* name;
     long int reputation;
 
     GArray *id_questions;
@@ -12,7 +15,7 @@ typedef GHashTable* UserHash;
 
 typedef struct answer {
     size_t id;   //guardamos o id do pai? compensa?
-    Data creationDate;
+    Date creationDate;
     ssize_t score;
     // TODO TAGS?
 } *ANSWER; // TUDO
@@ -28,7 +31,7 @@ typedef struct question {
 typedef struct question_answer {
     QUESTION* question;
     GArray *answers;
-    DATA start;
-    DATA end;
+    Date start;
+    Date end;
     size_t n_answer;
 } *QUESTION_ANSWER;
