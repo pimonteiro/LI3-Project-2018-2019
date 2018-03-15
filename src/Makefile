@@ -15,7 +15,7 @@ LIBS = `pkg-config --libs libxml-2.0` `pkg-config --libs glib-2.0`
 
 DEBUG=-O0 -Wextra -pedantic
 MEMLEAK=-ggdb -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined
-GITGUD=-march=native -O3 -pipe -D_GNU_SOURCE -pedantic
+GITGUD=-march=native -O3 -pipe -D_GNU_SOURCE -pedantic -ftree-vectorize
 
 print-% : ; @echo $* = $($*)
 
