@@ -2,13 +2,8 @@
 #include "pair.h"
 #include "list.h"
 #include "user.h"
-#include "data_type.h"
 
-typedef struct TCD_community {
-    UserHash users;
-    GArray post_data;
-
-}* TAD_community;
+typedef struct TCD_community * TAD_community;
 
 TAD_community init();
 
