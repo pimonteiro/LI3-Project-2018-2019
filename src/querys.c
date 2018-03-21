@@ -1,17 +1,24 @@
+#include "date.h"
+#include "user.h"
+#include "pair.h"
+#include "list.h"
+#include <stdlib.h>
+#include "interface.h"
+#include <glib.h>
 //Query nº2
 LONG_list top_most_active(TAD_community com, int N){
     LONG_list res = create_list(N);
-    
+
     GHashTableIter i;
     gpointer key, value;
-    
+
     for(int i= 0; i < N; i++){
-        g_hash_table_iter_next (&i, com->users);
+        g_hash_table_iter_next (i, com->users);
         //Conseguir o primeiro numero de posts da pessoa no primeiro index da hash
-        size_t tmp_total; 
+        size_t tmp_total;
         long tmp_id; //dara warning por termos size_t na estrutura?
 
-        while(g_hash_table_iter_next(&iter, &key, &value)){
+        while(g_hash_table_iter_next(&i, &key, &value)){
             size_t aux = value->id_questions->len + value->id_awnsers->len;
             if (tmp_total < aux){
                 tmp_total = aux;
@@ -19,7 +26,7 @@ LONG_list top_most_active(TAD_community com, int N){
             }
         }
 
-        set_list(res, i, tmp_id); 
+        set_list(res, i, tmp_id);
     }
     return res;
 }
@@ -45,7 +52,7 @@ USER get_user_info(TAD_community com, long id){
         id = item_ptr->id;
     }
 
-    
+
     //Perante os dois arrays de id_questions e id_awnsers, como verifica los por ordem cronologica inversa? (sem destincao)
     //Maybe guardar, em vez de um array, uma struct que tem id e tipo_post (1/2), assim estariam por ordem cronologica e
     //seria mais eficiente procurar
@@ -53,7 +60,7 @@ USER get_user_info(TAD_community com, long id){
 }
 
 typedef struct id_date {
-    DATE begin;
+    Date begin;
     size_t id;
 } ID_DATE;
 
@@ -70,16 +77,16 @@ LONG_list most_answered_questions(TAD_community com, char* word, int N){
         ID_DATE new;
         for(i = 0; i < a->len;i++){
             if(g_array_index(a)->n_awnser > tmp){
-                tmp = t_array_index(a, QUESTION_AWNSER, i)->n_awnser;
-                new.begin = t_array_index(a, QUESTION_AWNSER, i)->start;
-                new.id    = t_array_index(a, QUESTION_AWNSER, i)->question->id;
+                tmp = t_array_index(a, QUESTION_ANSWER, i)->n_awnser;
+                new.begin = t_array_index(a, QUESTION_ANSWER, i)->start;
+                new.id    = t_array_index(a, QUESTION_ANSWER, i)->question->id;
             }
         }
-        append_val(dateB, new);        
-        
+        append_val(dateB, new);
+
         N--;
     }
-    
+
 }
 
 
