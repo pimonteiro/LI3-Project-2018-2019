@@ -42,8 +42,10 @@ typedef struct question_answer {
 } *QUESTION_ANSWER;
 
 
-struct TCD_istruct{
+typedef struct TCD_istruct{
   size_t file;
-  // TODO
-};
+  UserHash users;
+  GArray question_awnsers;
+
+} TCD_community;
 #endif
