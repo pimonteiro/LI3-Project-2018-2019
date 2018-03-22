@@ -1,5 +1,7 @@
 #include "posts.h"
-
+#include "answer.h"
+#include <stdlib.h>
+#include "date.h"
 
 struct post {
     size_t id_question;
@@ -15,7 +17,7 @@ struct post {
 };
 
 POST create_post(size_t my_id, char * my_title, size_t my_owner_id, GArray my_awnsers, Date my_start, Date my_end, size_t my_n_answer){
-	POST p = malloc(sizeof(struct question));
+	POST p = malloc(sizeof(struct post));
 	p->id_question = my_id;
 	p->title_question = strdup(my_title);
 	p->owner_id_question = my_owner_id;

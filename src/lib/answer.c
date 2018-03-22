@@ -1,4 +1,5 @@
 #include "awnser.h"
+#include <stdlib.h>
 
 struct answer {
     size_t id;   //guardamos o id do pai? compensa?
@@ -7,7 +8,7 @@ struct answer {
     // TODO TAGS?
 }; // TODO
 
-ANSWER create_answer(size_t my_id, DATE my_creation_date, ssize_t my_score){
+ANSWER create_answer(size_t my_id, Date my_creation_date, ssize_t my_score){
 	ANSWER a = malloc(sizeof(struct answer));
 	a->id = my_id;
 	a->score = my_score;
@@ -24,7 +25,7 @@ size_t getID_answer(ANSWER a){
 	return a->id;
 }
 
-DATE getDate_answer(ANSWER a){
+Date getDate_answer(ANSWER a){
 	return a->creationDate;
 }
 
@@ -36,7 +37,7 @@ void setID_answer(ANSWER a, size_t my_id){
 	a->id = my_id;
 }
 
-void setDate_answer(ANSWER a, DATE my_date){
+void setDate_answer(ANSWER a, Date my_date){
 	a->creationDate = my_date;
 }
 

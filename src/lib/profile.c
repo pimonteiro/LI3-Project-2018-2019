@@ -1,9 +1,11 @@
 #include "profile.h"
+#include <stdlib.h>
+#include <glib.h>
 
 struct avl_posts_users{
 	int type;
 	size_t id;
-}
+};
 
 
 struct profile {
@@ -15,16 +17,16 @@ struct profile {
     size_t n_questons;
     size_t n_awnsers;
 
-	GTree avl_posts; //Verificar 
+	GTree* avl_posts; //Verificar 
  };
 
-PROFILE create_profile(char * my_about, size_t my_id, char * my_name, long int my_reputation, Garray my_avl_posts){
+PROFILE create_profile(char * my_about, size_t my_id, char * my_name, long int my_reputation, GArray my_avl_posts){
 	PROFILE p = malloc(sizeof(struct profile));
 	p->about_me = strdup(my_about);
 	p->id = my_id;
-	p->my_name = strdup(my_name);
+	p->name = strdup(my_name);
 	p->reputation = my_reputation;
-	p->avl_posts = my_avl_posts; //TA MAL, ERA SO PRA ESTAR PARA AVANÇAR
+	//p->avl_posts = my_avl_posts; //TA MAL, ERA SO PRA ESTAR PARA AVANÇAR
 
 	return p;
 }

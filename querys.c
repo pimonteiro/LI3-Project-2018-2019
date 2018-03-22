@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "interface.h"
 #include <glib.h>
+#include <stdlib.h>
 //Query nº2
 LONG_list top_most_active(TAD_community com, int N){
     LONG_list res = create_list(N);
