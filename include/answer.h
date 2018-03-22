@@ -4,8 +4,9 @@
 #include <stdlib.h>
 #include "date.h"
 
+#include <sys/types.h>
 
-typedef struct anwser * ANSWER;
+typedef struct answer * ANSWER;
 
 ANSWER create_answer(size_t my_id, Date my_creation_date, ssize_t my_score);
 void free_answer(ANSWER a);

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "answer.h"
 #include "date.h"
+#include <glib.h>
 typedef struct post * POST;
 
 
@@ -24,6 +25,6 @@ void setEnd_date(POST p, Date new_end);
 void setN_answer(POST p, size_t my_n_answer);
 void setAnswers_array(POST p, GArray new_awnsers);
 
-void add_awnser_array(POST p, ANSWER a);
+GArray add_awnser_array(POST p, ANSWER a);
 
 #endif //__POSTS_H__

@@ -17,7 +17,7 @@ struct profile {
     size_t n_questons;
     size_t n_awnsers;
 
-	GTree* avl_posts; //Verificar 
+	struct avl_posts_users* avl_posts; //Verificar
  };
 
 PROFILE create_profile(char * my_about, size_t my_id, char * my_name, long int my_reputation, GArray my_avl_posts){

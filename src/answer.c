@@ -1,6 +1,6 @@
-#include "awnser.h"
+#include "answer.h"
 #include <stdlib.h>
-
+#include <sys/types.h>
 struct answer {
     size_t id;   //guardamos o id do pai? compensa?
     Date creationDate;
@@ -9,7 +9,7 @@ struct answer {
 }; // TODO
 
 ANSWER create_answer(size_t my_id, Date my_creation_date, ssize_t my_score){
-	ANSWER a = malloc(sizeof(struct answer));
+	ANSWER a = (ANSWER)malloc(sizeof(struct answer));
 	a->id = my_id;
 	a->score = my_score;
 	a->creationDate = my_creation_date;

@@ -10,22 +10,20 @@ struct  TCD_community{
 	GHashTable * profiles; //Hash users
 	GHashTable * posts; //Hash posts por id
 	GHashTable * data_posts; //Doubt?
-}
+};
 
 guint hash_func(gconstpointer key){
-	long int* tmp = (long int*) key;
-	long int aux  = *tmp;
-	return aux + 1;
+	return *((guint*) key) + 1;
 }
 
 gboolean key_equal_func(gconstpointer a, gconstpointer b){
-	long int* tmp_a = (long int*) a;
-	long int aux_a  = *tmp_a;
+	guint* tmp_a = (guint*) a;
+	guint aux_a  = *tmp_a;
 
-	long int* tmp_b = (long int*) b;
-	long int aux_b  = *tmp_b;
+	guint* tmp_b = (guint*) b;
+	guint aux_b  = *tmp_b;
 
-	if ((*aux_a )== (*aux_b)) return TRUE;
+	if ((aux_a )== (aux_b)) return TRUE;
 	else return FALSE;
 }
 

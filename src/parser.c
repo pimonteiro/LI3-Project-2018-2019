@@ -3,7 +3,7 @@
 #include <libxml/parser.h>
 #include <libxml/parserInternals.h>
 #include <glib.h>
-
+#include <string.h>
 
 /*
 
@@ -32,7 +32,7 @@ static void error(void *user_data, const char *msg, ...){
   va_end(args);
 }
 
- void startElement(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
+ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
   GPtrArray* garray =  (GPtrArray*)user_data; // cast para o tipo da nossa estrutura
 
   if(!xmlStrcasecmp(fullname, (const xmlChar*)"posts"))
@@ -48,24 +48,32 @@ static void error(void *user_data, const char *msg, ...){
 
 
 
-int parse(const char* xml_path) {
-  GPtrArray * garray = g_ptr_array_sized_new(1000);
-  g_ptr_array_set_free_func(garray, xmlFree); // função para limpar os elementos do array
+int parse(const char* xml_path, void* user_data){
 
-  xmlSAXHandler handler = {0};
-
-  handler.initialized = XML_SAX2_MAGIC;
-  handler.startElement = startElement;
-
-  handler.warning = error;
-  handler.error = error;
-  handler.fatalError = error;
-
-
+ // handler.initialized = XML_SAX2_MAGIC;
   int ctxt;
-  ctxt = xmlSAXUserParseFile(&handler, garray, xml_path);
+  int i;
+  char** names = {
+    "Users.xml",
+    "Posts.xml",
+    "Votes.xml"
+  };
+  char buffer[100];
 
-xmlCleanupParser(); // Limpar o parser
-g_ptr_array_free (garray, TRUE); // Limpar o array
-return ctxt;
+  for(i=0; i<2;i++){
+    xmlSAXHandler handler = {0};
+
+    handler.startElement = startElementUsers;
+
+    handler.warning = error;
+    handler.error = error;
+    handler.fatalError = error;
+
+
+    strcat(buffer,names[1]);
+    ctxt = xmlSAXUserParseFile(&handler,  user_data, xml_path);
+    xmlCleanupParser(); // Limpar o parser
+  }
+
+  return 0;
 }

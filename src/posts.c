@@ -2,7 +2,7 @@
 #include "answer.h"
 #include <stdlib.h>
 #include "date.h"
-
+#include "glib.h"
 struct post {
     size_t id_question;
     char* title_question;
@@ -90,6 +90,7 @@ void setAnswers_array(POST p, GArray new_awnsers){
 }
 
 
-void add_awnser_array(POST p, ANSWER a){
-	g_array_append_val(p->answers, a);
+GArray add_awnser_array(POST p, ANSWER a){
+	 g_array_append_val(&(p->answers), a);
+
 }
