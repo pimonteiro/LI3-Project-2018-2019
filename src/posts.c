@@ -36,7 +36,7 @@ size_t getId_question(POST p){
 	return p->id_question;
 }
 
-char getTitle(POST p){
+char* getTitle(POST p){
 	return p->title_question;
 }
 

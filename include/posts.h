@@ -11,7 +11,7 @@ typedef struct post * POST;
 POST create_post(size_t my_id, char * my_title, size_t my_owner_id, GArray my_awnsers, Date my_start, Date my_end, size_t my_n_answer);
 void free_post(POST p);
 size_t getId_question(POST p);
-char getTitle(POST p);
+char* getTitle(POST p);
 size_t getOwner_id_question(POST p);
 Date getStart_date(POST p);
 Date getEnd_date(POST p);

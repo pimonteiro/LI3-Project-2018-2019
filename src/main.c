@@ -7,8 +7,9 @@
 #define RED "\033[31m"
 #define BLUE "\033[34m"
 #define GREEN "\033[32m"
-
 #define RESET "\033[0m"
+
+
 int main(int argc, char *argv[]){
   Date d = createDate(1,2,2017);
   printf("Dia: %i\n", get_day(d));
