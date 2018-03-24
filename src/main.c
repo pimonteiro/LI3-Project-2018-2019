@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "interface.h"
+//#include "interface.h"
 #include <string.h>
 #include "parser.h"
-
+#include <glib.h>
 
 #define RED "\033[31m"
 #define BLUE "\033[34m"
@@ -11,33 +11,12 @@
 
 
 int main(int argc, char *argv[]){
-  Date d = createDate(1,2,2017);
-  printf("Dia: %i\n", get_day(d));
+	GPtrArray* test = g_ptr_array_sized_new(1000);
+	g_ptr_array_set_free_func(test, xmlFree);
+	parse("/home/herulume/Desktop/Users.xml", test, 0);
+	xmlChar* s = g_ptr_array_index(test, 2);
+	printf("Works! Proof? HERE: %s\n", s);
 
-
- int i;
- for(i=1; i<argc;i++){
-  printf("Ficheiro: %s%s%s ", BLUE, argv[i], RESET);
-  if(isFile(argv[i]) == 2)
-    printf("%sPosts%s\n", GREEN, RESET);
-  else if(isFile(argv[i]) == 1)
-    printf("%sUsers%s\n", GREEN, RESET);
-  else printf("%sNão importa%s\n", RED, RESET);
- }
+	g_ptr_array_free(test, TRUE);
 }
 
-int isFile(const char *str)
-{
-    if (!str)
-        return 0;
-    size_t lenStr = strlen(str);
-    // -4 = .xml
-    // -2 = usErs.xml or poSts.xml
-    // 6
-    if(*(str + lenStr - 7) == 'e')
-        return 1;
-    else if(*(str + lenStr - 7) == 's')
-        return 2;
-    else
-        return -1;
-}

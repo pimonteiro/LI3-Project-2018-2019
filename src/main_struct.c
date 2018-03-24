@@ -7,13 +7,16 @@
 #include <stdlib.h>
 
 struct  TCD_community{
-	GHashTable * profiles; //Hash users
+	GPtrArray* profiles; //PtrArray que funcs like hashtable :D
+	
 	GHashTable * posts; //Hash posts por id
-	GHashTable * data_posts; //Doubt?
+
+	GPtrArray* data_answers;
+	GPtrArray* data_posts; 
 };
 
 guint hash_func(gconstpointer key){
-	return *((guint*) key) + 1;
+	return *((guint*) key);
 }
 
 gboolean key_equal_func(gconstpointer a, gconstpointer b){

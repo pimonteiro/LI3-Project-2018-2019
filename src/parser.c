@@ -5,24 +5,6 @@
 #include <glib.h>
 #include <string.h>
 
-/*
-
-  XML SAX Insanity.
-
-  Message to professors, classmates and the compiler:
-
-
-  If you want to understand this, you have to hit a blunt.
-  I don't care if you're at work. Roll a fat one and smoke it. Right now.
-
-  If your boss questions this, feel free to tell him to contact me. I'll explain how crucial THC is for this shit.
-
-
-  Once you're done trying to 'optimize' this routine, and have realized what a terrible mistake that was,
-  please increment the following counter as a warning for the next guy:
-
-  total_hours_wated_here = 42
-*/
 
 static void error(void *user_data, const char *msg, ...){
   va_list args;
@@ -32,48 +14,87 @@ static void error(void *user_data, const char *msg, ...){
   va_end(args);
 }
 
- void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
-  GPtrArray* garray =  (GPtrArray*)user_data; // cast para o tipo da nossa estrutura
+void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
+
+GHashTable* hash = (GHashTable*)user_data;
 
   if(!xmlStrcasecmp(fullname, (const xmlChar*)"posts"))
    printf("\n\n%s\n\n", fullname); // testar se estamos no posts
 
   while (attrs && *attrs) {
-    xmlChar* s = xmlStrdup(attrs[1]); // passar de const xmlChar* para xmlChar*
-    g_ptr_array_add(garray, s); // por na nossa estrutura
+	xmlChar* tmp = xmlStrdup(attrs[1]);
+	g_hash_table_replace(hash, (guint)0, tmp);
+    attrs = &attrs[2]; // avançar para o proximo atributo
+ }
+}
+
+
+ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
+
+  if(!xmlStrcasecmp(fullname, (const xmlChar*)"posts"))
+   printf("\n\n%s\n\n", fullname); // testar se estamos no posts
+
+  while (attrs && *attrs) {
+    //xmlChar* s = xmlStrdup(attrs[1]); // passar de const xmlChar* para xmlChar*
 
     attrs = &attrs[2]; // avançar para o proximo atributo
  }
 }
 
 
+ void startElementVotes(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
 
-int parse(const char* xml_path, void* user_data){
+  if(!xmlStrcasecmp(fullname, (const xmlChar*)"posts"))
+   printf("\n\n%s\n\n", fullname); // testar se estamos no posts
 
- // handler.initialized = XML_SAX2_MAGIC;
-  int ctxt;
-  int i;
-  char** names = {
-    "Users.xml",
-    "Posts.xml",
-    "Votes.xml"
-  };
-  char buffer[100];
+  while (attrs && *attrs) {
+     //xmlChar* s = xmlStrdup(attrs[1]); // passar de const xmlChar* para xmlChar*
 
-  for(i=0; i<2;i++){
-    xmlSAXHandler handler = {0};
+    attrs = &attrs[2]; // avançar para o proximo atributo
+ }
+}
+int parse(const char* xml_path, void* user_data, size_t code){
+	int ctxt;
+	xmlSAXHandler handler = {0};
 
-    handler.startElement = startElementUsers;
+	if(code == 0)
+		handler.startElement = startElementUsers;
+	
+	if(code == 1)
+		handler.startElement = startElementPosts;
+	
+	if(code == 2)
+		handler.startElement = startElementVotes;
+	
+	
+	handler.warning = error;
+    	handler.error = error;
+    	handler.fatalError = error;
 
-    handler.warning = error;
-    handler.error = error;
-    handler.fatalError = error;
 
+	ctxt = xmlSAXUserParseFile(&handler, user_data, xml_path);
+    	
+	xmlCleanupParser();
+	return ctxt;
+}
 
-    strcat(buffer,names[1]);
-    ctxt = xmlSAXUserParseFile(&handler,  user_data, xml_path);
-    xmlCleanupParser(); // Limpar o parser
-  }
+int multiParse(const char* xml_path, void* user_data){
+	int users, posts, votes;
+	size_t pathLen = strlen(xml_path);
+	pathLen += 9; // file.xml always 5 + 4 (.xml)
+	char usersPath[pathLen], postsPath[pathLen], votesPath[pathLen];
 
-  return 0;
+	strcpy(usersPath, xml_path);
+	strcat(usersPath, "Users.xml");	
+	users = parse(usersPath, user_data, 0);
+
+	strcpy(postsPath, xml_path);
+	strcat(postsPath, "Posts.xml");	
+	posts = parse(xml_path, user_data, 1); 
+	
+	strcpy(votesPath, xml_path);
+	strcat(votesPath, "Votes.xml");	
+	votes = parse(xml_path, user_data, 2); 
+
+	return users && posts && votes;
 }

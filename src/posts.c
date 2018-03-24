@@ -6,8 +6,8 @@
 struct post {
     size_t id_question;
     char* title_question;
-    // TODO TAGS?
-    size_t owner_id_question;
+    char* tags; 
+    size_t owner_id;
 
 
     GArray answers; //Array de Answers

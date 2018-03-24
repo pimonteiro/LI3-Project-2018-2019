@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <sys/types.h>
 struct answer {
-    size_t id;   //guardamos o id do pai? compensa?
+    size_t id;
+    size_t parent_id; //guardamos o id do pai? compensa?
     Date creationDate;
     ssize_t score;
     // TODO TAGS?
