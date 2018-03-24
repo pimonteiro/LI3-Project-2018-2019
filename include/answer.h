@@ -9,7 +9,7 @@
 typedef struct answer * ANSWER;
 
 ANSWER create_answer(size_t my_id, Date my_creation_date, ssize_t my_score);
-void free_answer(ANSWER a);
+void free_answer(void* a);
 size_t getID_answer(ANSWER a);
 Date getDate_answer(ANSWER a);
 ssize_t getScore_answer(ANSWER a);

@@ -18,8 +18,9 @@ ANSWER create_answer(size_t my_id, Date my_creation_date, ssize_t my_score){
 	return a;
 }
 
-void free_answer(ANSWER a){
-	free(a);
+void free_answer(void* a){
+	ANSWER tmp = (ANSWER)a;
+	free(tmp);
 }
 
 size_t getID_answer(ANSWER a){

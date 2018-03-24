@@ -31,8 +31,9 @@ PROFILE create_profile(char * my_about, size_t my_id, char * my_name, long int m
 	return p;
 }
 
-void free_profile(PROFILE d){
-	free(d);
+void free_profile(void* d){
+	PROFILE tmp = (PROFILE)d;
+	free(tmp);
 }
 
 char getAboutMe_profile(PROFILE d){

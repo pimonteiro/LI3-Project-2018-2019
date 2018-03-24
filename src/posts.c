@@ -28,8 +28,9 @@ POST create_post(size_t my_id, char * my_title, size_t my_owner_id, GArray my_aw
 	//Falta inicilizar o array
 }
 
-void free_post(POST p){
-	free(p);
+void free_post(void* p){
+	POST tmp = (POST)p;
+	free(tmp);
 }
 
 size_t getId_question(POST p){
