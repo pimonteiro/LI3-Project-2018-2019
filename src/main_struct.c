@@ -1,6 +1,6 @@
 #include "main_struct.h"
 #include "profile.h"
-#include "posts.h"
+#include "question.h"
 #include "date.h"
 #include <sys/types.h>
 #include <glib.h>
@@ -29,6 +29,7 @@ gboolean key_equal_func(gconstpointer a, gconstpointer b){
 	if ((aux_a )== (aux_b)) return TRUE;
 	else return FALSE;
 }
+
 
 
 void value_destroy_func_post(gpointer value){

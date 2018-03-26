@@ -2,10 +2,12 @@
 #include <stdlib.h>
 #include <sys/types.h>
 struct answer {
+	Date creationDate;
+
     size_t id;
-    size_t parent_id; //guardamos o id do pai? compensa?
-    Date creationDate;
+    size_t parent_id;
     ssize_t score;
+    
     // TODO TAGS?
 }; // TODO
 
@@ -20,6 +22,7 @@ ANSWER create_answer(size_t my_id, Date my_creation_date, ssize_t my_score){
 
 void free_answer(void* a){
 	ANSWER tmp = (ANSWER)a;
+	free(tmp->creationDate);
 	free(tmp);
 }
 
