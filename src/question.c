@@ -38,6 +38,27 @@ QUESTION create_question(size_t my_id, char * my_title, size_t my_owner_id, Date
 	return p;
 }
 
+QUESTION create_question_copy(QUESTION q){
+	QUESTION ret = malloc(sizeof(struct question));
+	ret->start = getStart_date_question(q);
+	ret->end = getEnd_date_question(q);
+	ret->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
+
+	int n = getN_answer_question(q);
+	GArray* tst = getAnswers_array_question(q);
+
+	for(int i = 0; i < n; i++)
+		g_array_append_val(ret->id_answers, g_array_index(tst, size_t, i));
+
+	ret->id_question = getId_question(q);
+	ret->owner_id_question = getOwner_id_question(q);
+	ret->n_answer = getN_answer_question(q);
+	ret->title_question = getTitle_question(q);
+	ret->tags = ""; //TODO --> TAGS?!?!?
+
+	return ret;
+
+}
 void free_question(void* p){
 	QUESTION tmp = (QUESTION)p;
 	g_array_free(tmp->id_answers, TRUE);
@@ -50,7 +71,7 @@ size_t getId_question(QUESTION p){
 	return p->id_question;
 }
 
-char* getTitle(QUESTION p){
+char* getTitle_question(QUESTION p){
 	return p->title_question;
 }
 
@@ -58,19 +79,19 @@ size_t getOwner_id_question(QUESTION p){
 	return p->owner_id_question;
 }
 
-Date getStart_date(QUESTION p){
+Date getStart_date_question(QUESTION p){
 	return p->start;
 }
 
-Date getEnd_date(QUESTION p){
+Date getEnd_date_question(QUESTION p){
 	return p->end;
 }
 
-int getN_answer(QUESTION p){
+int getN_answer_question(QUESTION p){
 	return p->n_answer;
 }
 
-GArray* getAnswers_array(QUESTION p){
+GArray* getAnswers_array_question(QUESTION p){
 	GArray* novo = g_array_new(FALSE, FALSE, sizeof(size_t));
 
 	for(int i = 0; i < p->id_answers->len; i++){
@@ -86,7 +107,7 @@ void setId_question(QUESTION p, size_t my_id_question){
 	p->id_question = my_id_question;
 }
 
-void setTitle(QUESTION p, char * my_title_question){
+void setTitle_question(QUESTION p, char * my_title_question){
 	p->title_question = my_title_question;
 }
 
@@ -94,19 +115,19 @@ void setOwner_id_question(QUESTION p, size_t my_owner_id){
 	p->owner_id_question = my_owner_id;
 }
 
-void setStart_date(QUESTION p, Date new_start){
+void setStart_date_question(QUESTION p, Date new_start){
 	p->start = new_start;
 }
 
-void setEnd_date(QUESTION p, Date new_end){
+void setEnd_date_question(QUESTION p, Date new_end){
 	p->end = new_end;
 }
 
-void setN_answer(QUESTION p, int my_n_answer){
+void setN_answer_question(QUESTION p, int my_n_answer){
 	p->n_answer = my_n_answer;
 }
 
-void setAnswers_array(QUESTION p, GArray* my_answers){
+void setAnswers_array_question(QUESTION p, GArray* my_answers){
 	//devo limpar o garray primeiro?
 	p->id_answers = g_array_new(FALSE, FALSE, sizeof(ANSWER));
 	
