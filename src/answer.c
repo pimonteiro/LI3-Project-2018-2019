@@ -7,7 +7,7 @@ struct answer {
     size_t id;
     size_t parent_id;
     ssize_t score;
-    
+
     // TODO TAGS?
 }; // TODO
 
@@ -22,10 +22,7 @@ ANSWER create_answer(size_t my_id, Date my_creation_date, ssize_t my_score){
 
 ANSWER create_answer_copy(ANSWER a){
 	ANSWER ret = (ANSWER) malloc(sizeof(struct answer));
-	ret->creationDate = getDate_answer(a);
-	ret->id = getID_answer(a);
-	ret->parent_id = getParent_id_answer(a);
-	ret->score = getScore_answer(a);
+	ret = a;
 
 	return ret;
 }
@@ -38,14 +35,15 @@ void free_answer(void* a){
 
 size_t getParent_id_answer(ANSWER a){
 	return a->parent_id;
-} 
+}
 
 size_t getID_answer(ANSWER a){
 	return a->id;
 }
 
 Date getDate_answer(ANSWER a){
-	return a->creationDate;
+
+	return a->creationDate?a->creationDate:NULL;
 }
 
 ssize_t getScore_answer(ANSWER a){
@@ -57,6 +55,7 @@ void setID_answer(ANSWER a, size_t my_id){
 }
 
 void setDate_answer(ANSWER a, Date my_date){
+  if(a->creationDate != NULL) free(a->creationDate);
 	a->creationDate = my_date;
 }
 

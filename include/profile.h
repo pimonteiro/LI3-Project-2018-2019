@@ -7,7 +7,7 @@
 
 typedef struct profile * PROFILE;
 
-PROFILE create_profile(char * my_about, size_t my_id, char * my_name, ssize_t my_reputation, size_t my_n_questions, size_t my_n_answer, GArray* my_id_answers);
+PROFILE create_profile(char * my_about, size_t my_id, char * my_name, ssize_t my_reputation);
 void free_profile(void* d);
 char* getAboutMe_profile(PROFILE d);
 size_t getId_profile(PROFILE d);

@@ -1,6 +1,6 @@
 #ifndef __QUESTION_H__
 #define __QUESTION_H__
- 
+
 #include <stdlib.h>
 #include "answer.h"
 #include "date.h"
@@ -10,7 +10,7 @@
 typedef struct question * QUESTION;
 
 
-QUESTION create_question(size_t my_id, char * my_title, size_t my_owner_id, Date my_start, Date my_end, size_t my_n_answer, GArray* my_awnsers, ssize_t my_score);
+QUESTION create_question(size_t my_id, char * my_title, size_t my_owner_id, Date my_start, Date my_end, ssize_t my_score);
 QUESTION create_question_copy(QUESTION q);
 void free_question(void* p);
 size_t getId_question(QUESTION p);
