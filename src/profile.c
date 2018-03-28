@@ -11,6 +11,7 @@ struct avl_posts_users{
 
 struct profile {
 	GTree* avl_users;    //struct avl_posts_users* avl_posts; //Verificar
+	GArray* id_answers;
 
 	size_t n_questions;
     size_t n_answer;
@@ -22,7 +23,7 @@ struct profile {
     		
  };
 
-PROFILE create_profile(char * my_about, size_t my_id, char * my_name, ssize_t my_reputation, size_t my_n_questions, size_t my_n_answer){
+PROFILE create_profile(char * my_about, size_t my_id, char * my_name, ssize_t my_reputation, size_t my_n_questions, size_t my_n_answer, GArray* my_id_answers){
 	PROFILE p = malloc(sizeof(struct profile));
 	p->n_questions = my_n_questions;
 	p->n_answer = my_n_answer;
@@ -31,6 +32,12 @@ PROFILE create_profile(char * my_about, size_t my_id, char * my_name, ssize_t my
 	p->name = g_strdup(my_name);
 	p->reputation = my_reputation;
 	
+	p->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t)); 
+	
+	for(int i = 0; i < my_id_answers->len; i++){
+		g_array_append_val(p->id_answers, g_array_index(my_id_answers, size_t, i));
+	}
+
 	//createAvl_profile(p->avl_users); 
 	return p;
 }
@@ -38,6 +45,7 @@ PROFILE create_profile(char * my_about, size_t my_id, char * my_name, ssize_t my
 void free_profile(void* d){
 	PROFILE tmp = (PROFILE)d;
 	//free_avl(tmp->avl_users); //TODO
+	g_array_free(tmp->id_answers, TRUE);
 	free(tmp);
 }
 
@@ -57,6 +65,17 @@ ssize_t getReputation_profile(PROFILE d){
 	return d->reputation;
 }
 
+GArray* getId_answers_array_profile(PROFILE d){
+	GArray* novo = g_array_new(FALSE, FALSE, sizeof(size_t));
+
+	for(int i = 0; i < d->id_answers->len; i++){
+		g_array_append_val(novo, g_array_index(d->id_answers, size_t, i));
+	}	
+
+	return novo;
+
+}
+
 void setAboutMe_profile(PROFILE d, char * my_about){
 	d->about_me = g_strdup(my_about);
 }
@@ -72,6 +91,17 @@ void setName_profile(PROFILE d, char * my_name){
 void setReputation_profile(PROFILE d, ssize_t my_reputation){
 	d->reputation = my_reputation;
 }
+
+void setId_answers_array_profile(PROFILE d, GArray* my_id_answers){
+	//devo limpar o garray primeiro?
+	d->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
+	
+	for(int i = 0; i < my_id_answers->len; i++){
+		g_array_append_val(d->id_answers, g_array_index(my_id_answers, size_t, i));
+	}	
+}
+
+
 
 //FALTA GET E SET DA AVL
 
@@ -94,3 +124,8 @@ void setAvl_profile(PROFILE d, ____){
 void createAvl_profile(GTree* a){
 	a = g_tree_new((GCompareFunc) data_order_avl);  //funcao a criar
 }*/
+
+
+void profile_add_answers_array(PROFILE d, size_t id){
+	g_array_append_val(d->id_answers, id);
+}

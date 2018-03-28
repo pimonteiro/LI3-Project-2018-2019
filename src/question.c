@@ -13,14 +13,15 @@ struct question {
 
     size_t id_question;
     size_t owner_id_question;
-    int n_answer;
+    size_t n_answer;
+    ssize_t score;
 
     char* title_question;
-    char* tags; 
+    char* tags;  //FALTA TAGS!
 
 };
 
-QUESTION create_question(size_t my_id, char * my_title, size_t my_owner_id, Date my_start, Date my_end, int my_n_answer, GArray* my_answers){
+QUESTION create_question(size_t my_id, char * my_title, size_t my_owner_id, Date my_start, Date my_end, size_t my_n_answer, GArray* my_answers, ssize_t my_score){
 	QUESTION p = malloc(sizeof(struct question));
 	p->id_question = my_id;
 	p->title_question = g_strdup(my_title);
@@ -28,6 +29,7 @@ QUESTION create_question(size_t my_id, char * my_title, size_t my_owner_id, Date
 	p->start = my_start;
 	p->end   = my_end;
 	p->n_answer = my_n_answer;
+	p->score = my_score;
 
 	p->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
 	
@@ -54,6 +56,7 @@ QUESTION create_question_copy(QUESTION q){
 	ret->owner_id_question = getOwner_id_question(q);
 	ret->n_answer = getN_answer_question(q);
 	ret->title_question = getTitle_question(q);
+	ret->score = getScore_question(q);
 	ret->tags = ""; //TODO --> TAGS?!?!?
 
 	return ret;
@@ -87,7 +90,7 @@ Date getEnd_date_question(QUESTION p){
 	return p->end;
 }
 
-int getN_answer_question(QUESTION p){
+size_t getN_answer_question(QUESTION p){
 	return p->n_answer;
 }
 
@@ -102,6 +105,9 @@ GArray* getAnswers_array_question(QUESTION p){
 
 }
 
+ssize_t getScore_question(QUESTION p){
+	return p->score;
+}
 
 void setId_question(QUESTION p, size_t my_id_question){
 	p->id_question = my_id_question;
@@ -123,19 +129,22 @@ void setEnd_date_question(QUESTION p, Date new_end){
 	p->end = new_end;
 }
 
-void setN_answer_question(QUESTION p, int my_n_answer){
+void setN_answer_question(QUESTION p, size_t my_n_answer){
 	p->n_answer = my_n_answer;
 }
 
 void setAnswers_array_question(QUESTION p, GArray* my_answers){
 	//devo limpar o garray primeiro?
-	p->id_answers = g_array_new(FALSE, FALSE, sizeof(ANSWER));
+	p->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
 	
 	for(int i = 0; i < my_answers->len; i++){
 		g_array_append_val(p->id_answers, g_array_index(my_answers, size_t, i));
 	}	
 }
 
+void setScore_question(QUESTION p, ssize_t my_score){
+	p->score = my_score;
+}
 
 void add_answers_array(QUESTION p, size_t id){
 	g_array_append_val(p->id_answers, id);
