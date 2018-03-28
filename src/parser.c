@@ -15,8 +15,8 @@ static void error(void *user_data, const char *msg, ...){
 }
 
 void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
-  GHashTable* hash = (GHashTable*)user_data;
-
+  //GHashTable* hash = (GHashTable*)user_data;
+  GPtrArray* garray = (GPtrArray*)user_data;
   xmlChar* about_me=NULL;
   xmlChar* name=NULL;
   long int id=0;
@@ -31,31 +31,27 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
       name  = xmlStrdup(attrs[1]);
 
     if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"Id"))
-      id = strtol(attrs[1], NULL, 10);
+      id = strtol((const char*)attrs[1], NULL, 10);
 
     if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"Reputation"))
-      reputation = strtol(attrs[1], NULL, 10);
+      reputation = strtol((const char*)attrs[1], NULL, 10);
 
     attrs = &attrs[2]; // avançar para o proximo atributo
  }
 
     if(xmlStrcasecmp(fullname, (const xmlChar*)"Users")){
-      if(about_me == NULL && name == NULL) return;
-      if(about_me == NULL && name != NULL){
-        xmlFree(name);
-        return;
-      }
-      if(about_me != NULL && name == NULL){
-        xmlFree(about_me);
-        return;
+      if(about_me == NULL){
+        about_me=malloc(sizeof(char));
+        strcpy((char*)about_me,"");
       }
 
       PROFILE u = create_profile((char*)about_me, id, (char* )name, reputation);
-      uint64_t *mer_p = malloc(sizeof(uint64_t));
+      //uint64_t *mer_p = malloc(sizeof(uint64_t));
 
-      *mer_p=id;
+      //*mer_p=id;
 
-      g_hash_table_insert(hash, mer_p , (gpointer)u);
+      //g_hash_table_insert(hash, mer_p , (gpointer)u);
+      g_ptr_array_add(garray, u);
     }
          xmlFree(about_me);
          xmlFree(name);
