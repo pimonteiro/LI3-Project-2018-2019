@@ -5,7 +5,7 @@
 #include <glib.h>
 #include <string.h>
 
-
+#include "profile.h"
 static void error(void *user_data, const char *msg, ...){
   va_list args;
 
@@ -15,17 +15,51 @@ static void error(void *user_data, const char *msg, ...){
 }
 
 void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
+  GHashTable* hash = (GHashTable*)user_data;
 
-GHashTable* hash = (GHashTable*)user_data;
-
-  if(!xmlStrcasecmp(fullname, (const xmlChar*)"posts"))
-   printf("\n\n%s\n\n", fullname); // testar se estamos no posts
+  xmlChar* about_me=NULL;
+  xmlChar* name=NULL;
+  long int id=0;
+  ssize_t reputation=0;
 
   while (attrs && *attrs) {
-	xmlChar* tmp = xmlStrdup(attrs[1]);
-	g_hash_table_replace(hash, (guint)0, tmp);
+
+    if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"AboutMe"))
+      about_me = xmlStrdup(attrs[1]);
+
+    if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"DisplayName"))
+      name  = xmlStrdup(attrs[1]);
+
+    if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"Id"))
+      id = strtol(attrs[1], NULL, 10);
+
+    if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"Reputation"))
+      reputation = strtol(attrs[1], NULL, 10);
+
     attrs = &attrs[2]; // avançar para o proximo atributo
  }
+
+    if(xmlStrcasecmp(fullname, (const xmlChar*)"Users")){
+      if(about_me == NULL && name == NULL) return;
+      if(about_me == NULL && name != NULL){
+        xmlFree(name);
+        return;
+      }
+      if(about_me != NULL && name == NULL){
+        xmlFree(about_me);
+        return;
+      }
+
+      PROFILE u = create_profile((char*)about_me, id, (char* )name, reputation);
+      uint64_t *mer_p = malloc(sizeof(uint64_t));
+
+      *mer_p=id;
+
+      g_hash_table_insert(hash, mer_p , (gpointer)u);
+    }
+         xmlFree(about_me);
+         xmlFree(name);
+
 }
 
 
@@ -59,21 +93,21 @@ int parse(const char* xml_path, void* user_data, size_t code){
 
 	if(code == 0)
 		handler.startElement = startElementUsers;
-	
+
 	if(code == 1)
 		handler.startElement = startElementPosts;
-	
+
 	if(code == 2)
 		handler.startElement = startElementVotes;
-	
-	
+
+
 	handler.warning = error;
     	handler.error = error;
     	handler.fatalError = error;
 
 
 	ctxt = xmlSAXUserParseFile(&handler, user_data, xml_path);
-    	
+
 	xmlCleanupParser();
 	return ctxt;
 }
@@ -85,16 +119,16 @@ int multiParse(const char* xml_path, void* user_data){
 	char usersPath[pathLen], postsPath[pathLen], votesPath[pathLen];
 
 	strcpy(usersPath, xml_path);
-	strcat(usersPath, "Users.xml");	
+	strcat(usersPath, "Users.xml");
 	users = parse(usersPath, user_data, 0);
 
 	strcpy(postsPath, xml_path);
-	strcat(postsPath, "Posts.xml");	
-	posts = parse(xml_path, user_data, 1); 
-	
+	strcat(postsPath, "Posts.xml");
+	posts = parse(xml_path, user_data, 1);
+
 	strcpy(votesPath, xml_path);
-	strcat(votesPath, "Votes.xml");	
-	votes = parse(xml_path, user_data, 2); 
+	strcat(votesPath, "Votes.xml");
+	votes = parse(xml_path, user_data, 2);
 
 	return users && posts && votes;
 }
