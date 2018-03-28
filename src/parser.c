@@ -6,6 +6,8 @@
 #include <string.h>
 
 #include "profile.h"
+#include "question.h"
+#include <sys/types.h>
 static void error(void *user_data, const char *msg, ...){
   va_list args;
 
@@ -61,28 +63,66 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
 
  void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
 
-  if(!xmlStrcasecmp(fullname, (const xmlChar*)"posts"))
-   printf("\n\n%s\n\n", fullname); // testar se estamos no posts
+  GPtrArray* garray = (GPtrArray*)user_data;
+   // QUESTION
+  size_t id,  owner_id;
+  ssize_t score;
+  xmlChar* title=NULL;
+  xmlChar* tags=NULL;
+  Date start = NULL;
+  xmlChar* start_tmp=NULL;
+  int dia, mes, ano;
+  //////////////////////////
+  int type;
 
-  while (attrs && *attrs) {
-    //xmlChar* s = xmlStrdup(attrs[1]); // passar de const xmlChar* para xmlChar*
+// inserir verificação sobre ser 1 ou 2 o type antes de brincar com strings ;)
+while (attrs && *attrs) {
+    if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"PostTypeId"))
+      type = strtol((const char*)attrs[1], NULL, 10);
+
+    if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"Id"))
+      id = strtol((const char*)attrs[1], NULL, 10);
+
+    if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"OwnerUserId"))
+      owner_id = strtol((const char*)attrs[1], NULL, 10);
+
+    if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"Score"))
+      score = strtol((const char*)attrs[1], NULL, 10);
+
+    if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"Title"))
+      title  = xmlStrdup(attrs[1]);
+
+    if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"Tags"))
+      tags  = xmlStrdup(attrs[1]);
+
+
+    if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"CreationDate")){
+      start_tmp  = xmlStrdup(attrs[1]);
+      sscanf((char*)start_tmp, "%d-%d-%d", &ano, &dia, &mes);
+      start = createDate(dia, mes, ano);
+    }
 
     attrs = &attrs[2]; // avançar para o proximo atributo
  }
+    if(xmlStrcasecmp(fullname, (const xmlChar*)"Posts")){
+
+      if(tags == NULL){
+        tags=malloc(sizeof(char));
+        strcpy((char*)tags,"");
+      }
+
+      if(type == 1){
+        QUESTION q = create_question(id, (char*)title, (char*)tags, owner_id, start, score);
+        g_ptr_array_add(garray, q);
+      }
+    }
+
+    xmlFree(title);
+    xmlFree(tags);
+    xmlFree(start_tmp);
 }
 
 
- void startElementVotes(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
-
-  if(!xmlStrcasecmp(fullname, (const xmlChar*)"posts"))
-   printf("\n\n%s\n\n", fullname); // testar se estamos no posts
-
-  while (attrs && *attrs) {
-     //xmlChar* s = xmlStrdup(attrs[1]); // passar de const xmlChar* para xmlChar*
-
-    attrs = &attrs[2]; // avançar para o proximo atributo
- }
-}
 int parse(const char* xml_path, void* user_data, size_t code){
 	int ctxt;
 	xmlSAXHandler handler = {0};
@@ -93,13 +133,10 @@ int parse(const char* xml_path, void* user_data, size_t code){
 	if(code == 1)
 		handler.startElement = startElementPosts;
 
-	if(code == 2)
-		handler.startElement = startElementVotes;
 
-
-	handler.warning = error;
-    	handler.error = error;
-    	handler.fatalError = error;
+  handler.warning = error;
+  handler.error = error;
+  handler.fatalError = error;
 
 
 	ctxt = xmlSAXUserParseFile(&handler, user_data, xml_path);
@@ -109,10 +146,10 @@ int parse(const char* xml_path, void* user_data, size_t code){
 }
 
 int multiParse(const char* xml_path, void* user_data){
-	int users, posts, votes;
+	int users, posts;
 	size_t pathLen = strlen(xml_path);
 	pathLen += 9; // file.xml always 5 + 4 (.xml)
-	char usersPath[pathLen], postsPath[pathLen], votesPath[pathLen];
+	char usersPath[pathLen], postsPath[pathLen];
 
 	strcpy(usersPath, xml_path);
 	strcat(usersPath, "Users.xml");
@@ -122,9 +159,5 @@ int multiParse(const char* xml_path, void* user_data){
 	strcat(postsPath, "Posts.xml");
 	posts = parse(xml_path, user_data, 1);
 
-	strcpy(votesPath, xml_path);
-	strcat(votesPath, "Votes.xml");
-	votes = parse(xml_path, user_data, 2);
-
-	return users && posts && votes;
+	return users && posts;
 }
