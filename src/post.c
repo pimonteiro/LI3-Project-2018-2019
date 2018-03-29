@@ -10,39 +10,31 @@ struct post {
   }content;
 };
 
-// tens que ver se tipo = 1 ou = 2 para cada metodo e chamas o metodos correspondente
-// do quesiton ou answer respectivamente
 
 POST create_post(size_t type, QUESTION q, ANSWER a){
-	POST p = malloc(sizeof(struct post));
-	if(type == 1){
-		p->type = 1;
-		p->content.q = create_question_copy(q);
-	}
-	else{
-		p->type = 2;
-		p->content.a = create_answer_copy(a);
-	}
-	return p;
+    POST p = malloc(sizeof(struct post));
+    if(type == 1){
+        p->type = 1;
+        p->content.q = create_question_copy(q);
+    }
+    else{
+        p->type = 2;
+        p->content.a = create_answer_copy(a);
+    }
+    return p;
 }
 
 void free_post(void* p){
-	POST q = (POST) p;
-	if(getType_post(q) == 1)
-		free_question(q->content.q);
-	else
-		free_answer(q->content.a);
+    POST post = (POST) p;
+    if(getType_post(post) == 1)
+        free_question(post->content.q);
+    else
+        free_answer(post->content.a);
 
-	free(q);
+    free(post);
 }
 
 
 size_t getType_post(POST p){
-	return p->type;
+    return p->type;
 }
-
-void setType_post(POST p, size_t type){
-	p->type = type;
-}
-
-
