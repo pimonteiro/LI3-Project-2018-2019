@@ -63,23 +63,25 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
 
  void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
 
+  if(attrs && (xmlStrcasecmp(attrs[3], (const xmlChar*)"1")) && (xmlStrcasecmp(attrs[3], (const xmlChar*)"2"))) return;
+
   GPtrArray* garray = (GPtrArray*)user_data;
-   // QUESTION
-  size_t id,  owner_id;
-  ssize_t score;
-  xmlChar* title=NULL;
-  xmlChar* tags=NULL;
-  Date start = NULL;
+  int long type = 0;
+  if(attrs)
+  type = strtol((const char*)attrs[3], NULL, 10);
+
+
   xmlChar* start_tmp=NULL;
   int dia, mes, ano;
-  //////////////////////////
-  int type;
-
-// inserir verificação sobre ser 1 ou 2 o type antes de brincar com strings ;)
-while (attrs && *attrs) {
-    if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"PostTypeId"))
-      type = strtol((const char*)attrs[1], NULL, 10);
-
+  Date start = NULL;
+  size_t id,  owner_id;
+  ssize_t score;
+  // QUESTION
+  xmlChar* title=NULL;
+  xmlChar* tags=NULL;
+  /////////////////////////
+if(type == 1){
+  while (attrs && *attrs) {
     if(!xmlStrcasecmp(attrs[0], (const xmlChar*)"Id"))
       id = strtol((const char*)attrs[1], NULL, 10);
 
@@ -111,15 +113,14 @@ while (attrs && *attrs) {
         strcpy((char*)tags,"");
       }
 
-      if(type == 1){
         QUESTION q = create_question(id, (char*)title, (char*)tags, owner_id, start, score);
         g_ptr_array_add(garray, q);
-      }
     }
 
     xmlFree(title);
     xmlFree(tags);
     xmlFree(start_tmp);
+}
 }
 
 
