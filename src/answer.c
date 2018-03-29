@@ -12,10 +12,11 @@ struct answer {
     // TODO TAGS?
 }; // TODO
 
-ANSWER create_answer(size_t my_owner_id, size_t my_id, Date my_creation_date, ssize_t my_score){
+ANSWER create_answer(size_t my_parent_id, size_t my_owner_id, size_t my_id, Date my_creation_date, ssize_t my_score){
 	ANSWER a = (ANSWER)malloc(sizeof(struct answer));
 	a->id = my_id;
 	a->score = my_score;
+  a->parent_id = my_parent_id;
 	a->creationDate = my_creation_date;
 	a->owner_id = my_owner_id;
 

@@ -142,23 +142,23 @@ int parse(const char* xml_path, void* user_data, size_t code){
 
 	ctxt = xmlSAXUserParseFile(&handler, user_data, xml_path);
 
-	xmlCleanupParser();
+  xmlCleanupParser();
 	return ctxt;
 }
 
 int multiParse(const char* xml_path, void* user_data){
 	int users, posts;
 	size_t pathLen = strlen(xml_path);
-	pathLen += 9; // file.xml always 5 + 4 (.xml)
+	pathLen += 10; // file.xml always 5 + 4 (.xml)
 	char usersPath[pathLen], postsPath[pathLen];
 
 	strcpy(usersPath, xml_path);
-	strcat(usersPath, "Users.xml");
+	strcat(usersPath, "/Users.xml");
 	users = parse(usersPath, user_data, 0);
 
 	strcpy(postsPath, xml_path);
-	strcat(postsPath, "Posts.xml");
-	posts = parse(xml_path, user_data, 1);
+	strcat(postsPath, "/Posts.xml");
+	posts = parse(postsPath, user_data, 1);
 
 	return users && posts;
 }

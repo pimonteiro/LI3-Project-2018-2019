@@ -17,8 +17,8 @@
 int main(int argc, char *argv[]){
 
   GPtrArray* test = g_ptr_array_sized_new(500000);
-	g_ptr_array_set_free_func(test, free_question);
-	parse("/home/herulume/Desktop/Posts.xml", test, 1);
+	g_ptr_array_set_free_func(test, NULL);
+  multiParse("/home/herulume/Desktop/", test);
   printf("%u cabroes inseridos", test->len);
 	g_ptr_array_free(test, TRUE);
   return 0;

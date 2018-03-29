@@ -18,9 +18,9 @@ struct question {
     ssize_t score;
 
     char* title_question;
-    char* tags
+    char* tags;
 
-}
+};
 
 QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my_owner_id,  Date my_start, ssize_t my_score){
 	QUESTION p = malloc(sizeof(struct question));
