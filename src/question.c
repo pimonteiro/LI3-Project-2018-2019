@@ -10,6 +10,7 @@ struct question {
     Date end;
 
     GArray* id_answers; //Array dos id de Answers
+    GArray* tags_question;
 
     size_t id_question;
     size_t owner_id_question;
@@ -17,18 +18,18 @@ struct question {
     ssize_t score;
 
     char* title_question;
-    char* tags;  //FALTA TAGS!
+    char* tags
 
-};
+}
 
 QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my_owner_id,  Date my_start, ssize_t my_score){
 	QUESTION p = malloc(sizeof(struct question));
 	p->id_question = my_id;
 	p->title_question = g_strdup(my_title);
-  p->tags = g_strdup(my_tags);
+    p->tags = g_strdup(my_tags);
 	p->owner_id_question = my_owner_id;
 	p->start = my_start;
-	p->end   = createDate(0, 0, 0); // fui eu
+	p->end   = createDate(0, 0, 0); // HERULUME
 	p->n_answer = 0;
 	p->score = my_score;
 
