@@ -5,9 +5,7 @@ OLDIR=$(ODIR)/lib
 ODDIR=$(ODIR)/lib
 
 CC=gcc
-CFLAGS = -Wall -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0` -I$(IDIR)
-
-GITGUD= -march=native -O3 -ftree-vectorize -fomit-frame-pointer -pipe -D_GNU_SOURCE
+CFLAGS = $(GITGUD) -Wall -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0` -I$(IDIR)
 
 DEPS=$(IDIR)/$(wildcard *.h)
 
@@ -21,6 +19,7 @@ LIBS = `pkg-config --libs libxml-2.0` `pkg-config --libs glib-2.0`
 
 
 
+GITGUD= -march=native -O3 -ftree-vectorize -fomit-frame-pointer -pipe -D_GNU_SOURCE
 DEBUG=-O0 -Wextra -pedantic
 MEMLEAK=-ggdb -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined
 #GITGUD=-march=native -O2 -pipe -D_GNU_SOURCE -pedantic
