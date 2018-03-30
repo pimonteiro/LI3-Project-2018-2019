@@ -1,13 +1,14 @@
-#include <stdio.h>
-#include <libxml/SAX.h>
 #include <libxml/parser.h>
 #include <libxml/parserInternals.h>
 #include <glib.h>
-#include <string.h>
 #include "profile.h"
 #include "post.h"
 #include "question.h"
+#include "interface.h"
 #include <sys/types.h>
+#include "main_struct.h"
+
+
 static void error(void *user_data, const char *msg, ...) {
     va_list args;
 
@@ -18,8 +19,8 @@ static void error(void *user_data, const char *msg, ...) {
 
 void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
 
-    GHashTable* hash = (GHashTable*)user_data;
-    size_t need=0;
+    GHashTable* hash = getProfiles_TAD((TAD_community)user_data);
+
 
     xmlChar* about_me = NULL;
     xmlChar* name = NULL;
@@ -30,33 +31,27 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
 
         if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"AboutMe")){
             about_me = xmlStrdup(attrs[1]);
-            ++need;
         }
 
         if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"DisplayName")){
             name  = xmlStrdup(attrs[1]);
-            ++need;
         }
 
         if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"Id")){
             id = strtol((const char*)attrs[1], NULL, 10);
-            ++need;
         }
 
         if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"Reputation")){
             reputation = strtol((const char*)attrs[1], NULL, 10);
-            ++need;
         }
 
-        if((need==3 && about_me==NULL) || need==4) break;
-        attrs = &attrs[2]; // avançar para o proximo atributo
+        attrs = &attrs[2];
     }
 
     if (xmlStrcasecmp(fullname, (const xmlChar*)"Users")) {
         if (about_me == NULL) {
             about_me = malloc(sizeof(char));
             strcpy((char*)about_me, "");
-            ++need;
         }
 
         PROFILE u = create_profile((char*)about_me, id, (char* )name, reputation);
@@ -73,9 +68,11 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
 
 void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
 
-    GHashTable* hash = (GHashTable*)user_data;
+    TAD_community com = (TAD_community)user_data;
+    GHashTable* hash = getPosts_TAD(com);
+
+
     int long type = 0;
-    size_t need=0;
     if (attrs)
         type = strtol((const char*)attrs[3], NULL, 10);
 
@@ -97,27 +94,22 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
         while (attrs && *attrs) {
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"Id")){
                 id = strtol((const char*)attrs[1], NULL, 10);
-                ++need;
             }
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"OwnerUserId")){
                 owner_id = strtol((const char*)attrs[1], NULL, 10);
-                ++need;
             }
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"Score")){
                 score = strtol((const char*)attrs[1], NULL, 10);
-                ++need;
             }
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"Title")){
                 title  = xmlStrdup(attrs[1]);
-                ++need;
             }
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"Tags")){
                 tags  = xmlStrdup(attrs[1]);
-                ++need;
             }
 
 
@@ -125,10 +117,8 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
                 start_tmp  = xmlStrdup(attrs[1]);
                 sscanf((char*)start_tmp, "%d-%d-%d", &ano, &dia, &mes);
                 start = createDate(dia, mes, ano);
-                ++need;
             }
 
-            if((need==5 && tags==NULL) || need==6) break;
             attrs = &attrs[2]; // avançar para o proximo atributo
         }
         if (xmlStrcasecmp(fullname, (const xmlChar*)"Posts")) {
@@ -154,32 +144,26 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
         while (attrs && *attrs) {
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"Id")){
                 id = strtol((const char*)attrs[1], NULL, 10);
-                ++need;
             }
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"OwnerUserId")){
                 owner_id = strtol((const char*)attrs[1], NULL, 10);
-                ++need;
             }
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"Score")){
                 score = strtol((const char*)attrs[1], NULL, 10);
-                ++need;
             }
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"ParentId")){
                 parent_id  = strtol((const char*)attrs[1], NULL, 10);
-                ++need;
             }
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"CreationDate")) {
                 start_tmp  = xmlStrdup(attrs[1]);
                 sscanf((char*)start_tmp, "%d-%d-%d", &ano, &dia, &mes);
                 start = createDate(dia, mes, ano);
-                ++need;
             }
 
-            if(need==5) break;
             attrs = &attrs[2]; // avançar para o proximo atributo
         }
         if (xmlStrcasecmp(fullname, (const xmlChar*)"Posts")) {
@@ -191,10 +175,13 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             g_hash_table_insert(hash, key, (gpointer)p);
 
             // Complete question
-            QUESTION q = (QUESTION)g_hash_table_lookup(hash, &parent_id);
-            setN_answer_question(q, 1);
-            setAnswers_array_question(q, (size_t)id);
-            // TODO COMPARAR DATES
+            POST q = NULL;
+            q = (POST)g_hash_table_lookup(hash, &parent_id);
+
+            if(q != NULL){
+                setN_answer_question(getQuestion_post(q), 1);
+                setAnswers_array_question(getQuestion_post(q), (size_t)id);
+            }
         }
 
         xmlFree(title);
@@ -204,7 +191,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 }
 
 
-int parse(const char* xml_path, void* user_data, size_t code) {
+static int parse(const char* xml_path, void* user_data, size_t code) {
     int ctxt;
     xmlSAXHandler handler = {0};
 
@@ -226,11 +213,12 @@ int parse(const char* xml_path, void* user_data, size_t code) {
     return ctxt;
 }
 
-int multiParse(const char* xml_path, void* user_data) {
+static int multiParse(const char* xml_path, void* user_data) {
     int users, posts;
     size_t pathLen = strlen(xml_path);
     pathLen += 10; // file.xml always 5 + 4 (.xml)
     char usersPath[pathLen], postsPath[pathLen];
+
 
     strcpy(usersPath, xml_path);
     strcat(usersPath, "/Users.xml");
@@ -240,5 +228,10 @@ int multiParse(const char* xml_path, void* user_data) {
     strcat(postsPath, "/Posts.xml");
     posts = parse(postsPath, user_data, 1);
 
-    return users && posts;
+    return users || posts;
+}
+
+TAD_community load(TAD_community com, char* dump_path){
+    multiParse(dump_path, com);
+    return com;
 }

@@ -1,11 +1,8 @@
 #include "main_struct.h"
-#include "profile.h"
-#include "question.h"
-#include "date.h"
-#include "post.h"
-#include <sys/types.h>
 #include <glib.h>
-#include <stdlib.h>
+#include "profile.h"
+#include "post.h"
+
 
 struct  TCD_community{
     GHashTable* profiles; //PtrArray que funcs like hashtable :D
@@ -35,3 +32,17 @@ TAD_community create_main_struct(){
 
     return m;
 }
+
+GHashTable* getProfiles_TAD(TAD_community com){
+    return com->profiles;
+}
+
+GHashTable* getPosts_TAD(TAD_community com){
+    return com->posts;
+}
+
+
+TAD_community init(){
+    return create_main_struct();
+}
+

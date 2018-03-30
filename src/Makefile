@@ -7,8 +7,7 @@ ODDIR=$(ODIR)/lib
 CC=gcc
 CFLAGS = -Wall -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0` -I$(IDIR)
 
-
-#-march=native -O3 -ftree-vectorize -fomit-frame-pointer -pipe -D_GNU_SOURCE -pedantic
+GITGUD= -march=native -O3 -ftree-vectorize -fomit-frame-pointer -pipe -D_GNU_SOURCE
 
 DEPS=$(IDIR)/$(wildcard *.h)
 

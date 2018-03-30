@@ -38,3 +38,7 @@ void free_post(void* p){
 size_t getType_post(POST p){
     return p->type;
 }
+
+QUESTION getQuestion_post(POST p){
+    return p->content.q;
+}

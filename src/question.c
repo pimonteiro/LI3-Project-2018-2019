@@ -9,8 +9,7 @@ struct question {
     Date start; //Obviamente pertence a pergunta
     Date end;
 
-    GPtrArray* id_answers; //Array dos id de Answers
-    GPtrArray* tags_question;
+    GArray* id_answers; //Array dos id de Answers
 
     size_t id_question;
     size_t owner_id_question;
@@ -33,7 +32,7 @@ QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my
     p->n_answer = 0;
     p->score = my_score;
 
-    p->id_answers = g_ptr_array_new();
+    p->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
     /*for(int i = 0; i < my_answers->len; i++){
         g_array_append_val(p->id_answers, g_array_index(my_answers, size_t, i));
     }   */
@@ -66,11 +65,11 @@ QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my
 }*/
 void free_question(void* p){
     QUESTION tmp = (QUESTION)p;
-    g_ptr_array_free(tmp->id_answers, TRUE);
-    free(tmp->start);
-    free(tmp->end);
-    free(tmp->title_question);
-    free(tmp->tags);
+    tmp->id_answers ? g_array_free(tmp->id_answers,FALSE) : NULL;
+    tmp->start ? free(tmp->start) : NULL;
+    tmp->start ? free(tmp->end): NULL;
+    tmp->title_question ? free(tmp->title_question) : NULL;
+    tmp->tags ? free(tmp->tags) : NULL;
     free(tmp);
 }
 
@@ -138,7 +137,7 @@ void setN_answer_question(QUESTION p, size_t my_n_answer){
 }
 
 void setAnswers_array_question(QUESTION p, size_t id){
-        g_ptr_array_add(p->id_answers, (gpointer)id);
+        g_array_append_val(p->id_answers, id);
 }
 
 void setScore_question(QUESTION p, ssize_t my_score){
