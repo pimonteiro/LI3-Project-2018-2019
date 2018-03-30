@@ -85,6 +85,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
     // QUESTION
     xmlChar* title = NULL;
     xmlChar* tags = NULL;
+    size_t nquestions=0;
     /////////////////////
     // ANSWER
     size_t parent_id=0;
@@ -104,6 +105,9 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
                 score = strtol((const char*)attrs[1], NULL, 10);
             }
 
+            if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"AnswerCount")){
+                nquestions = strtol((const char*)attrs[1], NULL, 10);
+            }
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"Title")){
                 title  = xmlStrdup(attrs[1]);
             }
@@ -128,12 +132,13 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
                 strcpy((char*)tags, "");
             }
 
-            QUESTION q = create_question(id, (char*)title, (char*)tags, owner_id, start, score);
+            QUESTION q = create_question(id, (char*)title, (char*)tags, owner_id, start, score, nquestions);
             POST p = create_post(type, q, NULL);
 
             uint64_t *key = malloc(sizeof(uint64_t));
             *key = id;
             g_hash_table_insert(hash, key, (gpointer)p);
+            // INSERIR NAS DATAS
         }
 
         xmlFree(title);
@@ -173,13 +178,13 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             uint64_t *key = malloc(sizeof(uint64_t));
             *key = id;
             g_hash_table_insert(hash, key, (gpointer)p);
+            // INSERIR NAS DATAS
 
             // Complete question
             POST q = NULL;
             q = (POST)g_hash_table_lookup(hash, &parent_id);
 
             if(q != NULL){
-                setN_answer_question(getQuestion_post(q), 1);
                 setAnswers_array_question(getQuestion_post(q), (size_t)id);
             }
         }

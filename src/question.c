@@ -21,7 +21,7 @@ struct question {
 
 };
 
-QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my_owner_id,  Date my_start, ssize_t my_score){
+QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my_owner_id,  Date my_start, ssize_t my_score, size_t my_n_answer){
     QUESTION p = malloc(sizeof(struct question));
     p->id_question = my_id;
     p->title_question = g_strdup(my_title);
@@ -29,7 +29,7 @@ QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my
     p->owner_id_question = my_owner_id;
     p->start = my_start;
     p->end   = createDate(0, 0, 0); // HERULUME
-    p->n_answer = 0;
+    p->n_answer = my_n_answer;
     p->score = my_score;
 
     p->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));

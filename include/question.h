@@ -10,7 +10,7 @@
 typedef struct question * QUESTION;
 
 
-QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my_owner_id, Date my_start,ssize_t my_score);
+QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my_owner_id, Date my_start,ssize_t my_score, size_t m_n_answer);
 QUESTION create_question_copy(QUESTION q);
 void free_question(void* p);
 size_t getId_question(QUESTION p);
