@@ -1,15 +1,13 @@
 #ifndef __TARDIS_H__
 #define __TARDIS_H__
 
-#include <sys/types.h>
 #include <glib.h>
 #include "date.h"
-
-typedef struct post * POST;
+#include "question.h"
 
 typedef struct tardis * TARDIS;
 
-TARDIS lading_tardis(size_t n_years);
+TARDIS lading_tardis();
 int compare_dates(Date a, Date b);
-
+void insertQuestion(TARDIS m, QUESTION q, int ano, int mes, int dia);
 #endif

@@ -33,6 +33,17 @@ TAD_community create_main_struct(){
     return m;
 }
 
+TAD_community clean(TAD_community com){
+    g_hash_table_destroy(com->profiles);
+    g_hash_table_destroy(com->posts);
+
+    g_ptr_array_free(com->year_questions, TRUE);
+    g_ptr_array_free(com->year_answers, TRUE);
+
+    free(com);
+    return NULL;
+}
+
 GHashTable* getProfiles_TAD(TAD_community com){
     return com->profiles;
 }

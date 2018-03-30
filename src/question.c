@@ -65,7 +65,7 @@ QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my
 }*/
 void free_question(void* p){
     QUESTION tmp = (QUESTION)p;
-    tmp->id_answers ? g_array_free(tmp->id_answers,FALSE) : NULL;
+    tmp->id_answers ? g_array_free(tmp->id_answers,TRUE) : NULL;
     tmp->start ? free(tmp->start) : NULL;
     tmp->start ? free(tmp->end): NULL;
     tmp->title_question ? free(tmp->title_question) : NULL;

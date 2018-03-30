@@ -11,13 +11,12 @@
 #define RESET "\033[0m"
 
 
-int main(int argc, char *argv[]){
-    Date a = createDate(16, 5, 1997);
-    Date b = createDate(10, 5, 1997);
+int main(){
 
-    printf("\n%d\n", compare_dates(a, b));
-    //TAD_community cum = init();
-    //load(cum, "/home/herulume/Desktop");
-    //printf("%d\n", g_hash_table_size(getProfiles_TAD(cum)));
+
+    TAD_community cum = init();
+    load(cum, "/home/herulume/Desktop");
+    printf("%d\n", g_hash_table_size(getProfiles_TAD(cum)));
+    cum = clean(cum);
+    return 0;
 }
-
