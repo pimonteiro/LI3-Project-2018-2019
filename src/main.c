@@ -17,6 +17,7 @@ int main(){
     TAD_community cum = init();
     load(cum, "/home/herulume/Desktop");
     printf("%d\n", g_hash_table_size(getProfiles_TAD(cum)));
+    printf("%d\n", g_hash_table_size(getPosts_TAD(cum)));
     cum = clean(cum);
     return 0;
 }
