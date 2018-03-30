@@ -9,8 +9,8 @@ struct question {
     Date start; //Obviamente pertence a pergunta
     Date end;
 
-    GArray* id_answers; //Array dos id de Answers
-    GArray* tags_question;
+    GPtrArray* id_answers; //Array dos id de Answers
+    GPtrArray* tags_question;
 
     size_t id_question;
     size_t owner_id_question;
@@ -33,8 +33,7 @@ QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my
     p->n_answer = 0;
     p->score = my_score;
 
-    p->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
-
+    p->id_answers = g_ptr_array_new();
     /*for(int i = 0; i < my_answers->len; i++){
         g_array_append_val(p->id_answers, g_array_index(my_answers, size_t, i));
     }   */
@@ -43,7 +42,7 @@ QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my
 }
 
 
-QUESTION create_question_copy(QUESTION q){
+/*QUESTION create_question_copy(QUESTION q){
     QUESTION ret = malloc(sizeof(struct question));
     ret->start = getStart_date_question(q);
     ret->end = getEnd_date_question(q);
@@ -60,18 +59,18 @@ QUESTION create_question_copy(QUESTION q){
     ret->n_answer = getN_answer_question(q);
     ret->title_question = getTitle_question(q);
     ret->score = getScore_question(q);
-    ret->tags = ""; 
+    ret->tags = "";
 
     return ret;
 
-}
+}*/
 void free_question(void* p){
     QUESTION tmp = (QUESTION)p;
-    g_array_free(tmp->id_answers, TRUE);
+    g_ptr_array_free(tmp->id_answers, TRUE);
     free(tmp->start);
     free(tmp->end);
-  free(tmp->title_question);
-  free(tmp->tags);
+    free(tmp->title_question);
+    free(tmp->tags);
     free(tmp);
 }
 
@@ -99,7 +98,7 @@ size_t getN_answer_question(QUESTION p){
     return p->n_answer;
 }
 
-GArray* getAnswers_array_question(QUESTION p){
+/*GArray* getAnswers_array_question(QUESTION p){
     GArray* novo = g_array_new(FALSE, FALSE, sizeof(size_t));
 
     for(int i = 0; i < p->id_answers->len; i++){
@@ -108,7 +107,7 @@ GArray* getAnswers_array_question(QUESTION p){
 
     return novo;
 
-}
+}*/
 
 ssize_t getScore_question(QUESTION p){
     return p->score;
@@ -135,28 +134,22 @@ void setEnd_date_question(QUESTION p, Date new_end){
 }
 
 void setN_answer_question(QUESTION p, size_t my_n_answer){
-    p->n_answer = my_n_answer;
+    p->n_answer += my_n_answer;
 }
 
-void setAnswers_array_question(QUESTION p, GArray* my_answers){
-    //devo limpar o garray primeiro?
-  free(p->id_answers);
-    p->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
-
-    for(int i = 0; i < my_answers->len; i++){
-        g_array_append_val(p->id_answers, g_array_index(my_answers, size_t, i));
-    }
+void setAnswers_array_question(QUESTION p, size_t id){
+        g_ptr_array_add(p->id_answers, (gpointer)id);
 }
 
 void setScore_question(QUESTION p, ssize_t my_score){
     p->score = my_score;
 }
 
-void add_answers_array(QUESTION p, size_t id){
-    g_array_append_val(p->id_answers, id);
-}
+/*void add_answers_array(QUESTION p, size_t id){
+    g_ptr_array_add(p->id_answers, (gpointer)id);
+}*/
 
 
-size_t get_element_index_answers(QUESTION p, int i){
+/*size_t get_element_index_answers(QUESTION p, int i){
     return g_array_index(p->id_answers, size_t, i);
-}
+}*/

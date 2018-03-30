@@ -15,11 +15,11 @@ POST create_post(size_t type, QUESTION q, ANSWER a){
     POST p = malloc(sizeof(struct post));
     if(type == 1){
         p->type = 1;
-        p->content.q = create_question_copy(q);
+        p->content.q = q;
     }
     else{
         p->type = 2;
-        p->content.a = create_answer_copy(a);
+        p->content.a = a;
     }
     return p;
 }

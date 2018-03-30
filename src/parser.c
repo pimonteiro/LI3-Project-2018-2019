@@ -4,8 +4,8 @@
 #include <libxml/parserInternals.h>
 #include <glib.h>
 #include <string.h>
-
 #include "profile.h"
+#include "post.h"
 #include "question.h"
 #include <sys/types.h>
 static void error(void *user_data, const char *msg, ...) {
@@ -17,10 +17,10 @@ static void error(void *user_data, const char *msg, ...) {
 }
 
 void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
-    
+
     GHashTable* hash = (GHashTable*)user_data;
     size_t need=0;
-    
+
     xmlChar* about_me = NULL;
     xmlChar* name = NULL;
     long int id = 0;
@@ -73,7 +73,7 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
 
 void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
 
-    GPtrArray* garray = (GPtrArray*)user_data;
+    GHashTable* hash = (GHashTable*)user_data;
     int long type = 0;
     size_t need=0;
     if (attrs)
@@ -139,7 +139,11 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             }
 
             QUESTION q = create_question(id, (char*)title, (char*)tags, owner_id, start, score);
-            g_ptr_array_add(garray, q);
+            POST p = create_post(type, q, NULL);
+
+            uint64_t *key = malloc(sizeof(uint64_t));
+            *key = id;
+            g_hash_table_insert(hash, key, (gpointer)p);
         }
 
         xmlFree(title);
@@ -181,7 +185,16 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
         if (xmlStrcasecmp(fullname, (const xmlChar*)"Posts")) {
 
             ANSWER a = create_answer(parent_id, owner_id, id, start, score);
-            g_ptr_array_add(garray, a);
+            POST p = create_post(type, NULL, a);
+            uint64_t *key = malloc(sizeof(uint64_t));
+            *key = id;
+            g_hash_table_insert(hash, key, (gpointer)p);
+
+            // Complete question
+            QUESTION q = (QUESTION)g_hash_table_lookup(hash, &parent_id);
+            setN_answer_question(q, 1);
+            setAnswers_array_question(q, (size_t)id);
+            // TODO COMPARAR DATES
         }
 
         xmlFree(title);

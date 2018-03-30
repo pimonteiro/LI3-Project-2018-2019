@@ -27,7 +27,7 @@ void setOwner_id_question(QUESTION p, size_t my_owner_id);
 void setStart_date_question(QUESTION p, Date new_start);
 void setEnd_date_question(QUESTION p, Date new_end);
 void setN_answer_question(QUESTION p, size_t my_n_answer);
-void setAnswers_array_question(QUESTION p, GArray* new_awnsers);
+void setAnswers_array_question(QUESTION p, size_t id);
 void setScore_question(QUESTION p, ssize_t my_score);
 
 void add_answers_array(QUESTION p, size_t id);

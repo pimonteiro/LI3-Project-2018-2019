@@ -5,7 +5,7 @@ OLDIR=$(ODIR)/lib
 ODDIR=$(ODIR)/lib
 
 CC=gcc
-CFLAGS =-march=native -O2 -ftree-vectorize -fomit-frame-pointer  -pipe -D_GNU_SOURCE -pedantic -Wall -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0` -I$(IDIR)
+CFLAGS = -Wall -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0` -I$(IDIR)
 
 
 #-march=native -O3 -ftree-vectorize -fomit-frame-pointer -pipe -D_GNU_SOURCE -pedantic
