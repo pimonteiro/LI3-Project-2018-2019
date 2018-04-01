@@ -8,7 +8,7 @@
 typedef struct tardis * TARDIS;
 
 TARDIS lading_tardis();
-int compare_dates(Date a, Date b);
+void takeOf_tardis(void* sexy);
 void insertQuestion(TARDIS m, QUESTION q, int ano, int mes, int dia);
 void insertAnswer(TARDIS m, ANSWER a, int ano, int mes, int dia);
 #endif

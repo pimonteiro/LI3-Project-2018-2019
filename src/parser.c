@@ -5,6 +5,7 @@
 #include "post.h"
 #include "question.h"
 #include "interface.h"
+#include "mydate.h"
 #include <sys/types.h>
 #include "main_struct.h"
 
@@ -78,8 +79,8 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
 
     xmlChar* start_tmp = NULL;
-    int dia, mes, ano;
-    Date start = NULL;
+    int dia, mes, ano, hora, minuto, segundo, milisegundo;
+    MyDate start = NULL;
     size_t id=0,  owner_id=0;
     ssize_t score=0;
     // QUESTION
@@ -119,8 +120,8 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"CreationDate")) {
                 start_tmp  = xmlStrdup(attrs[1]);
-                sscanf((char*)start_tmp, "%d-%d-%d", &ano, &dia, &mes);
-                start = createDate(dia, mes, ano);
+                sscanf((char*)start_tmp, "%d-%d-%dT%d:%d:%d.%d", &ano, &dia, &mes, &hora, &minuto, &segundo, &milisegundo);
+                start = create_date(milisegundo, segundo, minuto, hora, dia, mes, ano);
             }
 
             attrs = &attrs[2]; // avançar para o proximo atributo
@@ -165,8 +166,8 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"CreationDate")) {
                 start_tmp  = xmlStrdup(attrs[1]);
-                sscanf((char*)start_tmp, "%d-%d-%d", &ano, &dia, &mes);
-                start = createDate(dia, mes, ano);
+                sscanf((char*)start_tmp, "%d-%d-%dT%d:%d:%d.%d", &ano, &dia, &mes, &hora, &minuto, &segundo, &milisegundo);
+                start = create_date(milisegundo, segundo, minuto, hora, dia, mes, ano);
             }
 
             attrs = &attrs[2]; // avançar para o proximo atributo

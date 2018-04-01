@@ -2,9 +2,9 @@
 
 #include <stdlib.h>
 
-#define PARENT(i) (i-1)/2             
-#define LEFT(i) 2*i + 1               
-#define RIGHT(i) 2*i + 2   
+#define PARENT(i) (i-1)/2
+#define LEFT(i) 2*i + 1
+#define RIGHT(i) 2*i + 2
 
 struct heap{
     int   size; // Tamanho
@@ -14,7 +14,7 @@ struct heap{
 };
 
 HEAP initHeap(int size, heapCmpFunc func) {
-    HEAP h = malloc(sizeof(void*));
+    HEAP h = malloc(sizeof(struct heap));
     if(h != NULL) {
         h->size = size;
         h->load = 0;
@@ -22,6 +22,15 @@ HEAP initHeap(int size, heapCmpFunc func) {
         h->cmp = func;
     }
     return h;
+}
+
+void free_heap(void* h){
+    HEAP heap = (HEAP)h;
+//    for(int i=0; i< heap->load; i++)
+  //      if(heap->array[i] != NULL)
+    //        free(heap->array[i]);
+    free(heap->array);
+    free(heap);
 }
 
 static void swap(HEAP h, int a, int b) {

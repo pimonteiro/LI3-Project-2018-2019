@@ -23,8 +23,7 @@ int cmpScore (void* a, void* b){
 // Month/day array is made of HEAPS
 void setFree_month(void * month_ptrArray){
     GPtrArray* month = (GPtrArray*)month_ptrArray;
-    g_ptr_array_set_free_func(month, NULL);
-    //DESTROIR A HEAP MAS NAO OS ELEMENTOS
+    g_ptr_array_set_free_func(month, free_heap);
 }
 
 // Year array is made of gPtrArray
@@ -40,8 +39,8 @@ TARDIS lading_tardis(){
     type40->year_questions = g_ptr_array_new_full(10, setFree_year);
     type40->year_answers = g_ptr_array_new_full(10, setFree_year);
 
-    g_ptr_array_set_size(type40->year_questions, 10);
-    g_ptr_array_set_size(type40->year_answers, 10);
+    //g_ptr_array_set_size(type40->year_questions, 10);
+    //g_ptr_array_set_size(type40->year_answers, 10);
 
     return type40;
 }
@@ -52,6 +51,8 @@ void takeOf_tardis(void* sexy){
 
     g_ptr_array_free(type40->year_questions, TRUE);
     g_ptr_array_free(type40->year_answers, TRUE);
+
+    free(type40);
 }
 
 
@@ -64,7 +65,7 @@ void insertQuestion(TARDIS m, QUESTION q, int ano, int mes, int dia){
 
     // ACEDER OS MESES DIAS
     if(array_mes == NULL){
-      GPtrArray* mes = g_ptr_array_new_full(372, setFree_month);
+      GPtrArray* mes = g_ptr_array_new_with_free_func(setFree_month);
       g_ptr_array_set_size(mes, 31*12); // assumir que todos os meses tem 31 dias, gap nao é grande
       g_ptr_array_insert(m->year_questions, (gint)index_ano, (gpointer)mes);
       array_mes = mes;
@@ -95,7 +96,7 @@ void insertAnswer(TARDIS m, ANSWER a, int ano, int mes, int dia){
 
     // ACEDER OS MESES DIAS
     if(array_mes == NULL){
-      GPtrArray* mes = g_ptr_array_new_full(372, setFree_month);
+      GPtrArray* mes =  g_ptr_array_new_with_free_func(setFree_month);
       g_ptr_array_set_size(mes, 31*12); // assumir que todos os meses tem 31 dias, gap nao é grande
       g_ptr_array_insert(m->year_answers, (gint)index_ano, (gpointer)mes);
       array_mes = mes;
@@ -115,33 +116,4 @@ void insertAnswer(TARDIS m, ANSWER a, int ano, int mes, int dia){
 
     // FINALMENTE
     insertHeap(h, a);
-}
-int compare (int a, int b) {
-    __asm__ __volatile__ (
-        "sub %1, %0 \n\t"
-        "jno 1f \n\t"
-        "cmc \n\t"
-        "rcr %0 \n\t"
-        "1: "
-    : "+r"(a)
-    : "r"(b)
-    : "cc");
-    return a;
-}
-
-
-int compare_dates(Date a, Date b){
-    int ano, mes, dia;
-
-    ano = compare(get_year(a), get_year(b));
-    if(ano != 0) return ano;
-
-    mes = compare(get_month(a), get_month(b));
-    if(mes != 0) return mes;
-
-    dia  = compare(get_day(a), get_day(b));
-    if(dia != 0) return dia;
-
-
-    return 0;
 }

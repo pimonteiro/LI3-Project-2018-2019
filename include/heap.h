@@ -3,9 +3,9 @@
 
 typedef int (*heapCmpFunc)(void* a, void* b);
 typedef struct heap * HEAP;
-             
+
 HEAP initHeap(int size, heapCmpFunc func);
 int insertHeap(HEAP h, void* elem);
-
+void free_heap(void* h);
 
 #endif

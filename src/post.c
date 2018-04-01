@@ -42,3 +42,6 @@ size_t getType_post(POST p){
 QUESTION getQuestion_post(POST p){
     return p->content.q;
 }
+ANSWER getAnswer_post(POST p){
+    return p->content.a;
+}

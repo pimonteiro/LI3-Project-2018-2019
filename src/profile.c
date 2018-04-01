@@ -1,16 +1,15 @@
 #include "profile.h"
 #include <stdlib.h>
 #include <glib.h>
+#include "post.h"
+#include "question.h"
+#include "answer.h"
+#include "mydate.h"
 #include <string.h>
-
-struct avl_posts_users{
-    int type;
-    size_t id;
-};
-
+#include "heap.h"
 
 struct profile {
-    GTree* avl_users;    //struct avl_posts_users* avl_posts; //Verificar
+    HEAP ten_posts;
     GArray* id_answers;
 
     size_t n_questions;
@@ -23,6 +22,33 @@ struct profile {
 
  };
 
+int cmpDates (void* a, void* b){
+    int result;
+    POST p1 = (POST)a;
+    POST p2 = (POST)b;
+
+    size_t type1 = getType_post(p1);
+    size_t type2 = getType_post(p2);
+    MyDate d1=NULL;
+    MyDate d2=NULL;
+
+    if(type1 == 1){
+        d1 = getStart_date_question(getQuestion_post(p1));
+    }
+    else{
+        d1 = getDate_answer(getAnswer_post(p1));
+    }
+    if(type2 == 1){
+        d2 = getStart_date_question(getQuestion_post(p2));
+    }
+    else{
+        d2 = getDate_answer(getAnswer_post(p2));
+    }
+
+    result = compare_dates(d1, d2);
+
+    return result;
+}
 PROFILE create_profile(char * my_about, size_t my_id, char * my_name, ssize_t my_reputation){
     PROFILE p = malloc(sizeof(struct profile));
     p->n_questions = 0;
@@ -31,23 +57,18 @@ PROFILE create_profile(char * my_about, size_t my_id, char * my_name, ssize_t my
     p->id = my_id;
     p->name = g_strdup(my_name);
     p->reputation = my_reputation;
-
+    p->ten_posts = initHeap(10, cmpDates);
     p->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
 
-    /*for(int i = 0; i < my_id_answers->len; i++){
-        g_array_append_val(p->id_answers, g_array_index(my_id_answers, size_t, i));
-    }*/
-
-    //createAvl_profile(p->avl_users);
     return p;
 }
 
 void free_profile(void* d){
     PROFILE tmp = (PROFILE)d;
-    //free_avl(tmp->avl_users); //TODO
     g_array_free(tmp->id_answers, TRUE);
-  free(tmp->name);
-  free(tmp->about_me);
+    free(tmp->name);
+    free(tmp->about_me);
+    free_heap(tmp->ten_posts);
     free(tmp);
 }
 

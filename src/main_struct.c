@@ -29,7 +29,7 @@ TAD_community create_main_struct(){
 TAD_community clean(TAD_community com){
     g_hash_table_destroy(com->profiles);
     g_hash_table_destroy(com->posts);
-
+    takeOf_tardis(com->type40);
 // TARDIS FREE
     free(com);
 

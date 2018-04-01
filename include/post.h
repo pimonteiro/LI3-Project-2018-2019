@@ -12,5 +12,5 @@ void free_post(void* p);
 size_t getType_post(POST p);
 void setType_post(POST p, size_t type);
 QUESTION getQuestion_post(POST p);
-
+ANSWER getAnswer_post(POST p);
 #endif

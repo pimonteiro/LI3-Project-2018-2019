@@ -1,8 +1,9 @@
+#include "mydate.h"
 #include "answer.h"
 #include <stdlib.h>
 #include <sys/types.h>
 struct answer {
-    Date creationDate;
+    MyDate creationDate;
 
     size_t owner_id;
     size_t id;
@@ -12,7 +13,7 @@ struct answer {
     // TODO TAGS?
 }; // TODO
 
-ANSWER create_answer(size_t my_parent_id, size_t my_owner_id, size_t my_id, Date my_creation_date, ssize_t my_score){
+ANSWER create_answer(size_t my_parent_id, size_t my_owner_id, size_t my_id, MyDate my_creation_date, ssize_t my_score){
     ANSWER a = (ANSWER)malloc(sizeof(struct answer));
     a->id = my_id;
     a->score = my_score;
@@ -44,7 +45,7 @@ size_t getID_answer(ANSWER a){
     return a->id;
 }
 
-Date getDate_answer(ANSWER a){
+MyDate getDate_answer(ANSWER a){
 
     return a->creationDate?a->creationDate:NULL;
 }
@@ -61,7 +62,7 @@ void setID_answer(ANSWER a, size_t my_id){
     a->id = my_id;
 }
 
-void setDate_answer(ANSWER a, Date my_date){
+void setDate_answer(ANSWER a, MyDate my_date){
     if(a->creationDate != NULL) free(a->creationDate);
     a->creationDate = my_date;
 }
