@@ -46,8 +46,8 @@ void free_profile(void* d){
     PROFILE tmp = (PROFILE)d;
     //free_avl(tmp->avl_users); //TODO
     g_array_free(tmp->id_answers, TRUE);
-  free(tmp->name);
-  free(tmp->about_me);
+    free(tmp->name);
+    free(tmp->about_me);
     free(tmp);
 }
 

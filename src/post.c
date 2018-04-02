@@ -7,7 +7,7 @@ struct post {
   union content {
     QUESTION q;
     ANSWER a;
-  }content;
+  };
 };
 
 

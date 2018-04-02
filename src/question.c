@@ -7,7 +7,6 @@
 
 struct question {
     Date start; //Obviamente pertence a pergunta
-    Date end;
 
     GArray* id_answers; //Array dos id de Answers
 
@@ -28,7 +27,6 @@ QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my
     p->tags = g_strdup(my_tags);
     p->owner_id_question = my_owner_id;
     p->start = my_start;
-    p->end   = createDate(0, 0, 0); // HERULUME
     p->n_answer = 0;
     p->score = my_score;
 
@@ -66,8 +64,8 @@ QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my
 void free_question(void* p){
     QUESTION tmp = (QUESTION)p;
     tmp->id_answers ? g_array_free(tmp->id_answers,FALSE) : NULL;
-    tmp->start ? free(tmp->start) : NULL;
-    tmp->start ? free(tmp->end): NULL;
+    tmp->start ? free_date(tmp->start) : NULL;
+    tmp->start ? free_date(tmp->end): NULL;
     tmp->title_question ? free(tmp->title_question) : NULL;
     tmp->tags ? free(tmp->tags) : NULL;
     free(tmp);

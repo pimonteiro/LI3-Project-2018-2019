@@ -32,7 +32,7 @@ ANSWER create_answer_copy(ANSWER a){
 
 void free_answer(void* a){
     ANSWER tmp = (ANSWER)a;
-    free(tmp->creationDate);
+    free_date(tmp->creationDate);
     free(tmp);
 }
 
