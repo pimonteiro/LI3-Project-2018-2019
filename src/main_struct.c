@@ -30,7 +30,7 @@ TAD_community clean(TAD_community com){
     g_hash_table_destroy(com->profiles);
     g_hash_table_destroy(com->posts);
     takeOf_tardis(com->type40);
-// TARDIS FREE
+
     free(com);
 
     return NULL; // kek.exe
@@ -44,6 +44,9 @@ GHashTable* getPosts_TAD(TAD_community com){
     return com->posts;
 }
 
+TARDIS getTARDIS_TAD(TAD_community com){
+    return com->type40;
+}
 
 TAD_community init(){
     return create_main_struct();

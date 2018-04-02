@@ -25,10 +25,9 @@ HEAP initHeap(int size, heapCmpFunc func) {
 }
 
 void free_heap(void* h){
+    if(h == NULL) return;
     HEAP heap = (HEAP)h;
-//    for(int i=0; i< heap->load; i++)
-  //      if(heap->array[i] != NULL)
-    //        free(heap->array[i]);
+    
     free(heap->array);
     free(heap);
 }

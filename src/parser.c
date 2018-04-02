@@ -6,6 +6,7 @@
 #include "question.h"
 #include "interface.h"
 #include "mydate.h"
+#include "tardis.h"
 #include <sys/types.h>
 #include "main_struct.h"
 
@@ -56,14 +57,14 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
         }
 
         PROFILE u = create_profile((char*)about_me, id, (char* )name, reputation);
-
         uint64_t *key = malloc(sizeof(uint64_t));
         *key = id + 1;
+
         g_hash_table_insert(hash, key, (gpointer)u);
     }
+
     xmlFree(about_me);
     xmlFree(name);
-
 }
 
 
@@ -71,6 +72,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
     TAD_community com = (TAD_community)user_data;
     GHashTable* hash = getPosts_TAD(com);
+    TARDIS type40 = getTARDIS_TAD(com);
 
 
     int long type = 0;
@@ -120,7 +122,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"CreationDate")) {
                 start_tmp  = xmlStrdup(attrs[1]);
-                sscanf((char*)start_tmp, "%d-%d-%dT%d:%d:%d.%d", &ano, &dia, &mes, &hora, &minuto, &segundo, &milisegundo);
+                sscanf((char*)start_tmp, "%d-%d-%dT%d:%d:%d.%d", &ano, &mes, &dia, &hora, &minuto, &segundo, &milisegundo);
                 start = create_date(milisegundo, segundo, minuto, hora, dia, mes, ano);
             }
 
@@ -138,8 +140,10 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
             uint64_t *key = malloc(sizeof(uint64_t));
             *key = id;
+
+
             g_hash_table_insert(hash, key, (gpointer)p);
-            // INSERIR NAS DATAS
+            insertQuestion(type40, q, ano, mes, dia);
         }
 
         xmlFree(title);
@@ -166,7 +170,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"CreationDate")) {
                 start_tmp  = xmlStrdup(attrs[1]);
-                sscanf((char*)start_tmp, "%d-%d-%dT%d:%d:%d.%d", &ano, &dia, &mes, &hora, &minuto, &segundo, &milisegundo);
+                sscanf((char*)start_tmp, "%d-%d-%dT%d:%d:%d.%d", &ano, &mes, &dia, &hora, &minuto, &segundo, &milisegundo);
                 start = create_date(milisegundo, segundo, minuto, hora, dia, mes, ano);
             }
 
