@@ -36,12 +36,12 @@ QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my
 
 void free_question(void* q){
     QUESTION tmp = (QUESTION)q;
-    
+
     tmp->id_answers ? g_array_free(tmp->id_answers,TRUE) : NULL;
     tmp->creation_date ? free_Mydate(tmp->creation_date) : NULL;
     tmp->title_question ? free(tmp->title_question) : NULL;
     tmp->tags ? free(tmp->tags) : NULL;
-    
+
     free(tmp);
 }
 
@@ -81,7 +81,9 @@ size_t getOwnerId_question(QUESTION q){
 }
 
 MyDate getCreationDate_question(QUESTION q){
+    if(q != NULL)
     return q->creation_date ? (q->creation_date) : NULL;
+    else return NULL;
 }
 
 

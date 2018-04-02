@@ -22,7 +22,7 @@ POST create_post(size_t type, QUESTION q, ANSWER a){
         p->type = 2;
         p->content.a = a;
     }
-    
+
     return p;
 }
 
@@ -46,4 +46,13 @@ QUESTION getQuestion_post(POST p){
 }
 ANSWER getAnswer_post(POST p){
     return p->content.a;
+}
+
+MyDate getDate_post(POST p){
+    if(p->type == 1){
+      return getCreationDate_question(p->content.q);
+    }
+    else{
+      return getDate_answer(p->content.a);
+    }
 }

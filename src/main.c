@@ -4,7 +4,7 @@
 #include <glib.h>
 #include "date.h"
 #include "tardis.h"
-
+#include "profile.h"
 #define RED "\033[31m"
 #define BLUE "\033[34m"
 #define GREEN "\033[32m"
@@ -16,8 +16,12 @@ int main(){
 
     TAD_community cum = init();
     load(cum, "/home/herulume/Desktop");
-    printf("%d\n", g_hash_table_size(getProfiles_TAD(cum)));
-    printf("%d\n", g_hash_table_size(getPosts_TAD(cum)));
+
+    long kek = 10;
+    PROFILE q = NULL;
+    GHashTable* g = getProfiles_TAD(cum);
+    q = (PROFILE)g_hash_table_lookup(g, &kek);
+    printf("%ld\n", getNposts_profile(q));
     cum = clean(cum);
     return 0;
 }

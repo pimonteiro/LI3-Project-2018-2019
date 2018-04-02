@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <glib.h>
 #include <string.h>
-
+#include "post.h"
 typedef struct profile* PROFILE;
 
 
@@ -26,5 +26,5 @@ void setReputation_profile(PROFILE p, ssize_t my_reputation);
 
 void addIdAnswer_profile(PROFILE p, size_t id);
 void increaseNposts_profile(PROFILE p);
-
+void insertLastest_profile(PROFILE p, POST post);
 #endif /* __PROFILE_H__ */

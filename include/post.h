@@ -12,5 +12,5 @@ void free_post(void* p);
 size_t getType_post(POST p);
 QUESTION getQuestion_post(POST p);
 ANSWER getAnswer_post(POST p);
-
+MyDate getDate_post(POST p);
 #endif

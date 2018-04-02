@@ -10,7 +10,7 @@ MEMLEAK=-ggdb -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined
 
 
 CC=gcc
-CFLAGS = $(GITGUD) -Wall -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0` -I$(IDIR)
+CFLAGS = -Wall -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0` -I$(IDIR)
 
 DEPS=$(IDIR)/$(wildcard *.h)
 

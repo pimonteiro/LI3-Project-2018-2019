@@ -58,7 +58,7 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
 
         PROFILE u = create_profile((char*)about_me, id, (char* )name, reputation);
         uint64_t *key = malloc(sizeof(uint64_t));
-        *key = id + 1;
+        *key = id;
 
         g_hash_table_insert(hash, key, (gpointer)u);
     }
@@ -72,8 +72,10 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
 void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
 
     TAD_community com = (TAD_community)user_data;
+
     GHashTable* hash = getPosts_TAD(com);
     TARDIS type40 = getTARDIS_TAD(com);
+    GHashTable* hash_users = getProfiles_TAD(com);
 
 
     int long type = 0;
@@ -145,6 +147,13 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
             g_hash_table_insert(hash, key, (gpointer)p);
             insertQuestion(type40, q, ano, mes, dia);
+
+            PROFILE prof = NULL;
+            prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
+            if(prof != NULL){
+              increaseNposts_profile(prof);
+              insertLastest_profile(prof, p);
+            }
         }
 
         xmlFree(title);
@@ -183,19 +192,23 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             POST p = create_post(type, NULL, a);
             uint64_t *key = malloc(sizeof(uint64_t));
             *key = id;
-            
+
             g_hash_table_insert(hash, key, (gpointer)p);
             insertAnswer(type40, a, ano, mes, dia);
 
             // Complete question
             POST q = NULL;
             q = (POST)g_hash_table_lookup(hash, &parent_id);
-
-            if(q != NULL){
+            if(q != NULL)
                 setAnswers_array_question(getQuestion_post(q), (size_t)id);
+
+            PROFILE prof = NULL;
+            prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
+            if(prof != NULL){
+              increaseNposts_profile(prof);
+              insertLastest_profile(prof, p);
             }
         }
-
         xmlFree(title);
         xmlFree(tags);
         xmlFree(start_tmp);

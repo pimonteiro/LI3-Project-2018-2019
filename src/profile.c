@@ -8,8 +8,8 @@
 #include "heap.h"
 
 struct profile {
-    HEAP ten_posts;
-
+    GPtrArray* ten_posts;
+    MyDate oldest;
     GArray* id_answers;
 
     char* about_me;
@@ -21,7 +21,7 @@ struct profile {
     ssize_t reputation;
  };
 
-static int cmpDates (void* a, void* b){
+static int cmpDates (const void* a, const void* b){
     int result;
     POST p1 = (POST)a;
     POST p2 = (POST)b;
@@ -53,13 +53,13 @@ PROFILE create_profile(char * my_about, size_t my_id, char * my_name, ssize_t my
     PROFILE p= malloc(sizeof(struct profile));
 
     p->n_posts= 0;
-
+    p->oldest = NULL;
     p->about_me = g_strdup(my_about);
     p->id = my_id;
     p->name = g_strdup(my_name);
     p->reputation = my_reputation;
 
-    p->ten_posts = initHeap(10, cmpDates);
+    p->ten_posts = g_ptr_array_new();
     p->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
 
     return p;
@@ -68,7 +68,7 @@ PROFILE create_profile(char * my_about, size_t my_id, char * my_name, ssize_t my
 void free_profile(void* p){
     PROFILE tmp = (PROFILE)p;
 
-    free_heap(tmp->ten_posts);
+    g_ptr_array_free(tmp->ten_posts, FALSE);
     g_array_free(tmp->id_answers, TRUE);
 
     free(tmp->name);
@@ -154,4 +154,16 @@ void addIdAnswer_profile(PROFILE p, size_t id){
 
 void increaseNposts_profile(PROFILE p){
     ++(p->n_posts);
+}
+
+void insertLastest_profile(PROFILE p, POST post){
+    if(p->oldest == NULL){
+      p->oldest = getDate_post(post);
+      g_ptr_array_add(p->ten_posts, post);
+    }
+    if(compare_dates(p->oldest, getDate_post(post)) < 0){
+      g_ptr_array_remove_index(p->ten_posts, 0);
+      g_ptr_array_add(p->ten_posts, post);
+    //  qsort(p->ten_posts, p->ten_posts->len, sizeof(POST), cmpDates);
+    }
 }

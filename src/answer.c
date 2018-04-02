@@ -11,7 +11,7 @@ struct answer {
     size_t parent_id;
     ssize_t score;
 
-}; 
+};
 
 ANSWER create_answer(size_t my_parent_id, size_t my_owner_id, size_t my_id, MyDate my_creation_date, ssize_t my_score){
     ANSWER a = (ANSWER)malloc(sizeof(struct answer));
@@ -48,7 +48,9 @@ size_t getID_answer(ANSWER a){
 }
 
 MyDate getDate_answer(ANSWER a){
-    return a->creationDate ? a->creationDate : NULL;
+    if(a!=NULL)
+    return a->creationDate;
+    else return NULL;
 }
 
 ssize_t getScore_answer(ANSWER a){
