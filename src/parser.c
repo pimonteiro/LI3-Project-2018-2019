@@ -68,6 +68,7 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
 }
 
 
+
 void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
 
     TAD_community com = (TAD_community)user_data;
@@ -182,8 +183,9 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             POST p = create_post(type, NULL, a);
             uint64_t *key = malloc(sizeof(uint64_t));
             *key = id;
+            
             g_hash_table_insert(hash, key, (gpointer)p);
-            // INSERIR NAS DATAS
+            insertAnswer(type40, a, ano, mes, dia);
 
             // Complete question
             POST q = NULL;

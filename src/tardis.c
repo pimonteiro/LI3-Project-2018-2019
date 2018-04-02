@@ -106,7 +106,7 @@ void insertAnswer(TARDIS m, ANSWER a, int ano, int mes, int dia){
     }
 
     // MESES E DIAS
-    int index_mes = dia + (31*mes);
+    int index_mes = dia + (31*(mes-1));
     HEAP h = NULL;
     h = g_ptr_array_index(array_mes, index_mes);
 
@@ -119,4 +119,8 @@ void insertAnswer(TARDIS m, ANSWER a, int ano, int mes, int dia){
 
     // FINALMENTE
     insertHeap(h, a);
+}
+HEAP getQUestionHeap(TARDIS m, int ano, int mes, int dia){
+    GPtrArray* anoA = g_ptr_array_index(m->year_questions,ano-2008);
+    return g_ptr_array_index(anoA, 31*(mes-1)+dia);
 }

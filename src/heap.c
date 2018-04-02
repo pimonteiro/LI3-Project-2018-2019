@@ -27,7 +27,7 @@ HEAP initHeap(int size, heapCmpFunc func) {
 void free_heap(void* h){
     if(h == NULL) return;
     HEAP heap = (HEAP)h;
-    
+
     free(heap->array);
     free(heap);
 }
@@ -40,7 +40,7 @@ static void swap(HEAP h, int a, int b) {
 
 
 static void bubbleUp(HEAP h, int i) {
-    while (i != 0 && (h->cmp(h->array[i], h->array[PARENT(i)]) > 1) )  { // enquanto actual > pai
+    while (i != 0 && (h->cmp(h->array[i], h->array[PARENT(i)]) >= 1) )  { // enquanto actual > pai
         swap(h, i, PARENT(i));
         i = PARENT(i);
     }

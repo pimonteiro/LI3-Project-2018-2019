@@ -4,8 +4,13 @@ LDIR=lib
 OLDIR=$(ODIR)/lib
 ODDIR=$(ODIR)/lib
 
+GITGUD= -march=native -O3 -ftracer -fomit-frame-pointer -ftree-loop-linear -ftree-vectorize -pipe -D_GNU_SOURCE
+DEBUG=-O0 -Wextra -pedantic
+MEMLEAK=-ggdb -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined
+
+
 CC=gcc
-CFLAGS = -Wall -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0` -I$(IDIR)
+CFLAGS = $(GITGUD) -Wall -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0` -I$(IDIR)
 
 DEPS=$(IDIR)/$(wildcard *.h)
 
@@ -18,19 +23,13 @@ MY_LIBS_OBJ=$(foreach o, $(patsubst %.c,%.o,$(MY_LIBS)), $(ODIR)/$o)
 LIBS = `pkg-config --libs libxml-2.0` `pkg-config --libs glib-2.0`
 
 
-
-GITGUD= -march=native -O3 -ftracer -fomit-frame-pointer -pipe -D_GNU_SOURCE
-# -fomit-frame-pointer fgcse-after-reload -fgcse-las -fgcse-lm -fgcse-sm -ftree-loop-im -fivopts -funswitch-loops -fweb -frename-registers -ftree-loop-linear -ftree-vectorize
-DEBUG=-O0 -Wextra -pedantic
-MEMLEAK=-ggdb -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined
-
 print-% : ; @echo $* = $($*)
 
 $(ODIR)/%.o : %.c $(DEPS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 program: $(SOURCES_OBJ) $(MY_LIBS_OBJ)
-	$(CC) $(GITGUD) $(CFLAGS) $(wildcard $(ODIR)/*.o)  $(wildcard $(OLDIR)/*.o) -o program $(LIBS)
+	$(CC) $(CFLAGS) $(wildcard $(ODIR)/*.o)  $(wildcard $(OLDIR)/*.o) -o program $(LIBS)
 
 debug: $(SOURCES_OBJ) $(MY_LIBS_OBJ)
 	$(CC) $(CFLAGS) $(DEBUG) $(wildcard $(ODIR)/*.o)  $(wildcard $(OLDIR)/*.o) -o program $(LIBS)

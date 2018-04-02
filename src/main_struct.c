@@ -27,9 +27,9 @@ TAD_community create_main_struct(){
 }
 
 TAD_community clean(TAD_community com){
+    takeOf_tardis(com->type40);
     g_hash_table_destroy(com->profiles);
     g_hash_table_destroy(com->posts);
-    takeOf_tardis(com->type40);
 
     free(com);
 
