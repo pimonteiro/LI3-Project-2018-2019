@@ -11,8 +11,9 @@ struct mydate {
   int ano;
 };
 
-MyDate create_date(int milisegundo, int segundo, int minuto, int hora, int dia, int mes, int ano) {
+MyDate create_date(int milisegundo, int segundo, int minuto, int hora, int dia, int mes, int ano){
     MyDate d = malloc(sizeof(struct mydate));
+
     d->milisegundo = milisegundo;
     d->segundo = segundo;
     d->minuto = minuto;
@@ -21,46 +22,45 @@ MyDate create_date(int milisegundo, int segundo, int minuto, int hora, int dia, 
     d->mes = mes;
     d->ano = ano;
 
-
     return d;
 }
 
-int get_dia(MyDate d) {
+void free_Mydate(MyDate d){
+    free(d);
+}
+
+int get_dia(MyDate d){
     return d->dia;
 }
 
-int get_mes(MyDate d) {
+int get_mes(MyDate d){
     return d->mes;
 }
 
-int get_ano(MyDate d) {
+int get_ano(MyDate d){
     return d->ano;
 }
 
-int get_hora(MyDate d) {
+int get_hora(MyDate d){
     return d->hora;
 }
 
 
-int get_minuto(MyDate d) {
+int get_minuto(MyDate d){
     return d->minuto;
 }
 
-int get_segundo(MyDate d) {
+int get_segundo(MyDate d){
     return d->segundo;
 }
 
-
-int get_milisegundo(MyDate d) {
+int get_milisegundo(MyDate d){
     return d->milisegundo;
 }
 
-void free_Mydate(MyDate d) {
-    free(d);
-}
 
 
-int compare (int a, int b) {
+static int compare (int a, int b){
     __asm__ __volatile__ (
         "sub %1, %0 \n\t"
         "jno 1f \n\t"

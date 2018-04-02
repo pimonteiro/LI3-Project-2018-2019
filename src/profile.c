@@ -5,24 +5,23 @@
 #include "question.h"
 #include "answer.h"
 #include "mydate.h"
-#include <string.h>
 #include "heap.h"
 
 struct profile {
     HEAP ten_posts;
-    GArray* id_answers;
 
-    size_t n_questions;
-    size_t n_answer;
-    size_t id;
-    ssize_t reputation;
+    GArray* id_answers;
 
     char* about_me;
     char* name;
 
+    size_t n_posts;
+    size_t id;
+
+    ssize_t reputation;
  };
 
-int cmpDates (void* a, void* b){
+static int cmpDates (void* a, void* b){
     int result;
     POST p1 = (POST)a;
     POST p2 = (POST)b;
@@ -33,13 +32,13 @@ int cmpDates (void* a, void* b){
     MyDate d2=NULL;
 
     if(type1 == 1){
-        d1 = getStart_date_question(getQuestion_post(p1));
+        d1 = getCreationDate_question(getQuestion_post(p1));
     }
     else{
         d1 = getDate_answer(getAnswer_post(p1));
     }
     if(type2 == 1){
-        d2 = getStart_date_question(getQuestion_post(p2));
+        d2 = getCreationDate_question(getQuestion_post(p2));
     }
     else{
         d2 = getDate_answer(getAnswer_post(p2));
@@ -49,110 +48,110 @@ int cmpDates (void* a, void* b){
 
     return result;
 }
+
 PROFILE create_profile(char * my_about, size_t my_id, char * my_name, ssize_t my_reputation){
-    PROFILE p = malloc(sizeof(struct profile));
-    p->n_questions = 0;
-    p->n_answer = 0;
+    PROFILE p= malloc(sizeof(struct profile));
+
+    p->n_posts= 0;
+
     p->about_me = g_strdup(my_about);
     p->id = my_id;
     p->name = g_strdup(my_name);
     p->reputation = my_reputation;
+
     p->ten_posts = initHeap(10, cmpDates);
     p->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
 
     return p;
 }
 
-void free_profile(void* d){
-    PROFILE tmp = (PROFILE)d;
+void free_profile(void* p){
+    PROFILE tmp = (PROFILE)p;
+
+    free_heap(tmp->ten_posts);
     g_array_free(tmp->id_answers, TRUE);
+
     free(tmp->name);
     free(tmp->about_me);
-    free_heap(tmp->ten_posts);
+
     free(tmp);
 }
 
-char* getAboutMe_profile(PROFILE d){
-    return d->about_me?g_strdup(d->about_me):NULL;
-}
+/**
+ * Getters
+ */
 
-size_t getId_profile(PROFILE d){
-    return d->id;
-}
+// TODO GET 10 POSTS
 
-char* getName_profile(PROFILE d){
-    return d->name?g_strdup(d->name):NULL;
-}
+GArray* getId_answers_array_profile(PROFILE p){
+    return p->id_answers ? p->id_answers : NULL;
 
-ssize_t getReputation_profile(PROFILE d){
-    return d->reputation;
-}
 
-GArray* getId_answers_array_profile(PROFILE d){
+    /* confirmar se é preciso dup
     GArray* novo = g_array_new(FALSE, FALSE, sizeof(size_t));
 
     for(int i = 0; i < d->id_answers->len; i++){
         g_array_append_val(novo, g_array_index(d->id_answers, size_t, i));
     }
 
-    return novo;
-
+    return novo; */
 }
 
-void setAboutMe_profile(PROFILE d, char * my_about){
-  free(d->about_me);
-    d->about_me = g_strdup(my_about);
+char* getAboutMe_profile(PROFILE p){
+    return p->about_me ? g_strdup(p->about_me) : NULL;
 }
 
-void setId_profile(PROFILE d, size_t my_id){
-    d->id = my_id;
+char* getName_profile(PROFILE p){
+    return p->name ? g_strdup(p->name) : NULL;
 }
 
-void setName_profile(PROFILE d, char * my_name){
-  free(d->name);
-    d->name = g_strdup(my_name);
+size_t getNposts_profile(PROFILE p){
+    return p->n_posts;
 }
 
-void setReputation_profile(PROFILE d, ssize_t my_reputation){
-    d->reputation = my_reputation;
+size_t getId_profile(PROFILE p){
+    return p->id;
 }
 
-void setId_answers_array_profile(PROFILE d, GArray* my_id_answers){
-    //devo limpar o garray primeiro?
-  free(d->id_answers);//sim, mas já esta feito , MEIRAS :D
-    d->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
+ssize_t getReputation_profile(PROFILE p){
+    return p->reputation;
+}
 
-    for(int i = 0; i < my_id_answers->len; i++){
-        g_array_append_val(d->id_answers, g_array_index(my_id_answers, size_t, i));
+
+/**
+ * Setters
+ */
+
+void setAboutMe_profile(PROFILE p, char* my_about){
+    if(my_about != NULL){
+        p->about_me ? (free(p->about_me), p->about_me = g_strdup(my_about)) : (p->about_me = g_strdup(my_about));
     }
 }
 
+void setId_profile(PROFILE p, size_t my_id){
+    p->id = my_id;
+}
 
+void setName_profile(PROFILE p, char* my_name){
+     if(my_name != NULL){
+        p->name ? (free(p->name), p->name = g_strdup(my_name)) : (p->name = g_strdup(my_name));
+    }
+}
 
-//FALTA GET E SET DA AVL
-
-
-/*GTree* getAvl_profile(PROFILE d){
-    GTree *a = g_tree_new((GCompareFunc) data_order_avl);
-
-    //
-
-
+void setReputation_profile(PROFILE p, ssize_t my_reputation){
+    p->reputation = my_reputation;
 }
 
 
-void setAvl_profile(PROFILE d, ____){
+/**
+ * Aux functions
+ */
 
+void addIdAnswer_profile(PROFILE p, size_t id){
+  if(p->id_answers !=NULL)
+         g_array_append_val(p->id_answers, id);
 }
 
-
-//Seria uma "auxiliar", nao podendo ser acedida por fora: pode se por private?
-void createAvl_profile(GTree* a){
-    a = g_tree_new((GCompareFunc) data_order_avl);  //funcao a criar
-}*/
-
-
-void profile_add_answers_array(PROFILE d, size_t id){
-  if(d->id_answers !=NULL)
-         g_array_append_val(d->id_answers, id);
+void increaseNposts_profile(PROFILE p){
+    ++(p->n_posts);
 }

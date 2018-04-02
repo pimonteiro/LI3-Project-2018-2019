@@ -19,10 +19,10 @@ LIBS = `pkg-config --libs libxml-2.0` `pkg-config --libs glib-2.0`
 
 
 
-GITGUD= -march=native -O3 -ftree-vectorize -fomit-frame-pointer -pipe -D_GNU_SOURCE
+GITGUD= -march=native -O3 -ftracer -pipe -D_GNU_SOURCE
+# -fomit-frame-pointer fgcse-after-reload -fgcse-las -fgcse-lm -fgcse-sm -ftree-loop-im -fivopts -funswitch-loops -fweb -frename-registers -ftree-loop-linear -ftree-vectorize
 DEBUG=-O0 -Wextra -pedantic
 MEMLEAK=-ggdb -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined
-#GITGUD=-march=native -O2 -pipe -D_GNU_SOURCE -pedantic
 
 print-% : ; @echo $* = $($*)
 

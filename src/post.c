@@ -3,16 +3,17 @@
 #include "question.h"
 
 struct post {
-  size_t type; // 1 Question 2 Anser
-  union content {
-    QUESTION q;
-    ANSWER a;
-  }content;
+    size_t type; // 1 Question 2 Answer
+    union content {
+        QUESTION q;
+        ANSWER a;
+    }content;
 };
 
 
 POST create_post(size_t type, QUESTION q, ANSWER a){
     POST p = malloc(sizeof(struct post));
+
     if(type == 1){
         p->type = 1;
         p->content.q = q;
@@ -21,6 +22,7 @@ POST create_post(size_t type, QUESTION q, ANSWER a){
         p->type = 2;
         p->content.a = a;
     }
+    
     return p;
 }
 

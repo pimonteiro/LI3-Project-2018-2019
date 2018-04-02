@@ -10,26 +10,25 @@
 typedef struct question * QUESTION;
 
 
-QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my_owner_id, MyDate my_start,ssize_t my_score, size_t m_n_answer);
-QUESTION create_question_copy(QUESTION q);
-void free_question(void* p);
-size_t getId_question(QUESTION p);
-char* getTitle_question(QUESTION p);
-size_t getOwner_id_question(QUESTION p);
-MyDate getStart_date_question(QUESTION p);
-MyDate getEnd_date_question(QUESTION p);
-size_t getN_answer_question(QUESTION p);
-GArray* getAnswers_array_question(QUESTION p);
-ssize_t getScore_question(QUESTION p);
-void setId_question(QUESTION p, size_t my_id_question);
-void setTitle_question(QUESTION p, char * my_title_question);
-void setOwner_id_question(QUESTION p, size_t my_owner_id);
-void setStart_date_question(QUESTION p, MyDate new_start);
-void setEnd_date_question(QUESTION p, MyDate new_end);
-void setN_answer_question(QUESTION p, size_t my_n_answer);
-void setAnswers_array_question(QUESTION p, size_t id);
-void setScore_question(QUESTION p, ssize_t my_score);
 
-void add_answers_array(QUESTION p, size_t id);
-size_t get_element_index_answers(QUESTION p, int i);
+QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my_owner_id,  MyDate my_creation_date, ssize_t my_score, size_t my_n_answer);
+void free_question(void* q);
+
+size_t getId_question(QUESTION q);
+char* getTitle_question(QUESTION q);
+size_t getOwnerId_question(QUESTION q);
+MyDate getCreationDate_question(QUESTION q);
+size_t getNanswers_question(QUESTION q);
+ssize_t getScore_question(QUESTION q);
+char* getTags_question(QUESTION q);
+GArray* getIdAnswers_question(QUESTION q);
+
+void setId_question(QUESTION q, size_t my_id_question);
+void setTitle_question(QUESTION q, char* my_title_question);
+void setOwnerId_question(QUESTION q, size_t my_owner_id);
+void setDate_question(QUESTION q, MyDate new_creation_date);
+void setAnswers_array_question(QUESTION q, size_t id);
+void setScore_question(QUESTION q, ssize_t my_score);
+void setTags_question(QUESTION q, char* my_tags);
+
 #endif // __QUESTION_H__
