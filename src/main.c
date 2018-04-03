@@ -15,7 +15,14 @@ int main(){
 
 
     TAD_community cum = init();
-    load(cum, "/home/herulume/Desktop");
+    //load(cum, "/home/herulume/Desktop");
+    load(cum, "/home/pimonteiro/Documents/XML_DUMPS/dump exemplo/android/android");
+
+    USER a = get_user_info(cum, 20);
+
+    printf("%s\n", get_bio(a));
+
+    return 0;
 
     long kek = 10;
     PROFILE q = NULL;
