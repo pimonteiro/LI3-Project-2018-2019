@@ -151,8 +151,8 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             PROFILE prof = NULL;
             prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
             if(prof != NULL){
-              increaseNposts_profile(prof);
               insertLastest_profile(prof, p);
+              increaseNposts_profile(prof);
             }
         }
 
@@ -205,8 +205,8 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             PROFILE prof = NULL;
             prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
             if(prof != NULL){
-              increaseNposts_profile(prof);
               insertLastest_profile(prof, p);
+              increaseNposts_profile(prof);
             }
         }
         xmlFree(title);

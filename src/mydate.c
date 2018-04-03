@@ -61,16 +61,7 @@ int get_milisegundo(MyDate d){
 
 
 static int compare (int a, int b){
-    __asm__ __volatile__ (
-        "sub %1, %0 \n\t"
-        "jno 1f \n\t"
-        "cmc \n\t"
-        "rcr %0 \n\t"
-        "1: "
-    : "+r"(a)
-    : "r"(b)
-    : "cc");
-    return a;
+  return (a > b) - (a < b);
 }
 
 

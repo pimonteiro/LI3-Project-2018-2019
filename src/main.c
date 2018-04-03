@@ -13,15 +13,10 @@
 
 int main(){
 
-
     TAD_community cum = init();
     load(cum, "/home/herulume/Desktop");
-
-    long kek = 10;
-    PROFILE q = NULL;
-    GHashTable* g = getProfiles_TAD(cum);
-    q = (PROFILE)g_hash_table_lookup(g, &kek);
-    printf("%ld\n", getNposts_profile(q));
+    size_t kek = 10;
+    PROFILE p = g_hash_table_lookup(getProfiles_TAD(cum), &kek);
     cum = clean(cum);
-    return 0;
+  return 0;
 }
