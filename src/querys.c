@@ -22,7 +22,7 @@ STR_pair get_info_from_post(TAD_community com, QUESTION q){
 
     titulo = getTitle_question(q);
 
-    size_t owner_ptr = getOwnerId_question(q);
+    long owner_ptr = getOwnerId_question(q);
     
     PROFILE profile_ptr = g_hash_table_lookup(getProfiles_TAD(com), &owner_ptr);
 
@@ -88,19 +88,19 @@ long better_answer(TAD_community com, long id){
     long res = 0;
     GArray* answers = getIdAnswers_question(q);
 
-    ssize_t tmp;
-    ssize_t total;
-    ssize_t scr;
-    size_t owner_id;
+    int tmp;
+    int total;
+    int scr;
+    long owner_id;
     PROFILE p;
-    size_t rep;
+    long rep;
 
     //Setting up first values
-    size_t id_ans = g_array_index(answers, size_t, 0);
+    long id_ans = g_array_index(answers, long, 0);
     ANSWER a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));       
     if(a != NULL){
         scr      = getScore_answer(a);
-        //size_t comt   = getN_Comments_answer(a);
+        //long comt   = getN_Comments_answer(a);
         owner_id = getOwnerId_answer(a);
         p        = g_hash_table_lookup(getProfiles_TAD(com), &owner_id);
         rep      = getReputation_profile(p);
@@ -111,11 +111,11 @@ long better_answer(TAD_community com, long id){
     }
     
     for(int i = 1; i < answers->len; i++){
-        id_ans = g_array_index(answers, size_t, i);
+        id_ans = g_array_index(answers, long, i);
         a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));       
         if(a != NULL){
             scr      = getScore_answer(a);
-            //size_t comt   = getN_Comments_answer(a);
+            //long comt   = getN_Comments_answer(a);
             owner_id = getOwnerId_answer(a);
             p        = g_hash_table_lookup(getProfiles_TAD(com), &owner_id);
             rep      = getReputation_profile(p);
@@ -144,11 +144,11 @@ LONG_list top_most_active(TAD_community com, int N){
     for(int i = 0; i < N; i++){
         g_hash_table_iter_next (i, getProfiles_TAD(com));
         //Conseguir o primeiro numero de posts da pessoa no primeiro index da hash
-        size_t tmp_total;
-        long tmp_id; //dara warning por termos size_t na estrutura?
+        long tmp_total;
+        long tmp_id; //dara warning por termos long na estrutura?
 
         while(g_hash_table_iter_next(&i, &key, &value)){
-            size_t aux = value->id_questions->len + value->id_awnsers->len;
+            long aux = value->id_questions->len + value->id_awnsers->len;
             if (tmp_total < aux){
                 tmp_total = aux;
                 tmp_id = value->id;
@@ -175,13 +175,13 @@ LONG_pair total_posts(TAD_community com, Date begin, Date end){
 
 typedef struct id_date {
     Date begin;
-    size_t id;
+    long id;
 } ID_DATE;
 
 //QUERY 7
 LONG_list most_answered_questions(TAD_community com, char* word, int N){
     LONG_list res = create_list(N);
-    size_t i;
+    long i;
     GArray *dateB = g_array_new(FALSE, FALSE, sizeof(ID_DATE));
 
     GArray a = com->question_awnsers;

@@ -3,7 +3,7 @@
 #include "question.h"
 
 struct post {
-  size_t type; // 1 Question 2 Anser
+  long type; // 1 Question 2 Anser
   union content {
     QUESTION q;
     ANSWER a;
@@ -11,7 +11,7 @@ struct post {
 };
 
 
-POST create_post(size_t type, QUESTION q, ANSWER a){
+POST create_post(long type, QUESTION q, ANSWER a){
     POST p = malloc(sizeof(struct post));
 
     if(type == 1){
@@ -37,7 +37,7 @@ void free_post(void* p){
 }
 
 
-size_t getType_post(POST p){
+long getType_post(POST p){
     return p->type;
 }
 

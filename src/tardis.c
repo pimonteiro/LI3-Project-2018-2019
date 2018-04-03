@@ -12,8 +12,8 @@ int cmpScore (void* a, void* b){
     QUESTION q1 = (QUESTION)a;
     QUESTION q2 = (QUESTION)b;
 
-    ssize_t score1 = getScore_question(q1);
-    ssize_t score2 = getScore_question(q2);
+    int score1 = getScore_question(q1);
+    int score2 = getScore_question(q2);
 
     if(score1 > score2) return 1;
     if(score1 < score2) return -1;

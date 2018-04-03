@@ -14,24 +14,11 @@
 int main(){
 
     TAD_community cum = init();
-
-    //load(cum, "/home/herulume/Desktop");
-    load(cum, "/home/pimonteiro/Documents/XML_DUMPS/dump exemplo/android/android");
-
-    USER a = get_user_info(cum, 20);
-
-    printf("%s\n", get_bio(a));
-
-    printf("\n%ld", better_answer(cum, 8));
-
-
-    return 0;
-
+    load(cum, "/home/herulume/Desktop");
     long kek = 10;
     PROFILE q = NULL;
     GHashTable* g = getProfiles_TAD(cum);
     q = (PROFILE)g_hash_table_lookup(g, &kek);
-    printf("%ld\n", getNposts_profile(q));
 
     cum = clean(cum);
   	return 0;

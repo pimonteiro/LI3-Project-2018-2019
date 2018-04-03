@@ -8,48 +8,41 @@
 #include "heap.h"
 
 struct profile {
-    GPtrArray* ten_posts;
+    POST ten_posts[11];
     MyDate oldest;
     GArray* id_answers;
 
     char* about_me;
     char* name;
 
-    size_t inserts;
-    size_t n_posts;
-    size_t id;
-    ssize_t reputation;
+    long inserts;
+    long n_posts;
+    long id;
+    int reputation;
  };
+ static gint cmpDates (gconstpointer a, gconstpointer b){
+    gint result;
+    if(a == NULL) return -1;
+    if(b == NULL) return 1;
 
-static int cmpDates (const void* a, const void* b){
-    int result;
     POST p1 = (POST)a;
     POST p2 = (POST)b;
 
-    size_t type1 = getType_post(p1);
-    size_t type2 = getType_post(p2);
     MyDate d1=NULL;
     MyDate d2=NULL;
 
-    if(type1 == 1){
-        d1 = getCreationDate_question(getQuestion_post(p1));
-    }
-    else{
-        d1 = getDate_answer(getAnswer_post(p1));
-    }
-    if(type2 == 1){
-        d2 = getCreationDate_question(getQuestion_post(p2));
-    }
-    else{
-        d2 = getDate_answer(getAnswer_post(p2));
-    }
+    d1 = getDate_post(p1);
+    d2 = getDate_post(p2);
+
+    if(d1 == NULL) return -1;
+    if(d2 == NULL) return 1;
 
     result = compare_dates(d1, d2);
 
     return result;
 }
 
-PROFILE create_profile(char * my_about, size_t my_id, char * my_name, ssize_t my_reputation){
+PROFILE create_profile(char * my_about, long my_id, char * my_name, int my_reputation){
     PROFILE p= malloc(sizeof(struct profile));
 
     p->inserts=0;
@@ -60,8 +53,8 @@ PROFILE create_profile(char * my_about, size_t my_id, char * my_name, ssize_t my
     p->name = g_strdup(my_name);
     p->reputation = my_reputation;
 
-    p->ten_posts = g_ptr_array_new();
-    p->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
+    memset(p->ten_posts, NULL, sizeof(POST)*11);
+    p->id_answers = g_array_new(FALSE, FALSE, sizeof(long));
 
     return p;
 }
@@ -92,10 +85,10 @@ GArray* getId_answers_array_profile(PROFILE p){
 
 
     /* confirmar se é preciso dup
-    GArray* novo = g_array_new(FALSE, FALSE, sizeof(size_t));
+    GArray* novo = g_array_new(FALSE, FALSE, sizeof(long));
 
     for(int i = 0; i < d->id_answers->len; i++){
-        g_array_append_val(novo, g_array_index(d->id_answers, size_t, i));
+        g_array_append_val(novo, g_array_index(d->id_answers, long, i));
     }
 
     return novo; */
@@ -109,15 +102,15 @@ char* getName_profile(PROFILE p){
     return p->name ? g_strdup(p->name) : NULL;
 }
 
-size_t getNposts_profile(PROFILE p){
+long getNposts_profile(PROFILE p){
     return p->n_posts;
 }
 
-size_t getId_profile(PROFILE p){
+long getId_profile(PROFILE p){
     return p->id;
 }
 
-ssize_t getReputation_profile(PROFILE p){
+int getReputation_profile(PROFILE p){
     return p->reputation;
 }
 
@@ -132,7 +125,7 @@ void setAboutMe_profile(PROFILE p, char* my_about){
     }
 }
 
-void setId_profile(PROFILE p, size_t my_id){
+void setId_profile(PROFILE p, long my_id){
     p->id = my_id;
 }
 
@@ -142,7 +135,7 @@ void setName_profile(PROFILE p, char* my_name){
     }
 }
 
-void setReputation_profile(PROFILE p, ssize_t my_reputation){
+void setReputation_profile(PROFILE p, int my_reputation){
     p->reputation = my_reputation;
 }
 
@@ -151,7 +144,7 @@ void setReputation_profile(PROFILE p, ssize_t my_reputation){
  * Aux functions
  */
 
-void addIdAnswer_profile(PROFILE p, size_t id){
+void addIdAnswer_profile(PROFILE p, long id){
   if(p->id_answers !=NULL)
          g_array_append_val(p->id_answers, id);
 }
@@ -160,25 +153,22 @@ void increaseNposts_profile(PROFILE p){
     ++(p->n_posts);
 }
 
+void cona(gpointer a, gpointer b){
+    int i = (POST)getType_post(a);
+    if(i != 1 && i != 2)
+      printf(b, "MERDA");
+}
 void insertLastest_profile(PROFILE p, POST post){
-  int i ;
-    if(p->oldest != NULL && p->inserts >= 10 && compare_dates(p->oldest, getDate_post(post)) < 0){
-      g_ptr_array_add(p->ten_posts, post);
-      qsort(p->ten_posts, p->ten_posts->len, sizeof(POST), cmpDates);
-      g_ptr_array_remove_index(p->ten_posts, 0);
-      p->oldest = getDate_post(post);
-    }
-    if(p->oldest == NULL)
-         g_ptr_array_add(p->ten_posts, post);
-    if(p->oldest != NULL &&  p->inserts < 10 && compare_dates(p->oldest, getDate_post(post)) < 0){
-         g_ptr_array_add(p->ten_posts, post);
-         qsort(p->ten_posts, p->ten_posts->len, sizeof(POST), cmpDates);
+    if(p->oldest == NULL && p->inserts < 11){
+         p->ten_posts[p->inserts] = post;
+         ++(p->inserts);
          p->oldest = getDate_post(post);
-         ++(p->inserts);
     }
-    if(p->oldest != NULL &&  p->inserts < 10 && compare_dates(p->oldest, getDate_post(post)) > 0){
-         g_ptr_array_add(p->ten_posts, post);
+    else{
+        if(p->inserts < 11){
+         p->ten_posts[p->inserts] = post;
          ++(p->inserts);
-         qsort(p->ten_posts, p->ten_posts->len, sizeof(POST), cmpDates);
+     }
     }
+
 }

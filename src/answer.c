@@ -5,15 +5,15 @@
 struct answer {
     MyDate creationDate;
 
-    size_t id;
+    long id;
 
-    size_t owner_id;
-    size_t parent_id;
-    ssize_t score;
+    long owner_id;
+    long parent_id;
+    int score;
 
 };
 
-ANSWER create_answer(size_t my_parent_id, size_t my_owner_id, size_t my_id, MyDate my_creation_date, ssize_t my_score){
+ANSWER create_answer(long my_parent_id, long my_owner_id, long my_id, MyDate my_creation_date, int my_score){
     ANSWER a = (ANSWER)malloc(sizeof(struct answer));
 
     a->id = my_id;
@@ -38,11 +38,11 @@ void free_answer(void* a){
     free(tmp);
 }
 
-size_t getParentId_answer(ANSWER a){
+long getParentId_answer(ANSWER a){
     return a->parent_id;
 }
 
-size_t getID_answer(ANSWER a){
+long getID_answer(ANSWER a){
     return a->id;
 }
 
@@ -52,15 +52,15 @@ MyDate getDate_answer(ANSWER a){
     else return NULL;
 }
 
-ssize_t getScore_answer(ANSWER a){
+int getScore_answer(ANSWER a){
     return a->score;
 }
 
-size_t getOwnerId_answer(ANSWER a){
+long getOwnerId_answer(ANSWER a){
     return a->owner_id;
 }
 
-void setID_answer(ANSWER a, size_t my_id){
+void setID_answer(ANSWER a, long my_id){
     a->id = my_id;
 }
 
@@ -69,14 +69,14 @@ void setDate_answer(ANSWER a, MyDate my_date){
     my_date ? a->creationDate = my_date : NULL;
 }
 
-void setScore_answer(ANSWER a, ssize_t my_score){
+void setScore_answer(ANSWER a, int my_score){
     a->score = my_score;
 }
 
-void setParent_id_answer(ANSWER a, size_t my_parent_id){
+void setParent_id_answer(ANSWER a, long my_parent_id){
     a->parent_id = my_parent_id;
 }
 
-void setOwner_id_answer(ANSWER a, size_t my_owner_id){
+void setOwner_id_answer(ANSWER a, long my_owner_id){
     a->parent_id = my_owner_id;
 }

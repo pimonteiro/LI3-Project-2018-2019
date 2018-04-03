@@ -27,7 +27,7 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
     xmlChar* about_me = NULL;
     xmlChar* name = NULL;
     long int id = 0;
-    ssize_t reputation = 0;
+    int reputation = 0;
 
     while (attrs && *attrs) {
 
@@ -57,7 +57,7 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
         }
 
         PROFILE u = create_profile((char*)about_me, id, (char* )name, reputation);
-        uint64_t *key = malloc(sizeof(uint64_t));
+        gint64 *key = malloc(sizeof(gint64));
         *key = id;
 
         g_hash_table_insert(hash, key, (gpointer)u);
@@ -78,7 +78,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
     GHashTable* hash_users = getProfiles_TAD(com);
 
 
-    int long type = 0;
+    long type = 0;
     if (attrs)
         type = strtol((const char*)attrs[3], NULL, 10);
 
@@ -86,15 +86,15 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
     xmlChar* start_tmp = NULL;
     int dia, mes, ano, hora, minuto, segundo, milisegundo;
     MyDate start = NULL;
-    size_t id=0,  owner_id=0;
-    ssize_t score=0;
+    long id=0,  owner_id=0;
+    int score=0;
     // QUESTION
     xmlChar* title = NULL;
     xmlChar* tags = NULL;
-    size_t nquestions=0;
+    long nquestions=0;
     /////////////////////
     // ANSWER
-    size_t parent_id=0;
+    long parent_id=0;
     ////////////////////
 
     if (type == 1) {
@@ -108,7 +108,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             }
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"Score")){
-                score = strtol((const char*)attrs[1], NULL, 10);
+                score = atoi((const char*)attrs[1]);
             }
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"AnswerCount")){
@@ -131,6 +131,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
             attrs = &attrs[2]; // avançar para o proximo atributo
         }
+
         if (xmlStrcasecmp(fullname, (const xmlChar*)"Posts")) {
 
             if (tags == NULL) {
@@ -141,15 +142,15 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             QUESTION q = create_question(id, (char*)title, (char*)tags, owner_id, start, score, nquestions);
             POST p = create_post(type, q, NULL);
 
-            uint64_t *key = malloc(sizeof(uint64_t));
+            gint64 *key = malloc(sizeof(gint64));
             *key = id;
 
 
             g_hash_table_insert(hash, key, (gpointer)p);
+            
             insertQuestion(type40, q, ano, mes, dia);
 
-            PROFILE prof = NULL;
-            prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
+            PROFILE prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
             if(prof != NULL){
               insertLastest_profile(prof, p);
               increaseNposts_profile(prof);
@@ -160,6 +161,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
         xmlFree(tags);
         xmlFree(start_tmp);
     }
+
     if (type == 2) {
         while (attrs && *attrs) {
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"Id")){
@@ -171,7 +173,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             }
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"Score")){
-                score = strtol((const char*)attrs[1], NULL, 10);
+                score = atoi((const char*)attrs[1]);
             }
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"ParentId")){
@@ -190,24 +192,22 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
             ANSWER a = create_answer(parent_id, owner_id, id, start, score);
             POST p = create_post(type, NULL, a);
-            uint64_t *key = malloc(sizeof(uint64_t));
+            gint64 *key = malloc(sizeof(gint64));
             *key = id;
 
             g_hash_table_insert(hash, key, (gpointer)p);
             insertAnswer(type40, a, ano, mes, dia);
 
-            // Complete question
-            POST q = NULL;
-            q = (POST)g_hash_table_lookup(hash, &parent_id);
-            if(q != NULL)
-                setAnswers_array_question(getQuestion_post(q), (size_t)id);
 
-            PROFILE prof = NULL;
-            prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
+            PROFILE prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
             if(prof != NULL){
               insertLastest_profile(prof, p);
               increaseNposts_profile(prof);
             }
+
+            POST q =(POST)g_hash_table_lookup(hash, &parent_id);
+            if(q != NULL)
+                setAnswers_array_question(getQuestion_post(q), (long)id);
         }
         xmlFree(title);
         xmlFree(tags);
@@ -216,7 +216,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 }
 
 
-static int parse(const char* xml_path, void* user_data, size_t code) {
+static int parse(const char* xml_path, void* user_data, long code) {
     int ctxt;
     xmlSAXHandler handler = {0};
 
@@ -240,7 +240,7 @@ static int parse(const char* xml_path, void* user_data, size_t code) {
 
 static int multiParse(const char* xml_path, void* user_data) {
     int users, posts;
-    size_t pathLen = strlen(xml_path);
+    long pathLen = strlen(xml_path);
     pathLen += 10; // file.xml always 5 + 4 (.xml)
     char usersPath[pathLen], postsPath[pathLen];
 
