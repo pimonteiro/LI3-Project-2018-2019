@@ -5,6 +5,9 @@
 
 #include "post.h"
 #include "profile.h"
+#include "main_struct.h"
+#include "answer.h"
+#include "question.h"
 
 #include <stdlib.h>
 #include "interface.h"
@@ -12,24 +15,18 @@
 #include <gmodule.h>
 
 //QUERY nº1
-gboolean finder(gpointer key, gpointer value, gpointer user_data){
-    return g_int_64_equal(user_data, key);
-}
-
-
-STR_pair get_info_from_post(TAD_community com, POST p){
+STR_pair get_info_from_post(TAD_community com, QUESTION q){
     char* titulo;
     char* name;
 
-    titulo = getTitle_question(p->(union content).q);
+    titulo = getTitle_question(q);
 
-    guint owner_ptr = g_int64_hash(getOwner_id_question(p->content.q));
+    size_t owner_ptr = getOwnerId_question(q);
     
-    gpointer profile_ptr = g_hash_table_find(com->profiles, (GHRFunc)finder(owner_ptr), NULL);
+    PROFILE profile_ptr = g_hash_table_lookup(getProfiles_TAD(com), &owner_ptr);
 
     if(profile_ptr != NULL){
-        PROFILE p = (PROFILE) profile_ptr;
-        name = getName_profile(p);
+        name = getName_profile(profile_ptr);
     }
 
 
@@ -40,38 +37,35 @@ STR_pair get_info_from_post(TAD_community com, POST p){
 
 
 STR_pair info_from_post(TAD_community com, long id){
-    guint user_data = g_int64_hash(id);
-    gpointer post_ptr = g_hash_table_find(com->posts, (GHRFunc)finder(user_data), NULL);
+    POST post_ptr = g_hash_table_lookup(getPosts_TAD(com), &id);
 
-    POST ptr1;
     STR_pair ret;
 
     if(post_ptr != NULL){
-        ptr1 = (POST) post_ptr;
-        if(ptr1->type == 1){
-            ret = get_info_from_post(com, ptr1);
+        if(getType_post(post_ptr) == 1){ //question
+            ret = get_info_from_post(com, getQuestion_post(post_ptr));
         }else{
-            guint owner_ptr = g_int64_hash(getParent_id_answer(ptr1->content.a));
-            post_ptr = g_hash_table_find(com->posts, (GHRFunc)finder(owner_ptr), NULL);
-            ptr1 = (POST) post_ptr;
-            ret = get_info_from_post(com, ptr1);
+            long parent_id = getParentId_answer(getAnswer_post(post_ptr));
+            post_ptr = g_hash_table_lookup(getPosts_TAD(com), &parent_id);
+            ret = get_info_from_post(com, getQuestion_post(post_ptr));
         }
     }
 
     return ret;
 }
+//END QUERY nº1
 
 
 
-/*//QUERY nº2
+//QUERY nº2
 LONG_list top_most_active(TAD_community com, int N){
     LONG_list res = create_list(N);
 
     GHashTableIter i;
     gpointer key, value;
 
-    for(int i= 0; i < N; i++){
-        g_hash_table_iter_next (i, com->users);
+    for(int i = 0; i < N; i++){
+        g_hash_table_iter_next (i, getProfiles_TAD(com));
         //Conseguir o primeiro numero de posts da pessoa no primeiro index da hash
         size_t tmp_total;
         long tmp_id; //dara warning por termos size_t na estrutura?
@@ -89,9 +83,15 @@ LONG_list top_most_active(TAD_community com, int N){
     return res;
 }
 
+/*
+
 //QUERY 3
 LONG_pair total_posts(TAD_community com, Date begin, Date end){
     LONG_pair res; // create_long_pair(0,0);
+
+    TARDIS ord_posts = getTARDIS_TAD(com);
+
+
 
     return res;
 }

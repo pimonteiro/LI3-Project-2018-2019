@@ -1,47 +1,53 @@
 #include "question.h"
-#include "answer.h"
 #include <stdlib.h>
-#include "date.h"
+#include "mydate.h"
 #include "glib.h"
 #include <string.h>
 
 struct question {
-    Date start; //Obviamente pertence a pergunta
+    MyDate creation_date;
 
-    GArray* id_answers; //Array dos id de Answers
-
-    size_t id_question;
-    size_t owner_id_question;
-    size_t n_answer;
-    ssize_t score;
+    GArray* id_answers;
 
     char* title_question;
     char* tags;
 
+    size_t id_question;
+    size_t owner_id_question;
+    size_t n_answers;
+
+    ssize_t score;
 };
 
-QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my_owner_id,  Date my_start, ssize_t my_score){
-    QUESTION p = malloc(sizeof(struct question));
-    p->id_question = my_id;
-    p->title_question = g_strdup(my_title);
-    p->tags = g_strdup(my_tags);
-    p->owner_id_question = my_owner_id;
-    p->start = my_start;
-    p->n_answer = 0;
-    p->score = my_score;
+QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my_owner_id,  MyDate my_creation_date, ssize_t my_score, size_t my_n_answer){
+    QUESTION q = malloc(sizeof(struct question));
 
-    p->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
-    /*for(int i = 0; i < my_answers->len; i++){
-        g_array_append_val(p->id_answers, g_array_index(my_answers, size_t, i));
-    }   */
+    q->id_question = my_id;
+    q->title_question = g_strdup(my_title);
+    q->tags = g_strdup(my_tags);
+    q->owner_id_question = my_owner_id;
+    q->creation_date = my_creation_date;
+    q->n_answers = my_n_answer;
+    q->score = my_score;
+    q->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
 
-    return p;
+    return q;
 }
 
+void free_question(void* q){
+    QUESTION tmp = (QUESTION)q;
+
+    tmp->id_answers ? g_array_free(tmp->id_answers,TRUE) : NULL;
+    tmp->creation_date ? free_Mydate(tmp->creation_date) : NULL;
+    tmp->title_question ? free(tmp->title_question) : NULL;
+    tmp->tags ? free(tmp->tags) : NULL;
+
+    free(tmp);
+}
 
 /*QUESTION create_question_copy(QUESTION q){
     QUESTION ret = malloc(sizeof(struct question));
-    ret->start = getStart_date_question(q);
+    ret->creation_date = getcreation_date_date_question(q);
     ret->end = getEnd_date_question(q);
     ret->id_answers = g_array_new(FALSE, FALSE, sizeof(size_t));
 
@@ -61,92 +67,81 @@ QUESTION create_question(size_t my_id, char * my_title, char* my_tags, size_t my
     return ret;
 
 }*/
-void free_question(void* p){
-    QUESTION tmp = (QUESTION)p;
-    tmp->id_answers ? g_array_free(tmp->id_answers,FALSE) : NULL;
-    tmp->start ? free_date(tmp->start) : NULL;
-    tmp->start ? free_date(tmp->end): NULL;
-    tmp->title_question ? free(tmp->title_question) : NULL;
-    tmp->tags ? free(tmp->tags) : NULL;
-    free(tmp);
+
+size_t getId_question(QUESTION q){
+    return q->id_question;
 }
 
-size_t getId_question(QUESTION p){
-    return p->id_question;
+char* getTitle_question(QUESTION q){
+    return q->title_question ? g_strdup(q->title_question) : NULL;
 }
 
-char* getTitle_question(QUESTION p){
-    return p->title_question?g_strdup(p->title_question):NULL;
+size_t getOwnerId_question(QUESTION q){
+    return q->owner_id_question;
 }
 
-size_t getOwner_id_question(QUESTION p){
-    return p->owner_id_question;
+MyDate getCreationDate_question(QUESTION q){
+    if(q != NULL)
+    return q->creation_date ? (q->creation_date) : NULL;
+    else return NULL;
 }
 
-Date getStart_date_question(QUESTION p){
-    return p->start?(p->start):NULL;
+
+size_t getNanswers_question(QUESTION q){
+    return q->n_answers;
 }
 
-Date getEnd_date_question(QUESTION p){
-    return p->end?(p->end):NULL;
+ssize_t getScore_question(QUESTION q){
+    return q->score;
 }
 
-size_t getN_answer_question(QUESTION p){
-    return p->n_answer;
+char* getTags_question(QUESTION q){
+    return q->tags ? g_strdup(q->tags) : NULL;
 }
 
-/*GArray* getAnswers_array_question(QUESTION p){
-    GArray* novo = g_array_new(FALSE, FALSE, sizeof(size_t));
+GArray* getIdAnswers_question(QUESTION q){
+    return q->id_answers ? q->id_answers : NULL;
+}
 
-    for(int i = 0; i < p->id_answers->len; i++){
-        g_array_append_val(novo, g_array_index(p->id_answers, size_t, i));
+
+void setId_question(QUESTION q, size_t my_id_question){
+    q->id_question = my_id_question;
+}
+
+void setTitle_question(QUESTION q, char* my_title_question){
+    if(q->title_question != NULL){
+        my_title_question ? (free(q->title_question), q->title_question = g_strdup(my_title_question)) : NULL;
     }
-
-    return novo;
-
-}*/
-
-ssize_t getScore_question(QUESTION p){
-    return p->score;
+    q->title_question = g_strdup(my_title_question);
 }
 
-void setId_question(QUESTION p, size_t my_id_question){
-    p->id_question = my_id_question;
+void setOwnerId_question(QUESTION q, size_t my_owner_id){
+    q->owner_id_question = my_owner_id;
 }
 
-void setTitle_question(QUESTION p, char * my_title_question){
-    p->title_question = my_title_question;
+void setDate_question(QUESTION q, MyDate new_creation_date){
+    q->creation_date = new_creation_date;
 }
 
-void setOwner_id_question(QUESTION p, size_t my_owner_id){
-    p->owner_id_question = my_owner_id;
+void setAnswers_array_question(QUESTION q, size_t id){
+    q->id_answers ? g_array_append_val(q->id_answers, id) : NULL;
 }
 
-void setStart_date_question(QUESTION p, Date new_start){
-    p->start = new_start;
+void setScore_question(QUESTION q, ssize_t my_score){
+    q->score = my_score;
 }
 
-void setEnd_date_question(QUESTION p, Date new_end){
-    p->end = new_end;
+void setTags_question(QUESTION q, char* my_tags){
+    if(q->tags != NULL)
+        my_tags ? (free(q->tags), q->tags = g_strdup(my_tags)) : NULL;
+    q->tags = g_strdup(my_tags);
 }
 
-void setN_answer_question(QUESTION p, size_t my_n_answer){
-    p->n_answer += my_n_answer;
-}
-
-void setAnswers_array_question(QUESTION p, size_t id){
-        g_array_append_val(p->id_answers, id);
-}
-
-void setScore_question(QUESTION p, ssize_t my_score){
-    p->score = my_score;
-}
-
-/*void add_answers_array(QUESTION p, size_t id){
+/*void add_answers_array(QUESTION q, size_t id){
     g_ptr_array_add(p->id_answers, (gpointer)id);
 }*/
 
 
-/*size_t get_element_index_answers(QUESTION p, int i){
+/*size_t get_element_index_answers(QUESTION q, int i){
     return g_array_index(p->id_answers, size_t, i);
 }*/

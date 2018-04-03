@@ -5,6 +5,8 @@
 #include "post.h"
 #include "question.h"
 #include "interface.h"
+#include "mydate.h"
+#include "tardis.h"
 #include <sys/types.h>
 #include "main_struct.h"
 
@@ -55,21 +57,25 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
         }
 
         PROFILE u = create_profile((char*)about_me, id, (char* )name, reputation);
-
         uint64_t *key = malloc(sizeof(uint64_t));
-        *key = id + 1;
+        *key = id;
+
         g_hash_table_insert(hash, key, (gpointer)u);
     }
+
     xmlFree(about_me);
     xmlFree(name);
-
 }
+
 
 
 void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
 
     TAD_community com = (TAD_community)user_data;
+
     GHashTable* hash = getPosts_TAD(com);
+    TARDIS type40 = getTARDIS_TAD(com);
+    GHashTable* hash_users = getProfiles_TAD(com);
 
 
     int long type = 0;
@@ -78,13 +84,14 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
 
     xmlChar* start_tmp = NULL;
-    int dia, mes, ano;
-    Date start = NULL;
+    int dia, mes, ano, hora, minuto, segundo, milisegundo;
+    MyDate start = NULL;
     size_t id=0,  owner_id=0;
     ssize_t score=0;
     // QUESTION
     xmlChar* title = NULL;
     xmlChar* tags = NULL;
+    size_t nquestions=0;
     /////////////////////
     // ANSWER
     size_t parent_id=0;
@@ -104,6 +111,9 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
                 score = strtol((const char*)attrs[1], NULL, 10);
             }
 
+            if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"AnswerCount")){
+                nquestions = strtol((const char*)attrs[1], NULL, 10);
+            }
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"Title")){
                 title  = xmlStrdup(attrs[1]);
             }
@@ -115,8 +125,8 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"CreationDate")) {
                 start_tmp  = xmlStrdup(attrs[1]);
-                sscanf((char*)start_tmp, "%d-%d-%d", &ano, &dia, &mes);
-                start = createDate(dia, mes, ano);
+                sscanf((char*)start_tmp, "%d-%d-%dT%d:%d:%d.%d", &ano, &mes, &dia, &hora, &minuto, &segundo, &milisegundo);
+                start = create_date(milisegundo, segundo, minuto, hora, dia, mes, ano);
             }
 
             attrs = &attrs[2]; // avançar para o proximo atributo
@@ -128,12 +138,22 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
                 strcpy((char*)tags, "");
             }
 
-            QUESTION q = create_question(id, (char*)title, (char*)tags, owner_id, start, score);
+            QUESTION q = create_question(id, (char*)title, (char*)tags, owner_id, start, score, nquestions);
             POST p = create_post(type, q, NULL);
 
             uint64_t *key = malloc(sizeof(uint64_t));
             *key = id;
+
+
             g_hash_table_insert(hash, key, (gpointer)p);
+            insertQuestion(type40, q, ano, mes, dia);
+
+            PROFILE prof = NULL;
+            prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
+            if(prof != NULL){
+              increaseNposts_profile(prof);
+              insertLastest_profile(prof, p);
+            }
         }
 
         xmlFree(title);
@@ -160,8 +180,8 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
             if (!xmlStrcasecmp(attrs[0], (const xmlChar*)"CreationDate")) {
                 start_tmp  = xmlStrdup(attrs[1]);
-                sscanf((char*)start_tmp, "%d-%d-%d", &ano, &dia, &mes);
-                start = createDate(dia, mes, ano);
+                sscanf((char*)start_tmp, "%d-%d-%dT%d:%d:%d.%d", &ano, &mes, &dia, &hora, &minuto, &segundo, &milisegundo);
+                start = create_date(milisegundo, segundo, minuto, hora, dia, mes, ano);
             }
 
             attrs = &attrs[2]; // avançar para o proximo atributo
@@ -172,18 +192,23 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             POST p = create_post(type, NULL, a);
             uint64_t *key = malloc(sizeof(uint64_t));
             *key = id;
+
             g_hash_table_insert(hash, key, (gpointer)p);
+            insertAnswer(type40, a, ano, mes, dia);
 
             // Complete question
             POST q = NULL;
             q = (POST)g_hash_table_lookup(hash, &parent_id);
-
-            if(q != NULL){
-                setN_answer_question(getQuestion_post(q), 1);
+            if(q != NULL)
                 setAnswers_array_question(getQuestion_post(q), (size_t)id);
+
+            PROFILE prof = NULL;
+            prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
+            if(prof != NULL){
+              increaseNposts_profile(prof);
+              insertLastest_profile(prof, p);
             }
         }
-
         xmlFree(title);
         xmlFree(tags);
         xmlFree(start_tmp);

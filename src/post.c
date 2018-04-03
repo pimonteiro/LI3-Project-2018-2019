@@ -7,12 +7,13 @@ struct post {
   union content {
     QUESTION q;
     ANSWER a;
-  };
+  }content;
 };
 
 
 POST create_post(size_t type, QUESTION q, ANSWER a){
     POST p = malloc(sizeof(struct post));
+
     if(type == 1){
         p->type = 1;
         p->content.q = q;
@@ -21,6 +22,7 @@ POST create_post(size_t type, QUESTION q, ANSWER a){
         p->type = 2;
         p->content.a = a;
     }
+
     return p;
 }
 
@@ -41,4 +43,16 @@ size_t getType_post(POST p){
 
 QUESTION getQuestion_post(POST p){
     return p->content.q;
+}
+ANSWER getAnswer_post(POST p){
+    return p->content.a;
+}
+
+MyDate getDate_post(POST p){
+    if(p->type == 1){
+      return getCreationDate_question(p->content.q);
+    }
+    else{
+      return getDate_answer(p->content.a);
+    }
 }
