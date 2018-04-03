@@ -10,6 +10,7 @@
 #include "question.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "interface.h"
 #include <glib.h>
 #include <gmodule.h>
@@ -56,7 +57,34 @@ STR_pair info_from_post(TAD_community com, long id){
 //END QUERY nº1
 
 
+//QUERY 5
+USER get_user_info(TAD_community com, long id){
+    USER res = NULL;
+    long post_history[10];
+
+    PROFILE profile_ptr = g_hash_table_lookup(getProfiles_TAD(com), &id);
+
+    if(profile_ptr != NULL){
+        char *name = getName_profile(profile_ptr);
+        char *aboutme = getAboutMe_profile(profile_ptr);
+        int n = strlen(name) + strlen(aboutme) + 12;
+        char short_bio[n];
+        sprintf(short_bio, "Name: %s Bio: %s", name, aboutme);
+        res = create_user(short_bio, post_history);
+    }
+
+
+    //Perante os dois arrays de id_questions e id_awnsers, como verifica los por ordem cronologica inversa? (sem destincao)
+    //Maybe guardar, em vez de um array, uma struct que tem id e tipo_post (1/2), assim estariam por ordem cronologica e
+    //seria mais eficiente procurar
+
+    
+    return res;
+}
+
+
 /*
+
 //QUERY nº2
 LONG_list top_most_active(TAD_community com, int N){
     LONG_list res = create_list(N);
@@ -95,26 +123,6 @@ LONG_pair total_posts(TAD_community com, Date begin, Date end){
     return res;
 }
 
-
-//QUERY 5
-USER get_user_info(TAD_community com, long id){
-    USER res;
-    char *short_bio;
-    long *post_history;
-    size_t id;
-
-    if(gpointer item_prt = g_hash_table_lookup(com->users, id) != NULL){
-        //works??
-        short_bio = "Name: " + item_ptr->name + "Bio: " + item_ptr->about_me;
-        id = item_ptr->id;
-    }
-
-
-    //Perante os dois arrays de id_questions e id_awnsers, como verifica los por ordem cronologica inversa? (sem destincao)
-    //Maybe guardar, em vez de um array, uma struct que tem id e tipo_post (1/2), assim estariam por ordem cronologica e
-    //seria mais eficiente procurar
-
-}
 
 typedef struct id_date {
     Date begin;
