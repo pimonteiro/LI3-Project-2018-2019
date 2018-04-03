@@ -13,8 +13,8 @@
 
 int main(){
 
-
     TAD_community cum = init();
+
     //load(cum, "/home/herulume/Desktop");
     load(cum, "/home/pimonteiro/Documents/XML_DUMPS/dump exemplo/android/android");
 
@@ -29,6 +29,7 @@ int main(){
     GHashTable* g = getProfiles_TAD(cum);
     q = (PROFILE)g_hash_table_lookup(g, &kek);
     printf("%ld\n", getNposts_profile(q));
+
     cum = clean(cum);
-    return 0;
+  	return 0;
 }
