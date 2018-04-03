@@ -7,7 +7,7 @@
 #include "post.h"
 typedef struct profile* PROFILE;
 
-GPtrArray* getTenPosts_profile(PROFILE p);
+POST* getTenPosts_profile(PROFILE p);
 PROFILE create_profile(char * my_about, long my_id, char * my_name, int my_reputation);
 void free_profile(void* p);
 

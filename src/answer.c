@@ -6,7 +6,6 @@ struct answer {
     MyDate creationDate;
 
     long id;
-
     long owner_id;
     long parent_id;
     int score;

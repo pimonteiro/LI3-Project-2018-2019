@@ -6,6 +6,9 @@
 #include "answer.h"
 #include "mydate.h"
 #include "heap.h"
+#include <stdlib.h>
+
+#define TOPTEN(i) (i < 11 ?  i++ : i )
 
 struct profile {
     POST ten_posts[11];
@@ -20,24 +23,19 @@ struct profile {
     long id;
     int reputation;
  };
- static gint cmpDates (gconstpointer a, gconstpointer b){
-    gint result;
-    if(a == NULL) return -1;
-    if(b == NULL) return 1;
+ static int cmpDates (const void* a, const void* b){
+    int result;
 
-    POST p1 = (POST)a;
-    POST p2 = (POST)b;
+    const POST* p1 = (POST*)a;
+    const POST* p2 = (POST*)b;
 
-    MyDate d1=NULL;
-    MyDate d2=NULL;
-
-    d1 = getDate_post(p1);
-    d2 = getDate_post(p2);
+    const MyDate d1= getDate_post(*p1);
+    const MyDate d2= getDate_post(*p2);
 
     if(d1 == NULL) return -1;
     if(d2 == NULL) return 1;
 
-    result = compare_dates(d1, d2);
+    result = compare_dates(d2, d1);
 
     return result;
 }
@@ -53,7 +51,7 @@ PROFILE create_profile(char * my_about, long my_id, char * my_name, int my_reput
     p->name = g_strdup(my_name);
     p->reputation = my_reputation;
 
-    memset(p->ten_posts, NULL, sizeof(POST)*11);
+    memset(p->ten_posts, 0, sizeof(POST)*11);
     p->id_answers = g_array_new(FALSE, FALSE, sizeof(long));
 
     return p;
@@ -62,7 +60,6 @@ PROFILE create_profile(char * my_about, long my_id, char * my_name, int my_reput
 void free_profile(void* p){
     PROFILE tmp = (PROFILE)p;
 
-    g_ptr_array_free(tmp->ten_posts, FALSE);
     g_array_free(tmp->id_answers, TRUE);
 
     free(tmp->name);
@@ -77,7 +74,7 @@ void free_profile(void* p){
 
 // TODO GET 10 POSTS
 
-GPtrArray* getTenPosts_profile(PROFILE p){
+POST* getTenPosts_profile(PROFILE p){
     return p->ten_posts;
 }
 GArray* getId_answers_array_profile(PROFILE p){
@@ -153,22 +150,17 @@ void increaseNposts_profile(PROFILE p){
     ++(p->n_posts);
 }
 
-void cona(gpointer a, gpointer b){
-    int i = (POST)getType_post(a);
-    if(i != 1 && i != 2)
-      printf(b, "MERDA");
-}
 void insertLastest_profile(PROFILE p, POST post){
-    if(p->oldest == NULL && p->inserts < 11){
-         p->ten_posts[p->inserts] = post;
+    if(p->oldest == NULL){
+         p->ten_posts[0] = post;
          ++(p->inserts);
          p->oldest = getDate_post(post);
     }
     else{
-        if(p->inserts < 11){
-         p->ten_posts[p->inserts] = post;
-         ++(p->inserts);
-     }
+        if(compare_dates(p->oldest, getDate_post(post)) <  0 ){
+          p->ten_posts[TOPTEN(p->inserts)] = post;
+          qsort((p->ten_posts), p->inserts, sizeof(POST), cmpDates);
+          p->oldest = getDate_post(post);
+        }
     }
-
 }

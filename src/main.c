@@ -15,7 +15,7 @@ int main(){
 
     TAD_community cum = init();
     load(cum, "/home/herulume/Desktop");
-    long kek = 10;
+    long kek = 1030;
     PROFILE q = NULL;
     GHashTable* g = getProfiles_TAD(cum);
     q = (PROFILE)g_hash_table_lookup(g, &kek);
