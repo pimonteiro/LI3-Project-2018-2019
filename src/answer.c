@@ -57,7 +57,7 @@ ssize_t getScore_answer(ANSWER a){
 }
 
 size_t getOwnerId_answer(ANSWER a){
-    return a->id;
+    return a->owner_id;
 }
 
 void setID_answer(ANSWER a, size_t my_id){

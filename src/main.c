@@ -22,6 +22,9 @@ int main(){
 
     printf("%s\n", get_bio(a));
 
+    printf("\n%ld", better_answer(cum, 8));
+
+
     return 0;
 
     long kek = 10;

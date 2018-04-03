@@ -81,6 +81,55 @@ USER get_user_info(TAD_community com, long id){
     
     return res;
 }
+//END QUERY nº5
+
+long better_answer(TAD_community com, long id){
+    QUESTION q = getQuestion_post(g_hash_table_lookup(getPosts_TAD(com), &id));
+    long res = 0;
+    GArray* answers = getIdAnswers_question(q);
+
+    ssize_t tmp;
+    ssize_t total;
+    ssize_t scr;
+    size_t owner_id;
+    PROFILE p;
+    size_t rep;
+
+    //Setting up first values
+    size_t id_ans = g_array_index(answers, size_t, 0);
+    ANSWER a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));       
+    if(a != NULL){
+        scr      = getScore_answer(a);
+        //size_t comt   = getN_Comments_answer(a);
+        owner_id = getOwnerId_answer(a);
+        p        = g_hash_table_lookup(getProfiles_TAD(com), &owner_id);
+        rep      = getReputation_profile(p);
+
+        tmp   = (scr * 0.45) + (rep * 0.25) + (scr * 0.2) + (rep * 0.1);
+        res   = getID_answer(a);
+        total = tmp;
+    }
+    
+    for(int i = 1; i < answers->len; i++){
+        id_ans = g_array_index(answers, size_t, i);
+        a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));       
+        if(a != NULL){
+            scr      = getScore_answer(a);
+            //size_t comt   = getN_Comments_answer(a);
+            owner_id = getOwnerId_answer(a);
+            p        = g_hash_table_lookup(getProfiles_TAD(com), &owner_id);
+            rep      = getReputation_profile(p);
+
+            tmp = (scr * 0.45) + (rep * 0.25) + (scr * 0.2) + (rep * 0.1);
+            if(tmp > total){
+                total = tmp;
+                res   = getID_answer(a);
+            }
+        }
+        else break;
+    }
+    return total;
+}
 
 
 /*
