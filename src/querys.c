@@ -56,7 +56,7 @@ STR_pair info_from_post(TAD_community com, long id){
 //END QUERY nº1
 
 
-
+/*
 //QUERY nº2
 LONG_list top_most_active(TAD_community com, int N){
     LONG_list res = create_list(N);
@@ -83,7 +83,6 @@ LONG_list top_most_active(TAD_community com, int N){
     return res;
 }
 
-/*
 
 //QUERY 3
 LONG_pair total_posts(TAD_community com, Date begin, Date end){
