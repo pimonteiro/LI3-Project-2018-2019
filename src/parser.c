@@ -147,7 +147,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
 
             g_hash_table_insert(hash, key, (gpointer)p);
-            
+
             insertQuestion(type40, q, ano, mes, dia);
 
             PROFILE prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
@@ -196,7 +196,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             *key = id;
 
             g_hash_table_insert(hash, key, (gpointer)p);
-            insertAnswer(type40, a, ano, mes, dia);
+           insertAnswer(type40, a, ano, mes, dia);
 
 
             PROFILE prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
@@ -216,6 +216,17 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 }
 
 
+void startElementTags(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
+    long id = NULL; // 1
+    char* tag_name = NULL; // 3
+    if(!attrs) return;
+    GHashTable* hash = getTags_TAD((TAD_community)user_data);
+    id = strtol((const char*)attrs[1], NULL, 10);
+    tag_name = (char*)xmlStrdup(attrs[3]);
+    g_hash_table_insert(hash, tag_name, (gpointer)id);
+
+}
+
 static int parse(const char* xml_path, void* user_data, long code) {
     int ctxt;
     xmlSAXHandler handler = {0};
@@ -225,6 +236,9 @@ static int parse(const char* xml_path, void* user_data, long code) {
 
     if (code == 1)
         handler.startElement = startElementPosts;
+
+    if (code == 2)
+        handler.startElement = startElementTags;
 
 
     handler.warning = error;
@@ -239,10 +253,10 @@ static int parse(const char* xml_path, void* user_data, long code) {
 }
 
 static int multiParse(const char* xml_path, void* user_data) {
-    int users, posts;
+    int users, posts, tags;
     long pathLen = strlen(xml_path);
     pathLen += 10; // file.xml always 5 + 4 (.xml)
-    char usersPath[pathLen], postsPath[pathLen];
+    char usersPath[pathLen], postsPath[pathLen], tagsPath[pathLen];
 
 
     strcpy(usersPath, xml_path);
@@ -253,7 +267,12 @@ static int multiParse(const char* xml_path, void* user_data) {
     strcat(postsPath, "/Posts.xml");
     posts = parse(postsPath, user_data, 1);
 
-    return users || posts;
+    strcpy(tagsPath, xml_path);
+    strcat(tagsPath, "/Tags.xml");
+    tags = parse(postsPath, user_data, 2);
+
+
+    return users || posts || tags;
 }
 
 TAD_community load(TAD_community com, char* dump_path){

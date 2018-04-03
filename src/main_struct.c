@@ -6,12 +6,11 @@
 
 struct  TCD_community{
     GHashTable* profiles; //PtrArray que funcs like hashtable :D
-
     GHashTable* posts; //Hash posts por id
+    GHashTable* tags;
 
     TARDIS type40; // Estrutura com os dados
 
-    GPtrArray* tags; // Cada indice corresponde a uma tagg
 };
 
 TAD_community create_main_struct(){
@@ -19,7 +18,7 @@ TAD_community create_main_struct(){
 
     m->profiles = g_hash_table_new_full(g_int64_hash, g_int64_equal, g_free, free_profile);
     m->posts = g_hash_table_new_full(g_int64_hash, g_int64_equal, g_free, free_post);
-
+    m->tags = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
     m->type40 = landing_tardis(); // Upload .mp3 landing sounds
 
 
@@ -29,7 +28,8 @@ TAD_community create_main_struct(){
 TAD_community clean(TAD_community com){
     g_hash_table_destroy(com->profiles);
     g_hash_table_destroy(com->posts);
-    takeOf_tardis(com->type40);
+    g_hash_table_destroy(com->tags);
+   takeOf_tardis(com->type40);
 
     free(com);
 
@@ -42,6 +42,10 @@ GHashTable* getProfiles_TAD(TAD_community com){
 
 GHashTable* getPosts_TAD(TAD_community com){
     return com->posts;
+}
+
+GHashTable* getTags_TAD(TAD_community com){
+    return com->tags;
 }
 
 TARDIS getTARDIS_TAD(TAD_community com){
