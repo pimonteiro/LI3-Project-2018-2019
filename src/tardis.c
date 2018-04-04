@@ -33,18 +33,18 @@ gint cmpScoreA (gconstpointer a, gconstpointer b){
     return (gint)0;
 }
 
+void setFree_list(void* l){
+    if(l == NULL) return;
+    GSList* list = (GSList*)l;
+    g_slist_free(list);
+}
 
 void setFree_year(void* year_ptrArray){
     if(year_ptrArray == NULL) return;
     GPtrArray* year = (GPtrArray*)year_ptrArray;
-    g_ptr_array_free(year, FALSE);
+    g_ptr_array_free(year, TRUE);
 }
 
-void setFree_list(void* l){
-    if(l == NULL) return;
-    GSList* list = (GList*)l;
-    if(list != NULL) g_slist_free(list);
-}
 
 TARDIS landing_tardis(){
     TARDIS type40 = malloc(sizeof(struct tardis));
@@ -62,7 +62,6 @@ TARDIS landing_tardis(){
 void takeOf_tardis(void* sexy){
     TARDIS type40 = (TARDIS)sexy;
 
-
     g_ptr_array_free(type40->year_questions, TRUE);
     g_ptr_array_free(type40->year_answers, TRUE);
     free(type40);
@@ -70,54 +69,47 @@ void takeOf_tardis(void* sexy){
 
 
 void insertQuestion(TARDIS m, QUESTION q, int my_ano, int my_mes, int my_dia){
-
-    //ANOS
     int index_ano = my_ano - 2008;
-    GPtrArray* array_mes = NULL;
-    array_mes = g_ptr_array_index(m->year_questions,index_ano);
-   // void** array_mes = NULL;
-    array_mes = g_ptr_array_index(m->year_questions,index_ano);
-    // ACEDER OS MESES DIAS
+    GPtrArray* array_mes = (GPtrArray*)g_ptr_array_index(m->year_questions, index_ano);
+
     if(array_mes == NULL){
       array_mes = g_ptr_array_new_with_free_func(setFree_list);
-       // array_mes = calloc(31*12+1, sizeof(void*));
       g_ptr_array_set_size(array_mes, 31*12); // assumir que todos os meses tem 31 dias, gap nao é grande
-      g_ptr_array_insert(m->year_questions, (gint)index_ano, (gpointer)array_mes); // mes // array_mes
-
-     // array_mes = mes;
+      g_ptr_array_insert(m->year_questions, index_ano, (gpointer)array_mes); // mes // array_mes
     }
 
-    // MESES E DIAS
     int index_mes = my_dia + (31*(my_mes-1));
-    GSList* l =g_ptr_array_index(array_mes, index_mes);
-    l = g_slist_insert_sorted(l, (gpointer)q, cmpScoreQ);
-    g_ptr_array_insert(array_mes, (gint)index_mes, (gpointer)l);
+    GSList* l =(GSList*)g_ptr_array_index(array_mes, index_mes);
+    if(l == NULL){
+      l = g_slist_insert_sorted(l, (gpointer)q, cmpScoreQ);
+      g_ptr_array_insert(array_mes, (gint)index_mes, (gpointer)l);
+    }
+    else
+      l = g_slist_insert_sorted(l, (gpointer)q, cmpScoreQ);
 }
 
 void insertAnswer(TARDIS m, ANSWER a, int ano, int mes, int dia){
-
-    //ANOS
     int index_ano = ano - 2008;
-    GPtrArray* array_mes = NULL;
-    array_mes = g_ptr_array_index(m->year_answers,index_ano);
+    GPtrArray* array_mes = g_ptr_array_index(m->year_answers,index_ano);
 
-    // ACEDER OS MESES DIAS
     if(array_mes == NULL){
-      GPtrArray* mes =  g_ptr_array_new_with_free_func(setFree_list);
-      g_ptr_array_set_size(mes, 31*12); // assumir que todos os meses tem 31 dias, gap nao é grande
-      g_ptr_array_insert(m->year_answers, (gint)index_ano, (gpointer)mes);
-      array_mes = mes;
+      array_mes =  g_ptr_array_new_with_free_func(setFree_list);
+      g_ptr_array_set_size(array_mes, 31*12);
+      g_ptr_array_insert(m->year_answers, (gint)index_ano, (gpointer)array_mes);
     }
 
-    // MESES E DIAS
     int index_mes = dia + (31*(mes-1));
-    GSList* l = g_ptr_array_index(array_mes, index_mes);
-    l = g_slist_insert_sorted(l, (gpointer)a, cmpScoreA);
-    g_ptr_array_insert(array_mes, (gint)index_mes, (gpointer)l);
+    GSList* l =(GSList*)g_ptr_array_index(array_mes, index_mes);
+
+    if(l == NULL){
+      l = g_slist_insert_sorted(l, (gpointer)a, cmpScoreA);
+      g_ptr_array_insert(array_mes, (gint)index_mes, (gpointer)l);
+    }
+    else
+      l = g_slist_insert_sorted(l, (gpointer)a, cmpScoreA);
 }
 
-
 GSList* getQUestionHeap(TARDIS m, int ano, int mes, int dia){
-    GPtrArray* anoA = g_ptr_array_index(m->year_questions,ano-2008);
-    return g_ptr_array_index(anoA, 31*(mes-1)+dia);
+    GPtrArray* mesa = (GPtrArray*)g_ptr_array_index(m->year_questions,ano-2008);
+    return (GSList*)g_ptr_array_index(mesa, dia+(31*(mes-1)));
 }
