@@ -12,5 +12,5 @@ TARDIS landing_tardis();
 void takeOf_tardis(void* sexy);
 void insertQuestion(TARDIS m, QUESTION q, int ano, int mes, int dia);
 void insertAnswer(TARDIS m, ANSWER a, int ano, int mes, int dia);
-HEAP getQUestionHeap(TARDIS m, int ano, int mes, int dia);
+GSList* getQUestionHeap(TARDIS m, int ano, int mes, int dia);
 #endif
