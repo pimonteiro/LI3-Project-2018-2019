@@ -8,31 +8,36 @@ struct tardis {
     GPtrArray* year_answers;
 };
 
-gint cmpScoreQ (gconstpointer a, gconstpointer b){
-    QUESTION q1 = (QUESTION)a;
-    QUESTION q2 = (QUESTION)b;
 
-    int score1 = getScore_question(q1);
-    int score2 = getScore_question(q2);
 
-    if(score1 > score2) return (gint)1;
-    if(score1 < score2) return (gint)-1;
-    return (gint)0;
+static int cmpDatesQ (const void* a, const void* b){
+  int result;
+
+  QUESTION q1 = (QUESTION)a;
+  QUESTION q2 = (QUESTION)b;
+
+  MyDate d1 = getCreationDate_question(q1);
+  MyDate d2 = getCreationDate_question(q2);
+
+  result = compare_dates(d2, d1);
+
+  return result;
 }
 
 
-gint cmpScoreA (gconstpointer a, gconstpointer b){
-    ANSWER a1 = (ANSWER)a;
-    ANSWER a2 = (ANSWER)b;
+static int cmpDatesA (const void* a, const void* b){
+  int result;
 
-    int score1 = getScore_answer(a1);
-    int score2 = getScore_answer(a2);
+  ANSWER a1 = (ANSWER)a;
+  ANSWER a2 = (ANSWER)b;
 
-    if(score1 > score2) return (gint)1;
-    if(score1 < score2) return (gint)-1;
-    return (gint)0;
+  MyDate d1 = getDate_answer(a1);
+  MyDate d2 = getDate_answer(a2);
+
+  result = compare_dates(d2, d1);
+
+  return result;
 }
-
 void setFree_list(void* l){
     if(l == NULL) return;
     GSList* list = (GSList*)l;
@@ -81,11 +86,11 @@ void insertQuestion(TARDIS m, QUESTION q, int my_ano, int my_mes, int my_dia){
     int index_mes = my_dia + (31*(my_mes-1));
     GSList* l =(GSList*)g_ptr_array_index(array_mes, index_mes);
     if(l == NULL){
-      l = g_slist_insert_sorted(l, (gpointer)q, cmpScoreQ);
+      l = g_slist_insert_sorted(l, (gpointer)q, cmpDatesQ);
       g_ptr_array_insert(array_mes, (gint)index_mes, (gpointer)l);
     }
     else
-      l = g_slist_insert_sorted(l, (gpointer)q, cmpScoreQ);
+      l = g_slist_insert_sorted(l, (gpointer)q, cmpDatesQ);
 }
 
 void insertAnswer(TARDIS m, ANSWER a, int ano, int mes, int dia){
@@ -102,11 +107,11 @@ void insertAnswer(TARDIS m, ANSWER a, int ano, int mes, int dia){
     GSList* l =(GSList*)g_ptr_array_index(array_mes, index_mes);
 
     if(l == NULL){
-      l = g_slist_insert_sorted(l, (gpointer)a, cmpScoreA);
+      l = g_slist_insert_sorted(l, (gpointer)a, cmpDatesA);
       g_ptr_array_insert(array_mes, (gint)index_mes, (gpointer)l);
     }
     else
-      l = g_slist_insert_sorted(l, (gpointer)a, cmpScoreA);
+      l = g_slist_insert_sorted(l, (gpointer)a, cmpDatesA);
 }
 
 GSList* getQUestionHeap(TARDIS m, int ano, int mes, int dia){

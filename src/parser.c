@@ -196,12 +196,12 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             *key = id;
 
             g_hash_table_insert(hash, key, (gpointer)p);
-           insertAnswer(type40, a, ano, mes, dia);
+            insertAnswer(type40, a, ano, mes, dia);
 
 
             PROFILE prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
             if(prof != NULL){
-              insertLastest_profile(prof, p);
+             // insertLastest_profile(prof, p);
               increaseNposts_profile(prof);
             }
 
@@ -217,7 +217,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
 
 void startElementTags(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
-    long id = NULL; // 1
+    long id = 0; // 1
     char* tag_name = NULL; // 3
     if(!attrs) return;
     GHashTable* hash = getTags_TAD((TAD_community)user_data);

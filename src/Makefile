@@ -4,13 +4,13 @@ LDIR=lib
 OLDIR=$(ODIR)/lib
 ODDIR=$(ODIR)/lib
 
-GITGUD= -march=native -O3 -ftracer -fomit-frame-pointer -ftree-loop-linear -ftree-vectorize -pipe -D_GNU_SOURCE
+GITGUD= -march=native -O3  -pipe -D_GNU_SOURCE
 DEBUG=-O0 -Wextra -pedantic
 MEMLEAK=-ggdb -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined
-
+# -fomit-frame-pointer -ftree-loop-linear -ftree-vectorize
 
 CC=gcc
-CFLAGS =$(GITGUD) -Wall -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0` -I$(IDIR)
+CFLAGS = $(GITGUD) -Wall -std=c11 -g `pkg-config --cflags libxml-2.0` `pkg-config --cflags glib-2.0` -I$(IDIR)
 
 DEPS=$(IDIR)/$(wildcard *.h)
 
