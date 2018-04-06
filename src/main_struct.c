@@ -8,7 +8,6 @@ struct  TCD_community{
     GHashTable* profiles; //PtrArray que funcs like hashtable :D
     GHashTable* posts; //Hash posts por id
     GHashTable* tags;
-
     TARDIS type40; // Estrutura com os dados
 
 };
@@ -20,7 +19,6 @@ TAD_community create_main_struct(){
     m->posts = g_hash_table_new_full(g_int64_hash, g_int64_equal, g_free, free_post);
     m->tags = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
     m->type40 = landing_tardis(2018-2008); // Upload .mp3 landing sounds
-
     return m;
 }
 
@@ -29,7 +27,6 @@ TAD_community clean(TAD_community com){
     g_hash_table_destroy(com->posts);
     g_hash_table_destroy(com->tags);
     takeOf_tardis(com->type40);
-
     free(com);
 
     return NULL; // kek.exe

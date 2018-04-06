@@ -42,11 +42,11 @@ struct tardis {
 
 
 TARDIS landing_tardis(int n_years){
-    TARDIS type40 = (TARDIS)malloc(sizeof(struct tardis));
+    TARDIS type40 = malloc(sizeof(struct tardis));
 
     int years = n_years;
-    type40->year_questions = (GSequence***)calloc(years, sizeof(GSequence***));
-    type40->year_answers =  (GSequence***)calloc(years, sizeof(GSequence***));
+    type40->year_questions = calloc(years, sizeof(GSequence**));
+    type40->year_answers =  calloc(years, sizeof(GSequence**));
 
     return type40;
 }
@@ -94,7 +94,7 @@ void insert_TARDIS(TARDIS type40, void* elem, MyDate d, int type){
     if(type == 1){
       array_mes = type40->year_questions[index_ano];
       if(array_mes == NULL){
-        array_mes = (GSequence**)calloc(DIAS_MESES, sizeof(GSequence**));
+        array_mes = calloc(DIAS_MESES+8, sizeof(GSequence*));
         type40->year_questions[index_ano] = array_mes;
       }
     }
@@ -103,7 +103,7 @@ void insert_TARDIS(TARDIS type40, void* elem, MyDate d, int type){
     if(type == 2){
       array_mes = type40->year_answers[index_ano];
       if(array_mes == NULL){
-        array_mes = (GSequence**)calloc(DIAS_MESES, sizeof(GSequence**));
+        array_mes = calloc(DIAS_MESES+8, sizeof(GSequence*));
         type40->year_answers[index_ano] = array_mes;
       }
     }
