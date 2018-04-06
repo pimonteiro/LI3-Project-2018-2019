@@ -1,16 +1,12 @@
 #ifndef __TARDIS_H__
 #define __TARDIS_H__
 
+#include "mydate.h"
 #include <glib.h>
-#include "date.h"
-#include "question.h"
-#include "heap.h"
-
 typedef struct tardis * TARDIS;
 
-TARDIS landing_tardis();
+TARDIS landing_tardis(int n_years);
 void takeOf_tardis(void* sexy);
-void insertQuestion(TARDIS m, QUESTION q, int ano, int mes, int dia);
-void insertAnswer(TARDIS m, ANSWER a, int ano, int mes, int dia);
-GSList* getQUestionHeap(TARDIS m, int ano, int mes, int dia);
+void insert_TARDIS(TARDIS type40, void* elem, MyDate d, int type);
+GSequence* getFromDate_TARDIS(TARDIS m, MyDate d, int type);
 #endif

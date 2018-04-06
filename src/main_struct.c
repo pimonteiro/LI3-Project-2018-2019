@@ -19,7 +19,7 @@ TAD_community create_main_struct(){
     m->profiles = g_hash_table_new_full(g_int64_hash, g_int64_equal, g_free, free_profile);
     m->posts = g_hash_table_new_full(g_int64_hash, g_int64_equal, g_free, free_post);
     m->tags = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
-    m->type40 = landing_tardis(); // Upload .mp3 landing sounds
+    m->type40 = landing_tardis(2018-2008); // Upload .mp3 landing sounds
 
     return m;
 }

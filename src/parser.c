@@ -148,7 +148,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
             g_hash_table_insert(hash, key, (gpointer)p);
 
-            insertQuestion(type40, q, ano, mes, dia);
+            insert_TARDIS(type40, q, start, 1);
 
             PROFILE prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
             if(prof != NULL){
@@ -196,12 +196,12 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
             *key = id;
 
             g_hash_table_insert(hash, key, (gpointer)p);
-            insertAnswer(type40, a, ano, mes, dia);
+            insert_TARDIS(type40, a, start, 2);
 
 
             PROFILE prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
             if(prof != NULL){
-             // insertLastest_profile(prof, p);
+              insertLastest_profile(prof, p);
               increaseNposts_profile(prof);
             }
 
