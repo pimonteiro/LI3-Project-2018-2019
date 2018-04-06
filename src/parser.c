@@ -52,8 +52,7 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
 
     if (xmlStrcasecmp(fullname, (const xmlChar*)"Users")) {
         if (about_me == NULL) {
-            about_me = malloc(sizeof(char));
-            strcpy((char*)about_me, "");
+            about_me = g_strdup("");
         }
 
         PROFILE u = create_profile((char*)about_me, id, (char* )name, reputation);
@@ -135,8 +134,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
         if (xmlStrcasecmp(fullname, (const xmlChar*)"Posts")) {
 
             if (tags == NULL) {
-                tags = malloc(sizeof(char));
-                strcpy((char*)tags, "");
+                tags = g_strdup("");
             }
 
             QUESTION q = create_question(id, (char*)title, (char*)tags, owner_id, start, score, nquestions);

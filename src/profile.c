@@ -62,8 +62,8 @@ void free_profile(void* p){
 
     g_array_free(tmp->id_answers, TRUE);
 
-    free(tmp->name);
-    free(tmp->about_me);
+    g_free(tmp->name);
+    g_free(tmp->about_me);
 
     free(tmp);
 }
