@@ -23,7 +23,7 @@ STR_pair get_info_from_post(TAD_community com, QUESTION q){
     titulo = getTitle_question(q);
 
     long owner_ptr = getOwnerId_question(q);
-    
+
     PROFILE profile_ptr = g_hash_table_lookup(getProfiles_TAD(com), &owner_ptr);
 
     if(profile_ptr != NULL){
@@ -78,7 +78,7 @@ USER get_user_info(TAD_community com, long id){
     //Maybe guardar, em vez de um array, uma struct que tem id e tipo_post (1/2), assim estariam por ordem cronologica e
     //seria mais eficiente procurar
 
-    
+
     return res;
 }
 //END QUERY nº5
@@ -97,7 +97,7 @@ long better_answer(TAD_community com, long id){
 
     //Setting up first values
     long id_ans = g_array_index(answers, long, 0);
-    ANSWER a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));       
+    ANSWER a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));
     if(a != NULL){
         scr      = getScore_answer(a);
         //long comt   = getN_Comments_answer(a);
@@ -109,10 +109,10 @@ long better_answer(TAD_community com, long id){
         res   = getID_answer(a);
         total = tmp;
     }
-    
+
     for(int i = 1; i < answers->len; i++){
         id_ans = g_array_index(answers, long, i);
-        a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));       
+        a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));
         if(a != NULL){
             scr      = getScore_answer(a);
             //long comt   = getN_Comments_answer(a);

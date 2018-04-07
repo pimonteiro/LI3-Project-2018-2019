@@ -2,6 +2,9 @@
 #include "answer.h"
 #include <stdlib.h>
 #include <sys/types.h>
+
+/*Estrutura que contém os principais atributos associados às respostas como sendo a sua data
+ de criação, o seu id,score.*/
 struct answer {
     MyDate creationDate;
 
@@ -12,6 +15,7 @@ struct answer {
 
 };
 
+/*Função responsável pela criação de uma resposta de acordo com os seus atributos */
 ANSWER create_answer(long my_parent_id, long my_owner_id, long my_id, MyDate my_creation_date, int my_score){
     ANSWER a = (ANSWER)malloc(sizeof(struct answer));
 
@@ -31,12 +35,15 @@ ANSWER create_answer(long my_parent_id, long my_owner_id, long my_id, MyDate my_
     return ret;
 }*/
 
+/*Função que liberta uma resposta da memória */
 void free_answer(void* a){
     ANSWER tmp = (ANSWER)a;
     free_Mydate(tmp->creationDate);
     free(tmp);
 }
 
+/*As funções que se seguem são responsáveis pelos getters  dos vários atributos
+ das respostas para que seja possível a sua leitura  */
 long getParentId_answer(ANSWER a){
     return a->parent_id;
 }
@@ -59,6 +66,8 @@ long getOwnerId_answer(ANSWER a){
     return a->owner_id;
 }
 
+/* As funções que se seguem são responsáveis pelos setters  dos vários atributos
+das respostas de modo a ser capaz uma possível alteração/modificação */
 void setID_answer(ANSWER a, long my_id){
     a->id = my_id;
 }

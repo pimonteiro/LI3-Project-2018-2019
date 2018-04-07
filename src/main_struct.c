@@ -3,15 +3,16 @@
 #include "profile.h"
 #include "post.h"
 #include "tardis.h"
-
+/*Estrutura principal: 3 Hashtables para users, posts e tags respetivamente. Tardis é uma estrutura de dados que armazena em 2 arrays os meses e anos. */
 struct  TCD_community{
-    GHashTable* profiles; //PtrArray que funcs like hashtable :D
-    GHashTable* posts; //Hash posts por id
+    GHashTable* profiles;
+    GHashTable* posts;
     GHashTable* tags;
-    TARDIS type40; // Estrutura com os dados
+    TARDIS type40;
 
 };
 
+/*Função responsável pela criação da estrutura principal */
 TAD_community create_main_struct(){
     TAD_community m = malloc(sizeof(struct TCD_community));
 
@@ -22,6 +23,7 @@ TAD_community create_main_struct(){
     return m;
 }
 
+/*Função que liberta tanto as componentes existentes na Estrutura Principal como a Estrutura em si */
 TAD_community clean(TAD_community com){
     g_hash_table_destroy(com->profiles);
     g_hash_table_destroy(com->posts);
@@ -32,6 +34,7 @@ TAD_community clean(TAD_community com){
     return NULL; // kek.exe
 }
 
+/*As funções que se seguem executam os get's dos users,posts,tags e tardis para que seja possivel a sua leitura dos respetivos ficheiros */
 GHashTable* getProfiles_TAD(TAD_community com){
     return com->profiles;
 }
@@ -48,6 +51,7 @@ TARDIS getTARDIS_TAD(TAD_community com){
     return com->type40;
 }
 
+/*Função que inicializa a Estrutura de dados */
 TAD_community init(){
     return create_main_struct();
 }

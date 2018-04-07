@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "mydate.h"
 
+/*Estrutura das datas */
 struct mydate {
   int milisegundo;
   int segundo;
@@ -11,6 +12,7 @@ struct mydate {
   int ano;
 };
 
+/*Função responsável pela criação de uma data */
 MyDate create_date(int milisegundo, int segundo, int minuto, int hora, int dia, int mes, int ano){
     MyDate d = malloc(sizeof(struct mydate));
 
@@ -25,10 +27,12 @@ MyDate create_date(int milisegundo, int segundo, int minuto, int hora, int dia, 
     return d;
 }
 
+/*Função que faz free das datas */
 void free_Mydate(MyDate d){
     free(d);
 }
 
+/*As funções que se seguem são responsáveis pelos getters dos elementos das datas */
 int get_dia(MyDate d){
     return d->dia;
 }
@@ -64,7 +68,7 @@ static int compare (int a, int b){
   return (a > b) - (a < b);
 }
 
-
+/*Função que é responsável pela comparação entre 2 datas */
 int compare_dates(MyDate a, MyDate b){
     int ano, mes, dia, hora, minuto, segundo, milisegundo;
 

@@ -10,6 +10,7 @@
 
 #define TOPTEN(i) (i < 11 ?  i++ : i )
 
+/*Estrutura que contém os principais atributos associados aos utilizadores */
 struct profile {
     GSequence* posts;
 
@@ -21,6 +22,8 @@ struct profile {
     long id;
     int reputation;
  };
+
+/*Função que é responsável pela comparação das datas de 2 posts */
  static int cmpDates (const void* a, const void* b){
     int result;
 
@@ -38,6 +41,7 @@ struct profile {
     return result;
 }
 
+/*Função responsável pela criação dos perfis dos utilizadores de acordo com os seus atributos */
 PROFILE create_profile(char * my_about, long my_id, char * my_name, int my_reputation){
     PROFILE p= malloc(sizeof(struct profile));
 
@@ -52,6 +56,7 @@ PROFILE create_profile(char * my_about, long my_id, char * my_name, int my_reput
     return p;
 }
 
+/*Função que liberta o perfil do utilizador assim como alguns dos seus atributos */
 void free_profile(void* p){
     PROFILE tmp = (PROFILE)p;
 
@@ -62,9 +67,8 @@ void free_profile(void* p){
     free(tmp);
 }
 
-/**
- * Getters
- */
+/*As funções que se seguem são responsáveis pelos getters  dos vários atributos
+ * dos utilizadores para que seja possível a sua leitura  */
 
 GSequence* getPosts_profile(PROFILE p){
     return p->posts;
@@ -91,9 +95,8 @@ int getReputation_profile(PROFILE p){
 }
 
 
-/**
- * Setters
- */
+/* As funções que se seguem são responsáveis pelos setters  dos vários atributos
+ * dos utilizadores de modo a ser capaz uma possível alteração/modificação */
 
 void setAboutMe_profile(PROFILE p, char* my_about){
     if(my_about != NULL){
@@ -121,7 +124,7 @@ void setReputation_profile(PROFILE p, int my_reputation){
  */
 
 
-
+/*Função responsável pela inserção do utilizador mais recente */
 void insertLastest_profile(PROFILE p, POST post){
     g_sequence_prepend(p->posts, (gpointer)post);
      ++(p->n_posts);
