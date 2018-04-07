@@ -52,7 +52,7 @@ STR_pair info_from_post(TAD_community com, long id){
         }
     }
 
-    return ret;
+    return ret=0;
 }
 //END QUERY nº1
 

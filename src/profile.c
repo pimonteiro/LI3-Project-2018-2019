@@ -24,7 +24,7 @@ struct profile {
  };
 
 /*Função que é responsável pela comparação das datas de 2 posts */
- static int cmpDates (const void* a, const void* b){
+/* static int cmpDates (const void* a, const void* b){
     int result;
 
     const POST* p1 = (POST*)a;
@@ -40,6 +40,7 @@ struct profile {
 
     return result;
 }
+*/
 
 /*Função responsável pela criação dos perfis dos utilizadores de acordo com os seus atributos */
 PROFILE create_profile(char * my_about, long my_id, char * my_name, int my_reputation){
