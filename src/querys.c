@@ -37,10 +37,12 @@ STR_pair get_info_from_post(TAD_community com, QUESTION q){
 }
 
 
+
+
 STR_pair info_from_post(TAD_community com, long id){
     POST post_ptr = g_hash_table_lookup(getPosts_TAD(com), &id);
 
-    STR_pair ret;
+    STR_pair ret = NULL;
 
     if(post_ptr != NULL){
         if(getType_post(post_ptr) == 1){ //question
@@ -56,8 +58,28 @@ STR_pair info_from_post(TAD_community com, long id){
 }
 //END QUERY nº1
 
+//QUERY nº2
+LONG_list top_most_active(TAD_community com, int N){
+    return NULL;
+}
+//END QUERY nº2
 
-//QUERY 5
+
+//QUERY nº3
+LONG_pair total_posts(TAD_community com, Date begin, Date end){
+    return NULL;
+}
+//END QUERY nº3
+
+
+//QUERY nº4
+LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end){
+    return NULL;
+}
+//END QUERY nº4
+
+
+//QUERY 5 
 USER get_user_info(TAD_community com, long id){
     USER res = NULL;
     long post_history[10];
@@ -83,20 +105,105 @@ USER get_user_info(TAD_community com, long id){
 }
 //END QUERY nº5
 
+
+//QUERY nº6
+LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
+    return NULL;
+}
+//END QUERY nº6
+
+
+//QUERY nº7
+LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end){
+    return NULL;
+}
+//END QUERY nº7
+
+
+//QUERY nº8
+LONG_list contains_word(TAD_community com, char* word, int N){
+    return NULL;
+}
+//END QUERY nº8
+
+
+//QUERY nº9
+
+
+int exists_already(GArray* a, long n){
+    if(!(a->len)) return 0;
+    for(int i = 0; i < a-> len; i++){
+        if(g_array_index(a, size_t, i) == n) return 1;
+    }
+
+    return 0;
+} 
+
+
+void get_common_posts(GArray* final, TAD_community com, long id1, long id2){
+    GHashTable* posts = getPosts_TAD(com);
+    GArray* a1 = getId_answers_array_profile(g_hash_table_lookup(getProfiles_TAD(com), &id1));
+
+    for(int i = 0; i < a1->len; i++){
+        size_t n = g_array_index(a1, size_t, i);
+        size_t parent_a = getParentId_answer(g_hash_table_lookup(posts, &n));
+        QUESTION q = getQuestion_post(g_hash_table_lookup(posts, &parent_a));
+
+        //Verificacao das questoes
+        if(getOwnerId_question(q) == id2)
+            if(!exists_already(final, n)) g_array_append_val(final, n); //adiciona por nao existir
+
+        //Verificacao das respostas das questoes
+        GArray* a2 = getIdAnswers_question(q);
+        if((a2->len)){
+            for(int j = 0; j < a2->len; j++){
+                size_t n_an = g_array_index(a2, size_t, j);
+                ANSWER a = getAnswer_post(g_hash_table_lookup(posts, &n_an));
+
+                if(getOwnerId_answer(a) == id2)
+                    if(!exists_already(final, n_an)) g_array_append_val(final, n_an);
+            }
+        } 
+    }
+
+}
+
+LONG_list both_participated(TAD_community com, long id1, long id2, int N){
+    PROFILE teste = g_hash_table_lookup(getProfiles_TAD(com), &id1);
+    GArray* a1 = getId_answers_array_profile(teste);
+    if (!(a1->len)) return NULL; //caso nao tenha respostas
+
+    GHashTable* posts = getPosts_TAD(com);
+    GArray* final = g_array_new(FALSE, FALSE, sizeof(size_t));
+    
+    get_common_posts(final, com, id1, id2);
+    get_common_posts(final, com, id2, id1);
+    
+
+    //Ordenar por ordem inversa e retornar ultimas
+
+
+    g_array_free(final, TRUE); //i think
+    return NULL;
+}
+//END QUERY nº9
+
+
+//QUERY nº10
 long better_answer(TAD_community com, long id){
     QUESTION q = getQuestion_post(g_hash_table_lookup(getPosts_TAD(com), &id));
     long res = 0;
     GArray* answers = getIdAnswers_question(q);
 
-    int tmp;
-    int total;
-    int scr;
-    long owner_id;
+    size_t tmp;
+    size_t total;
+    size_t scr;
+    size_t owner_id;
     PROFILE p;
-    long rep;
+    size_t rep;
 
     //Setting up first values
-    long id_ans = g_array_index(answers, long, 0);
+    size_t id_ans = g_array_index(answers, size_t, 0);
     ANSWER a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));       
     if(a != NULL){
         scr      = getScore_answer(a);
@@ -130,6 +237,41 @@ long better_answer(TAD_community com, long id){
     }
     return total;
 }
+//END QUERY nº10
+
+//QUERY nº11
+LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
+    return NULL;
+}
+//END QUERY nº11
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*

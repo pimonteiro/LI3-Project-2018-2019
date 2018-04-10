@@ -14,7 +14,12 @@
 int main(){
 
     TAD_community cum = init();
-    load(cum, "/home/herulume/Desktop");
+    //load(cum, "/home/herulume/Desktop");
+    load(cum, "/home/pimonteiro/Desktop/ubuntu");
+    
+
+
+    //LONG_list a = both_participated(cum, 136, 52, 1);
     cum = clean(cum);
   	return 0;
 }
