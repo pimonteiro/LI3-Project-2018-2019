@@ -7,11 +7,11 @@
 #include "post.h"
 typedef struct profile* PROFILE;
 
-POST* getTenPosts_profile(PROFILE p);
+
 PROFILE create_profile(char * my_about, long my_id, char * my_name, int my_reputation);
 void free_profile(void* p);
 
-GArray* getId_answers_array_profile(PROFILE p);
+GSequence* getPosts_profile(PROFILE p);
 char* getAboutMe_profile(PROFILE p);
 char* getName_profile(PROFILE p);
 long getNposts_profile(PROFILE p);
@@ -24,7 +24,5 @@ void setId_profile(PROFILE p, long my_id);
 void setName_profile(PROFILE p, char* my_name);
 void setReputation_profile(PROFILE p, int my_reputation);
 
-void addIdAnswer_profile(PROFILE p, long id);
-void increaseNposts_profile(PROFILE p);
 void insertLastest_profile(PROFILE p, POST post);
 #endif /* __PROFILE_H__ */

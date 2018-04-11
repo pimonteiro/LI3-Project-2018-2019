@@ -6,6 +6,7 @@
 #define LEFT(i) 2*i + 1
 #define RIGHT(i) 2*i + 2
 
+/* Estrutura da heap, o seu tamanho,elementos*/
 struct heap{
     int   size; // Tamanho
     int   load;  // Load da HEAP
@@ -13,6 +14,7 @@ struct heap{
     heapCmpFunc cmp; // Function pointers
 };
 
+/*Função responsável pela inicialização da estrutura da heap*/
 HEAP initHeap(int size, heapCmpFunc func) {
     HEAP h = malloc(sizeof(struct heap));
     if(h != NULL) {
@@ -24,6 +26,7 @@ HEAP initHeap(int size, heapCmpFunc func) {
     return h;
 }
 
+/*Função que liberta elementos da heap e a própria heap*/
 void free_heap(void* h){
     if(h == NULL) return;
     HEAP heap = (HEAP)h;
@@ -32,13 +35,14 @@ void free_heap(void* h){
     free(heap);
 }
 
+/*Função que troca 2 elementos de posição */
 static void swap(HEAP h, int a, int b) {
     void* tmp = h->array[a];
     h->array[a] = h->array[b];
     h->array[b] = tmp;
 }
 
-
+/*Função que remove um elemento da heap de acordo com o algoritmo bubbleUp*/
 static void bubbleUp(HEAP h, int i) {
     while (i != 0 && (h->cmp(h->array[i], h->array[PARENT(i)]) >= 1) )  { // enquanto actual > pai
         swap(h, i, PARENT(i));
@@ -46,7 +50,7 @@ static void bubbleUp(HEAP h, int i) {
     }
 }
 
-
+/*Função responsável pela inserção de um elemento na árvore */
 int insertHeap(HEAP h, void* elem) {
     if (h->load == h->size) {
         h->array= realloc(h->array, 2*(h->size)*sizeof(void*));

@@ -2,15 +2,16 @@
 #include "answer.h"
 #include "question.h"
 
+/*Estrutura de um post */
 struct post {
-  long type; // 1 Question 2 Anser
+  long type; // 1 Question 2 Answer
   union content {
     QUESTION q;
     ANSWER a;
   }content;
 };
 
-
+/*Função responsável pela criação de um post */
 POST create_post(long type, QUESTION q, ANSWER a){
     POST p = malloc(sizeof(struct post));
 
@@ -26,6 +27,7 @@ POST create_post(long type, QUESTION q, ANSWER a){
     return p;
 }
 
+/*Função que liberta o post da memória  */
 void free_post(void* p){
     POST post = (POST) p;
     if(getType_post(post) == 1)
@@ -36,7 +38,7 @@ void free_post(void* p){
     free(post);
 }
 
-
+/*As funções que se seguem são responsáveis pelos getters dos elementos do post */
 long getType_post(POST p){
     return p->type;
 }

@@ -23,7 +23,7 @@ STR_pair get_info_from_post(TAD_community com, QUESTION q){
     titulo = getTitle_question(q);
 
     long owner_ptr = getOwnerId_question(q);
-    
+
     PROFILE profile_ptr = g_hash_table_lookup(getProfiles_TAD(com), &owner_ptr);
 
     if(profile_ptr != NULL){
@@ -54,7 +54,7 @@ STR_pair info_from_post(TAD_community com, long id){
         }
     }
 
-    return ret;
+    return ret=0;
 }
 //END QUERY nº1
 
@@ -100,7 +100,7 @@ USER get_user_info(TAD_community com, long id){
     //Maybe guardar, em vez de um array, uma struct que tem id e tipo_post (1/2), assim estariam por ordem cronologica e
     //seria mais eficiente procurar
 
-    
+
     return res;
 }
 //END QUERY nº5
@@ -139,19 +139,59 @@ int exists_already(GArray* a, long n){
     return 0;
 } 
 
+typedef struct both_peeps {
+    GHashTable* posts;
+    long id1;
+    long id2;
+    GArray* final;  
+}* TMP1;
 
-void get_common_posts(GArray* final, TAD_community com, long id1, long id2){
+
+GFunc sequence_function(gpointer elem, void* user_data){
+    POST p = (POST) elem;
+    TMP1 pts = (TMP1) user_data;
+    size_t parent_a = getParentId_answer(getAnswer_post(p));
+    QUESTION q = g_hash_table_lookup(pts->posts, &parent_a);
+
+    //Verificacao das questoes
+    if(getOwnerId_question(q) == pts->id2)
+        if(!exists_already(pts->final, parent_a)) g_array_append_val(pts->final, parent_a); //adiciona por nao existir
+
+    //Verificacao das respostas das questoes
+    GArray* a2 = getIdAnswers_question(q);
+        if((a2->len)){
+            for(int j = 0; j < a2->len; j++){
+                size_t n_an = g_array_index(a2, size_t, j);
+                ANSWER a = getAnswer_post(g_hash_table_lookup(pts->posts, &n_an));
+
+                if(getOwnerId_answer(a) == pts->id2)
+                    if(!exists_already(pts->final, n_an))
+                        g_array_append_val(pts->final, n_an);
+            }
+        }
+}
+
+/*void get_common_posts(GArray* final, TAD_community com, long id1, long id2){
     GHashTable* posts = getPosts_TAD(com);
-    GArray* a1 = getId_answers_array_profile(g_hash_table_lookup(getProfiles_TAD(com), &id1));
+    GSequence* a1 = getId_answers_array_profile(g_hash_table_lookup(getProfiles_TAD(com), &id1));
+
+    TMP1 user_data;
+    user_data->posts = posts;
+    user_data->final = final;
+    user_data->id1 = id1;
+    user_data->id2 = id2;
+
+    g_sequence_foreach(a1, (GFunc)sequence_function,  (gpointer)user_data);
+
 
     for(int i = 0; i < a1->len; i++){
-        size_t n = g_array_index(a1, size_t, i);
-        size_t parent_a = getParentId_answer(g_hash_table_lookup(posts, &n));
-        QUESTION q = getQuestion_post(g_hash_table_lookup(posts, &parent_a));
+        //size_t n = g_array_index(a1, size_t, i);
+        //size_t parent_a = getParentId_answer(g_hash_table_lookup(posts, &n));
+        //QUESTION q = getQuestion_post(g_hash_table_lookup(posts, &parent_a));
 
         //Verificacao das questoes
-        if(getOwnerId_question(q) == id2)
-            if(!exists_already(final, n)) g_array_append_val(final, n); //adiciona por nao existir
+        //if(getOwnerId_question(q) == id2)
+         //   if(!exists_already(final, n)) g_array_append_val(final, n); //adiciona por nao existir
 
         //Verificacao das respostas das questoes
         GArray* a2 = getIdAnswers_question(q);
@@ -166,18 +206,35 @@ void get_common_posts(GArray* final, TAD_community com, long id1, long id2){
         } 
     }
 
-}
+}*/
 
 LONG_list both_participated(TAD_community com, long id1, long id2, int N){
-    PROFILE teste = g_hash_table_lookup(getProfiles_TAD(com), &id1);
-    GArray* a1 = getId_answers_array_profile(teste);
-    if (!(a1->len)) return NULL; //caso nao tenha respostas
+    PROFILE p1 = g_hash_table_lookup(getProfiles_TAD(com), &id1);
+    
+    if (!(getNposts_profile(p1))) return NULL; //caso nao tenha respostas
+
+    PROFILE p2 = g_hash_table_lookup(getProfiles_TAD(com), &id2);
+    if (!(getNposts_profile(p2))) return NULL; //caso nao tenha respostas
+
 
     GHashTable* posts = getPosts_TAD(com);
     GArray* final = g_array_new(FALSE, FALSE, sizeof(size_t));
     
-    get_common_posts(final, com, id1, id2);
-    get_common_posts(final, com, id2, id1);
+    TMP1 user_data;
+
+    GSequence* a1 = getPosts_profile(p1);
+    user_data->posts = posts;
+    user_data->final = final;
+    user_data->id1 = id1;
+    user_data->id2 = id2;
+    g_sequence_foreach(a1, sequence_function,  (gpointer)user_data);
+
+
+
+    a1 = getPosts_profile(p2);
+    user_data->id1 = id2;
+    user_data->id2 = id1;
+    g_sequence_foreach(a1, sequence_function,  (gpointer)user_data);
     
 
     //Ordenar por ordem inversa e retornar ultimas
@@ -195,12 +252,12 @@ long better_answer(TAD_community com, long id){
     long res = 0;
     GArray* answers = getIdAnswers_question(q);
 
-    size_t tmp;
-    size_t total;
-    size_t scr;
+    size_t tmp = 0;
+    size_t total = 0;
+    size_t scr = 0;
     size_t owner_id;
     PROFILE p;
-    size_t rep;
+    size_t rep = 0;
 
     //Setting up first values
     size_t id_ans = g_array_index(answers, size_t, 0);
@@ -216,10 +273,10 @@ long better_answer(TAD_community com, long id){
         res   = getID_answer(a);
         total = tmp;
     }
-    
+
     for(int i = 1; i < answers->len; i++){
         id_ans = g_array_index(answers, long, i);
-        a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));       
+        a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));
         if(a != NULL){
             scr      = getScore_answer(a);
             //long comt   = getN_Comments_answer(a);

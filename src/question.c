@@ -4,6 +4,8 @@
 #include "glib.h"
 #include <string.h>
 
+/*Estrutura que contém os principais atributos associados às perguntas:apontador para a estrutura Data,
+ id das respostas,titulo das questões,tags,id das questões,número de respostas,score.*/
 struct question {
     MyDate creation_date;
 
@@ -19,6 +21,7 @@ struct question {
     int score;
 };
 
+/*Função responsável pela criação de uma pergunta de acordo com os seus atributos */
 QUESTION create_question(long my_id, char * my_title, char* my_tags, long my_owner_id,  MyDate my_creation_date, int my_score, long my_n_answer){
     QUESTION q = malloc(sizeof(struct question));
 
@@ -34,6 +37,7 @@ QUESTION create_question(long my_id, char * my_title, char* my_tags, long my_own
     return q;
 }
 
+/*Função que liberta uma pergunta da memória */
 void free_question(void* q){
     QUESTION tmp = (QUESTION)q;
 
@@ -67,6 +71,10 @@ void free_question(void* q){
     return ret;
 
 }*/
+
+
+/*As funções que se seguem são responsáveis pelos getters  dos vários atributos
+das questoes para que seja possível a sua leitura  */
 
 long getId_question(QUESTION q){
     return q->id_question;
@@ -103,7 +111,8 @@ GArray* getIdAnswers_question(QUESTION q){
     return q->id_answers ? q->id_answers : NULL;
 }
 
-
+/* As funções que se seguem são responsáveis pelos setters  dos vários atributos
+das questoes de modo a ser capaz uma possível alteração/modificação */
 void setId_question(QUESTION q, long my_id_question){
     q->id_question = my_id_question;
 }
