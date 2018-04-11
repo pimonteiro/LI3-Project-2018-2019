@@ -57,8 +57,8 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
     GHashTable* hash = getProfiles_TAD((TAD_community)user_data);
 
 
-    xmlChar* about_me = NULL;
-    xmlChar* name = NULL;
+    char* about_me = NULL;
+    char* name = NULL;
     long int id = 0;
     int reputation = 0;
 
@@ -67,26 +67,22 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
       switch(lvl){
         case 0 : id = strtol((const char*)attrs[1], NULL, 10); break;
         case 1 : reputation = strtol((const char*)attrs[1], NULL, 10); break;
-        case 2 :  name  = attrs[1]; break;
-        case 3 : about_me = attrs[1]; break;
+        case 2 :  name  = (char*)attrs[1]; break;
+        case 3 : about_me = (char*)attrs[1]; break;
         default : break;
       }
       attrs = &attrs[2];
     }
 
     if(fullname[0] == 'r') {
-    /*    if (about_me == NULL) {
-            about_me = (xmlChar*)g_strdup("");
-        }*/
-
-        PROFILE u = create_profile((char*)about_me, id, (char* )name, reputation);
+        PROFILE u = create_profile(about_me, id, name, reputation);
         gint64 *key = malloc(sizeof(gint64));
         *key = id;
         g_hash_table_insert(hash, key, (gpointer)u);
     }
 
-   /* xmlFree(about_me);
-    xmlFree(name);*/
+    //xmlFree(about_me);
+    //xmlFree(name);
 }
 
 
@@ -103,14 +99,14 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
         type = strtol((const char*)attrs[3], NULL, 10);
 
 
-    xmlChar* start_tmp = NULL;
+    char* start_tmp = NULL;
     int dia, mes, ano, hora, minuto, segundo, milisegundo;
     MyDate start = NULL;
     long id=0,  owner_id=0;
     int score=0;
     // QUESTION
-    xmlChar* title = NULL;
-    xmlChar* tags = NULL;
+    char* title = NULL;
+    char* tags = NULL;
     long nquestions=0;
     /////////////////////
     // ANSWER
@@ -121,24 +117,24 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
         int lvl = attr2int_post(*attrs);
         switch(lvl){
             case 0 : id = strtol((const char*)attrs[1], NULL, 10); break;
-            case 1 : tags  = attrs[1]; break;
+            case 1 : tags  = (char*)g_strdup(attrs[1]); break;
             case 2 : score = atoi((const char*)attrs[1]); break;
-            case 3 : title  = attrs[1]; break;
+            case 3 : title  = (char*)g_strdup(attrs[1]); break;
             case 4 : parent_id  = strtol((const char*)attrs[1], NULL, 10); break;
             case 5 : nquestions = strtol((const char*)attrs[1], NULL, 10); break;
             case 6 : owner_id = strtol((const char*)attrs[1], NULL, 10); break;
-            case 7 : start_tmp  = attrs[1];
+            case 7 : start_tmp  = (char*)g_strdup(attrs[1]);
                      sscanf((char*)start_tmp, "%d-%d-%dT%d:%d:%d.%d", &ano, &mes, &dia, &hora, &minuto, &segundo, &milisegundo);
                      start = create_date(milisegundo, segundo, minuto, hora, dia, mes, ano);
                      break;
         }
         attrs = &attrs[2]; // avançar para o proximo atributo
     }
-        
+
     if(fullname[0] == 'r'){
 
         if (type == 1){
-           
+
             if (tags == NULL) {
                 tags = (xmlChar*)g_strdup("");
             }
@@ -152,7 +148,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
             g_hash_table_insert(hash, key, (gpointer)p);
 
-          //  insert_TARDIS(type40, q, start, 1);
+            insert_TARDIS(type40, q, start, 1);
             PROFILE prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
             if(prof != NULL){
                 insertLastest_profile(prof, p);
@@ -176,9 +172,9 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
         }
     }
 
-    /*  xmlFree(title);
-        xmlFree(tags);
-        xmlFree(start_tmp);*/
+        g_free(title);
+        g_free(tags);
+        g_free(start_tmp);
 
 }
 

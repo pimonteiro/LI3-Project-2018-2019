@@ -1,13 +1,13 @@
 #include "profile.h"
 #include <stdlib.h>
 #include <glib.h>
+#include <string.h>
 #include "post.h"
 #include "question.h"
 #include "answer.h"
 #include "mydate.h"
-#include "heap.h"
 #include <stdlib.h>
-
+#include <libxml/parserInternals.h>
 #define TOPTEN(i) (i < 11 ?  i++ : i )
 
 /*Estrutura que contém os principais atributos associados aos utilizadores */
@@ -48,6 +48,7 @@ PROFILE create_profile(char * my_about, long my_id, char * my_name, int my_reput
 
     p->inserts=0;
     p->n_posts= 0;
+    p->about_me=NULL;
     p->about_me = g_strdup(my_about);
     p->id = my_id;
     p->name = g_strdup(my_name);
@@ -62,8 +63,8 @@ void free_profile(void* p){
     PROFILE tmp = (PROFILE)p;
 
     g_sequence_free(tmp->posts);
-    g_free(tmp->name);
     g_free(tmp->about_me);
+    g_free(tmp->name);
 
     free(tmp);
 }
