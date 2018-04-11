@@ -26,9 +26,12 @@ TAD_community create_main_struct(){
 /*Função que liberta tanto as componentes existentes na Estrutura Principal como a Estrutura em si */
 TAD_community clean(TAD_community com){
     g_hash_table_destroy(com->profiles);
-    g_hash_table_destroy(com->posts);
     g_hash_table_destroy(com->tags);
+
     takeOf_tardis(com->type40);
+    g_hash_table_destroy(com->posts);
+
+
     free(com);
 
     return NULL; // kek.exe

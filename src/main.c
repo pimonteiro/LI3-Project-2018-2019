@@ -12,14 +12,18 @@
 
 
 int main(){
+    /*TAD_community cum = init();
 
-    TAD_community cum = init();
-    //load(cum, "/home/herulume/Desktop");
-    load(cum, "/home/pimonteiro/Desktop/ubuntu");
+    load(cum, "/home/herulume/Desktop");
     
+	GSequence* cona =  getFromDate_TARDIS(getTARDIS_TAD(cum), d, 1);
+    MyDate d = create_date(0, 0, 0, 0, 13, 9, 2010);
+    QUESTION q =  g_sequence_get(g_sequence_get_begin_iter(cona));
 
+    cum = clean(cum);*/
 
-    //LONG_list a = both_participated(cum, 136, 52, 1);
+    load(cum, "/home/pimonteiro/Desktop/ubuntu");
+    LONG_list a = both_participated(cum, 136, 52, 1);
     cum = clean(cum);
   	return 0;
 }

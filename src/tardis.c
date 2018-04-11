@@ -46,7 +46,7 @@ TARDIS landing_tardis(int n_years){
 
     int years = n_years;
     type40->year_questions = calloc(years, sizeof(GSequence**));
-    type40->year_answers =  calloc(years, sizeof(GSequence**));
+    type40->year_answers = calloc(years, sizeof(GSequence**));
 
     return type40;
 }
@@ -58,8 +58,8 @@ void takeOf_tardis(void* sexy){
 
     for(i=0; i < type40->years; i++){
       if(type40->year_questions[i] != NULL){
+        GSequence** array_mes = type40->year_questions[i];
         for(j=0; j < DIAS_MESES; j++){
-          GSequence** array_mes = type40->year_questions[i];
           if(array_mes[j] != NULL)
           g_sequence_free(array_mes[j]);
         }
@@ -74,9 +74,10 @@ void takeOf_tardis(void* sexy){
           if(array_mes[j] != NULL)
           g_sequence_free(array_mes[j]);
         }
-      free(type40->year_answers[i]);
+      free(type40->year_questions[i]);
       }
     }
+
 
     free(type40->year_questions);
     free(type40->year_answers);
@@ -94,16 +95,15 @@ void insert_TARDIS(TARDIS type40, void* elem, MyDate d, int type){
     if(type == 1){
       array_mes = type40->year_questions[index_ano];
       if(array_mes == NULL){
-        array_mes = calloc(DIAS_MESES+8, sizeof(GSequence*));
+        array_mes = calloc(DIAS_MESES, sizeof(GSequence*));
         type40->year_questions[index_ano] = array_mes;
       }
     }
 
-
     if(type == 2){
       array_mes = type40->year_answers[index_ano];
       if(array_mes == NULL){
-        array_mes = calloc(DIAS_MESES+8, sizeof(GSequence*));
+        array_mes = calloc(DIAS_MESES, sizeof(GSequence*));
         type40->year_answers[index_ano] = array_mes;
       }
     }
