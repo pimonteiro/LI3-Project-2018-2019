@@ -8,5 +8,5 @@ typedef struct tardis * TARDIS;
 TARDIS landing_tardis(int n_years);
 void takeOf_tardis(void* sexy);
 void insert_TARDIS(TARDIS type40, void* elem, MyDate d, int type);
-GSequence* getFromDate_TARDIS(TARDIS m, MyDate d, int type);
+GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, GFunc f);
 #endif
