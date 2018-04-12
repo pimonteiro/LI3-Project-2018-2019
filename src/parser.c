@@ -54,7 +54,7 @@ static void error(void *user_data, const char *msg, ...) {
 
 void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar **attrs) {
 
-    GHashTable* hash = getProfiles_TAD((TAD_community)user_data);
+    TAD_community com = (TAD_community)user_data;
 
 
     char* about_me = NULL;
@@ -65,9 +65,9 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
     while (attrs && *attrs) {
       int lvl = attr2int_user(*attrs);
       switch(lvl){
-        case 0 : id = strtol((const char*)attrs[1], NULL, 10); break;
+        case 0 : id = strtol((char*)attrs[1], NULL, 10); break;
         case 1 : reputation = strtol((const char*)attrs[1], NULL, 10); break;
-        case 2 :  name  = (char*)attrs[1]; break;
+        case 2 : name  = (char*)attrs[1]; break;
         case 3 : about_me = (char*)attrs[1]; break;
         default : break;
       }
@@ -76,9 +76,7 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
 
     if(fullname[0] == 'r') {
         PROFILE u = create_profile(about_me, id, name, reputation);
-        gint64 *key = malloc(sizeof(gint64));
-        *key = id;
-        g_hash_table_insert(hash, key, (gpointer)u);
+        insertProfile_TAD(com, u, id);
     }
 
     //xmlFree(about_me);
@@ -89,9 +87,6 @@ void startElementUsers(void* user_data, const xmlChar *fullname, const xmlChar *
 
 void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar **attrs){
     TAD_community com = (TAD_community)user_data;
-    GHashTable* hash = getPosts_TAD(com);
-    TARDIS type40 = getTARDIS_TAD(com);
-    GHashTable* hash_users = getProfiles_TAD(com);
 
 
     long type = 0;
@@ -117,13 +112,13 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
         int lvl = attr2int_post(*attrs);
         switch(lvl){
             case 0 : id = strtol((const char*)attrs[1], NULL, 10); break;
-            case 1 : tags  = (char*)g_strdup(attrs[1]); break;
+            case 1 : tags  = (char*)(attrs[1]); break;
             case 2 : score = atoi((const char*)attrs[1]); break;
-            case 3 : title  = (char*)g_strdup(attrs[1]); break;
+            case 3 : title  = (char*)(attrs[1]); break;
             case 4 : parent_id  = strtol((const char*)attrs[1], NULL, 10); break;
             case 5 : nquestions = strtol((const char*)attrs[1], NULL, 10); break;
             case 6 : owner_id = strtol((const char*)attrs[1], NULL, 10); break;
-            case 7 : start_tmp  = (char*)g_strdup(attrs[1]);
+            case 7 : start_tmp  = (char*)(attrs[1]);
                      sscanf((char*)start_tmp, "%d-%d-%dT%d:%d:%d.%d", &ano, &mes, &dia, &hora, &minuto, &segundo, &milisegundo);
                      start = create_date(milisegundo, segundo, minuto, hora, dia, mes, ano);
                      break;
@@ -135,46 +130,21 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
 
         if (type == 1){
 
-            if (tags == NULL) {
-                tags = (xmlChar*)g_strdup("");
-            }
-
-            QUESTION q = create_question(id, (char*)title, (char*)tags, owner_id, start, score, nquestions);
+            QUESTION q = create_question(id, title, tags, owner_id, start, score, nquestions);
             POST p = create_post(type, q, NULL);
-
-            gint64 *key = malloc(sizeof(gint64));
-            *key = id;
-
-
-            g_hash_table_insert(hash, key, (gpointer)p);
-
-            insert_TARDIS(type40, q, start, 1);
-            PROFILE prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
-            if(prof != NULL){
-                insertLastest_profile(prof, p);
-            }
+            insertQuestion_TAD(com, q, id, owner_id, p, start);
         }
 
         if (type == 2) {
             ANSWER a = create_answer(parent_id, owner_id, id, start, score);
             POST p = create_post(type, NULL, a);
-            gint64 *key = malloc(sizeof(gint64));
-            *key = id;
-
-            g_hash_table_insert(hash, key, (gpointer)p);
-            insert_TARDIS(type40, a, start, 2);
-
-
-            PROFILE prof = (PROFILE)g_hash_table_lookup(hash_users, &owner_id);
-            if(prof != NULL){
-                insertLastest_profile(prof, p);
-            }
+            insertAnswer_TAD(com, a, id, owner_id, p, start);
         }
     }
 
-        g_free(title);
+     /*   g_free(title);
         g_free(tags);
-        g_free(start_tmp);
+        g_free(start_tmp);*/
 
 }
 
