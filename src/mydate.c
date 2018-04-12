@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "mydate.h"
+#include "date.h"
 
 /*Estrutura das datas */
 struct mydate {
@@ -25,6 +26,19 @@ MyDate create_date(int milisegundo, int segundo, int minuto, int hora, int dia, 
     d->ano = ano;
 
     return d;
+}
+
+MyDate create_date_with_teachers_date(Date d){
+    MyDate new = malloc(sizeof(struct mydate));
+    new->ano = get_year(d);
+    new->mes = get_month(d);
+    new->dia = get_day(d);
+    new->minuto = 0;
+    new->hora = 0;
+    new->segundo = 0;
+    new->milisegundo = 0;
+    
+    return new;
 }
 
 /*Função que faz free das datas */

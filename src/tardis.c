@@ -121,7 +121,7 @@ void insert_TARDIS(TARDIS type40, void* elem, MyDate d, int type){
 }
 
 GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, GFunc f){
-    GSequence* return_value = NULL;
+    GSequence* return_value = g_sequence_new(NULL);
     int index_ano_inicio = get_ano(inicio) - 2008;
     int index_mes_inicio = (get_dia(inicio)-1) + (31*(get_mes(inicio)-1));
     int mes_inicio = get_mes(inicio)-1;

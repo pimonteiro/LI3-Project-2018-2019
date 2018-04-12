@@ -66,8 +66,32 @@ LONG_list top_most_active(TAD_community com, int N){
 
 
 //QUERY nº3
+typedef struct query3{
+    long n_answers;
+    long n_questions;
+}* QUERY3;
+
+GFunc query_3_count_posts(gpointer data, gpointer user_data){
+    QUERY3 tmp = (QUERY3) user_data;
+    POST p = (POST) data;
+    if(getType_post(p) == 1) tmp->n_questions++;
+    else tmp->n_answers++;
+}
+
 LONG_pair total_posts(TAD_community com, Date begin, Date end){
-    return NULL;
+    GSequence* seq = getRangeFilter_TARDIS(getTARDIS_TAD(com), begin, end, 1, NULL);
+
+    if(!g_sequence_get_length(seq)) return NULL;
+
+    QUERY3 user_data;
+    user_data->n_answers   = 0;
+    user_data->n_questions = 0;
+    GSequenceIter* bg  = g_sequence_get_begin_iter(seq);
+    GSequenceIter* ed  = g_sequence_get_end_iter(seq);
+    g_sequence_foreach_range (bg, ed, (GFunc) query_3_count_posts, user_data);
+    
+    LONG_pair ret = create_long_pair(user_data->n_questions, user_data->n_answers);
+    return ret;
 }
 //END QUERY nº3
 
@@ -138,13 +162,13 @@ GFunc query_7_convert_long(gpointer data, gpointer user_data){
 }
 
 LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end){
-    GSequence* seq = NULL;
+    GSequence* seq = getRangeFilter_TARDIS(getTARDIS_TAD(com), create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 1, cmp_func);
     //Verificar se sequencia vazia is worth it?
-    void* cmp_data;
-    g_sequence_sort (seq, cmp_func, cmp_data);
+    //void* cmp_data;
+    //g_sequence_sort (seq, cmp_func, cmp_data);
 
-    //Transformacao para LONG_list
-    QUERY7 user_data;
+    //Transformacao para LONG_list CUIDADO o N está errado: tenho de ver se nao é menor que N
+    QUERY7 user_data = malloc(sizeof(struct query7));
     user_data->ret = create_list(N);
     user_data->i   = 0;
 
@@ -257,14 +281,14 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
     GHashTable* posts = getPosts_TAD(com);
     GArray* final = g_array_new(FALSE, FALSE, sizeof(size_t));
     
-    QUERY9 user_data;
+    QUERY9 user_data = malloc(sizeof(struct query9));
 
     GSequence* a1 = getPosts_profile(p1);
     user_data->posts = posts;
     user_data->final = final;
     user_data->id1 = id1;
     user_data->id2 = id2;
-    g_sequence_foreach(a1, sequence_function,  (gpointer)user_data);
+    g_sequence_foreach(a1, (GFunc)sequence_function,  (gpointer)user_data);
 
 
 

@@ -89,7 +89,7 @@ void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, long 
   if(prof)
     insertLastest_profile(prof, p);
 
-  QUESTION q = (QUESTION)g_hash_table_lookup(com->posts, &parent_id);
+  POST q = g_hash_table_lookup(com->posts, &parent_id);
   if(q)
     setAnswers_array_question(getQuestion_post(q), id);
 

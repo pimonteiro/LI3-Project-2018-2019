@@ -22,4 +22,4 @@ Escolham as queries que querem fazer e as queries que sobrarem eu posso fazer de
 
 # Bugs
 
-
+  * Falta dar Free a estruturas usadas nas querys. Feel free buds.
