@@ -55,4 +55,4 @@ dkms.conf
 *.xml
 program*
 *.swp
-src/main.c
+*main.c

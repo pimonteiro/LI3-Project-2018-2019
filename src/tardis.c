@@ -120,6 +120,11 @@ void insert_TARDIS(TARDIS type40, void* elem, MyDate d, int type){
     }
 }
 
+void prependGSequence_TARDIS(gpointer elem, GSequence* g){
+  if(g == NULL) return NULL;
+  g_sequence_prepend(g, elem);
+}
+
 GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, GFunc f){
     GSequence* return_value = g_sequence_new(NULL);
     int index_ano_inicio = get_ano(inicio) - 2008;
@@ -138,10 +143,11 @@ GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, 
     // ano inicio == ano fim // score
     if(index_ano_inicio == index_ano_fim){
       int i = index_mes_inicio;
-      while(i != index_mes_fim){
-        g_sequence_foreach(m->year_questions[index_ano_inicio][i], g_sequence_prepend, return_value);
+      while(i < index_mes_fim){
+        if(m->year_questions[index_ano_inicio][i])
+        g_sequence_foreach(m->year_questions[index_ano_inicio][i], prependGSequence_TARDIS, return_value);
         if(dia_inicio < 31) dia_inicio++;
-        if(dia_inicio == 31 && mes_inicio < 31) mes_inicio++;
+        if(dia_inicio == 31 && mes_inicio < 12) mes_inicio++;
         i = dia_inicio-1 + (31*mes_inicio-1);
       }
     }
