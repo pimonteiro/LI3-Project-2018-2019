@@ -12,8 +12,8 @@
 
 
 int main(){
-    /*TAD_community cum = init();
-
+    TAD_community cum = init();
+    /*
     load(cum, "/home/herulume/Desktop");
     
 	GSequence* cona =  getFromDate_TARDIS(getTARDIS_TAD(cum), d, 1);
@@ -22,7 +22,7 @@ int main(){
 
     cum = clean(cum);*/
 
-    load(cum, "/home/pimonteiro/Desktop/ubuntu");
+    load(cum, "/home/pimonteiro/Desktop/android");
     LONG_list a = both_participated(cum, 136, 52, 1);
     cum = clean(cum);
   	return 0;

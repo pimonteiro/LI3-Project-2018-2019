@@ -114,8 +114,45 @@ LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
 
 
 //QUERY nº7
+
+typedef struct query7 {
+    LONG_list ret;
+    int i;
+}* QUERY7;
+
+gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
+    QUESTION q1 = getQuestion_post((POST) a);
+    QUESTION q2 = getQuestion_post((POST) b);
+
+    //Ordem decrescente de nº de respostas
+    return getNanswers_question(q2) - getNanswers_question(q1);
+    
+}
+
+GFunc query_7_convert_long(gpointer data, gpointer user_data){
+    QUERY7 tmp = (QUERY7) user_data;
+    POST p = (POST) data;
+
+    set_list(tmp->ret, tmp->i, getId_question(getQuestion_post(p)));
+    tmp->i++;
+}
+
 LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end){
-    return NULL;
+    GSequence* seq = NULL;
+    //Verificar se sequencia vazia is worth it?
+    void* cmp_data;
+    g_sequence_sort (seq, cmp_func, cmp_data);
+
+    //Transformacao para LONG_list
+    QUERY7 user_data;
+    user_data->ret = create_list(N);
+    user_data->i   = 0;
+
+    GSequenceIter* bg  = g_sequence_get_begin_iter(seq);
+    GSequenceIter* ed  = g_sequence_get_iter_at_pos(seq, N);
+    g_sequence_foreach_range (bg, ed, (GFunc) query_7_convert_long, user_data);
+
+    return user_data->ret;
 }
 //END QUERY nº7
 
@@ -139,17 +176,17 @@ int exists_already(GArray* a, long n){
     return 0;
 } 
 
-typedef struct both_peeps {
+typedef struct query9 {
     GHashTable* posts;
     long id1;
     long id2;
     GArray* final;  
-}* TMP1;
+}* QUERY9;
 
 
 GFunc sequence_function(gpointer elem, void* user_data){
     POST p = (POST) elem;
-    TMP1 pts = (TMP1) user_data;
+    QUERY9 pts = (QUERY9) user_data;
     size_t parent_a = getParentId_answer(getAnswer_post(p));
     QUESTION q = g_hash_table_lookup(pts->posts, &parent_a);
 
@@ -220,7 +257,7 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
     GHashTable* posts = getPosts_TAD(com);
     GArray* final = g_array_new(FALSE, FALSE, sizeof(size_t));
     
-    TMP1 user_data;
+    QUERY9 user_data;
 
     GSequence* a1 = getPosts_profile(p1);
     user_data->posts = posts;
@@ -264,7 +301,6 @@ long better_answer(TAD_community com, long id){
     ANSWER a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));       
     if(a != NULL){
         scr      = getScore_answer(a);
-        //long comt   = getN_Comments_answer(a);
         owner_id = getOwnerId_answer(a);
         p        = g_hash_table_lookup(getProfiles_TAD(com), &owner_id);
         rep      = getReputation_profile(p);
@@ -274,12 +310,11 @@ long better_answer(TAD_community com, long id){
         total = tmp;
     }
 
-    for(int i = 1; i < answers->len; i++){
+    for(size_t i = 1; i < answers->len; i++){
         id_ans = g_array_index(answers, long, i);
         a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));
         if(a != NULL){
             scr      = getScore_answer(a);
-            //long comt   = getN_Comments_answer(a);
             owner_id = getOwnerId_answer(a);
             p        = g_hash_table_lookup(getProfiles_TAD(com), &owner_id);
             rep      = getReputation_profile(p);
