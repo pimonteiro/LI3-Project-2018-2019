@@ -78,7 +78,7 @@ void insertQuestion_TAD(TAD_community com, QUESTION q, long id, long owner_id, P
     insertLastest_profile(prof, p);
 }
 
-void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, POST p, MyDate start){
+void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, long parent_id, POST p, MyDate start){
   gint64 *key = malloc(sizeof(gint64));
   *key = id;
   g_hash_table_insert(com->posts, key, (gpointer)p);
@@ -88,4 +88,9 @@ void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, POST 
   PROFILE prof = (PROFILE)g_hash_table_lookup(com->profiles, &owner_id);
   if(prof)
     insertLastest_profile(prof, p);
+
+  QUESTION q = (QUESTION)g_hash_table_lookup(com->posts, &parent_id);
+  if(q)
+    setAnswers_array_question(getQuestion_post(q), id);
+
 }

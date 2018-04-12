@@ -138,7 +138,7 @@ void startElementPosts(void* user_data, const xmlChar *fullname, const xmlChar *
         if (type == 2) {
             ANSWER a = create_answer(parent_id, owner_id, id, start, score);
             POST p = create_post(type, NULL, a);
-            insertAnswer_TAD(com, a, id, owner_id, p, start);
+            insertAnswer_TAD(com, a, id, owner_id,  parent_id, p, start);
         }
     }
 

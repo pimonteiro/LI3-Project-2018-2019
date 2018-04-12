@@ -17,5 +17,5 @@ TARDIS getTARDIS_TAD(TAD_community com);
 TAD_community init();
 void insertProfile_TAD(TAD_community com, PROFILE p, long id);
 void insertQuestion_TAD(TAD_community com, QUESTION q, long id, long owner_id, POST p, MyDate start);
-void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, POST p, MyDate start);
+void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, long parent_id, POST p, MyDate start);
 #endif //__MAIN_STRUCT_H__
