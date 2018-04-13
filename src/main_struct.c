@@ -94,3 +94,16 @@ void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, long 
     setAnswers_array_question(getQuestion_post(q), id);
 
 }
+
+PROFILE getProfile_TAD(TAD_community com, long id){
+  return (PROFILE)g_hash_table_lookup(com->profiles, &id);
+}
+
+
+POST getProfile_TAD(TAD_community com, long id){
+  return (POST)g_hash_table_lookup(com->posts, &id);
+}
+
+GSequence* getFromToF_TAD(TAD_community com, MyDate inicio, MyDate fim, int type, GCompareDataFunc f){
+  return getRangeFilter_TARDIS(com->type40, inicio, fim, type, f);
+}
