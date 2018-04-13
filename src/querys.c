@@ -89,7 +89,7 @@ LONG_pair total_posts(TAD_community com, Date begin, Date end){
     GSequenceIter* bg  = g_sequence_get_begin_iter(seq);
     GSequenceIter* ed  = g_sequence_get_end_iter(seq);
     g_sequence_foreach_range (bg, ed, (GFunc) query_3_count_posts, user_data);
-    
+
     LONG_pair ret = create_long_pair(user_data->n_questions, user_data->n_answers);
     return ret;
 }
@@ -103,7 +103,7 @@ LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end)
 //END QUERY nº4
 
 
-//QUERY 5 
+//QUERY 5
 USER get_user_info(TAD_community com, long id){
     USER res = NULL;
     long post_history[10];
@@ -144,16 +144,8 @@ typedef struct query7 {
     int i;
 }* QUERY7;
 
-gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
-    QUESTION q1 = getQuestion_post((POST) a);
-    QUESTION q2 = getQuestion_post((POST) b);
 
-    //Ordem decrescente de nº de respostas
-    return getNanswers_question(q2) - getNanswers_question(q1);
-    
-}
-
-GFunc query_7_convert_long(gpointer data, gpointer user_data){
+void query_7_convert_long(gpointer data, gpointer user_data){
     QUERY7 tmp = (QUERY7) user_data;
     POST p = (POST) data;
 
@@ -161,6 +153,16 @@ GFunc query_7_convert_long(gpointer data, gpointer user_data){
     tmp->i++;
 }
 
+gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
+    QUESTION qa = (QUESTION)a;
+    QUESTION qb = (QUESTION)b;
+
+    int scorea = getScore_question(qa);
+    int scoreb = getScore_question(qb);
+    //Ordem decrescente de nº de respostas
+    return scoreb - scorea;
+
+}
 LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end){
     GSequence* seq = getRangeFilter_TARDIS(getTARDIS_TAD(com), create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 1, cmp_func);
     //Verificar se sequencia vazia is worth it?
@@ -207,13 +209,13 @@ int exists_already(GArray* a, long n){
     }
 
     return 0;
-} 
+}
 
 typedef struct query9 {
     GHashTable* posts;
     long id1;
     long id2;
-    GArray* final;  
+    GArray* final;
 }* QUERY9;
 
 
@@ -273,14 +275,14 @@ GFunc sequence_function(gpointer elem, void* user_data){
                 if(getOwnerId_answer(a) == id2)
                     if(!exists_already(final, n_an)) g_array_append_val(final, n_an);
             }
-        } 
+        }
     }
 
 }*/
 
 LONG_list both_participated(TAD_community com, long id1, long id2, int N){
     PROFILE p1 = g_hash_table_lookup(getProfiles_TAD(com), &id1);
-    
+
     if (!(getNposts_profile(p1))) return NULL; //caso nao tenha respostas
 
     PROFILE p2 = g_hash_table_lookup(getProfiles_TAD(com), &id2);
@@ -289,7 +291,7 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
 
     GHashTable* posts = getPosts_TAD(com);
     GArray* final = g_array_new(FALSE, FALSE, sizeof(size_t));
-    
+
     QUERY9 user_data = malloc(sizeof(struct query9));
 
     GSequence* a1 = getPosts_profile(p1);
@@ -305,7 +307,7 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
     user_data->id1 = id2;
     user_data->id2 = id1;
     g_sequence_foreach(a1, sequence_function,  (gpointer)user_data);
-    
+
 
     //Ordenar por ordem inversa e retornar ultimas
 
@@ -331,7 +333,7 @@ long better_answer(TAD_community com, long id){
 
     //Setting up first values
     size_t id_ans = g_array_index(answers, size_t, 0);
-    ANSWER a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));       
+    ANSWER a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));
     if(a != NULL){
         scr      = getScore_answer(a);
         owner_id = getOwnerId_answer(a);

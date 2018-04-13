@@ -1,6 +1,7 @@
 #include "tardis.h"
 #include <stdlib.h>
 #include <glib.h>
+#include "question.h"
 #define DIAS_MESES 31*12
 
 struct tardis {
@@ -120,13 +121,16 @@ void insert_TARDIS(TARDIS type40, void* elem, MyDate d, int type){
     }
 }
 
-void prependGSequence_TARDIS(gpointer elem, GSequence* g){
-  if(g == NULL) return NULL;
-  g_sequence_prepend(g, elem);
+void prependGSequence_TARDIS(void* elem, void* g){
+  if(g == NULL) return;
+  gpointer e = (gpointer)elem;
+  GSequence* s = (GSequence*)g;
+  g_sequence_prepend(s, e);
 }
 
-GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, GFunc f){
+GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, GCompareDataFunc f){
     GSequence* return_value = g_sequence_new(NULL);
+
     int index_ano_inicio = get_ano(inicio) - 2008;
     int index_mes_inicio = (get_dia(inicio)-1) + (31*(get_mes(inicio)-1));
     int mes_inicio = get_mes(inicio)-1;
@@ -137,20 +141,24 @@ GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, 
     int mes_fim = get_mes(fim) -1;
 
 
-    if(index_ano_fim < index_ano_inicio) return NULL;
-    if(index_ano_inicio == index_ano_fim && index_mes_fim < index_mes_inicio) return NULL;
+    if(index_ano_fim < index_ano_inicio)  return NULL;
+    if(index_ano_inicio == index_ano_fim && index_mes_fim < index_mes_inicio)  return NULL;
 
-    // ano inicio == ano fim // score
-    if(index_ano_inicio == index_ano_fim){
+    while(index_ano_inicio <= index_ano_fim){
       int i = index_mes_inicio;
       while(i < index_mes_fim){
-        if(m->year_questions[index_ano_inicio][i])
-        g_sequence_foreach(m->year_questions[index_ano_inicio][i], prependGSequence_TARDIS, return_value);
+        if(!m->year_questions[index_ano_inicio]) break;
+        if(m->year_questions[index_ano_inicio][i]){
+          g_sequence_foreach(m->year_questions[index_ano_inicio][i], prependGSequence_TARDIS, return_value);
+        }
         if(dia_inicio < 31) dia_inicio++;
-        if(dia_inicio == 31 && mes_inicio < 12) mes_inicio++;
-        i = dia_inicio-1 + (31*mes_inicio-1);
+        if(dia_inicio == 31 && mes_inicio < 12){ ++mes_inicio; dia_inicio = 0; }
+        i = dia_inicio + (31*mes_inicio);
       }
+      ++index_ano_inicio;
     }
 
+    g_sequence_sort(return_value, f, NULL);
+    printf("%d\n", g_sequence_get_length(return_value));
     return return_value;
 }
