@@ -79,7 +79,7 @@ GFunc query_3_count_posts(gpointer data, gpointer user_data){
 }
 
 LONG_pair total_posts(TAD_community com, Date begin, Date end){
-    GSequence* seq = getRangeFilter_TARDIS(getTARDIS_TAD(com), begin, end, 1, NULL);
+    GSequence* seq = getRangeFilter_TARDIS(getTARDIS_TAD(com), create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 1, NULL);
 
     if(!g_sequence_get_length(seq)) return NULL;
 
@@ -167,6 +167,8 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
     //void* cmp_data;
     //g_sequence_sort (seq, cmp_func, cmp_data);
 
+    if(g_sequence_is_empty(seq)) return NULL;
+
     //Transformacao para LONG_list CUIDADO o N está errado: tenho de ver se nao é menor que N
     QUERY7 user_data = malloc(sizeof(struct query7));
     user_data->ret = create_list(N);
@@ -174,6 +176,13 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
 
     GSequenceIter* bg  = g_sequence_get_begin_iter(seq);
     GSequenceIter* ed  = g_sequence_get_iter_at_pos(seq, N);
+
+    QUESTION a = getQuestion_post(g_sequence_get(bg));
+
+    for(int i = 0; i < N; i++){
+        set_list(user_data->ret, i, 0);
+    }
+
     g_sequence_foreach_range (bg, ed, (GFunc) query_7_convert_long, user_data);
 
     return user_data->ret;
