@@ -107,21 +107,21 @@ GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, 
 
     int index_ano_fim = get_ano(fim) - 2008;
     int index_mes_fim = (get_dia(fim)-1) + (31*(get_mes(fim)-1));
-/* 
+
     if(type == 1)
       anos = m->year_questions[index_ano_inicio];
     if(type == 2)
       anos = m->year_answers[index_ano_inicio]
 
-    assert(index_ano_fim < index_ano_inicio);
+    assert(index_ano_incio <= index_ano_fim);
     if(index_ano_inicio == index_ano_fim)
-      assert(index_mes_fim < index_mes_inicio);
+      assert(index_mes_inicio <= index_mes_fim);
 
     while(index_ano_inicio <= index_ano_fim){
       while(index_mes_inicio <= index_mes_fim){
         if(!anos) break;
         if(anos[index_mes_inicio]){
-          g_sequence_foreach(anos[index_ano_inicio], prependGSequence_TARDIS, sorted);   //pus index_ano_inicio em vez de i FILIPE
+          g_sequence_foreach(anos[index_mes_inicio], prependGSequence_TARDIS, sorted);
         }
         if(dia_inicio < 31) dia_inicio++;
         if(dia_inicio == 31 && mes_inicio < 12){ ++mes_inicio; dia_inicio = 0; }
@@ -129,7 +129,7 @@ GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, 
       }
       ++index_ano_inicio;
     }
- */
+
     g_sequence_sort(sorted, f, NULL);
     return sorted;
 }
