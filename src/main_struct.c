@@ -100,7 +100,7 @@ PROFILE getProfile_TAD(TAD_community com, long id){
 }
 
 
-POST getProfile_TAD(TAD_community com, long id){
+POST getPost_TAD(TAD_community com, long id){
   return (POST)g_hash_table_lookup(com->posts, &id);
 }
 

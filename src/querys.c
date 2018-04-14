@@ -24,7 +24,7 @@ STR_pair get_info_from_post(TAD_community com, QUESTION q){
 
     long owner_ptr = getOwnerId_question(q);
 
-    PROFILE profile_ptr = g_hash_table_lookup(getProfiles_TAD(com), &owner_ptr);
+    PROFILE profile_ptr = getProfile_TAD(com, owner_ptr);
 
     if(profile_ptr != NULL){
         name = getName_profile(profile_ptr);
@@ -40,7 +40,7 @@ STR_pair get_info_from_post(TAD_community com, QUESTION q){
 
 
 STR_pair info_from_post(TAD_community com, long id){
-    POST post_ptr = g_hash_table_lookup(getPosts_TAD(com), &id);
+    POST post_ptr = getPost_TAD(com, id);
 
     STR_pair ret = NULL;
 
@@ -49,12 +49,11 @@ STR_pair info_from_post(TAD_community com, long id){
             ret = get_info_from_post(com, getQuestion_post(post_ptr));
         }else{
             long parent_id = getParentId_answer(getAnswer_post(post_ptr));
-            post_ptr = g_hash_table_lookup(getPosts_TAD(com), &parent_id);
+            post_ptr = getPost_TAD(com,parent_id);
             ret = get_info_from_post(com, getQuestion_post(post_ptr));
         }
     }
-
-    return ret=0;
+    return ret;
 }
 //END QUERY nº1
 
@@ -83,7 +82,7 @@ LONG_pair total_posts(TAD_community com, Date begin, Date end){
 
     if(!g_sequence_get_length(seq)) return NULL;
 
-    QUERY3 user_data;
+    QUERY3 user_data = malloc(sizeof(struct query3));
     user_data->n_answers   = 0;
     user_data->n_questions = 0;
     GSequenceIter* bg  = g_sequence_get_begin_iter(seq);
@@ -108,7 +107,7 @@ USER get_user_info(TAD_community com, long id){
     USER res = NULL;
     long post_history[10];
 
-    PROFILE profile_ptr = g_hash_table_lookup(getProfiles_TAD(com), &id);
+    PROFILE profile_ptr = getProfile_TAD(com, id);
 
     if(profile_ptr != NULL){
         char *name = getName_profile(profile_ptr);
@@ -147,9 +146,10 @@ typedef struct query7 {
 
 void query_7_convert_long(gpointer data, gpointer user_data){
     QUERY7 tmp = (QUERY7) user_data;
-    POST p = (POST) data;
+    QUESTION q = (QUESTION) data;
 
-    set_list(tmp->ret, tmp->i, getId_question(getQuestion_post(p)));
+    printf("%ld CMP\n", getId_question(q));
+    set_list(tmp->ret, tmp->i, getId_question(q));
     tmp->i++;
 }
 
@@ -163,11 +163,9 @@ gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     return scoreb - scorea;
 
 }
+
 LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end){
     GSequence* seq = getRangeFilter_TARDIS(getTARDIS_TAD(com), create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 1, cmp_func);
-    //Verificar se sequencia vazia is worth it?
-    //void* cmp_data;
-    //g_sequence_sort (seq, cmp_func, cmp_data);
 
     if(g_sequence_is_empty(seq)) return NULL;
 
@@ -176,18 +174,29 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
     user_data->ret = create_list(N);
     user_data->i   = 0;
 
-    GSequenceIter* bg  = g_sequence_get_begin_iter(seq);
-    GSequenceIter* ed  = g_sequence_get_iter_at_pos(seq, N);
-
-    QUESTION a = getQuestion_post(g_sequence_get(bg));
-
     for(int i = 0; i < N; i++){
         set_list(user_data->ret, i, 0);
     }
 
+    GSequenceIter* bg  = g_sequence_get_begin_iter(seq);
+    GSequenceIter* ed  = g_sequence_get_iter_at_pos(seq, N);
+
+    GSequenceIter* tst = g_sequence_get_iter_at_pos(seq, 1);
+
+    QUESTION p1 = (QUESTION) g_sequence_get(bg);
+    QUESTION p2 = (QUESTION) g_sequence_get(tst);
+    getchar();
+
     g_sequence_foreach_range (bg, ed, (GFunc) query_7_convert_long, user_data);
 
-    return user_data->ret;
+    LONG_list ret = user_data->ret;
+    free(user_data);
+
+    for(int i = 0; i < N; i++){
+        printf("%ld\n", get_list(ret, i));
+    }
+
+    return ret;
 }
 //END QUERY nº7
 
@@ -320,7 +329,7 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
 
 //QUERY nº10
 long better_answer(TAD_community com, long id){
-    QUESTION q = getQuestion_post(g_hash_table_lookup(getPosts_TAD(com), &id));
+    QUESTION q = getQuestion_post(getPost_TAD(com, id));
     long res = 0;
     GArray* answers = getIdAnswers_question(q);
 
@@ -333,11 +342,11 @@ long better_answer(TAD_community com, long id){
 
     //Setting up first values
     size_t id_ans = g_array_index(answers, size_t, 0);
-    ANSWER a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));
+    ANSWER a = getAnswer_post(getPost_TAD(com, id_ans));
     if(a != NULL){
         scr      = getScore_answer(a);
         owner_id = getOwnerId_answer(a);
-        p        = g_hash_table_lookup(getProfiles_TAD(com), &owner_id);
+        p        = getProfile_TAD(com, owner_id);
         rep      = getReputation_profile(p);
 
         tmp   = (scr * 0.45) + (rep * 0.25) + (scr * 0.2) + (rep * 0.1);
@@ -347,11 +356,11 @@ long better_answer(TAD_community com, long id){
 
     for(size_t i = 1; i < answers->len; i++){
         id_ans = g_array_index(answers, long, i);
-        a = getAnswer_post(g_hash_table_lookup(getPosts_TAD(com), &id_ans));
+        a = getAnswer_post(getPost_TAD(com, id_ans));
         if(a != NULL){
             scr      = getScore_answer(a);
             owner_id = getOwnerId_answer(a);
-            p        = g_hash_table_lookup(getProfiles_TAD(com), &owner_id);
+            p        = getProfile_TAD(com, owner_id);
             rep      = getReputation_profile(p);
 
             tmp = (scr * 0.45) + (rep * 0.25) + (scr * 0.2) + (rep * 0.1);
@@ -428,49 +437,4 @@ LONG_list top_most_active(TAD_community com, int N){
     }
     return res;
 }
-
-
-//QUERY 3
-LONG_pair total_posts(TAD_community com, Date begin, Date end){
-    LONG_pair res; // create_long_pair(0,0);
-
-    TARDIS ord_posts = getTARDIS_TAD(com);
-
-
-
-    return res;
-}
-
-
-typedef struct id_date {
-    Date begin;
-    long id;
-} ID_DATE;
-
-//QUERY 7
-LONG_list most_answered_questions(TAD_community com, char* word, int N){
-    LONG_list res = create_list(N);
-    long i;
-    GArray *dateB = g_array_new(FALSE, FALSE, sizeof(ID_DATE));
-
-    GArray a = com->question_awnsers;
-    while(N > 0){
-    //Verificacao null?
-        int tmp = g_array_index(a, QUESTION_ANWSER, 0)->n_awnser;
-        ID_DATE new;
-        for(i = 0; i < a->len;i++){
-            if(g_array_index(a)->n_awnser > tmp){
-                tmp = t_array_index(a, QUESTION_ANSWER, i)->n_awnser;
-                new.begin = t_array_index(a, QUESTION_ANSWER, i)->start;
-                new.id    = t_array_index(a, QUESTION_ANSWER, i)->question->id;
-            }
-        }
-        append_val(dateB, new);
-
-        N--;
-    }
-
-}
-
-
 */
