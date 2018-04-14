@@ -96,8 +96,38 @@ LONG_pair total_posts(TAD_community com, Date begin, Date end){
 
 
 //QUERY nº4
+typedef struct query4 {
+    LONG_list ret;
+    int i;
+}* QUERY4;
+
+
+void query_4_convert_long(gpointer data, gpointer user_data){
+    QUERY4 tmp = (QUERY4) user_data;
+    QUESTION q = (QUESTION) data;
+
+    printf("%ld CMP\n", getId_question(q));
+}
+
 LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end){
-    return NULL;
+
+    GSequence* seq = getRangeFilter_TARDIS(getTARDIS_TAD(com), create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 1, NULL);
+
+    if(g_sequence_is_empty(seq)) return NULL;
+
+    QUERY4 user_data = malloc(sizeof(struct query4));
+
+
+
+    LONG_list ret = user_data->ret;
+    free(user_data);
+
+    return ret;
+
+
+
+
+
 }
 //END QUERY nº4
 
