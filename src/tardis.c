@@ -99,7 +99,7 @@ void prependGSequence_TARDIS(void* elem, void* g){
 
 GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, GCompareDataFunc f){
     GSequence* sorted = g_sequence_new(NULL);
-    GSequence* anos = NULL;
+    GSequence** anos = NULL;
     int index_ano_inicio = get_ano(inicio) - 2008;
     int index_mes_inicio = (get_dia(inicio)-1) + (31*(get_mes(inicio)-1));
     int mes_inicio = get_mes(inicio)-1;
@@ -111,9 +111,9 @@ GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, 
     if(type == 1)
       anos = m->year_questions[index_ano_inicio];
     if(type == 2)
-      anos = m->year_answers[index_ano_inicio]
+      anos = m->year_answers[index_ano_inicio];
 
-    assert(index_ano_incio <= index_ano_fim);
+    assert(index_ano_inicio <= index_ano_fim);
     if(index_ano_inicio == index_ano_fim)
       assert(index_mes_inicio <= index_mes_fim);
 
