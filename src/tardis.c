@@ -130,6 +130,6 @@ GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, 
       ++index_ano_inicio;
     }
 
-    g_sequence_sort(sorted, f, NULL);
+    if(f != NULL) g_sequence_sort(sorted, f, NULL);
     return sorted;
 }
