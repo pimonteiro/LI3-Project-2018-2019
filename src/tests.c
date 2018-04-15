@@ -6,6 +6,7 @@
 #include "mydate.h"
 #include "main_struct.h"
 #include "interface.h"
+#include "tests.h"
 
 #define error(query, test_case) printf("QUERY %d: %d ----- FAILED\n", query, test_case)
 #define success(query, test_case) printf("QUERY %d: %d ----- SUCCESS\n", query, test_case)
@@ -42,7 +43,7 @@ void query5_test_cases(TAD_community com){
     long* l_posts;
     
     a = get_user_info(com, 7);
-    text = "Name: \"Jonas\" Bio: \"&lt;p&gt;I'm a computer science student.&lt;/p&gt;&#xA;\"\n";
+    text = "Name: Jonas Bio: <p>I'm a computer science student.<p>\n";
     l_posts = get_10_latest_posts(a);
     if(!query_5_test_cases_aux(a, text, l_posts, 1)) success(5,1);
 
@@ -59,7 +60,7 @@ void query5_test_cases(TAD_community com){
     free_user(a);
 
     a = get_user_info(com, -1); //Negativo
-    text = "Name: \"Community\" Bio: \"&lt;p&gt;Hi, I'm not really a person.&lt;/p&gt;&#xA;&#xA;&lt;p&gt;I'm a background process that helps keep this site clean!&lt;/p&gt;&#xA;&#xA;&lt;p&gt;I do things like&lt;/p&gt;&#xA;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Randomly poke old unanswered questions every hour so they get some attention&lt;/li&gt;&#xA;&lt;li&gt;Own community questions and answers so nobody gets unnecessary reputation from them&lt;/li&gt;&#xA;&lt;li&gt;Own downvotes on spam/evil posts that get permanently deleted&lt;/li&gt;&#xA;&lt;li&gt;Own suggested edits from anonymous users&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&quot;http://meta.stackexchange.com/a/92006&quot;&gt;Remove abandoned questions&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;\"";
+    text = "Name: Community Bio: &lt;p&gt;Hi, I'm not really a person.&lt;/p&gt;&#xA;&#xA;&lt;p&gt;I'm a background process that helps keep this site clean!&lt;/p&gt;&#xA;&#xA;&lt;p&gt;I do things like&lt;/p&gt;&#xA;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Randomly poke old unanswered questions every hour so they get some attention&lt;/li&gt;&#xA;&lt;li&gt;Own community questions and answers so nobody gets unnecessary reputation from them&lt;/li&gt;&#xA;&lt;li&gt;Own downvotes on spam/evil posts that get permanently deleted&lt;/li&gt;&#xA;&lt;li&gt;Own suggested edits from anonymous users&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&quot;http://meta.stackexchange.com/a/92006&quot;&gt;Remove abandoned questions&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;";
     l_posts = get_10_latest_posts(a);
     if(!query_5_test_cases_aux(a, text, l_posts, 4)) success(5,4);
 
@@ -95,15 +96,16 @@ void query1_test_cases(TAD_community com){
     char* snd_true;
 
     a = info_from_post(com, 16); //Existe e é pergunta
-    fst_true = "\"How do I stop from getting notified twice when I get a text to my Google Voice number?\"";
-    snd_true = "\"Ravi Vyas\"";
+    fst_true = "Ravi Vyas";
+    snd_true = "How do I keep my wi-fi on in sleep mode";
     if(!query_1_test_cases_aux(a, fst_true, snd_true, 1)) success(1,1);
 
     free_str_pair(a);
 
     a = info_from_post(com, 15); //Existe e é resposta
-    fst_true = "\"How do I keep my wi-fi on in sleep mode\"";
-    snd_true = "\"danivovich\"";
+    fst_true = "danivovich";
+    snd_true = "How do I stop from getting notified twice when I get a text to my Google Voice number?";
+
     if(!query_1_test_cases_aux(a, fst_true, snd_true, 2)) success(1,2);
 
     free_str_pair(a);

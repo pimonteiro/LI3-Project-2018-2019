@@ -124,10 +124,6 @@ LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end)
 
     return ret;
 
-
-
-
-
 }
 //END QUERY nº4
 
@@ -171,6 +167,7 @@ LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
 typedef struct query7 {
     LONG_list ret;
     int i;
+    int size;
 }* QUERY7;
 
 
@@ -178,9 +175,10 @@ void query_7_convert_long(gpointer data, gpointer user_data){
     QUERY7 tmp = (QUERY7) user_data;
     QUESTION q = (QUESTION) data;
 
-    printf("%ld CMP\n", getId_question(q));
-    set_list(tmp->ret, tmp->i, getId_question(q));
-    tmp->i++;
+    if(tmp->i < tmp->size){
+        set_list(tmp->ret, tmp->i, getId_question(q));
+        tmp->i++;
+    } 
 }
 
 gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
@@ -190,7 +188,7 @@ gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     int scorea = getScore_question(qa);
     int scoreb = getScore_question(qb);
     //Ordem decrescente de nº de respostas
-    return scoreb - scorea;
+    return scorea - scoreb;
 
 }
 
@@ -203,6 +201,7 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
     QUERY7 user_data = malloc(sizeof(struct query7));
     user_data->ret = create_list(N);
     user_data->i   = 0;
+    user_data->size = N;
 
     for(int i = 0; i < N; i++){
         set_list(user_data->ret, i, 0);
@@ -211,20 +210,12 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
     GSequenceIter* bg  = g_sequence_get_begin_iter(seq);
     GSequenceIter* ed  = g_sequence_get_iter_at_pos(seq, N);
 
-    GSequenceIter* tst = g_sequence_get_iter_at_pos(seq, 1);
-
-    QUESTION p1 = (QUESTION) g_sequence_get(bg);
-    QUESTION p2 = (QUESTION) g_sequence_get(tst);
-    getchar();
-
     g_sequence_foreach_range (bg, ed, (GFunc) query_7_convert_long, user_data);
+
+
 
     LONG_list ret = user_data->ret;
     free(user_data);
-
-    for(int i = 0; i < N; i++){
-        printf("%ld\n", get_list(ret, i));
-    }
 
     return ret;
 }
@@ -251,7 +242,7 @@ int exists_already(GArray* a, long n){
 }
 
 typedef struct query9 {
-    GHashTable* posts;
+    TAD_community tad;
     long id1;
     long id2;
     GArray* final;
@@ -261,8 +252,8 @@ typedef struct query9 {
 GFunc sequence_function(gpointer elem, void* user_data){
     POST p = (POST) elem;
     QUERY9 pts = (QUERY9) user_data;
-    size_t parent_a = getParentId_answer(getAnswer_post(p));
-    QUESTION q = g_hash_table_lookup(pts->posts, &parent_a);
+    long parent_a = getParentId_answer(getAnswer_post(p));
+    QUESTION q = getQuestion_post(getPost_TAD(pts->tad, parent_a));
 
     //Verificacao das questoes
     if(getOwnerId_question(q) == pts->id2)
@@ -320,21 +311,20 @@ GFunc sequence_function(gpointer elem, void* user_data){
 }*/
 
 LONG_list both_participated(TAD_community com, long id1, long id2, int N){
-    PROFILE p1 = g_hash_table_lookup(getProfiles_TAD(com), &id1);
+    PROFILE p1 = getProfile_TAD(com, id1);
 
     if (!(getNposts_profile(p1))) return NULL; //caso nao tenha respostas
 
-    PROFILE p2 = g_hash_table_lookup(getProfiles_TAD(com), &id2);
+    PROFILE p2 = getProfile_TAD(com, id2)
     if (!(getNposts_profile(p2))) return NULL; //caso nao tenha respostas
 
 
-    GHashTable* posts = getPosts_TAD(com);
     GArray* final = g_array_new(FALSE, FALSE, sizeof(size_t));
 
     QUERY9 user_data = malloc(sizeof(struct query9));
 
     GSequence* a1 = getPosts_profile(p1);
-    user_data->posts = posts;
+    user_data->tad = com;
     user_data->final = final;
     user_data->id1 = id1;
     user_data->id2 = id2;
