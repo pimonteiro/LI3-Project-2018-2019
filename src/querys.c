@@ -242,7 +242,7 @@ int exists_already(GArray* a, long n){
 }
 
 typedef struct query9 {
-    TAD_community tad;
+    GHashTable* posts;
     long id1;
     long id2;
     GArray* final;
@@ -252,8 +252,8 @@ typedef struct query9 {
 GFunc sequence_function(gpointer elem, void* user_data){
     POST p = (POST) elem;
     QUERY9 pts = (QUERY9) user_data;
-    long parent_a = getParentId_answer(getAnswer_post(p));
-    QUESTION q = getQuestion_post(getPost_TAD(pts->tad, parent_a));
+    size_t parent_a = getParentId_answer(getAnswer_post(p));
+    QUESTION q = g_hash_table_lookup(pts->posts, &parent_a);
 
     //Verificacao das questoes
     if(getOwnerId_question(q) == pts->id2)
@@ -315,16 +315,17 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
 
     if (!(getNposts_profile(p1))) return NULL; //caso nao tenha respostas
 
-    PROFILE p2 = getProfile_TAD(com, id2)
+    PROFILE p2 = g_hash_table_lookup(getProfiles_TAD(com), &id2);
     if (!(getNposts_profile(p2))) return NULL; //caso nao tenha respostas
 
 
+    GHashTable* posts = getPosts_TAD(com);
     GArray* final = g_array_new(FALSE, FALSE, sizeof(size_t));
 
     QUERY9 user_data = malloc(sizeof(struct query9));
 
     GSequence* a1 = getPosts_profile(p1);
-    user_data->tad = com;
+    user_data->posts = posts;
     user_data->final = final;
     user_data->id1 = id1;
     user_data->id2 = id2;
