@@ -125,9 +125,21 @@ void setReputation_profile(PROFILE p, int my_reputation){
  * Aux functions
  */
 
+gint cmpPosts(gconstpointer a, gconstpointer b, gpointer cmp_data){
+    POST pa = (POST)a;
+    POST pb = (POST)b;
+
+    MyDate da = getDate_post(pa);
+    MyDate db = getDate_post(pb);
+
+    //Ordem decrescente de nº de respostas
+    return (gint)compare_dates(da,db);
+
+}
 
 /*Função responsável pela inserção do utilizador mais recente */
 void insertLastest_profile(PROFILE p, POST post){
-    g_sequence_prepend(p->posts, (gpointer)post);
+   // g_sequence_prepend(p->posts, (gpointer)post);
+     g_sequence_insert_sorted(p->posts, (gpointer)post, cmpPosts, NULL);
      ++(p->n_posts);
 }
