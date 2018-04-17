@@ -8,12 +8,9 @@
 
 typedef struct TCD_community * TAD_community;
 
-
+void profilesForEach_TAD(TAD_community com, GFunc f, gpointer user_data);
+GArray* getIds_TAD(TAD_community com, char* word);
 TAD_community create_main_struct();
-GHashTable* getProfiles_TAD(TAD_community com);
-GHashTable* getPosts_TAD(TAD_community com);
-GHashTable* getTags_TAD(TAD_community com);
-TARDIS getTARDIS_TAD(TAD_community com);
 TAD_community init();
 void insertProfile_TAD(TAD_community com, PROFILE p, long id);
 void insertQuestion_TAD(TAD_community com, QUESTION q, long id, long owner_id, POST p, MyDate start);

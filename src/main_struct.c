@@ -4,12 +4,14 @@
 #include "post.h"
 #include "tardis.h"
 #include "mydate.h"
+#include <assert.h>
 /*Estrutura principal: 3 Hashtables para users, posts e tags respetivamente. Tardis é uma estrutura de dados que armazena em 2 arrays os meses e anos. */
 struct  TCD_community{
     GHashTable* profiles;
     GHashTable* posts;
     GHashTable* tags;
     TARDIS type40;
+    GHashTable* inverted;
 
 };
 
@@ -21,6 +23,7 @@ TAD_community create_main_struct(){
     m->posts = g_hash_table_new_full(g_int64_hash, g_int64_equal, g_free, free_post);
     m->tags = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
     m->type40 = landing_tardis(2018-2008); // Upload .mp3 landing sounds
+    m->inverted = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_array_free);
     return m;
 }
 
@@ -33,28 +36,13 @@ TAD_community clean(TAD_community com){
 
     g_hash_table_destroy(com->profiles);
 
+    g_hash_table_destroy(com->inverted);
     free(com);
 
     return NULL; // kek.exe
 }
 
 /*As funções que se seguem executam os get's dos users,posts,tags e tardis para que seja possivel a sua leitura dos respetivos ficheiros */
-GHashTable* getProfiles_TAD(TAD_community com){
-    return com->profiles;
-}
-
-GHashTable* getPosts_TAD(TAD_community com){
-    return com->posts;
-}
-
-GHashTable* getTags_TAD(TAD_community com){
-    return com->tags;
-}
-
-TARDIS getTARDIS_TAD(TAD_community com){
-    return com->type40;
-}
-
 /*Função que inicializa a Estrutura de dados */
 TAD_community init(){
     return create_main_struct();
@@ -76,6 +64,22 @@ void insertQuestion_TAD(TAD_community com, QUESTION q, long id, long owner_id, P
   PROFILE prof = (PROFILE)g_hash_table_lookup(com->profiles, &owner_id);
   if(prof)
     insertLastest_profile(prof, p);
+
+  char * const copy = g_strdup(getTitle_question(q));
+  char*  pch = strtok (copy," ,.-;?!;:><\"'");
+  while (pch != NULL)
+  {
+    GArray* meh = (GArray*)g_hash_table_lookup(com->inverted, pch);
+    if(!meh){
+      meh = g_array_new(FALSE, FALSE, sizeof(long));
+      g_hash_table_insert(com->inverted, pch, meh);
+    }
+    g_array_append_val(meh, id);
+
+    pch = strtok (NULL, " ,.-;?!;:><\"");
+  }
+  g_free(copy);
+
 }
 
 void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, long parent_id, POST p, MyDate start){
@@ -106,4 +110,13 @@ POST getPost_TAD(TAD_community com, long id){
 
 GSequence* getFromToF_TAD(TAD_community com, MyDate inicio, MyDate fim, int type, GCompareDataFunc f){
   return getRangeFilter_TARDIS(com->type40, inicio, fim, type, f);
+}
+GArray* getIds_TAD(TAD_community com, char* word){
+  char* m = g_strdup(word);
+  return (GArray*)g_hash_table_lookup(com->inverted, m);
+}
+
+void profilesForEach_TAD(TAD_community com, GFunc f, gpointer user_data){
+    assert(f != NULL && user_data != NULL);
+    g_hash_table_foreach(com->profiles,f,user_data);
 }
