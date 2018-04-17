@@ -133,7 +133,7 @@ gint cmpPosts(gconstpointer a, gconstpointer b, gpointer cmp_data){
     MyDate db = getDate_post(pb);
 
     //Ordem decrescente de nº de respostas
-    return (gint)compare_dates(da,db);
+    return (gint)compare_dates(db,da);
 
 }
 
