@@ -8,7 +8,8 @@
 
 typedef struct TCD_community * TAD_community;
 
-void profilesForEach_TAD(TAD_community com, GFunc f, gpointer user_data);
+void insertTag_TAD(TAD_community com, char* tag_name, long id);
+void profilesForEach_TAD(TAD_community com, GHFunc f, gpointer user_data);
 GArray* getIds_TAD(TAD_community com, char* word);
 TAD_community create_main_struct();
 TAD_community init();

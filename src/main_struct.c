@@ -99,6 +99,10 @@ void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, long 
 
 }
 
+void insertTag_TAD(TAD_community com, char* tag_name, long id){
+  g_hash_table_insert(com->tags, tag_name, (gpointer)id);
+}
+
 PROFILE getProfile_TAD(TAD_community com, long id){
   return (PROFILE)g_hash_table_lookup(com->profiles, &id);
 }
@@ -116,7 +120,7 @@ GArray* getIds_TAD(TAD_community com, char* word){
   return (GArray*)g_hash_table_lookup(com->inverted, m);
 }
 
-void profilesForEach_TAD(TAD_community com, GFunc f, gpointer user_data){
+void profilesForEach_TAD(TAD_community com, GHFunc f, gpointer user_data){
     assert(f != NULL && user_data != NULL);
     g_hash_table_foreach(com->profiles,f,user_data);
 }

@@ -153,10 +153,10 @@ void startElementTags(void* user_data, const xmlChar *fullname, const xmlChar **
     long id = 0; // 1
     char* tag_name = NULL; // 3
     if(!attrs) return;
-    GHashTable* hash = getTags_TAD((TAD_community)user_data);
+
     id = strtol((const char*)attrs[1], NULL, 10);
     tag_name = (char*)xmlStrdup(attrs[3]);
-    g_hash_table_insert(hash, tag_name, (gpointer)id);
+    insertTag_TAD((TAD_community)user_data, tag_name, id);
 
 }
 
