@@ -270,9 +270,12 @@ gint query_6_cmp_func(gconstpointer a,gconstpointer b,gpointer cmp_data){
 
   return na-nb;
 }
+
 LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
   GSequence* seq = getFromToF_TAD(com,create_date_with_teachers_date(begin),create_date_with_teachers_date(end),1,query_6_cmp_func);
+
   if(g_sequence_is_empty(seq)) return NULL;
+
   QUERY6 user_data = malloc(sizeof(struct query6));
   user_data->i = 0;
   user_data->size = N;
@@ -356,7 +359,8 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
 
 //QUERY nº8
 LONG_list contains_word(TAD_community com, char* word, int N){
-    return NULL;
+
+
 }
 //END QUERY nº8
 
