@@ -107,31 +107,18 @@ As \textit{tags} ficaram numa \textit{Hash Table} onde cada chave é a \textit{t
 \subsection{POSTS}
 
 A representação de um \textit{Post} foi um ponto interessante deste trabalho, visto dividirem-se em \textit{Questions} e \textit{Answers}. Dado partilharem atributos, decidiu-se implmentar uma \textit{union}, de forma a conseguirmos juntar os \textit{Posts} ou separa-los como nos fosse mais conviniente.
-\subsection{Units}
 
 \subsection{HASH TABLES}
 
 Decidiu-se utilizar uma \textit{Hash Table} para agrupar os \textit{Users}. Cada chave é o \textit{Id} do \textit{User} e o valor a instancia que representa aquele \textit{User}.
 Para as \textit{tags} foi usada uma \textit{Hash Table} como dito anteriormente.
 Finalmente os \textit{Posts} também foram inseridos numa \textit{Hash Table}. Cada \textit{Id} é a chave e o valor é a \textit{union}.
-\subsection{Some Common Mistakes}
-\begin{itemize}
 
+\subsection{TARDIS}
 
-\item The word ÒdataÓ is plural, not singular.
-\item The subscript for the permeability of vacuum ?0, and other common scientific constants, is zero with subscript formatting, not a lowercase letter ÒoÓ.
-\item In American English, commas, semi-/colons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
-\item A graph within a graph is an ÒinsetÓ, not an ÒinsertÓ. The word alternatively is preferred to the word ÒalternatelyÓ (unless you really mean something that alternates).
-\item Do not use the word ÒessentiallyÓ to mean ÒapproximatelyÓ or ÒeffectivelyÓ.
-\item In your paper title, if the words Òthat usesÓ can accurately replace the word ÒusingÓ, capitalize the ÒuÓ; if not, keep using lower-cased.
-\item Be aware of the different meanings of the homophones ÒaffectÓ and ÒeffectÓ, ÒcomplementÓ and ÒcomplimentÓ, ÒdiscreetÓ and ÒdiscreteÓ, ÒprincipalÓ and ÒprincipleÓ.
-\item Do not confuse ÒimplyÓ and ÒinferÓ.
-\item The prefix ÒnonÓ is not a word; it should be joined to the word it modifies, usually without a hyphen.
-\item There is no period after the ÒetÓ in the Latin abbreviation Òet al.Ó.
-\item The abbreviation Òi.e.Ó means Òthat isÓ, and the abbreviation Òe.g.Ó means Òfor exampleÓ.
-
-\end{itemize}
-
+Em vista a resolver o problema de vários tipo de ordenação, maioritariamente em relação aos \textit{posts}, decidiu-se criar uma estrutura que consiste num array de arrays com \textit{GSequences}.
+O primeiro array corresponde aos anos, o segundo array corresponde aos meses e aos dias desse ano. O tamanho de cada array de meses e dias é sempre 31*12. Desta forma torna-se mais fácil iterar sobre a estrutura. Apesar desta forma existirem \textit{"buracos"} não são um número que justifique outra estratégia.
+Com este array de arrays, temos uma granularidade de dias, meses e anos que é o pedido pelas \textit{queries}.
 
 \section{USING THE TEMPLATE}
 
