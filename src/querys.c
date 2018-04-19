@@ -514,34 +514,27 @@ long better_answer(TAD_community com, long id){
 //END QUERY nº10
 
 //QUERY nº11
-typedef struct query11 {
-    int index;
-    PROFILE* profiles;
-    TAD_community com;
-}* QUERY11;
+gint sort_score(gconstpointer a, gconstpointer b, gpointer cmp_data){
+    QUESTION qa = (QUESTION)a;
+    QUESTION qb = (QUESTION)b;
+    TAD_community com = (TAD_community)cmp_data;
 
-GFunc sequence_q11(gpointer elem, void* data){
-    QUERY11 query11 = (QUERY11)data;
-    QUESTION q = (QUESTION)elem;
+    long ida = getOwnerId_question(qa);
+    long idb = getOwnerId_question(qb);
+    PROFILE pa = getProfile_TAD(com, ida);
+    PROFILE pb = getProfile_TAD(com, idb);
+    long repa = getReputation_profile(pa);
+    long repb = getReputation_profile(pb);
 
-    long id = getOwnerId_question(q);
-    PROFILE p = getProfile_TAD(query11->com, id);
-
-    query11->profiles[query11->index++] = p;
+    return repa - repb;
 }
-
   LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
     GSequence* seq = getFromToF_TAD(com,create_date_with_teachers_date(begin),create_date_with_teachers_date(end),1,NULL);
-
-    QUERY11 query11 = malloc(sizeof(struct query11));
-    query11->index = 0;
-    query11->com = com;
-    query11->profiles = malloc(sizeof(PROFILE)*g_sequence_get_length(seq));
+    g_sequence_sort(seq, sort_score, com);
 
     GSequenceIter* bg = g_sequence_get_begin_iter(seq);
     GSequenceIter* ed  = g_sequence_get_iter_at_pos(seq, N);
-    g_sequence_foreach_range(bg, ed, sequence_q11, query11);
-
+    //g_sequence_foreach_range(bg, ed, sequence_q11, query11);
     // qsort this shit by profile score
     //
     // cut by n

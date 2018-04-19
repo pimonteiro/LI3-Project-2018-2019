@@ -19,5 +19,6 @@ void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, long 
 PROFILE getProfile_TAD(TAD_community com, long id);
 POST getPost_TAD(TAD_community com, long id);
 GSequence* getFromToF_TAD(TAD_community com, MyDate inicio, MyDate fim, int type, GCompareDataFunc f);
-
+long getQuark_TAD(TAD_community com, char* tag);
+guint getNTags_TAD(TAD_community com);
 #endif //__MAIN_STRUCT_H__
