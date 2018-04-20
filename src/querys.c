@@ -121,33 +121,34 @@ LONG_list top_most_active(TAD_community com, int N){
 
 
 //QUERY nº3
-typedef struct query3{
-    long n_answers;
-    long n_questions;
-}* QUERY3;
 
-GFunc query_3_count_posts(gpointer data, gpointer user_data){
-    QUERY3 tmp = (QUERY3) user_data;
-    POST p = (POST) data;
-    if(getType_post(p) == 1) tmp->n_questions++;
-    else tmp->n_answers++;
+GFunc print_que(gpointer data, gpointer user_data){
+    QUESTION q = (QUESTION) data;
+    printf("%ld\n", getId_question(q));
+}
+
+GFunc print_ans(gpointer data, gpointer user_data){
+    ANSWER q = (ANSWER) data;
+    printf("%ld\n", getID_answer(q));
 }
 
 LONG_pair total_posts(TAD_community com, Date begin, Date end){
-    GSequence* seq = getFromToF_TAD(com, create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 1, NULL);
-    if(!g_sequence_get_length(seq)) return NULL;
+    GSequence* seq_1 = getFromToF_TAD(com, create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 1, NULL);
+    GSequence* seq_2 = getFromToF_TAD(com, create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 2, NULL);
 
-    QUERY3 user_data = malloc(sizeof(struct query3));
-    user_data->n_answers   = 0;
-    user_data->n_questions = 0;
-    GSequenceIter* bg  = g_sequence_get_begin_iter(seq);
-    GSequenceIter* ed  = g_sequence_get_end_iter(seq);
-    g_sequence_foreach_range (bg, ed, (GFunc) query_3_count_posts, user_data);
+    g_sequence_foreach(seq_1, print_que, NULL);
+    //printf("----------------------------\n");
+    //g_sequence_foreach(seq_2, print_ans, NULL);
 
-    LONG_pair ret = create_long_pair(user_data->n_questions, user_data->n_answers);
 
-    free(user_data);
-    free(seq);
+    long n_seq_1 = g_sequence_get_length(seq_1);
+    long n_seq_2 = g_sequence_get_length(seq_2);
+
+    
+    LONG_pair ret = create_long_pair(n_seq_1, n_seq_2);
+
+    free(seq_1);
+    free(seq_2);
 
     return ret;
 }
@@ -258,7 +259,7 @@ typedef struct query6{
       int size;
     }*QUERY6;
 
-void query_6_convert_long(gpointer data,gpointer user_data){
+GFunc query_6_convert_long(gpointer data,gpointer user_data){
   QUERY6 tmp = (QUERY6) user_data;
   ANSWER q = (ANSWER) data;
 
@@ -300,7 +301,6 @@ LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
   free(user_data);
 
   return ret;
-
 }
 //END QUERY nº6
 
@@ -339,23 +339,22 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
     GSequence* seq = getFromToF_TAD(com, create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 1, cmp_func);
     if(g_sequence_is_empty(seq)) return NULL;
 
-    //Transformacao para LONG_list CUIDADO o N está errado: tenho de ver se nao é menor que N
     QUERY7 user_data = malloc(sizeof(struct query7));
-    user_data->ret = create_list(N);
+    
+    int n_len = g_sequence_get_length(seq);
+    if(n_len > N)
+        user_data->ret = create_list(N);
+    else{
+        user_data->ret = create_list(n_len);
+        N = n_len;
+    }
     user_data->i   = 0;
     user_data->size = N;
 
-    for(int i = 0; i < N; i++){
-        set_list(user_data->ret, i, 0);
-    }
-
     GSequenceIter* bg  = g_sequence_get_begin_iter(seq);
-
-    
     GSequenceIter* ed  = g_sequence_get_iter_at_pos(seq, N);
 
     g_sequence_foreach_range (bg, ed, (GFunc) query_7_convert_long, user_data);
-
 
 
     LONG_list ret = user_data->ret;
@@ -369,8 +368,7 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
 
 //QUERY nº8
 LONG_list contains_word(TAD_community com, char* word, int N){
-
-
+    return NULL;
 }
 //END QUERY nº8
 
@@ -456,6 +454,7 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
     GSequenceIter* nd = g_sequence_get_end_iter(seq);
 
     for(int i = 0; i < N && bg != nd; i++, bg = g_sequence_iter_next(bg)){
+        printf("%d ---- %ld\n", i, (long)g_sequence_get(bg));
         set_list(final, i, (long)g_sequence_get(bg));
     }
 

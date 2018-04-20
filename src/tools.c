@@ -93,11 +93,12 @@ void tool_posts(){
             get_all_posts(com);
         else if(choice == 0)  
             get_single_post(com);
-    }while(choice != 2);
+    }while(choice != 1 && choice != 0);
 } 
 
 void print_user(TAD_community com, long id){
     PROFILE p = getProfile_TAD(com, id);
+    if(p == NULL) return;
     printf("--------------\n");
     printf("ID: %ld\n", getId_profile(p));
     printf("Name: %s\n", getName_profile(p));
@@ -114,7 +115,7 @@ void tool_users(){
     long id;
     do{
         printf("ID: (0 to exit)\n");
-        scanf("%ld", &id);
+        scanf("%ld\n", &id);
         if(id != 0) print_user(com, id);
     }while(id != 0); 
 }
