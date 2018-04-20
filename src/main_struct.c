@@ -102,3 +102,14 @@ void profilesForEach_TAD(TAD_community com, GHFunc f, gpointer user_data){
     assert(f != NULL && user_data != NULL);
     g_hash_table_foreach(com->profiles,f,user_data);
 }
+
+guint getNTags_TAD(TAD_community com){
+  return g_hash_table_size(com->tags);
+}
+
+long getQuark_TAD(TAD_community com, char* tag){
+  long* quark = (long*)g_hash_table_lookup(com->tags, tag);
+  if(quark) return *quark;
+
+  return -1;
+}

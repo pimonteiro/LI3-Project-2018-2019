@@ -112,9 +112,9 @@ LONG_list top_most_active(TAD_community com, int N){
     for(int i = 0; i < N; i++){
         set_list(final, i, getId_profile(arrlist[i]));
     }
-    
+
     free(arrlist);      //DOUBT
-    free(user_data); 
+    free(user_data);
     return final;
 }
 //END QUERY nº2
@@ -175,13 +175,13 @@ gint query_4_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
 GFunc search_tag_questions(gpointer data, gpointer elem){
     QUERY4 user_data = (QUERY4) elem;
     QUESTION q = (QUESTION) data;
-    
+
     char* found = strstr(getTags_question(q), user_data->tag_name);
     if(found != NULL){
         long id = getId_question(q);
         g_array_append_val(user_data->arr, id);
     }
-    
+
 }
 
 LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end){
@@ -402,13 +402,13 @@ GFunc sequence_function(gpointer elem, void* data){
         ANSWER a = getAnswer_post(p);
         q = getQuestion_post(getPost_TAD(user_data->com, getParentId_answer(a)));
         if(getOwnerId_question(q) == user_data->id2){
-            g_sequence_insert_sorted(user_data->seq, (gpointer) getId_question(q), (GCompareDataFunc) query_4_cmp_func, NULL);            
+            g_sequence_insert_sorted(user_data->seq, (gpointer) getId_question(q), (GCompareDataFunc) query_4_cmp_func, NULL);
         }
     }
     else{
         q = getQuestion_post(p);
     }
-         
+
     GArray* ans = getIdAnswers_question(q);
     for(int i = 0; i < (int) ans->len; i++){
         long tmp_id = getOwnerId_answer(getAnswer_post(getPost_TAD(user_data->com, g_array_index(ans, long, i))));
@@ -441,15 +441,15 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
     g_sequence_foreach(a1, (GFunc)sequence_function,  (gpointer)user_data);
 
     if(g_sequence_is_empty(seq)) return NULL;
-    
+
     LONG_list final;
     int g_size = g_sequence_get_length(seq);
     if(g_size < N){
         final = create_list(g_size);
         N = g_size;
-    } 
+    }
     else final = create_list(N);
-    
+
     GSequenceIter* bg = g_sequence_get_begin_iter(seq);
     GSequenceIter* nd = g_sequence_get_end_iter(seq);
 
@@ -513,7 +513,35 @@ long better_answer(TAD_community com, long id){
 //END QUERY nº10
 
 //QUERY nº11
-LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
+gint sort_score(gconstpointer a, gconstpointer b, gpointer cmp_data){
+    QUESTION qa = (QUESTION)a;
+    QUESTION qb = (QUESTION)b;
+    TAD_community com = (TAD_community)cmp_data;
+
+    long ida = getOwnerId_question(qa);
+    long idb = getOwnerId_question(qb);
+    PROFILE pa = getProfile_TAD(com, ida);
+    PROFILE pb = getProfile_TAD(com, idb);
+    long repa = getReputation_profile(pa);
+    long repb = getReputation_profile(pb);
+
+    return repa - repb;
+}
+  LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
+    GSequence* seq = getFromToF_TAD(com,create_date_with_teachers_date(begin),create_date_with_teachers_date(end),1,NULL);
+    g_sequence_sort(seq, sort_score, com);
+
+    GSequenceIter* bg = g_sequence_get_begin_iter(seq);
+    GSequenceIter* ed  = g_sequence_get_iter_at_pos(seq, N);
+    //g_sequence_foreach_range(bg, ed, sequence_q11, query11);
+    // qsort this shit by profile score
+    //
+    // cut by n
+    // get tags
+    // sort by used
+
+
     return NULL;
+
 }
 //END QUERY nº11
