@@ -195,7 +195,7 @@ LONG_pair total_posts(TAD_community com, Date begin, Date end){
     long n_seq_1 = g_sequence_get_length(seq_1);
     long n_seq_2 = g_sequence_get_length(seq_2);
 
-    
+
     LONG_pair ret = create_long_pair(n_seq_1, n_seq_2);
 
     free(seq_1);
@@ -391,7 +391,7 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
     if(g_sequence_is_empty(seq)) return NULL;
 
     QUERY7 user_data = malloc(sizeof(struct query7));
-    
+
     int n_len = g_sequence_get_length(seq);
     if(n_len > N)
         user_data->ret = create_list(N);
@@ -418,8 +418,71 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
 
 
 //QUERY nº8
+typedef struct query8{
+      LONG_list ret;
+      char* title_name;
+      GSequence* seq;
+      int i;
+      int size;
+   }*QUERY8;
+
+  GFunc query_8_convert_long(gpointer data,gpointer user_data){
+    QUERY8 tmp = (QUERY8) user_data;
+    QUESTION q = (QUESTION) data;
+
+    if (tmp->i < tmp->size){
+      set_list(tmp->ret,tmp->i,getId_question(q));
+      tmp->i++;
+    }
+  }
+
+  GFunc search_title_name(gpointer data, gpointer elem){
+      QUERY8 user_data = (QUERY8) elem;
+      QUESTION q = (QUESTION) data;
+
+      char* found = strstr(getTitle_question(q), user_data->title_name);
+      if(found != NULL){
+          long id = getId_question(q);
+          g_array_append_val(user_data->ret, id);
+      }
+  }
+
 LONG_list contains_word(TAD_community com, char* word, int N){
-    return NULL;
+
+    GSequence* seq = g_sequence_new(NULL);
+
+    if(g_sequence_is_empty(seq)) return NULL;
+
+    QUERY8 user_data = malloc(sizeof(struct query8));
+    GArray* tst = g_array_new(FALSE, FALSE, sizeof(long));
+    user_data->title_name = word;
+    user_data->ret = tst;
+
+    g_sequence_foreach(seq, (GFunc) search_title_name, (gpointer) user_data);
+    LONG_list final = create_list(tst->len);
+    for(int i = 0; i < (int)tst->len; i++){
+        printf("%d --- %ld\n", i, g_array_index(tst, long, i));
+        set_list(final, i, g_array_index(tst, long, i));
+    }
+    free(user_data);
+
+    return final;
+
+
+
+
+/*
+ GSequenceIter* bg = g_sequence_get_begin_iter(seq);
+ GsequenceIter* nd = g_sequence_get_iter_at_pos(seq,N);
+
+  g_sequence_foreach_range (bg, ed, (GFunc) query_8_convert_long, user_data);
+
+ QUERY7 user_data = malloc(sizeof(struct query7));
+
+ LONG_list ret = user_data->ret;
+ free(user_data);
+ return ret; */
+
 }
 //END QUERY nº8
 
