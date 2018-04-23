@@ -18,13 +18,13 @@
 
 /**
 @file querys.c
-Ficheiro das querys 
+Ficheiro das querys
 */
 
 
 /**
  * QUERY 1
- * 
+ *
  * @brief Auxiliar de info_from_post que retira informacao da questao
  * Devido á possibilidade de receber um ID de um post tipo resposta e sendo retirada apenas
  * a informacao referente á respetiva, a funcao info_from_post trata o ID de forma a
@@ -80,22 +80,24 @@ STR_pair info_from_post(TAD_community com, long id){
 
 /**
  * QUERY 2
- * 
+ *
  * @brief Estrutura para faciliar a passagem de dados entre funcoes
  * @var size Número máximo de utilizadores dentro do array
  * @var len Tamanho do array com os perfis dos utilizadores
  * @var arrlist Array de perfis dos utilizadores
- * 
+ *
  */
 typedef struct query2{
     int size;
     int len;
     PROFILE *arrlist;
+    PROFILE* present; // para a query 11
+    int present_index;
 }* QUERY2;
 
 /**
  * @brief Insere ordenadamente um perfil num array
- * 
+ *
  * @param data Estrutura contendo o array e outros dados
  * @param p Perfil a ser inserido
  */
@@ -519,7 +521,7 @@ GFunc sequence_function(gpointer elem, void* data){
 
         q = getQuestion_post(getPost_TAD(user_data->com, getParentId_answer(a)));
         if(p == NULL) printf("I GOT EMPTY QUESTION AFTER ANSWER\n");
-        
+
         if(getOwnerId_question(q) == user_data->id2){
             g_sequence_insert_sorted(user_data->seq, (gpointer) getId_question(q), (GCompareDataFunc) query_4_cmp_func, NULL);
         }
@@ -634,32 +636,36 @@ long better_answer(TAD_community com, long id){
 //END QUERY nº10
 
 //QUERY nº11
-gint sort_score(gconstpointer a, gconstpointer b, gpointer cmp_data){
-    QUESTION qa = (QUESTION)a;
-    QUESTION qb = (QUESTION)b;
-    TAD_community com = (TAD_community)cmp_data;
+GFunc catamorfismo(gpointer data, gpointer user_data){
+    QUESTION q = (QUESTION) data;
+    QUERY2 userd = (QUERY2)user_data;
+    int i = 0;
+    int present = 0;
+    long parent_id = getOwnerId_question(q);
+    for(i=0; i < userd->len; i++){
+        if(parent_id == getId_profile(userd->arrlist[i]))
+          userd->present[userd->present_index++] = q;
+    }
 
-    long ida = getOwnerId_question(qa);
-    long idb = getOwnerId_question(qb);
-    PROFILE pa = getProfile_TAD(com, ida);
-    PROFILE pb = getProfile_TAD(com, idb);
-    long repa = getReputation_profile(pa);
-    long repb = getReputation_profile(pb);
-
-    return repa - repb;
 }
-  LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
-    GSequence* seq = getFromToF_TAD(com,create_date_with_teachers_date(begin),create_date_with_teachers_date(end),1,NULL);
-    g_sequence_sort(seq, sort_score, com);
 
-    GSequenceIter* bg = g_sequence_get_begin_iter(seq);
-    GSequenceIter* ed  = g_sequence_get_iter_at_pos(seq, N);
-    //g_sequence_foreach_range(bg, ed, sequence_q11, query11);
-    // qsort this shit by profile score
-    //
-    // cut by n
-    // get tags
-    // sort by used
+  LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
+    // get by dates
+    GSequence* seq = getFromToF_TAD(com,create_date_with_teachers_date(begin),create_date_with_teachers_date(end),1,NULL);
+
+    // get top n cancros
+    PROFILE *arrlist = malloc(sizeof(PROFILE) * (N+1));
+    PROFILE *presents = malloc(sizeof(PROFILE) * (N+1));
+    QUERY2 user_data = malloc(sizeof(struct query2));
+    user_data->arrlist = arrlist;
+    user_data->size = N;
+    user_data->len = 0;
+    user_data->present =  presents;
+    user_data->present_index = 0;
+    profilesForEach_TAD(com, (GHFunc) query_2_hash_to_array, (gpointer) user_data);
+
+    g_sequence_foreach(seq, catamorfismo,user_data);
+
 
 
     return NULL;
