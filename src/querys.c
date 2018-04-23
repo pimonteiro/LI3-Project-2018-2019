@@ -438,6 +438,16 @@ typedef struct query8{
     }
   }
 
+gint query_8_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
+    QUESTION aa = (QUESTION) a;
+    QUESTION bb = (QUESTION) b;
+
+    MyDate ma = getCreationDate_question(aa);
+    MyDate mb = getCreationDate_question(bb);
+
+    return (gint) compare_dates(mb,ma);
+
+}
   GFunc search_title_name(gpointer data, gpointer elem){
       QUERY8 user_data = (QUERY8) elem;
       QUESTION q = (QUESTION) data;
@@ -451,7 +461,7 @@ typedef struct query8{
 
 LONG_list contains_word(TAD_community com, char* word, int N){
 
-    GSequence* seq = g_sequence_new(NULL);
+    GSequence* seq = getFromToF_TAD(com,2008,2018,1,query_8_cmp_func);
 
     if(g_sequence_is_empty(seq)) return NULL;
 
@@ -517,7 +527,7 @@ GFunc sequence_function(gpointer elem, void* data){
 
     if(getType_post(p) == 2){
         ANSWER a = getAnswer_post(p);
-        if(a == NULL) printf("I GOT EMPTU ANSWER\n");
+        if(a == NULL) printf("I GOT EMPTY ANSWER\n");
 
         q = getQuestion_post(getPost_TAD(user_data->com, getParentId_answer(a)));
         if(p == NULL) printf("I GOT EMPTY QUESTION AFTER ANSWER\n");
