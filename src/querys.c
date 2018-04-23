@@ -15,7 +15,23 @@
 #include <glib.h>
 #include <gmodule.h>
 
-//QUERY nº1
+
+/**
+@file querys.c
+Ficheiro das querys 
+*/
+
+
+/**
+ * QUERY 1
+ * 
+ * @brief Auxiliar de info_from_post que retira informacao da questao
+ * Devido á possibilidade de receber um ID de um post tipo resposta e sendo retirada apenas
+ * a informacao referente á respetiva, a funcao info_from_post trata o ID de forma a
+ * esta auxiliar receber apenas o post tipo pergunta.
+ * @param q Questao a ser analizada
+ * @return Par contendo a informaçao do post
+ */
 STR_pair get_info_from_post(TAD_community com, QUESTION q){
     char* titulo;
     char* name;
@@ -37,6 +53,13 @@ STR_pair get_info_from_post(TAD_community com, QUESTION q){
     return ret;
 }
 
+ /**
+ * @brief Retorna o titulo de um dado POST e o nome do seu criador
+ * Se for o ID de uma resposta, passa á funcao auxiliar o ID da correspondente pergunta
+ * Caso contrário passa diretamente o ID dessa pergunta
+ * @param id ID do post a ser analizado
+ * @return Par com informacao do post: Nome do Utilizador - Titulo do Post
+ */
 STR_pair info_from_post(TAD_community com, long id){
     POST post_ptr = getPost_TAD(com, id);
     STR_pair ret = NULL;
@@ -53,15 +76,29 @@ STR_pair info_from_post(TAD_community com, long id){
     free_post(post_ptr);
     return ret;
 }
-//END QUERY nº1
+//END QUERY 1
 
-//QUERY nº2
+/**
+ * QUERY 2
+ * 
+ * @brief Estrutura para faciliar a passagem de dados entre funcoes
+ * @var size Número máximo de utilizadores dentro do array
+ * @var len Tamanho do array com os perfis dos utilizadores
+ * @var arrlist Array de perfis dos utilizadores
+ * 
+ */
 typedef struct query2{
     int size;
     int len;
     PROFILE *arrlist;
 }* QUERY2;
 
+/**
+ * @brief Insere ordenadamente um perfil num array
+ * 
+ * @param data Estrutura contendo o array e outros dados
+ * @param p Perfil a ser inserido
+ */
 void g_array_insert_sorted(QUERY2 data, PROFILE p){
     int done = 0;
     int tmp = data->len;
@@ -88,6 +125,13 @@ void g_array_insert_sorted(QUERY2 data, PROFILE p){
     if(data->len > data->size) data->len--;
 }
 
+/**
+ * @brief Passa os utilizadores de uma HashTable para um array ordenado pelo número de posts (decrescente)
+ * Chama a funcao g_insert_sorted para inserir ordenadamente um perfil no array de perfis
+ * @param key Chave da HashTable
+ * @param value Valor corresponde da chave da Hashtable (perfil de um utilizador)
+ * @param user_data Estrutura com os dados necessários a outras funcoes auxiliares
+ */
 GHFunc query_2_hash_to_array(gpointer key, gpointer value, gpointer user_data){
     QUERY2 data = (QUERY2) user_data;
     PROFILE p = (PROFILE) value;
@@ -96,7 +140,14 @@ GHFunc query_2_hash_to_array(gpointer key, gpointer value, gpointer user_data){
 
 }
 
-
+/**
+ * QUERY 2
+ * @brief Retorna os N utilizadores com maior número de posts de sempre
+ * Depois de ordenar por ordem decrescente pelo numero de posts de todos os utilizadores
+ * é transformada no tipo de retorno
+ * @param N Numero de utilizadores
+ * @return LONG_list Lista dos utilizadores
+ */
 LONG_list top_most_active(TAD_community com, int N){
     PROFILE *arrlist = malloc(sizeof(PROFILE) * (N+1));
     QUERY2 user_data = malloc(sizeof(struct query2));
@@ -117,7 +168,7 @@ LONG_list top_most_active(TAD_community com, int N){
     free(user_data);
     return final;
 }
-//END QUERY nº2
+//END QUERY 2
 
 
 //QUERY nº3
@@ -397,16 +448,22 @@ GFunc sequence_function(gpointer elem, void* data){
     POST p = (POST) elem;
     QUERY9 user_data = (QUERY9) data;
     QUESTION q;
+    if(p == NULL) printf("I GOT EMPTY POST\n");
 
     if(getType_post(p) == 2){
         ANSWER a = getAnswer_post(p);
+        if(a == NULL) printf("I GOT EMPTU ANSWER\n");
+
         q = getQuestion_post(getPost_TAD(user_data->com, getParentId_answer(a)));
+        if(p == NULL) printf("I GOT EMPTY QUESTION AFTER ANSWER\n");
+        
         if(getOwnerId_question(q) == user_data->id2){
             g_sequence_insert_sorted(user_data->seq, (gpointer) getId_question(q), (GCompareDataFunc) query_4_cmp_func, NULL);
         }
     }
     else{
         q = getQuestion_post(p);
+        if(p == NULL) printf("I GOT EMPTY QUESTION\n");
     }
 
     GArray* ans = getIdAnswers_question(q);
@@ -422,10 +479,11 @@ GFunc sequence_function(gpointer elem, void* data){
 
 LONG_list both_participated(TAD_community com, long id1, long id2, int N){
     PROFILE p1 = getProfile_TAD(com, id1);
-
+    if(p1 == NULL) return NULL;
     if (!(getNposts_profile(p1))) return NULL; //caso nao tenha respostas
 
     PROFILE p2 = getProfile_TAD(com, id2);
+    if(p2 == NULL) return NULL;
     if (!(getNposts_profile(p2))) return NULL; //caso nao tenha respostas
 
 
