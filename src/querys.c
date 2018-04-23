@@ -652,10 +652,9 @@ GFunc catamorfismo(gpointer data, gpointer user_data){
   LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
     // get by dates
     GSequence* seq = getFromToF_TAD(com,create_date_with_teachers_date(begin),create_date_with_teachers_date(end),1,NULL);
-
     // get top n cancros
     PROFILE *arrlist = malloc(sizeof(PROFILE) * (N+1));
-    PROFILE *presents = malloc(sizeof(PROFILE) * (N+1));
+    PROFILE *presents = malloc(sizeof(PROFILE) * (g_sequence_get_length(seq)+1));
     QUERY2 user_data = malloc(sizeof(struct query2));
     user_data->arrlist = arrlist;
     user_data->size = N;
@@ -667,7 +666,12 @@ GFunc catamorfismo(gpointer data, gpointer user_data){
     g_sequence_foreach(seq, catamorfismo,user_data);
 
 
+    int i = 0;
+    GString* tags = g_string_new(NULL);
 
+    for(i=0; i < user_data->present_index-1; i++){
+        g_string_append(tags, getTags_question(user_data->present[i]));
+    }
     return NULL;
 
 }
