@@ -693,14 +693,15 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
 
     g_sequence_foreach(seq, catamorfismo, user_data);
 
+    if(user_data->present_index == 0) return NULL;
+
+
+
 
     char tag1[50], tag2[50], tag3[50], tag4[50], tag5[50];
     tag1[0] = tag2[0] = tag3[0] = tag4[0] = tag5[0] = 0;
-
     int i = 0;
     int j = 0;
-
-
     for(i = 0; i < user_data->present_index; i++){
         sscanf(getTags_question(user_data->present[i]), "<%[^>]><%[^>]><%[^>]><%[^>]><%[^>]>", tag1, tag2, tag3, tag4,
                 tag5);
@@ -760,9 +761,17 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
         }
         tag1[0] = tag2[0] = tag3[0] = tag4[0] = tag5[0] = 0;
     }
-    int m = max_index(countTags, ntags);
-    //metter a 0 ;
 
-    return NULL;
+    LONG_list l = create_list(N);
+    int n = 0;
+    while(n < N){
+         int m = max_index(countTags, ntags);
+         char* t = (char*)g_list_nth_data(tags, m);
+         set_list(l, n, getQuark_TAD(com, t));
+         countTags[m] = 0;
+         n++;
+    }
+
+    return l;
 }
 //END QUERY nº11

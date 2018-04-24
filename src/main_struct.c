@@ -104,8 +104,8 @@ void profilesForEach_TAD(TAD_community com, GHFunc f, gpointer user_data){
 }
 
 long getQuark_TAD(TAD_community com, char* tag){
-    long* quark = (long*) g_hash_table_lookup(com->tags, tag);
-    if(quark) return *quark;
+    long quark = (long) g_hash_table_lookup(com->tags, tag);
+    if(quark) return quark;
 
     return -1;
 }
