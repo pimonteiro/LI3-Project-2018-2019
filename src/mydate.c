@@ -3,14 +3,14 @@
 #include "date.h"
 
 /*Estrutura das datas */
-struct mydate {
-  int milisegundo;
-  int segundo;
-  int minuto;
-  int hora;
-  int dia;
-  int mes;
-  int ano;
+struct mydate{
+    int milisegundo;
+    int segundo;
+    int minuto;
+    int hora;
+    int dia;
+    int mes;
+    int ano;
 };
 
 /*Função responsável pela criação de uma data */
@@ -37,7 +37,7 @@ MyDate create_date_with_teachers_date(Date d){
     new->hora = 0;
     new->segundo = 0;
     new->milisegundo = 0;
-    
+
     return new;
 }
 
@@ -77,9 +77,8 @@ int get_milisegundo(MyDate d){
 }
 
 
-
-static int compare (int a, int b){
-  return (a > b) - (a < b);
+static int compare(int a, int b){
+    return (a > b) - (a < b);
 }
 
 /*Função que é responsável pela comparação entre 2 datas */
@@ -92,19 +91,19 @@ int compare_dates(MyDate a, MyDate b){
     mes = compare(get_mes(a), get_mes(b));
     if(mes != 0) return mes;
 
-    dia  = compare(get_dia(a), get_dia(b));
+    dia = compare(get_dia(a), get_dia(b));
     if(dia != 0) return dia;
 
-    hora  = compare(get_hora(a), get_hora(b));
+    hora = compare(get_hora(a), get_hora(b));
     if(hora != 0) return hora;
 
-    minuto  = compare(get_minuto(a), get_minuto(b));
+    minuto = compare(get_minuto(a), get_minuto(b));
     if(minuto != 0) return minuto;
 
-    segundo  = compare(get_segundo(a), get_segundo(b));
+    segundo = compare(get_segundo(a), get_segundo(b));
     if(segundo != 0) return segundo;
 
-    milisegundo  = compare(get_milisegundo(a), get_milisegundo(b));
+    milisegundo = compare(get_milisegundo(a), get_milisegundo(b));
     if(milisegundo != 0) return milisegundo;
 
 

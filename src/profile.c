@@ -8,10 +8,11 @@
 #include "mydate.h"
 #include <stdlib.h>
 #include <libxml/parserInternals.h>
+
 #define TOPTEN(i) (i < 11 ?  i++ : i )
 
 /*Estrutura que contém os principais atributos associados aos utilizadores */
-struct profile {
+struct profile{
     GSequence* posts;
 
     char* about_me;
@@ -21,7 +22,7 @@ struct profile {
     long n_posts;
     long id;
     int reputation;
- };
+};
 
 /*Função que é responsável pela comparação das datas de 2 posts */
 /* static int cmpDates (const void* a, const void* b){
@@ -43,12 +44,12 @@ struct profile {
 */
 
 /*Função responsável pela criação dos perfis dos utilizadores de acordo com os seus atributos */
-PROFILE create_profile(char * my_about, long my_id, char * my_name, int my_reputation){
-    PROFILE p= malloc(sizeof(struct profile));
+PROFILE create_profile(char* my_about, long my_id, char* my_name, int my_reputation){
+    PROFILE p = malloc(sizeof(struct profile));
 
-    p->inserts=0;
-    p->n_posts= 0;
-    p->about_me=NULL;
+    p->inserts = 0;
+    p->n_posts = 0;
+    p->about_me = NULL;
     p->about_me = g_strdup(my_about);
     p->id = my_id;
     p->name = g_strdup(my_name);
@@ -60,7 +61,7 @@ PROFILE create_profile(char * my_about, long my_id, char * my_name, int my_reput
 
 /*Função que liberta o perfil do utilizador assim como alguns dos seus atributos */
 void free_profile(void* p){
-    PROFILE tmp = (PROFILE)p;
+    PROFILE tmp = (PROFILE) p;
 
     g_sequence_free(tmp->posts);
     g_free(tmp->about_me);
@@ -111,7 +112,7 @@ void setId_profile(PROFILE p, long my_id){
 }
 
 void setName_profile(PROFILE p, char* my_name){
-     if(my_name != NULL){
+    if(my_name != NULL){
         p->name ? (free(p->name), p->name = g_strdup(my_name)) : (p->name = g_strdup(my_name));
     }
 }
@@ -126,20 +127,19 @@ void setReputation_profile(PROFILE p, int my_reputation){
  */
 
 gint cmpPosts(gconstpointer a, gconstpointer b, gpointer cmp_data){
-    POST pa = (POST)a;
-    POST pb = (POST)b;
+    POST pa = (POST) a;
+    POST pb = (POST) b;
 
     MyDate da = getDate_post(pa);
     MyDate db = getDate_post(pb);
 
     //Ordem decrescente de nº de respostas
-    return (gint)compare_dates(db,da);
-
+    return (gint) compare_dates(db, da);
 }
 
 /*Função responsável pela inserção do utilizador mais recente */
 void insertLastest_profile(PROFILE p, POST post){
-   // g_sequence_prepend(p->posts, (gpointer)post);
-     g_sequence_insert_sorted(p->posts, (gpointer)post, cmpPosts, NULL);
-     ++(p->n_posts);
+    // g_sequence_prepend(p->posts, (gpointer)post);
+    g_sequence_insert_sorted(p->posts, (gpointer) post, cmpPosts, NULL);
+    ++(p->n_posts);
 }
