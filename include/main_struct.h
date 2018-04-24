@@ -6,19 +6,34 @@
 #include "profile.h"
 #include "mydate.h"
 
-typedef struct TCD_community * TAD_community;
+typedef struct TCD_community* TAD_community;
 
 void insertTag_TAD(TAD_community com, char* tag_name, long id);
+
 void profilesForEach_TAD(TAD_community com, GHFunc f, gpointer user_data);
-GArray* getIds_TAD(TAD_community com, char* word);
+
 TAD_community create_main_struct();
+
 TAD_community init();
+
 void insertProfile_TAD(TAD_community com, PROFILE p, long id);
+
 void insertQuestion_TAD(TAD_community com, QUESTION q, long id, long owner_id, POST p, MyDate start);
+
 void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, long parent_id, POST p, MyDate start);
+
 PROFILE getProfile_TAD(TAD_community com, long id);
+
 POST getPost_TAD(TAD_community com, long id);
+
 GSequence* getFromToF_TAD(TAD_community com, MyDate inicio, MyDate fim, int type, GCompareDataFunc f);
+
 long getQuark_TAD(TAD_community com, char* tag);
-guint getNTags_TAD(TAD_community com);
+
+long getNTags_TAD(TAD_community com);
+
+void setNTags_TAD(TAD_community com);
+
+GList* getTags_TAD(TAD_community com);
+
 #endif //__MAIN_STRUCT_H__

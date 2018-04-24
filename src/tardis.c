@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <glib.h>
 #include "question.h"
-#define DIAS_MESES 31*12
+#define DIAS_MESES (31*12)
 
 struct tardis {
     GSequence*** year_questions;
@@ -15,8 +15,8 @@ TARDIS landing_tardis(int n_years){
     TARDIS type40 = malloc(sizeof(struct tardis));
 
     type40->years = n_years;
-    type40->year_questions = calloc(n_years, sizeof(GSequence**));
-    type40->year_answers = calloc(n_years, sizeof(GSequence**));
+    type40->year_questions = calloc((size_t) n_years, sizeof(GSequence**));
+    type40->year_answers = calloc((size_t) n_years, sizeof(GSequence**));
 
     return type40;
 }
@@ -104,7 +104,7 @@ GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, 
     int index_mes_inicio = (get_dia(inicio)-1) + (31*(get_mes(inicio)-1));
     int mes_inicio = get_mes(inicio)-1;
     int dia_inicio = get_dia(inicio)-1;
-    int ano_inicio = get_ano(inicio);
+  //  int ano_inicio = get_ano(inicio);
 
     int index_ano_fim = get_ano(fim) - 2008;
     int index_mes_fim = (get_dia(fim)-1) + (31*(get_mes(fim)-1));
@@ -140,6 +140,6 @@ GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, 
     }
 
     if(f != NULL) g_sequence_sort(sorted, f, NULL);
-    printf("%d\n",g_sequence_get_length(sorted));
+    //printf("%d\n",g_sequence_get_length(sorted));
     return sorted;
 }

@@ -19,12 +19,12 @@ void print_question(QUESTION q){
     printf("Score: %d\n", getScore_question(q));
     GArray* answers = getIdAnswers_question(q);
     printf("Array Answers:\n");
-    for(int i = 0; i < (int)answers->len; i++){
+    for(int i = 0; i < (int) answers->len; i++){
         printf("\a%d --> %ld\n", i, g_array_index(answers, long, i));
     }
     MyDate d = getCreationDate_question(q);
     printf("Data: %d/%d/%d\n\n", get_dia(d), get_mes(d), get_ano(d));
-} 
+}
 
 void print_answer(ANSWER a){
     printf("-------------------\n");
@@ -34,8 +34,6 @@ void print_answer(ANSWER a){
     printf("Score: %d\n", getScore_answer(a));
     MyDate d = getDate_answer(a);
     printf("Data: %d/%d/%d\n\n", get_dia(d), get_mes(d), get_ano(d));
-
-
 }
 
 void get_all_posts(TAD_community com){
@@ -47,10 +45,10 @@ void get_all_posts(TAD_community com){
 
     printf("1 - QUESTION || 2 - ANSWER\n");
     scanf("%d\n", &type);
-    MyDate begin = create_date(0,0,0,0, b_day, b_month, b_year);
-    MyDate end = create_date(0,0,0,0, e_day, e_month, e_year);
+    MyDate begin = create_date(0, 0, 0, 0, b_day, b_month, b_year);
+    MyDate end = create_date(0, 0, 0, 0, e_day, e_month, e_year);
 
-    GSequence* seq = getFromToF_TAD(com,begin, end, type, NULL);
+    GSequence* seq = getFromToF_TAD(com, begin, end, type, NULL);
 
     int l_seq = g_sequence_get_length(seq);
     for(int i = 0; i < l_seq; i++){
@@ -59,7 +57,6 @@ void get_all_posts(TAD_community com){
         if(type == 2)
             print_answer(g_sequence_get(g_sequence_get_iter_at_pos(seq, i)));
     }
-
 }
 
 void print_post(TAD_community com, long id){
@@ -91,10 +88,10 @@ void tool_posts(){
 
         if(choice == 1)
             get_all_posts(com);
-        else if(choice == 0)  
+        else if(choice == 0)
             get_single_post(com);
     }while(choice != 1 && choice != 0);
-} 
+}
 
 void print_user(TAD_community com, long id){
     PROFILE p = getProfile_TAD(com, id);
@@ -117,5 +114,5 @@ void tool_users(){
         printf("ID: (0 to exit)\n");
         scanf("%ld\n", &id);
         if(id != 0) print_user(com, id);
-    }while(id != 0); 
+    }while(id != 0);
 }
