@@ -1,6 +1,7 @@
 #include "post.h"
 #include "answer.h"
 #include "question.h"
+#include "mydate.h"
 
 /*Estrutura de um post */
 struct post{

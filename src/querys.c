@@ -46,7 +46,6 @@ STR_pair get_info_from_post(TAD_community com, QUESTION q){
         name = getName_profile(profile_ptr);
     }
 
-
     STR_pair ret = create_str_pair(name, titulo);
 
     free_profile(profile_ptr);
@@ -91,7 +90,7 @@ typedef struct query2{
     int size;
     int len;
     PROFILE* arrlist;
-    PROFILE* present; // para a query 11
+    QUESTION* present; // para a query 11
     int present_index;
 }* QUERY2;
 
@@ -155,7 +154,6 @@ LONG_list top_most_active(TAD_community com, int N){
     user_data->arrlist = arrlist;
     user_data->size = N;
     user_data->len = 0;
-
 
     profilesForEach_TAD(com, (GHFunc) query_2_hash_to_array, (gpointer) user_data);
 
@@ -408,7 +406,6 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
 
     g_sequence_foreach_range(bg, ed, (GFunc) query_7_convert_long, user_data);
 
-
     LONG_list ret = user_data->ret;
     free(user_data);
     free(seq);
@@ -608,7 +605,7 @@ long better_answer(TAD_community com, long id){
     long owner_id;
     PROFILE p;
     long rep = 0;
-
+    long comments = 0;
     //Setting up first values
     long id_ans = g_array_index(answers, long, 0);
     ANSWER a = getAnswer_post(getPost_TAD(com, id_ans));
@@ -617,8 +614,8 @@ long better_answer(TAD_community com, long id){
         owner_id = getOwnerId_answer(a);
         p = getProfile_TAD(com, owner_id);
         rep = getReputation_profile(p);
-
-        tmp = (long) ((scr * 0.45) + (rep * 0.25) + (scr * 0.2) + (rep * 0.1));
+        comments = getComments_answer(a);
+        tmp = (long) ((scr * 0.45) + (rep * 0.25) + (scr * 0.2) + (comments * 0.1));
         res = getID_answer(a);
         total = tmp;
     }
@@ -631,8 +628,8 @@ long better_answer(TAD_community com, long id){
             owner_id = getOwnerId_answer(a);
             p = getProfile_TAD(com, owner_id);
             rep = getReputation_profile(p);
-
-            tmp = (long) ((scr * 0.45) + (rep * 0.25) + (scr * 0.2) + (rep * 0.1));
+            comments = getComments_question(q);
+            tmp = (long) ((scr * 0.45) + (rep * 0.25) + (scr * 0.2) + (comments * 0.1));
             if(tmp > total){
                 total = tmp;
                 res = getID_answer(a);
@@ -680,9 +677,9 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
     // get by dates
     GSequence* seq = getFromToF_TAD(com, create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 1,
             NULL);
-    // get top n cancros
+
     PROFILE* arrlist = malloc(sizeof(PROFILE) * (N + 1));
-    PROFILE* presents = malloc(sizeof(PROFILE) * (g_sequence_get_length(seq) + 1));
+    QUESTION* presents = malloc(sizeof(QUESTION) * (g_sequence_get_length(seq) + 1));
     QUERY2 user_data = malloc(sizeof(struct query2));
     user_data->arrlist = arrlist;
     user_data->size = N;
@@ -691,12 +688,9 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
     user_data->present_index = 0;
     profilesForEach_TAD(com, (GHFunc) query_2_hash_to_array, (gpointer) user_data);
 
-    g_sequence_foreach(seq, catamorfismo, user_data);
+    g_sequence_foreach(seq, (GFunc) catamorfismo, user_data);
 
     if(user_data->present_index == 0) return NULL;
-
-
-
 
     char tag1[50], tag2[50], tag3[50], tag4[50], tag5[50];
     tag1[0] = tag2[0] = tag3[0] = tag4[0] = tag5[0] = 0;
@@ -765,11 +759,11 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
     LONG_list l = create_list(N);
     int n = 0;
     while(n < N){
-         int m = max_index(countTags, (int) ntags);
-         char* t = (char*)g_list_nth_data(tags, (guint) m);
-         set_list(l, n, getQuark_TAD(com, t));
-         countTags[m] = 0;
-         n++;
+        int m = max_index(countTags, (int) ntags);
+        char* t = (char*) g_list_nth_data(tags, (guint) m);
+        set_list(l, n, getQuark_TAD(com, t));
+        countTags[m] = 0;
+        n++;
     }
 
     return l;

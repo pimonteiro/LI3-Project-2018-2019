@@ -1,7 +1,7 @@
 #include "tardis.h"
 #include <assert.h>
 #include <glib.h>
-#include "question.h"
+
 #define DIAS_MESES (31*12)
 
 struct tardis {

@@ -1,9 +1,7 @@
 #ifndef __PROFILE_H__
 #define __PROFILE_H__
 
-#include <stdlib.h>
 #include <glib.h>
-#include <string.h>
 #include "post.h"
 
 typedef struct profile* PROFILE;
@@ -24,15 +22,6 @@ long getNposts_profile(PROFILE p);
 long getId_profile(PROFILE p);
 
 int getReputation_profile(PROFILE p);
-
-
-void setAboutMe_profile(PROFILE p, char* my_about);
-
-void setId_profile(PROFILE p, long my_id);
-
-void setName_profile(PROFILE p, char* my_name);
-
-void setReputation_profile(PROFILE p, int my_reputation);
 
 void insertLastest_profile(PROFILE p, POST post);
 

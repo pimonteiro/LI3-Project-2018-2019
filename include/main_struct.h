@@ -2,8 +2,10 @@
 #define __MAIN_STRUCT_H__
 
 #include <glib.h>
-#include "tardis.h"
 #include "profile.h"
+#include "question.h"
+#include "answer.h"
+#include "post.h"
 #include "mydate.h"
 
 typedef struct TCD_community* TAD_community;
@@ -15,6 +17,8 @@ void profilesForEach_TAD(TAD_community com, GHFunc f, gpointer user_data);
 TAD_community create_main_struct();
 
 TAD_community init();
+
+TAD_community clean(TAD_community com);
 
 void insertProfile_TAD(TAD_community com, PROFILE p, long id);
 
