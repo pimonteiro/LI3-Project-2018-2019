@@ -160,6 +160,7 @@ LONG_list top_most_active(TAD_community com, int N){
     LONG_list final = create_list(N);
 
     for(int i = 0; i < N; i++){
+        printf("%d --- %ld || %d\n", i, getId_profile(arrlist[i]), getNposts_profile(arrlist[i])); //TODO
         set_list(final, i, getId_profile(arrlist[i]));
     }
 
@@ -171,31 +172,14 @@ LONG_list top_most_active(TAD_community com, int N){
 
 
 //QUERY nº3
-
-GFunc print_que(gpointer data, gpointer user_data){
-    QUESTION q = (QUESTION) data;
-    printf("%ld\n", getId_question(q));
-}
-
-GFunc print_ans(gpointer data, gpointer user_data){
-    ANSWER q = (ANSWER) data;
-    printf("%ld\n", getID_answer(q));
-}
-
 LONG_pair total_posts(TAD_community com, Date begin, Date end){
     GSequence* seq_1 = getFromToF_TAD(com, create_date_with_teachers_date(begin), create_date_with_teachers_date(end),
             1, NULL);
     GSequence* seq_2 = getFromToF_TAD(com, create_date_with_teachers_date(begin), create_date_with_teachers_date(end),
             2, NULL);
 
-    g_sequence_foreach(seq_1, print_que, NULL);
-    //printf("----------------------------\n");
-    //g_sequence_foreach(seq_2, print_ans, NULL);
-
-
     long n_seq_1 = g_sequence_get_length(seq_1);
     long n_seq_2 = g_sequence_get_length(seq_2);
-
 
     LONG_pair ret = create_long_pair(n_seq_1, n_seq_2);
 
@@ -448,12 +432,21 @@ GFunc search_title_name(gpointer data, gpointer elem){
     QUERY8 user_data = (QUERY8) elem;
     QUESTION q = (QUESTION) data;
 
+<<<<<<< HEAD
+      char* found = strstr(getTitle_question(q), user_data->title_name);
+      if(found != NULL){
+          long id = getId_question(q);
+          g_array_append_val(user_data->ret, id);
+      
+  }
+=======
     char* found = strstr(getTitle_question(q), user_data->title_name);
     if(found != NULL){
         long id = getId_question(q);
         g_array_append_val(user_data->ret, id);
     }
 }
+>>>>>>> a97575d5d08026f515d5ee697ed3188621d0805d
 
 LONG_list contains_word(TAD_community com, char* word, int N){
 
@@ -468,8 +461,13 @@ LONG_list contains_word(TAD_community com, char* word, int N){
 
     g_sequence_foreach(seq, (GFunc) search_title_name, (gpointer) user_data);
     LONG_list final = create_list(tst->len);
+<<<<<<< HEAD
+    for(int i = 0; i < (int)tst->len; i++){
+        printf("%d --- %ld\n", i, g_array_index(tst, long, i)); //TODO
+=======
     for(int i = 0; i < (int) tst->len; i++){
         printf("%d --- %ld\n", i, g_array_index(tst, long, i));
+>>>>>>> a97575d5d08026f515d5ee697ed3188621d0805d
         set_list(final, i, g_array_index(tst, long, i));
     }
     free(user_data);
