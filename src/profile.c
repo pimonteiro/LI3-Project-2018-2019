@@ -9,8 +9,6 @@
 #include <stdlib.h>
 #include <libxml/parserInternals.h>
 
-#define TOPTEN(i) (i < 11 ?  i++ : i )
-
 /*Estrutura que contém os principais atributos associados aos utilizadores */
 struct profile{
     GSequence* posts;
@@ -18,7 +16,6 @@ struct profile{
     char* about_me;
     char* name;
 
-    long inserts;
     long n_posts;
     long id;
     int reputation;
@@ -47,7 +44,6 @@ struct profile{
 PROFILE create_profile(char* my_about, long my_id, char* my_name, int my_reputation){
     PROFILE p = malloc(sizeof(struct profile));
 
-    p->inserts = 0;
     p->n_posts = 0;
     p->about_me = NULL;
     p->about_me = g_strdup(my_about);

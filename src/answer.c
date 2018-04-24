@@ -80,10 +80,3 @@ void setScore_answer(ANSWER a, int my_score){
     a->score = my_score;
 }
 
-void setParent_id_answer(ANSWER a, long my_parent_id){
-    a->parent_id = my_parent_id;
-}
-
-void setOwner_id_answer(ANSWER a, long my_owner_id){
-    a->parent_id = my_owner_id;
-}

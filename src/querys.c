@@ -274,7 +274,7 @@ USER get_user_info(TAD_community com, long id){
     if(profile_ptr != NULL){
         char* name = getName_profile(profile_ptr);
         char* aboutme = getAboutMe_profile(profile_ptr);
-        int n = strlen(name) + strlen(aboutme) + 12;
+        int n = (int) (strlen(name) + strlen(aboutme) + 12);
         char short_bio[n];
         sprintf(short_bio, "Name: %s Bio: %s", name, aboutme);
 
@@ -380,8 +380,8 @@ gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     QUESTION qa = (QUESTION) a;
     QUESTION qb = (QUESTION) b;
 
-    int na = getNanswers_question(qa);
-    int nb = getNanswers_question(qb);
+    int na = (int) getNanswers_question(qa);
+    int nb = (int) getNanswers_question(qb);
     //Ordem decrescente de nº de respostas
     return na - nb;
 }
@@ -618,7 +618,7 @@ long better_answer(TAD_community com, long id){
         p = getProfile_TAD(com, owner_id);
         rep = getReputation_profile(p);
 
-        tmp = (scr * 0.45) + (rep * 0.25) + (scr * 0.2) + (rep * 0.1);
+        tmp = (long) ((scr * 0.45) + (rep * 0.25) + (scr * 0.2) + (rep * 0.1));
         res = getID_answer(a);
         total = tmp;
     }
@@ -632,7 +632,7 @@ long better_answer(TAD_community com, long id){
             p = getProfile_TAD(com, owner_id);
             rep = getReputation_profile(p);
 
-            tmp = (scr * 0.45) + (rep * 0.25) + (scr * 0.2) + (rep * 0.1);
+            tmp = (long) ((scr * 0.45) + (rep * 0.25) + (scr * 0.2) + (rep * 0.1));
             if(tmp > total){
                 total = tmp;
                 res = getID_answer(a);
@@ -765,8 +765,8 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
     LONG_list l = create_list(N);
     int n = 0;
     while(n < N){
-         int m = max_index(countTags, ntags);
-         char* t = (char*)g_list_nth_data(tags, m);
+         int m = max_index(countTags, (int) ntags);
+         char* t = (char*)g_list_nth_data(tags, (guint) m);
          set_list(l, n, getQuark_TAD(com, t));
          countTags[m] = 0;
          n++;

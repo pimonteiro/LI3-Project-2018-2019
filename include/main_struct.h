@@ -12,8 +12,6 @@ void insertTag_TAD(TAD_community com, char* tag_name, long id);
 
 void profilesForEach_TAD(TAD_community com, GHFunc f, gpointer user_data);
 
-GArray* getIds_TAD(TAD_community com, char* word);
-
 TAD_community create_main_struct();
 
 TAD_community init();
@@ -32,7 +30,7 @@ GSequence* getFromToF_TAD(TAD_community com, MyDate inicio, MyDate fim, int type
 
 long getQuark_TAD(TAD_community com, char* tag);
 
-int getNTags_TAD(TAD_community com);
+long getNTags_TAD(TAD_community com);
 
 void setNTags_TAD(TAD_community com);
 

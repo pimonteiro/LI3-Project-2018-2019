@@ -26,8 +26,4 @@ void setDate_answer(ANSWER a, MyDate my_date);
 
 void setScore_answer(ANSWER a, int my_score);
 
-void setParentId_answer(ANSWER a, long my_parent_id);
-
-void setOwnerId_answer(ANSWER a, long my_owner_id);
-
 #endif //__ANSWER_H__

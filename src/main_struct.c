@@ -110,7 +110,7 @@ long getQuark_TAD(TAD_community com, char* tag){
     return -1;
 }
 
-int getNTags_TAD(TAD_community com){
+long getNTags_TAD(TAD_community com){
     return com->n_tags;
 }
 

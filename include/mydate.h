@@ -21,8 +21,6 @@ int get_hora(MyDate d);
 
 int get_minuto(MyDate d);
 
-int get_segunudo(MyDate d);
-
 int get_milisegundo(MyDate d);
 
 int compare_dates(MyDate a, MyDate b);
