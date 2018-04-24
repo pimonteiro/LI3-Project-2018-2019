@@ -157,7 +157,6 @@ void startElementTags(void* user_data, const xmlChar *fullname, const xmlChar **
     id = strtol((const char*)attrs[1], NULL, 10);
     tag_name = (char*)xmlStrdup(attrs[3]);
     insertTag_TAD((TAD_community)user_data, tag_name, id);
-
 }
 
 static int parse(const char* xml_path, void* user_data, long code){
@@ -202,7 +201,7 @@ static int multiParse(const char* xml_path, void* user_data){
 
     strcpy(tagsPath, xml_path);
     strcat(tagsPath, "/Tags.xml");
-    tags = parse(postsPath, user_data, 2);
+    tags = parse(tagsPath, user_data, 2);
 
 
     return users || posts || tags;
@@ -210,5 +209,6 @@ static int multiParse(const char* xml_path, void* user_data){
 
 TAD_community load(TAD_community com, char* dump_path){
     multiParse(dump_path, com);
+    setNTags_TAD(com);
     return com;
 }

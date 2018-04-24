@@ -11,6 +11,7 @@ struct  TCD_community{
     GHashTable* posts;
     GHashTable* tags;
     TARDIS type40;
+    long n_tags;
 
 };
 
@@ -22,6 +23,7 @@ TAD_community create_main_struct(){
     m->posts = g_hash_table_new_full(g_int64_hash, g_int64_equal, g_free, free_post);
     m->tags = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
     m->type40 = landing_tardis(2018-2008); // Upload .mp3 landing sounds
+    m->n_tags = 0;
     return m;
 }
 
@@ -103,13 +105,22 @@ void profilesForEach_TAD(TAD_community com, GHFunc f, gpointer user_data){
     g_hash_table_foreach(com->profiles,f,user_data);
 }
 
-guint getNTags_TAD(TAD_community com){
-  return g_hash_table_size(com->tags);
-}
-
 long getQuark_TAD(TAD_community com, char* tag){
   long* quark = (long*)g_hash_table_lookup(com->tags, tag);
   if(quark) return *quark;
 
   return -1;
+}
+int getNTags_TAD(TAD_community com){
+  return com->n_tags;
+}
+
+void setNTags_TAD(TAD_community com){
+   GList* tmp =  g_hash_table_get_keys(com->tags);
+   com->n_tags = (long)g_list_length (tmp);
+   g_list_free(tmp);
+}
+
+GList* getTags_TAD(TAD_community com){
+    return g_hash_table_get_keys(com->tags);
 }

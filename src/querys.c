@@ -646,6 +646,7 @@ long better_answer(TAD_community com, long id){
 //END QUERY nº10
 
 //QUERY nº11
+//
 GFunc catamorfismo(gpointer data, gpointer user_data){
     QUESTION q = (QUESTION) data;
     QUERY2 userd = (QUERY2)user_data;
@@ -658,8 +659,26 @@ GFunc catamorfismo(gpointer data, gpointer user_data){
     }
 
 }
-
+  int max_index(long *a, int n)
+    {
+        if(n <= 0) return -1;
+        int i, max_i = 0;
+        long max = a[0];
+        for(i = 1; i < n; ++i){
+            if(a[i] > max){
+                max = a[i];
+                max_i = i;
+            }
+        }
+        return max_i;
+}
   LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
+     GList* tags = getTags_TAD(com);
+     long ntags = getNTags_TAD(com);
+     long countTags[ntags];
+     for(int k = 0; k<ntags; k++){
+        countTags[k] = 0;
+     }
     // get by dates
     GSequence* seq = getFromToF_TAD(com,create_date_with_teachers_date(begin),create_date_with_teachers_date(end),1,NULL);
     // get top n cancros
@@ -676,12 +695,75 @@ GFunc catamorfismo(gpointer data, gpointer user_data){
     g_sequence_foreach(seq, catamorfismo,user_data);
 
 
-    int i = 0;
-    GString* tags = g_string_new(NULL);
 
-    for(i=0; i < user_data->present_index-1; i++){
-        g_string_append(tags, getTags_question(user_data->present[i]));
+    char tag1[50], tag2[50], tag3[50], tag4[50], tag5[50];
+    tag1[0] = tag2[0] = tag3[0] = tag4[0] = tag5[0] = 0;
+
+    int i = 0;
+    int j = 0;
+
+
+    for(i=0; i < user_data->present_index; i++){
+       sscanf(getTags_question(user_data->present[i]), "<%[^>]><%[^>]><%[^>]><%[^>]><%[^>]>", tag1, tag2, tag3, tag4, tag5);
+        if(*tag1 != 0){
+         j = 0;
+         while(tags->next){
+          if(!strcmp((char*)tags->data, tag1))
+            countTags[j] += 1;
+          tags = tags->next;
+          ++j;
+         }
+          tags = g_list_first(tags);
+        }
+
+        if(*tag2 != 0){
+         j = 0;
+         while(tags->next){
+          if(!strcmp((char*)tags->data, tag2))
+            countTags[j] += 1;
+         tags =  tags->next;
+         ++j;
+         }
+          tags = g_list_first(tags);
+        }
+
+        if(*tag3 != 0){
+         j = 0;
+         while(tags->next){
+          if(!strcmp((char*)tags->data, tag3))
+            countTags[j] += 1;
+          tags = tags->next;
+          ++j;
+         }
+          tags = g_list_first(tags);
+        }
+
+        if(*tag4 != 0){
+         j = 0;
+         while(tags->next){
+          if(!strcmp(tags->data, tag4))
+            countTags[j] += 1;
+          tags = tags->next;
+          ++j;
+         }
+          tags = g_list_first(tags);
+        }
+
+        if(*tag5 != 0){
+         j = 0;
+         while(tags->next){
+          if(!strcmp((char *)tags->data, tag5))
+            countTags[j] += 1;
+          tags = tags->next;
+          ++j;
+         }
+          tags = g_list_first(tags);
+        }
+        tag1[0] = tag2[0] = tag3[0] = tag4[0] = tag5[0] = 0;
     }
+    int m = max_index(countTags,ntags);
+    //metter a 0 ;
+
     return NULL;
 
 }
