@@ -1,13 +1,9 @@
 #include "profile.h"
 #include <stdlib.h>
 #include <glib.h>
-#include <string.h>
 #include "post.h"
 #include "question.h"
-#include "answer.h"
 #include "mydate.h"
-#include <stdlib.h>
-#include <libxml/parserInternals.h>
 
 /*Estrutura que contém os principais atributos associados aos utilizadores */
 struct profile{
@@ -21,24 +17,6 @@ struct profile{
     int reputation;
 };
 
-/*Função que é responsável pela comparação das datas de 2 posts */
-/* static int cmpDates (const void* a, const void* b){
-    int result;
-
-    const POST* p1 = (POST*)a;
-    const POST* p2 = (POST*)b;
-
-    const MyDate d1= getDate_post(*p1);
-    const MyDate d2= getDate_post(*p2);
-
-    if(d1 == NULL) return -1;
-    if(d2 == NULL) return 1;
-
-    result = compare_dates(d2, d1);
-
-    return result;
-}
-*/
 
 /*Função responsável pela criação dos perfis dos utilizadores de acordo com os seus atributos */
 PROFILE create_profile(char* my_about, long my_id, char* my_name, int my_reputation){
@@ -94,35 +72,11 @@ int getReputation_profile(PROFILE p){
 }
 
 
-/* As funções que se seguem são responsáveis pelos setters  dos vários atributos
- * dos utilizadores de modo a ser capaz uma possível alteração/modificação */
-
-void setAboutMe_profile(PROFILE p, char* my_about){
-    if(my_about != NULL){
-        p->about_me ? (free(p->about_me), p->about_me = g_strdup(my_about)) : (p->about_me = g_strdup(my_about));
-    }
-}
-
-void setId_profile(PROFILE p, long my_id){
-    p->id = my_id;
-}
-
-void setName_profile(PROFILE p, char* my_name){
-    if(my_name != NULL){
-        p->name ? (free(p->name), p->name = g_strdup(my_name)) : (p->name = g_strdup(my_name));
-    }
-}
-
-void setReputation_profile(PROFILE p, int my_reputation){
-    p->reputation = my_reputation;
-}
-
-
 /**
  * Aux functions
  */
 
-gint cmpPosts(gconstpointer a, gconstpointer b, gpointer cmp_data){
+static gint cmpPosts(gconstpointer a, gconstpointer b, gpointer cmp_data){
     POST pa = (POST) a;
     POST pb = (POST) b;
 
