@@ -78,19 +78,19 @@ void tool_posts(){
     int choice;
 
     TAD_community com = init();
-    load(com, "/home/pimonteiro/Desktop/android");
+    load(com, "/home/pimonteiro/Desktop/ubuntu");
 
     do{
         printf("0 - Get single Post\n");
         printf("1 - Get all Posts between two dates\n");
-        printf("2 - Exit\n");
+        printf("Other to exit\n");
         scanf("%d", &choice);
 
         if(choice == 1)
             get_all_posts(com);
         else if(choice == 0)
             get_single_post(com);
-    }while(choice != 1 && choice != 0);
+    }while(choice == 1 || choice == 0);
 }
 
 void print_user(TAD_community com, long id){
@@ -108,7 +108,7 @@ void print_user(TAD_community com, long id){
 
 void tool_users(){
     TAD_community com = init();
-    load(com, "/home/pimonteiro/Desktop/android");
+    load(com, "/home/pimonteiro/Desktop/ubuntu");
     long id;
     do{
         printf("ID: (0 to exit)\n");
