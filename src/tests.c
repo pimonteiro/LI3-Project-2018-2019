@@ -7,6 +7,7 @@
 #include "main_struct.h"
 #include "interface.h"
 #include "tests.h"
+#include <string.h>
 
 #define error(query, test_case) printf("QUERY %d: %d ----- FAILED\n", query, test_case)
 #define success(query, test_case) printf("QUERY %d: %d ----- SUCCESS\n", query, test_case)
@@ -14,7 +15,7 @@
 #define end(query) printf("-------------END QUERY %d-------------\n\n", query)
 
 
-int query_5_test_cases_aux(USER a, char* text, long l_posts[10], int id_case){
+int query_5_test_cases_aux(USER a, char* text,long l_posts[10], int id_case){
     if(a == NULL){
         error(5, id_case);
         return 1;
@@ -137,12 +138,12 @@ int unit_test(){
     query5_test_cases(com);
 
     //LONG_list a = both_participated(com, 136, 52, 1);
-    Date begin = createDate(15, 2, 2010);
-    Date end = createDate(15, 6, 2010);
+   //Date begin = createDate(15, 2, 2010);
+   // Date end = createDate(15, 6, 2010);
 
 
-    STR_pair b = info_from_post(com, 5);
-    LONG_list a = most_answered_questions(com, 5, begin, end);
+   //STR_pair b = info_from_post(com, 5);
+    //LONG_list a = most_answered_questions(com, 5, begin, end);
     //long list = get_list(a,0);
     //long list2 = get_list(a,1);
     //printf("%ld ------ %ld\n", list, list2);
