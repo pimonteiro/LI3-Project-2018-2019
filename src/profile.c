@@ -5,6 +5,11 @@
 #include "question.h"
 #include "mydate.h"
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*Estrutura que contém os principais atributos associados aos utilizadores */
 struct profile{
     GSequence* posts;
@@ -18,6 +23,11 @@ struct profile{
 };
 
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*Função responsável pela criação dos perfis dos utilizadores de acordo com os seus atributos */
 PROFILE create_profile(char* my_about, long my_id, char* my_name, int my_reputation){
     PROFILE p = malloc(sizeof(struct profile));
@@ -33,6 +43,11 @@ PROFILE create_profile(char* my_about, long my_id, char* my_name, int my_reputat
     return p;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*Função que liberta o perfil do utilizador assim como alguns dos seus atributos */
 void free_profile(void* p){
     PROFILE tmp = (PROFILE) p;
@@ -44,6 +59,11 @@ void free_profile(void* p){
     free(tmp);
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*As funções que se seguem são responsáveis pelos getters  dos vários atributos
  * dos utilizadores para que seja possível a sua leitura  */
 
@@ -51,27 +71,57 @@ GSequence* getPosts_profile(PROFILE p){
     return p->posts;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 char* getAboutMe_profile(PROFILE p){
     return p->about_me ? g_strdup(p->about_me) : NULL;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 char* getName_profile(PROFILE p){
     return p->name ? g_strdup(p->name) : NULL;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 long getNposts_profile(PROFILE p){
     return p->n_posts;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 long getId_profile(PROFILE p){
     return p->id;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 int getReputation_profile(PROFILE p){
     return p->reputation;
 }
 
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /**
  * Aux functions
  */
@@ -87,6 +137,11 @@ static gint cmpPosts(gconstpointer a, gconstpointer b, gpointer cmp_data){
     return (gint) compare_dates(db, da);
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*Função responsável pela inserção do utilizador mais recente */
 void insertLastest_profile(PROFILE p, POST post){
     // g_sequence_prepend(p->posts, (gpointer)post);

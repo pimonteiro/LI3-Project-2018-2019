@@ -3,6 +3,11 @@
 #include "question.h"
 #include "mydate.h"
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*Estrutura de um post */
 struct post{
     long type; // 1 Question 2 Answer
@@ -12,6 +17,11 @@ struct post{
     }content;
 };
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*Função responsável pela criação de um post */
 POST create_post(long type, QUESTION q, ANSWER a){
     POST p = malloc(sizeof(struct post));
@@ -27,6 +37,11 @@ POST create_post(long type, QUESTION q, ANSWER a){
     return p;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*Função que liberta o post da memória  */
 void free_post(void* p){
     POST post = (POST) p;
@@ -38,19 +53,39 @@ void free_post(void* p){
     free(post);
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*As funções que se seguem são responsáveis pelos getters dos elementos do post */
 long getType_post(POST p){
     return p->type;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 QUESTION getQuestion_post(POST p){
     return p->content.q;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 ANSWER getAnswer_post(POST p){
     return p->content.a;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 MyDate getDate_post(POST p){
     if(p->type == 1){
         return getCreationDate_question(p->content.q);

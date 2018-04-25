@@ -2,6 +2,11 @@
 #include "mydate.h"
 #include "date.h"
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*Estrutura das datas */
 struct mydate{
     int milisegundo;
@@ -13,6 +18,11 @@ struct mydate{
     int ano;
 };
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*Função responsável pela criação de uma data */
 MyDate create_date(int milisegundo, int segundo, int minuto, int hora, int dia, int mes, int ano){
     MyDate d = malloc(sizeof(struct mydate));
@@ -28,6 +38,11 @@ MyDate create_date(int milisegundo, int segundo, int minuto, int hora, int dia, 
     return d;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 MyDate create_date_with_teachers_date(Date d){
     MyDate new = malloc(sizeof(struct mydate));
     new->ano = get_year(d);
@@ -41,46 +56,96 @@ MyDate create_date_with_teachers_date(Date d){
     return new;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*Função que faz free das datas */
 void free_Mydate(MyDate d){
     free(d);
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*As funções que se seguem são responsáveis pelos getters dos elementos das datas */
 int get_dia(MyDate d){
     return d->dia;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 int get_mes(MyDate d){
     return d->mes;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 int get_ano(MyDate d){
     return d->ano;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 int get_hora(MyDate d){
     return d->hora;
 }
 
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 int get_minuto(MyDate d){
     return d->minuto;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 int get_segundo(MyDate d){
     return d->segundo;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 int get_milisegundo(MyDate d){
     return d->milisegundo;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 
 static int compare(int a, int b){
     return (a > b) - (a < b);
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 /*Função que é responsável pela comparação entre 2 datas */
 int compare_dates(MyDate a, MyDate b){
     int ano, mes, dia, hora, minuto, segundo, milisegundo;

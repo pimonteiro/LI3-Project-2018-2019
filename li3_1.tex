@@ -90,7 +90,7 @@ Laboratórios de Informática III - Projecto em C
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-Este trabalho prático teve como objectivo a organização de grandes volumes de dados de forma a responder a questões, pre definindas, em tempo útil. Os objectos de estudo foram vários dumps do \textit{Stack Exchange}.
+Este trabalho prático teve como objectivo a organização de grandes volumes de dados de forma a responder a questões, pré definidas, em tempo útil. Os objectos de estudo foram vários dumps do \textit{Stack Exchange}.
 
 \end{abstract}
 
@@ -120,7 +120,7 @@ Finalmente,dado que as tags apareciam em várias queries foi bastante discutido 
 
 \section{CONCEÇÃO DA SOLUÇÃO}
 
-Decidiu-se usar para a estrutura principal 3 \textit{Hash Tables} da \textit{GLIB} e uma estrutura com dupla ordenação.
+Decidiu-se usar para a estrutura principal 3 \textit{Hash Tables} da \textit{GLIB} e uma estrutura com dupla ordenação \textit{ad hoc}.
 
 As \textit{tags} ficaram agrupadas numa \textit{Hash Table} onde cada chave é a \textit{tag}, em formato \textit{String}, e o valor,  o \textit{id} correspondente.
 Contemplou-se imlementar uma \textit{trie} ou uma \textit{inverted index} de forma a ser mais eficiente procurar as tags, mas dado o aumento do tempo de load, não o fizemos.
@@ -130,11 +130,21 @@ Por sua vez, os \textit{Posts} ficaram tanto numa \textit{Hash Table} como numa 
 Os \textit{Users} ficaram numa \textit{Hash Table}.
 
 Tanto a procura como inserção numa \textit{Hash Table} é $\mathcal{O}(1)$, e estas são as operações mais utilizadas neste projeto.
-Para representar os \textit{Posts} por datas foi pensado a utilização de àrvores balanceadas. Consideramos implementar uma \textit{Red and Black Tree} dado a inserção ser menos pesada que numa \textit{AVL} mas não resolvia o problema de várias ordenações.
+Para representar os \textit{Posts} por datas foi pensado a utilização de àrvores balanceadas. Consideramos implementar uma \textit{Red and Black Tree} dado a inserção ser menos pesada que numa \textit{AVL} mas não resolvia o problema de várias ordenações. Surgiu daí a nossa estrutura, um array de arrays com \textit{GSequences} o que permite uma ordenação por datas e uma outra ordenação à nossa escolha.
+
+Finalmente, para realizar o parse utilizamos o parser \textit{SAX} da biblioteca \textit{libxml} dado o tamanho dos ficheiros e as operações.
+
+\section{Parser}
+
+Escolheu-se utilizar o parser do tipo \textit{SAX}. Este parser é orientado a eventos e recomendado pela documentação do \textit{libxml} para dar parse a grandes ficheiros. Ao contrário das duas outras alternativas este parser não constrói a árvore do xml em memória sendo muito mais rápido (cerca de 1.5x mais rápido). Um lado negativo deste parser é não ser possível editar os ficheiros xml nem percorrer várias vezes o ficheiro mas estes factores não têm qualquer relevância para este trabalho.
+
+As outras duas alternativas eram \textit{DOM based} e \textit{DOM based} com \textit{SAX like API}.
+A primeira cria a árvore do xml e carrega toda para a memória, sendo extremamente lenta além de ocupar muita memória (5x mais o tamanho do ficheiro). A sua travessia é bi orientada e não é orientada a eventos.
+A última alternativa é uma versão mais evoluída do \textit{pure DOM}, sendo que não carrega a árvore toda para a memória mas sim à medida que se faz a travessia, a API também é orientada a eventos. No entanto por ir construindo a árvore é mais lenta que a \textit{SAX}.
 
 \section{Estruturas de dados}
 
-Utilizou-se a biblitoeca \textit{GLib} para a implementação de maior parte das estruturas em cima mencionadas.
+Utilizou-se a biblioteca \textit{GLib} para a implementação de maior parte das estruturas em cima mencionadas.
 \begin{lstlisting}
 struct TCD_community{
     GHashTable* profiles;
@@ -145,9 +155,9 @@ struct TCD_community{
 };
 \end{lstlisting}
 
-\subsection{POSTS && QUESTIONS && ANSWERS}
+\subsection{POSTS, QUESTIONS, ANSWERS}
 
-A representação de um \textit{Post} foi um ponto interessante deste trabalho, visto dividirem-se em \textit{Questions} e \textit{Answers}. Dado partilharem atributos, decidiu-se implmentar uma \textit{union}, de forma a conseguirmos juntar os \textit{Posts} ou separa-los como nos fosse mais conviniente.
+A representação de um \textit{Post} foi um ponto interessante deste trabalho, visto dividirem-se em \textit{Questions} e \textit{Answers}. Dado partilharem atributos, decidiu-se implementar uma \textit{union}, de forma a conseguirmos juntar os \textit{Posts} ou separá-los como nos fosse mais conveniente.
 \begin{lstlisting}
 struct post{
     long type; // 1 Question 2 Answer
@@ -177,7 +187,7 @@ struct question{
 
 \subsection{USERS}
 
-Escolheu-se utilizar uma \textit{Hash Table} para agrupar os \textit{Users}. Cada chave é o \textit{Id} do \textit{User} e o valor é a instancia que representa aquele \textit{User}.
+Escolheu-se utilizar uma \textit{Hash Table} para agrupar os \textit{Users}. Cada chave é o \textit{Id} do \textit{User} e o valor é a instância que representa aquele \textit{User}.
 Juntamente com os atributos que representam um utilizador guardamos numa \textit{GSequence} as questões e respostas criadas pelo dito utilizador. Escolhemos guardar desta forma em vez de um array fazendo \textit{insertion sort} pois desconhecemos o número de inserções. Além disso, é possível ordernar por vários critérios (um de cada vez).
 
 \begin{lstlisting}
@@ -194,7 +204,7 @@ struct profile{
 
 \subsection{TARDIS}
 
-Em vista a resolver o problema de vários tipo de ordenação, maioritariamente em relação aos \textit{posts}, decidiu-se criar uma estrutura que consiste num array de arrays com \textit{GSequences}.
+Com vista a resolver o problema de vários tipo de ordenação, maioritariamente em relação aos \textit{posts}, decidiu-se criar uma estrutura que consiste num array de arrays com \textit{GSequences}.
 \begin{lstlisting}
 struct tardis {
     GSequence*** year_questions;
@@ -204,11 +214,12 @@ struct tardis {
 
 \end{lstlisting}
 O primeiro array corresponde aos anos, o segundo array corresponde aos meses e aos dias desse ano. O tamanho de cada array de meses e dias é sempre 31*12. Desta forma torna-se mais fácil iterar sobre a estrutura. Apesar desta forma existirem \textit{"buracos"} não são um número que justifique abandonar esta estratégia.
-Cada array de meses e dias só é criado quando o primeiro \textit{Post} que uma data nessa alcance é processado, desta foi possível optimizar a inserção nesta estrutura e gastar menos memória.
-Com este array de arrays, temos uma granularidade de dias, meses e anos que é o pedido pelas \textit{queries} e dado os \textit{Posts} estarem numa \textit{GSequence} é possivel ordenar pelo criterio que nós quisermos.
-Num caso extremo em que temos que ordernar um número enorme de \textit{GSequences} demora $\mathcal{O}(\log{}N)$ por \textit{GSequence}, onde o N é o número de \textit{Questions} ou \textit{Answers} (pequeno).De facto, é possivel obter uma complexidade amortizada de $\mathcal{O}(1)$ nas queries que peçam Top N entre data X e data Y.
+Cada array de meses e dias só é criado quando o primeiro \textit{Post} que uma data nessa alcance é processado, desta maneira foi possível optimizar a inserção nesta estrutura e gastar menos memória.
+Com este array de arrays, temos uma granularidade de dias, meses e anos que é o pedido pelas \textit{queries} e dado os \textit{Posts} estarem numa \textit{GSequence} é possível ordenar pelo critério que nós quisermos.
+Num caso extremo em que temos que ordenar um número enorme de \textit{GSequences} demora $\mathcal{O}(\log{}N)$ por \textit{GSequence}, onde o N é o número de \textit{Questions} ou \textit{Answers} (pequeno).De facto, é possível obter uma complexidade amortizada de $\mathcal{O}(1)$ nas queries que peçam Top N entre data X e data Y.
+Para iterar pela TARDIS, o índice do array de anos é calculado subtraindo 2008 ao ano passado, dado que segundo a documentação do \textit{Stack Exchange} o ano mais antigo é esse. Por sua vez,os meses e dias seguem a seguinte fórmula:
 
-
+Segue-se uma representação da TARDIS.
 \begin{tikzpicture}[>=latex]
 \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
 at (0,0)
@@ -218,7 +229,7 @@ at (0,0)
 ** & ** & ** & ** \\
 };
 \matrix[mymat,anchor=west, row 2/.style={nodes=draw}]
-at (0,-2)
+at (0,-3)
 (mat3)
 {
   0 & 1 & 2 & 3 & 4 & 5 & (..) & 371 \\
@@ -226,12 +237,17 @@ at (0,-2)
 };
 
   \node[above=0pt of mat1]
-  (cella) {TARDIS exemplo};
+  (cella) {Array de anos};
 
-  \node [matrix,draw] at (0,-4) (mat4){Post \\}
+  \node[above=-0pt of mat3]
+  (cella) {Array de meses e dias};
+
+  \node [matrix,draw] at (0,-5) (mat4){Post \\}
 child {node[matrix,draw] {Post \\}}
 child {node[matrix,draw] {Post \\}};
 
+  \node[above=0pt of mat4]
+  (cella) {GSequence de Posts};
 \begin{scope}[shorten <= -2pt]
 \draw[*->]
   (mat1-2-1.south) -- (mat3-1-1.north);
@@ -239,6 +255,9 @@ child {node[matrix,draw] {Post \\}};
   (mat3-2-1.south) -- (mat4.north);
 \end{scope}
 \end{tikzpicture}
+
+
+
 \section{CONCLUSIONS}
 
 A conclusion section is not required. Although a conclusion may review the main points of the paper, do not replicate the abstract as the conclusion. A conclusion might elaborate on the importance of the work or suggest applications and extensions.

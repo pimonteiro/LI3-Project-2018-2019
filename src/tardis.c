@@ -11,6 +11,11 @@ struct tardis {
 };
 
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 TARDIS landing_tardis(int n_years){
     TARDIS type40 = malloc(sizeof(struct tardis));
 
@@ -22,6 +27,11 @@ TARDIS landing_tardis(int n_years){
 }
 
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 void takeOf_tardis(void* sexy){
     TARDIS type40 = (TARDIS)sexy;
     int i, j;
@@ -54,6 +64,11 @@ void takeOf_tardis(void* sexy){
     free(type40);
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 
 void insert_TARDIS(TARDIS type40, void* elem, MyDate d, int type){
     int index_ano = get_ano(d) - 2008;
@@ -90,6 +105,11 @@ void insert_TARDIS(TARDIS type40, void* elem, MyDate d, int type){
     }
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 void prependGSequence_TARDIS(void* elem, void* g){
   if(g == NULL) return;
   gpointer e = (gpointer)elem;
@@ -97,6 +117,11 @@ void prependGSequence_TARDIS(void* elem, void* g){
   g_sequence_prepend(s, e);
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, GCompareDataFunc f){
     GSequence* sorted = g_sequence_new(NULL);
     GSequence** anos = NULL;
