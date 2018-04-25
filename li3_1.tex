@@ -98,7 +98,7 @@ Este trabalho prático teve como objectivo a organização de grandes volumes de
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{INTRODUCTION}
 
-O cerne deste trabalho prático consistiu em estruturar a informação relativa a vários posts do \textit{Stack Exchange} de forma a responder em tempo útil às queries fornecidas pelos professores. Para tal, o conhecimento adquirido noutras unidades curriculares, como por exemplo Algoritmos, Programação Imperativa e Calculo de Programas, foi de extrema importância, bem como, um estudo sobre optimização de código C (linguagem exigida por esta unidade curricular). A realização deste projecto foi repartida em várias fases: análise dos dados, escolha das estruturas de dados para os representar, como fazer parse dos ficheiros, resposta as queries e por fim, optimização e limpeza do código. De forma a promover boas práticas de programação e desenvolver um workflow eficiente, todo o código desenvolvido era submetido para um repositório \text{GIT}.
+O cerne deste trabalho prático consistiu em estruturar a informação relativa a vários posts do \textit{Stack Exchange} de forma a responder em tempo útil às queries fornecidas pelos professores. Para tal, o conhecimento adquirido noutras unidades curriculares, como por exemplo Algoritmos, Programação Imperativa e Calculo de Programas, foi de extrema importância, bem como, um estudo sobre optimização de código C (linguagem exigida por esta unidade curricular). A realização deste projecto foi repartida em várias fases: análise dos dados, escolha das estruturas de dados para os representar, como fazer parse dos ficheiros, resposta as queries e por fim, optimização e limpeza do código. De forma a promover boas práticas de programação e desenvolver um workflow eficiente, todo o código desenvolvido era submetido para um repositório \textit{GIT}.
 
 \section{CONCEÇÃO DO PROBLEMA}
 
@@ -217,7 +217,8 @@ O primeiro array corresponde aos anos, o segundo array corresponde aos meses e a
 Cada array de meses e dias só é criado quando o primeiro \textit{Post} que uma data nessa alcance é processado, desta maneira foi possível optimizar a inserção nesta estrutura e gastar menos memória.
 Com este array de arrays, temos uma granularidade de dias, meses e anos que é o pedido pelas \textit{queries} e dado os \textit{Posts} estarem numa \textit{GSequence} é possível ordenar pelo critério que nós quisermos.
 Num caso extremo em que temos que ordenar um número enorme de \textit{GSequences} demora $\mathcal{O}(\log{}N)$ por \textit{GSequence}, onde o N é o número de \textit{Questions} ou \textit{Answers} (pequeno).De facto, é possível obter uma complexidade amortizada de $\mathcal{O}(1)$ nas queries que peçam Top N entre data X e data Y.
-Para iterar pela TARDIS, o índice do array de anos é calculado subtraindo 2008 ao ano passado, dado que segundo a documentação do \textit{Stack Exchange} o ano mais antigo é esse. Por sua vez,os meses e dias seguem a seguinte fórmula:
+Para iterar pela TARDIS, o índice do array de anos é calculado subtraindo 2008 ao ano passado, dado que segundo a documentação do \textit{Stack Exchange} o ano mais antigo é esse. Por sua vez, os meses e dias seguem a seguinte fórmula:
+$dia-1 + (mes-1)*31$
 
 Segue-se uma representação da TARDIS.
 \begin{tikzpicture}[>=latex]
@@ -226,14 +227,14 @@ at (0,0)
 (mat1)
 {
   0       &     1       &     (...)       &     7 \\
-** & ** & ** & ** \\
+  ** & ** & (...) & ** \\
 };
 \matrix[mymat,anchor=west, row 2/.style={nodes=draw}]
 at (0,-3)
 (mat3)
 {
-  0 & 1 & 2 & 3 & 4 & 5 & (..) & 371 \\
-  * & * & * & * & * & * & * & * \\
+  0 & 1 & 2 & 3 & 4 & 5 & (...) & 371 \\
+  * & * & * & * & * & * & (...) & * \\
 };
 
   \node[above=0pt of mat1]
@@ -256,11 +257,37 @@ child {node[matrix,draw] {Post \\}};
 \end{scope}
 \end{tikzpicture}
 
+\section{Otimizações}
 
+O principal foco a nível de otimizações foi estruturar a estutura principal segundo as queries. Fora isso, várias otimizações a nível de código foram feitas, \textit{exempli gratia} $++counter$ vs $counter++$, switch vs vários ifs, etc.
+Foram usadas algumas flags de otimização do \textit{GCC}, a mais notória é \textit{-march=native} que gera código assembly específica para o CPU do computador.
+
+\section{Modularidade}
+
+Dado o tamanho do projecto foi preciso dividi-lo em várias fases.
+
+\begin{itemize}
+\item Init/
+\item Pase/Load;
+\item Estrutura;
+\item Queries.
+\end{itemize}
+
+Na fase do Init a estrutura principal é inicializada, imediatamente a seguir começa o Parse/Load. Os ficheiros xml são carregados para a memória e processados para a estrutura.
+
+O código responsável pelas queries foi deixado para o fim, sendo que o código das estruturas e do parser foi desenvolvido em paralelo após as estruturas estarem desenhadas.
+
+
+
+\section{Encapsulamento}
+
+Visto que usamos o parser \textit{SAX} não é possivel escrever nos ficheiros xml. Toda a informação vem de fora e apenas organizamo-la. Dado que o ficheiro \textit{interface.h} corresponde a \textit{API} do programa, sendo que nenhuma devolve uma instância do estado interno.
+O programa é fechado para o exterior.
 
 \section{CONCLUSIONS}
 
 A conclusion section is not required. Although a conclusion may review the main points of the paper, do not replicate the abstract as the conclusion. A conclusion might elaborate on the importance of the work or suggest applications and extensions.
+
 
 \addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
                                   % on the last page of the document manually. It shortens

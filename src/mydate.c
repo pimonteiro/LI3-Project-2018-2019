@@ -3,11 +3,10 @@
 #include "date.h"
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief Estrutura das datas, que vai desde milisegundo
+ *  até ao ano em causa
  */
-/*Estrutura das datas */
+
 struct mydate{
     int milisegundo;
     int segundo;
@@ -19,11 +18,12 @@ struct mydate{
 };
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief Função responsável pela criação de uma data
+ *  de acordo com as suas componentes
+ *  @param milisegundo,segundo,minuto,hora,dia,mes,ano
+ *  @return inicialização da data
  */
-/*Função responsável pela criação de uma data */
+
 MyDate create_date(int milisegundo, int segundo, int minuto, int hora, int dia, int mes, int ano){
     MyDate d = malloc(sizeof(struct mydate));
 
@@ -40,7 +40,7 @@ MyDate create_date(int milisegundo, int segundo, int minuto, int hora, int dia, 
 
 /**
  *  @brief
- *  @param
+ *  @param d Data
  *  @return
  */
 MyDate create_date_with_teachers_date(Date d){
@@ -57,84 +57,82 @@ MyDate create_date_with_teachers_date(Date d){
 }
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief Função que liberta as datas
+ *  @param d Data
  */
-/*Função que faz free das datas */
 void free_Mydate(MyDate d){
     free(d);
 }
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief Função responsável pela leitura do dia de uma data
+ *  @param d Data
+ *  @return dia de uma dada data
  */
-/*As funções que se seguem são responsáveis pelos getters dos elementos das datas */
+
 int get_dia(MyDate d){
     return d->dia;
 }
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief Função responsável pela leitura do mês de uma data
+ *  @param d Data
+ *  @return mês de uma dada data
  */
 int get_mes(MyDate d){
     return d->mes;
 }
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief Função responsável pela leitura do ano de uma data
+ *  @param d Data
+ *  @return ano de uma dada data
  */
 int get_ano(MyDate d){
     return d->ano;
 }
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief Função responsável pela leitura da hora de uma data
+ *  @param d Data
+ *  @return hora de uma data
  */
 int get_hora(MyDate d){
     return d->hora;
 }
 
-
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief Função responsável pela leitura dos minutos de uma data
+ *  @param d Data
+ *  @return minutos de uma data
  */
 int get_minuto(MyDate d){
     return d->minuto;
 }
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief Função responsável pela leitura dos segundos de uma data
+ *  @param d Data
+ *  @return segundos de uma data
  */
 int get_segundo(MyDate d){
     return d->segundo;
 }
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief Função responsável pela leitura dos milisegundos de uma data
+ *  @param d Data
+ *  @return milisegundos de uma data
  */
 int get_milisegundo(MyDate d){
     return d->milisegundo;
 }
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief Função auxiliar de compare_dates que
+ *  compara 2 inteiros
+ *  @param a,b 2 inteiros
+ *  @return maior dos 2 inteiros
  */
 
 static int compare(int a, int b){
@@ -142,11 +140,10 @@ static int compare(int a, int b){
 }
 
 /**
- *  @brief
- *  @param
+ *  @brief Função que é responsável pela comparação entre 2 componentes
+ *  @param a Data1,b Data2
  *  @return
  */
-/*Função que é responsável pela comparação entre 2 datas */
 int compare_dates(MyDate a, MyDate b){
     int ano, mes, dia, hora, minuto, segundo, milisegundo;
 
