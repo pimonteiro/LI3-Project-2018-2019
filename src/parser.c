@@ -8,6 +8,11 @@
 #include "mydate.h"
 #include "main_struct.h"
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 static int attr2int_user(const xmlChar* attr){
     if(attr[0] == 'I') // Id
         return 0;
@@ -21,6 +26,11 @@ static int attr2int_user(const xmlChar* attr){
     return -1;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 static int attr2int_post(const xmlChar* attr){
     if(attr[0] == 'I') // Id
         return 0;
@@ -43,6 +53,11 @@ static int attr2int_post(const xmlChar* attr){
     return -1;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 static void error(void* user_data, const char* msg, ...){
     va_list args;
 
@@ -51,6 +66,11 @@ static void error(void* user_data, const char* msg, ...){
     va_end(args);
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 static void startElementUsers(void* user_data, const xmlChar* fullname, const xmlChar** attrs){
 
     TAD_community com = (TAD_community) user_data;
@@ -92,6 +112,11 @@ static void startElementUsers(void* user_data, const xmlChar* fullname, const xm
 }
 
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 static void startElementPosts(void* user_data, const xmlChar* fullname, const xmlChar** attrs){
     TAD_community com = (TAD_community) user_data;
 
@@ -175,6 +200,11 @@ static void startElementPosts(void* user_data, const xmlChar* fullname, const xm
 }
 
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 static void startElementTags(void* user_data, const xmlChar* fullname, const xmlChar** attrs){
     long id = 0; // 1
     char* tag_name = NULL; // 3
@@ -185,6 +215,11 @@ static void startElementTags(void* user_data, const xmlChar* fullname, const xml
     insertTag_TAD((TAD_community) user_data, tag_name, id);
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 static int parse(const char* xml_path, void* user_data, long code){
     int ctxt;
     xmlSAXHandler handler = {0};
@@ -208,6 +243,11 @@ static int parse(const char* xml_path, void* user_data, long code){
     return ctxt;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 static int multiParse(const char* xml_path, void* user_data){
     int users, posts, tags;
     long pathLen = strlen(xml_path);
@@ -229,6 +269,11 @@ static int multiParse(const char* xml_path, void* user_data){
     return users || posts || tags;
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 TAD_community load(TAD_community com, char* dump_path){
     multiParse(dump_path, com);
     setNTags_TAD(com);

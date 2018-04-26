@@ -11,6 +11,11 @@ struct tardis {
 };
 
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 TARDIS landing_tardis(int n_years){
     TARDIS type40 = malloc(sizeof(struct tardis));
 
@@ -22,6 +27,11 @@ TARDIS landing_tardis(int n_years){
 }
 
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 void takeOf_tardis(void* sexy){
     TARDIS type40 = (TARDIS)sexy;
     int i, j;
@@ -54,6 +64,11 @@ void takeOf_tardis(void* sexy){
     free(type40);
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 
 void insert_TARDIS(TARDIS type40, void* elem, MyDate d, int type){
     int index_ano = get_ano(d) - 2008;
@@ -90,6 +105,11 @@ void insert_TARDIS(TARDIS type40, void* elem, MyDate d, int type){
     }
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 void prependGSequence_TARDIS(void* elem, void* g){
   if(g == NULL) return;
   gpointer e = (gpointer)elem;
@@ -97,19 +117,26 @@ void prependGSequence_TARDIS(void* elem, void* g){
   g_sequence_prepend(s, e);
 }
 
+/**
+ *  @brief
+ *  @param
+ *  @return
+ */
 GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, GCompareDataFunc f){
     GSequence* sorted = g_sequence_new(NULL);
     GSequence** anos = NULL;
     int index_ano_inicio = get_ano(inicio) - 2008;
-    int index_mes_inicio = (get_dia(inicio)-1) + (31*(get_mes(inicio)-1));
     int mes_inicio = get_mes(inicio)-1;
     int dia_inicio = get_dia(inicio)-1;
-  //  int ano_inicio = get_ano(inicio);
+    int index_mes_inicio = ((dia_inicio-1) + (31*(mes_inicio)-1));
 
     int index_ano_fim = get_ano(fim) - 2008;
-    int index_mes_fim = (get_dia(fim)-1) + (31*(get_mes(fim)-1));
     int dia_fim = get_dia(fim)-1;
     int mes_fim = get_mes(fim)-1;
+    int index_mes_fim = (dia_fim-1) + (31*(mes_fim)-1);
+
+
+
     if(type == 1)
       anos = m->year_questions[index_ano_inicio];
     if(type == 2)
@@ -120,7 +147,7 @@ GSequence* getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, 
       assert(index_mes_inicio <= index_mes_fim);
 
     while(index_ano_inicio <= index_ano_fim){
-    while(dia_inicio+1 + mes_inicio+1 <= dia_fim+1 + mes_fim+1 ){
+    while(dia_inicio+1 + (mes_inicio+1)*31 <= dia_fim+1 + (mes_fim+1)*31){
         if(!anos) break;
         if(anos[index_mes_inicio]){
           g_sequence_foreach(anos[index_mes_inicio], prependGSequence_TARDIS, sorted);
