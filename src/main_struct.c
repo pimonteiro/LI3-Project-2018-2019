@@ -103,7 +103,6 @@ void insertQuestion_TAD(TAD_community com, QUESTION q, long id, long owner_id, P
  * quem formulou a resposta,parent_id ID da questão correspondente a uma dada resposta
  *  p Post desse user,start Data de escrita da resposta
  */
-/
 void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, long parent_id, POST p, MyDate start){
     gint64* key = malloc(sizeof(gint64));
     *key = id;

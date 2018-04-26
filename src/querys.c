@@ -253,7 +253,6 @@ LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end)
     for(int i = 0; i < (int) tst->len; i++){
         set_list(final, i, g_array_index(tst, long, i));
     }
-    
     free(user_data);
     g_sequence_free(seq);
 
@@ -271,19 +270,11 @@ LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end)
 USER get_user_info(TAD_community com, long id){
     USER res = NULL;
     long post_history[10];
-
-    for(int i = 0; i < 10; i++){
-        post_history[i] = 0;
-    }
-
+    
     PROFILE profile_ptr = getProfile_TAD(com, id);
 
     if(profile_ptr != NULL){
-        //char* name = getName_profile(profile_ptr);
         char* aboutme = getAboutMe_profile(profile_ptr);
-        //int n = (int) (strlen(name) + strlen(aboutme) + 12);
-        //char short_bio[n];
-        //sprintf(short_bio, "%s", name, aboutme);
 
         GSequence* posts = getPosts_profile(profile_ptr);
         GSequenceIter* bg = g_sequence_get_begin_iter(posts);
@@ -337,12 +328,20 @@ GFunc query_6_convert_long(gpointer data, gpointer user_data){
  */
 gint query_6_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     ANSWER aa = (ANSWER) a;
-    ANSWER ab = (ANSWER) b;
+    ANSWER bb = (ANSWER) b;
 
     int na = getScore_answer(aa);
-    int nb = getScore_answer(ab);
+    int nb = getScore_answer(bb);
 
-    return (a < b) ? -1 : (a > b);
+    if(na > nb){
+        return -1;
+    }
+    else if (na < nb){
+            return 1;
+        }
+        else{
+            return 0;
+        }
 }
 
 /**
@@ -372,10 +371,6 @@ LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
 
     GSequenceIter* a1 = g_sequence_get_begin_iter(seq);
     GSequenceIter* a2 = g_sequence_get_iter_at_pos(seq, N);
-
-    ANSWER a = g_sequence_get(a1);
-    ANSWER b = g_sequence_get(g_sequence_iter_next(a1));
-    ANSWER c = g_sequence_get(g_sequence_iter_next(g_sequence_iter_next(a1)));
 
     g_sequence_foreach_range(a1, a2, (GFunc) query_6_convert_long, user_data);
 
