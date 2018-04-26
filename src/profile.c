@@ -5,7 +5,10 @@
 #include "question.h"
 #include "mydate.h"
 
-/*Estrutura que contém os principais atributos associados aos utilizadores */
+/**
+ * @brief Estrutura para guardar um utilizador
+ * 
+ */
 struct profile{
     GSequence* posts;
 
@@ -17,8 +20,15 @@ struct profile{
     int reputation;
 };
 
-
-/*Função responsável pela criação dos perfis dos utilizadores de acordo com os seus atributos */
+/**
+ * @brief Função responsável pela criação dos perfis dos utilizadores de acordo com os seus atributos
+ * 
+ * @param my_about 
+ * @param my_id 
+ * @param my_name 
+ * @param my_reputation 
+ * @return PROFILE 
+ */
 PROFILE create_profile(char* my_about, long my_id, char* my_name, int my_reputation){
     PROFILE p = malloc(sizeof(struct profile));
 
