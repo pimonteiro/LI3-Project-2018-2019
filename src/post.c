@@ -4,11 +4,10 @@
 #include "mydate.h"
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief  Estrutura de um post. Visto dividir-se em Questions e Answers e ambas
+ *   partilharem atributos, decidiu-se implmentar uma union, de forma
+ *  a conseguir-se juntar os Posts ou separá-los como fosse mais conveniente.
  */
-/*Estrutura de um post */
 struct post{
     long type; // 1 Question 2 Answer
     union content{
@@ -18,11 +17,12 @@ struct post{
 };
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief  Função responsável pela criação de um post de acordo com
+ *  as questões e/ou respostas
+ *  @param type Tipo 1 para Question e 2 para Answer, q Questão, a Answer
+ *  @return criação de um Post
  */
-/*Função responsável pela criação de um post */
+
 POST create_post(long type, QUESTION q, ANSWER a){
     POST p = malloc(sizeof(struct post));
 
@@ -38,11 +38,9 @@ POST create_post(long type, QUESTION q, ANSWER a){
 }
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief  Função que liberta um post da memória
+ *  @param p Um Post
  */
-/*Função que liberta o post da memória  */
 void free_post(void* p){
     POST post = (POST) p;
     if(getType_post(post) == 1)
@@ -54,37 +52,41 @@ void free_post(void* p){
 }
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief  Função responsável por ver o tipo
+ *  de um dado Post,ou seja, se é Questão ou Resposta
+ *  @param p Um post
+ *  @return Tipo de um Post
  */
-/*As funções que se seguem são responsáveis pelos getters dos elementos do post */
 long getType_post(POST p){
     return p->type;
 }
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief  Função responsável pela leitura
+ *  do conteúdo do tipo Questão
+ *  @param p Um Post
+ *  @return Conteúdo de uma questão de um Post
  */
+
 QUESTION getQuestion_post(POST p){
     return p->content.q;
 }
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief  Função responsável pela leitura
+ *  do conteúdo do tipo Resposta
+ *  @param p Um Post
+ *  @return Conteúdo de uma resposta de um Post
  */
 ANSWER getAnswer_post(POST p){
     return p->content.a;
 }
 
 /**
- *  @brief
- *  @param
- *  @return
+ *  @brief  Funão responsável pela leitura
+ *  da Data de um determinado Post
+ *  @param p Um Post
+ *  @return Data de um Post
  */
 MyDate getDate_post(POST p){
     if(p->type == 1){
