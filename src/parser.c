@@ -122,9 +122,10 @@ static void startElementPosts(void* user_data, const xmlChar* fullname, const xm
 
 
     long type = 0;
-    if(attrs)
+    if(attrs){
         type = strtol((const char*) attrs[3], NULL, 10);
-
+        if(type != 1 && type != 2) return;
+    }
     char* start_tmp = NULL;
     int dia, mes, ano, hora, minuto, segundo, milisegundo;
     MyDate start = NULL;
@@ -191,6 +192,8 @@ static void startElementPosts(void* user_data, const xmlChar* fullname, const xm
             POST p = create_post(type, NULL, a);
             insertAnswer_TAD(com, a, id, owner_id, parent_id, p, start);
         }
+
+
     }
 
     /*   g_free(title);
