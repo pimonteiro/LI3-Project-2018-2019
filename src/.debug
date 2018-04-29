@@ -1,0 +1,1 @@
+G_DEBUG=gc-friendly G_DEBUG=always-malloc valgrind --leak-check=full --show-reachable=yes   ./program

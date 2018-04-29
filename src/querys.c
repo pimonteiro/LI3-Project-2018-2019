@@ -14,6 +14,7 @@
 #include "interface.h"
 #include <glib.h>
 #include <gmodule.h>
+#include <string.h>
 
 
 /**
@@ -48,7 +49,6 @@ STR_pair get_info_from_post(TAD_community com, QUESTION q){
 
     STR_pair ret = create_str_pair(titulo, name);
 
-    free_profile(profile_ptr);
     return ret;
 }
 
@@ -162,7 +162,7 @@ LONG_list top_most_active(TAD_community com, int N){
         set_list(final, i, getId_profile(arrlist[i]));
     }
 
-    free(arrlist);      //DOUBT
+    free(arrlist);
     free(user_data);
     return final;
 }
@@ -176,18 +176,21 @@ LONG_list top_most_active(TAD_community com, int N){
  *  @return
  */
 LONG_pair total_posts(TAD_community com, Date begin, Date end){
-    GSequence* seq_1 = getFromToF_TAD(com, create_date_with_teachers_date(begin), create_date_with_teachers_date(end),
-            1, NULL);
-    GSequence* seq_2 = getFromToF_TAD(com, create_date_with_teachers_date(begin), create_date_with_teachers_date(end),
-            2, NULL);
+    MyDate beginn = create_date_with_teachers_date(begin);
+    MyDate endd   = create_date_with_teachers_date(end);
+
+    GSequence* seq_1 = getFromToF_TAD(com, beginn, endd, 1, NULL);
+    GSequence* seq_2 = getFromToF_TAD(com, beginn, endd, 2, NULL);
 
     long n_seq_1 = g_sequence_get_length(seq_1);
     long n_seq_2 = g_sequence_get_length(seq_2);
 
     LONG_pair ret = create_long_pair(n_seq_1, n_seq_2);
 
-    free(seq_1);
-    free(seq_2);
+    g_sequence_free(seq_1);
+    g_sequence_free(seq_2);
+    free_Mydate(beginn);
+    free_Mydate(endd);
 
     return ret;
 }
@@ -238,8 +241,10 @@ GFunc search_tag_questions(gpointer data, gpointer elem){
  *  @return
  */
 LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end){
-    GSequence* seq = getFromToF_TAD(com, create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 1,
-            query_4_cmp_func);
+    MyDate beginn = create_date_with_teachers_date(begin);
+    MyDate endd   = create_date_with_teachers_date(end);
+
+    GSequence* seq = getFromToF_TAD(com, beginn, endd, 1, query_4_cmp_func);
 
     if(g_sequence_is_empty(seq)) return NULL;
 
@@ -253,8 +258,12 @@ LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end)
     for(int i = 0; i < (int) tst->len; i++){
         set_list(final, i, g_array_index(tst, long, i));
     }
+    
     free(user_data);
+    g_array_free(tst, TRUE);
     g_sequence_free(seq);
+    free_Mydate(beginn);
+    free_Mydate(endd);
 
     return final;
 }
@@ -316,7 +325,6 @@ GFunc query_6_convert_long(gpointer data, gpointer user_data){
     QUERY6 tmp = (QUERY6) user_data;
     ANSWER a = (ANSWER) data;
 
-    printf("%d --- %ld --> %d\n", tmp->i, getID_answer(a), getScore_answer(a)); //TODO
     set_list(tmp->ret, tmp->i, getID_answer(a));
     tmp->i++;
 }
@@ -350,8 +358,10 @@ gint query_6_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
  *  @return
  */
 LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
-    GSequence* seq = getFromToF_TAD(com, create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 2,
-            query_6_cmp_func);
+    MyDate beginn = create_date_with_teachers_date(begin);
+    MyDate endd   = create_date_with_teachers_date(end);
+
+    GSequence* seq = getFromToF_TAD(com, beginn, endd, 2, query_6_cmp_func);
 
     if(g_sequence_is_empty(seq)) return NULL;
 
@@ -377,6 +387,8 @@ LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
 
     free(user_data);
     g_sequence_free(seq);
+    free_Mydate(beginn);
+    free_Mydate(endd);
 
     return ret;
 }
@@ -391,6 +403,18 @@ typedef struct query7{
     int size;
 }* QUERY7;
 
+typedef struct query7_extra{
+    long id;
+    int count;
+}* QUERY7_EXTRA;
+
+typedef struct query7_dates{
+    TAD_community cam;
+    MyDate bg;
+    MyDate nd;
+    GSequence* seq;
+}* QUERY7_DATES;
+
 
 /**
  *  @brief
@@ -399,12 +423,13 @@ typedef struct query7{
  */
 void query_7_convert_long(gpointer data, gpointer user_data){
     QUERY7 tmp = (QUERY7) user_data;
-    QUESTION q = (QUESTION) data;
+    QUERY7_EXTRA q = (QUERY7_EXTRA) data;
 
-    if(tmp->i < tmp->size){
-        set_list(tmp->ret, tmp->i, getId_question(q));
-        tmp->i++;
-    }
+    //if(tmp->i < tmp->size){
+        printf("%d --- %ld -> %d\n", tmp->i, q->id, q->count); //TODO
+        //set_list(tmp->ret, tmp->i, q->id);
+        //tmp->i++;
+   // }
 }
 
 /**
@@ -413,13 +438,47 @@ void query_7_convert_long(gpointer data, gpointer user_data){
  *  @return
  */
 gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
-    QUESTION qa = (QUESTION) a;
-    QUESTION qb = (QUESTION) b;
+    QUERY7_EXTRA aa = (QUERY7_EXTRA) a;
+    QUERY7_EXTRA bb = (QUERY7_EXTRA) b;
 
-    int na = (int) getNanswers_question(qa);
-    int nb = (int) getNanswers_question(qb);
+    int na = aa->count;
+    int nb = bb->count;
     //Ordem decrescente de nº de respostas
     return na - nb;
+}
+
+GSequenceIter* search_for_item(GSequence* seq, long id){
+    GSequenceIter* bg = g_sequence_get_begin_iter(seq);
+    GSequenceIter* nd = g_sequence_get_end_iter(seq);
+
+    while(bg != nd){
+        QUERY7_EXTRA a = g_sequence_get(bg);
+        if(a->id == id) return bg;
+        bg = g_sequence_iter_next(bg);
+    }
+    return NULL;
+}
+
+gint query_7_organize(gpointer data, gpointer user_data){
+    QUERY7_DATES dados = (QUERY7_DATES) user_data;
+    ANSWER a = (ANSWER) data;
+
+    GSequenceIter* gg = search_for_item(dados->seq, getParentId_answer(a));
+
+    if(gg == NULL){ //Nao existe essa questao na seq
+        MyDate cmp = getDate_post(getPost_TAD(dados->cam, getParentId_answer(a)));
+        if(cmp == NULL) return;
+        if(compare_dates(dados->bg, cmp) && compare_dates(dados->nd, cmp)){
+            QUERY7_EXTRA tp = malloc(sizeof(struct query7_extra));
+            tp->id = getParentId_answer(a);
+            tp->count = 1;
+            g_sequence_append(dados->seq, (gpointer)tp);
+        }
+    }
+    else{
+        QUERY7_EXTRA qq = g_sequence_get(gg);
+        qq->count++;
+    }
 }
 
 /**
@@ -428,13 +487,25 @@ gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
  *  @return
  */
 LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end){
-    GSequence* seq = getFromToF_TAD(com, create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 1,
-            cmp_func);
+    MyDate beginn = create_date_with_teachers_date(begin);
+    MyDate endd   = create_date_with_teachers_date(end);
+    GSequence* seq = getFromToF_TAD(com, beginn, endd, 2, NULL);
+
     if(g_sequence_is_empty(seq)) return NULL;
+
+    GSequence* tmp = g_sequence_new(NULL);
+    QUERY7_DATES date_organize = malloc(sizeof(struct query7_dates));
+    date_organize->cam = com;
+    date_organize->bg = beginn;
+    date_organize->nd = endd;
+    date_organize->seq = tmp;
+    g_sequence_foreach(seq, (GFunc)query_7_organize, (gpointer)date_organize);
+    g_sequence_free(seq);
+
 
     QUERY7 user_data = malloc(sizeof(struct query7));
 
-    int n_len = g_sequence_get_length(seq);
+    int n_len = g_sequence_get_length(tmp);
     if(n_len > N)
         user_data->ret = create_list(N);
     else{
@@ -444,14 +515,20 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
     user_data->i = 0;
     user_data->size = N;
 
-    GSequenceIter* bg = g_sequence_get_begin_iter(seq);
-    GSequenceIter* ed = g_sequence_get_iter_at_pos(seq, N);
+    g_sequence_sort(tmp, cmp_func, NULL);
 
-    g_sequence_foreach_range(bg, ed, (GFunc) query_7_convert_long, user_data);
+    GSequenceIter* bg = g_sequence_get_begin_iter(tmp);
+    GSequenceIter* ed = g_sequence_get_iter_at_pos(tmp, N);
+
+    g_sequence_foreach(tmp, (GFunc) query_7_convert_long, user_data);
+    //g_sequence_foreach_range(bg, ed, (GFunc) query_7_convert_long, user_data);
 
     LONG_list ret = user_data->ret;
+    
     free(user_data);
-    free(seq);
+    g_sequence_free(tmp); //Falta dar free de cada
+    free_Mydate(beginn);
+    free_Mydate(endd);
 
     return ret;
 }
@@ -500,7 +577,7 @@ LONG_list contains_word(TAD_community com, char* word, int N){
     g_sequence_foreach(seq, (GFunc) search_title_name, (gpointer) user_data);
 
     LONG_list final;
-    if(tst->len > N)
+    if((int)tst->len > N)
         final = create_list(N);
     else{
         final = create_list(tst->len + 1);
@@ -513,7 +590,10 @@ LONG_list contains_word(TAD_community com, char* word, int N){
     set_list(final, N, NULL);
 
     g_sequence_free(seq);
+    free_Mydate(begin);
+    free_Mydate(end);
     free(user_data);
+    g_array_free(tst, TRUE);
 
     return final;
 }

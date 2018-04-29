@@ -89,9 +89,12 @@ ANSWER getAnswer_post(POST p){
  *  @return Data de um Post
  */
 MyDate getDate_post(POST p){
-    if(p->type == 1){
-        return getCreationDate_question(p->content.q);
-    }else{
-        return getDate_answer(p->content.a);
+    if(p != NULL){
+        if(p->type == 1){
+            return getCreationDate_question(p->content.q);
+        }else{
+            return getDate_answer(p->content.a);
+        }
     }
+    return NULL;
 }

@@ -7,6 +7,7 @@
 #include "answer.h"
 #include "mydate.h"
 #include "main_struct.h"
+#include <string.h>
 
 /**
  *  @brief

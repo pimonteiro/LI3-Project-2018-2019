@@ -32,7 +32,6 @@ struct question{
  *  my_n_answer Número de respostas de uma determinada questão,comments Número de comentários
  *  @return inicialização de uma resposta ANSWER
  */
-
 QUESTION create_question(long my_id,
                          char* my_title,
                          char* my_tags,

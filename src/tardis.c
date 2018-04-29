@@ -1,6 +1,7 @@
 #include "tardis.h"
 #include <assert.h>
 #include <glib.h>
+#include <stdlib.h>
 
 #define DIAS_MESES (31*12)
 
