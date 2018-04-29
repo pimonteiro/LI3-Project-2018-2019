@@ -60,7 +60,7 @@ static int attr2int_post(const xmlChar* attr){
  */
 static void error(void* user_data, const char* msg, ...){
     va_list args;
-
+    (void)user_data;
     va_start(args, msg);
     printf("\n%s\n", msg);
     va_end(args);
@@ -209,6 +209,7 @@ static void startElementPosts(void* user_data, const xmlChar* fullname, const xm
  *  @return
  */
 static void startElementTags(void* user_data, const xmlChar* fullname, const xmlChar** attrs){
+    (void)fullname;
     long id = 0; // 1
     char* tag_name = NULL; // 3
     if(!attrs) return;

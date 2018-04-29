@@ -133,6 +133,7 @@ void g_array_insert_sorted(QUERY2 data, PROFILE p){
  * @param user_data Estrutura com os dados necessários a outras funcoes auxiliares
  */
 GHFunc query_2_hash_to_array(gpointer key, gpointer value, gpointer user_data){
+    (void)key;
     QUERY2 data = (QUERY2) user_data;
     PROFILE p = (PROFILE) value;
 
@@ -206,6 +207,7 @@ typedef struct query4{
  *  @return
  */
 gint query_4_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
+    (void)cmp_data;
     QUESTION aa = (QUESTION) a;
     QUESTION bb = (QUESTION) b;
 
@@ -270,7 +272,7 @@ LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end)
 USER get_user_info(TAD_community com, long id){
     USER res = NULL;
     long post_history[10];
-    
+
     PROFILE profile_ptr = getProfile_TAD(com, id);
 
     if(profile_ptr != NULL){
@@ -327,6 +329,7 @@ GFunc query_6_convert_long(gpointer data, gpointer user_data){
  *  @return
  */
 gint query_6_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
+    (void)cmp_data;
     ANSWER aa = (ANSWER) a;
     ANSWER bb = (ANSWER) b;
 
@@ -413,6 +416,7 @@ void query_7_convert_long(gpointer data, gpointer user_data){
  *  @return
  */
 gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
+    (void)cmp_data;
     QUESTION qa = (QUESTION) a;
     QUESTION qb = (QUESTION) b;
 
@@ -500,7 +504,7 @@ LONG_list contains_word(TAD_community com, char* word, int N){
     g_sequence_foreach(seq, (GFunc) search_title_name, (gpointer) user_data);
 
     LONG_list final;
-    if(tst->len > N)
+    if(tst->len > (long) N)
         final = create_list(N);
     else{
         final = create_list(tst->len + 1);
@@ -528,6 +532,7 @@ typedef struct query9{
 }* QUERY9;
 
 gint query_9_exists_question(gconstpointer a, gconstpointer b, gpointer user_data){
+    (void)user_data;
     return a - b;
 }
 
@@ -692,8 +697,10 @@ GFunc catamorfismo(gpointer data, gpointer user_data){
     int present = 0;
     long parent_id = getOwnerId_question(q);
     for(i = 0; i < userd->len; i++){
-        if(parent_id == getId_profile(userd->arrlist[i]))
-            userd->present[userd->present_index++] = q;
+        if(parent_id == getId_profile(userd->arrlist[i])){
+            userd->present[userd->present_index] = q;
+            ++(userd->present_index);
+        }
     }
 }
 
@@ -732,15 +739,15 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
             NULL);
 
     PROFILE* arrlist = malloc(sizeof(PROFILE) * (N + 1));
-    QUESTION* presents = malloc(sizeof(QUESTION) * (g_sequence_get_length(seq) + 1));
+    QUESTION* presents = malloc(sizeof(QUESTION) * (g_sequence_get_length(seq)));
     QUERY2 user_data = malloc(sizeof(struct query2));
     user_data->arrlist = arrlist;
     user_data->size = N;
     user_data->len = 0;
     user_data->present = presents;
     user_data->present_index = 0;
-    profilesForEach_TAD(com, (GHFunc) query_2_hash_to_array, (gpointer) user_data);
 
+    profilesForEach_TAD(com, (GHFunc) query_2_hash_to_array, (gpointer) user_data);
     g_sequence_foreach(seq, (GFunc) catamorfismo, user_data);
 
     if(user_data->present_index == 0) return NULL;
@@ -754,9 +761,10 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
                 tag5);
         if(*tag1 != 0){
             j = 0;
-            while(tags->next){
+            while(tags){
                 if(!strcmp((char*) tags->data, tag1))
                     countTags[j] += 1;
+                if(tags->next == NULL) break;
                 tags = tags->next;
                 ++j;
             }
@@ -765,9 +773,10 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
 
         if(*tag2 != 0){
             j = 0;
-            while(tags->next){
+            while(tags){
                 if(!strcmp((char*) tags->data, tag2))
                     countTags[j] += 1;
+                if(tags->next == NULL) break;
                 tags = tags->next;
                 ++j;
             }
@@ -776,9 +785,10 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
 
         if(*tag3 != 0){
             j = 0;
-            while(tags->next){
+            while(tags){
                 if(!strcmp((char*) tags->data, tag3))
                     countTags[j] += 1;
+                if(tags->next == NULL) break;
                 tags = tags->next;
                 ++j;
             }
@@ -787,9 +797,10 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
 
         if(*tag4 != 0){
             j = 0;
-            while(tags->next){
+            while(tags){
                 if(!strcmp(tags->data, tag4))
                     countTags[j] += 1;
+                if(tags->next == NULL) break;
                 tags = tags->next;
                 ++j;
             }
@@ -798,9 +809,10 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
 
         if(*tag5 != 0){
             j = 0;
-            while(tags->next){
+            while(tags){
                 if(!strcmp((char*) tags->data, tag5))
                     countTags[j] += 1;
+                if(tags->next == NULL) break;
                 tags = tags->next;
                 ++j;
             }
@@ -816,7 +828,7 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
         char* t = (char*) g_list_nth_data(tags, (guint) m);
         set_list(l, n, getQuark_TAD(com, t));
         countTags[m] = 0;
-        n++;
+        ++n;
     }
 
     return l;
