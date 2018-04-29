@@ -5,7 +5,7 @@ OLDIR=$(ODIR)/lib
 ODDIR=$(ODIR)/lib
 
 GITGUD= -march=native -O3  -pipe -D_GNU_SOURCE -fomit-frame-pointer
-DEBUG=-O0 -Wextra -pedantic -g
+DEBUG=-O0 -Wextra -g
 MEMLEAK=-ggdb -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined
 # -fomit-frame-pointer -ftree-loop-linear -ftree-vectorize
 
