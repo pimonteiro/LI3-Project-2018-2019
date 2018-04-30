@@ -260,7 +260,7 @@ LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end)
     for(int i = 0; i < (int) tst->len; i++){
         set_list(final, i, g_array_index(tst, long, i));
     }
-    
+
     free(user_data);
     g_array_free(tst, TRUE);
     g_sequence_free(seq);
@@ -527,7 +527,7 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
     //g_sequence_foreach_range(bg, ed, (GFunc) query_7_convert_long, user_data);
 
     LONG_list ret = user_data->ret;
-    
+
     free(user_data);
     g_sequence_free(tmp); //Falta dar free de cada
     free_Mydate(beginn);
