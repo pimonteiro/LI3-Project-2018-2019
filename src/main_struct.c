@@ -132,7 +132,7 @@ void insertTag_TAD(TAD_community com, char* tag_name, long id){
  *  @brief Função que se segue responsável pela leitura
  *  do perfil de um user da Estrutura Principal
  *  @param com Estrutura Principal, id ID de um user
- *  @return HashTable com os perfis dos users
+ *  @return Perfis de um user dado o id
  */
 PROFILE getProfile_TAD(TAD_community com, long id){
     return (PROFILE) g_hash_table_lookup(com->profiles, &id);
@@ -142,7 +142,7 @@ PROFILE getProfile_TAD(TAD_community com, long id){
  *  @brief  Função que se segue responsável pela leitura dos
  *  Posts da Estrutura Principal
  *  @param com Estrutura Principal, id do Utilizador
- *  @return
+ *  @return Post dado o id
  */
 POST getPost_TAD(TAD_community com, long id){
     return (POST) g_hash_table_lookup(com->posts, &id);
@@ -150,8 +150,7 @@ POST getPost_TAD(TAD_community com, long id){
 
 /**
  *  @brief Função que calcula o intervalo arbitrário de tempo que é pedido em algumas queries
- *  @param com Estrutura Principal, inicio  e fim intervalo arbitrário de datas, type 1-Question
- *  2-Answer,f compara datas
+ *  @param com Estrutura Principal, inicio  e fim intervalo arbitrário de datas, type 1-Question e 2-Answer,f compara datas
  *  @return GSequence de um intervalo aleatório de tempo
  */
 GSequence* getFromToF_TAD(TAD_community com, MyDate inicio, MyDate fim, int type, GCompareDataFunc f){
@@ -159,8 +158,10 @@ GSequence* getFromToF_TAD(TAD_community com, MyDate inicio, MyDate fim, int type
 }
 
 /**
- *  @brief Função que se segue
- *  @param com Estrutura Principal
+ *  @brief Função que se segue é responsável por percorrer toda
+ *  a HashTable para cada valor/chave do perfil do user
+ *  @param com Estrutura Principal, f Função para cada chave/valor
+ *  user_data Utilizador
  */
 void profilesForEach_TAD(TAD_community com, GHFunc f, gpointer user_data){
     assert(f != NULL && user_data != NULL);
@@ -168,9 +169,9 @@ void profilesForEach_TAD(TAD_community com, GHFunc f, gpointer user_data){
 }
 
 /**
- *  @brief
+ *  @brief Função que se segue tira uma tag da Estrutura
  *  @param com Estrutura Principal, tag Array com as tags
- *  @return
+ *  @return valor da tag
  */
 long getQuark_TAD(TAD_community com, char* tag){
     long quark = (long) g_hash_table_lookup(com->tags, tag);
@@ -203,8 +204,8 @@ void setNTags_TAD(TAD_community com){
 }
 
 /**
- *  @brief Função responsável pela leitura de uma
- *  tag da Estrutura Principal
+ *  @brief Função responsável pela leitura das chave das
+ *  tags da Estrutura Principal e guardá-las numa lista
  *  @param com Estrutura Principal
  *  @return Dupla lista ligada com as tags
 */

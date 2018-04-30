@@ -130,7 +130,7 @@ int unit_test(){
 
     TAD_community com = init();
 
-    load(com, "/home/pimonteiro/Desktop/android");
+    load(com, "/home/meiras/Desktop/android/android");
 
     query1_test_cases(com);
 
