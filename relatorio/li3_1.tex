@@ -305,20 +305,21 @@ Percorremos a TARDIS entre das datas dadas e filtramos as \textit{Questions} que
 \section{OTIMIZAÇÕES}
 
 O principal foco a nível de otimizações foi estruturar a estutura principal segundo as queries. Fora isso, várias otimizações a nível de código foram feitas, \textit{exempli gratia} $++counter$ vs $counter++$, switch vs vários ifs, etc.
-Foram usadas algumas flags de otimização do \textit{GCC}, a mais notória é \textit{-march=native} que gera código assembly específica para o CPU do computador.
+Foram usadas algumas flags de otimização do \textit{GCC}, a mais notória é \textit{-march=native} que gera código assembly específico para o CPU do computador.
+De forma a ocupar menos memórias, os elementos das estruturas estão ordeanados por tamanho dos tipos.
 
 \section{MODULARIDADE}
 
 Dado o tamanho do projecto foi preciso dividi-lo em várias fases.
 
 \begin{itemize}
-\item Init/
+\item Init;
 \item Pase/Load;
 \item Estrutura;
 \item Queries.
 \end{itemize}
 
-Na fase do Init a estrutura principal é inicializada, imediatamente a seguir começa o Parse/Load. Os ficheiros xml são carregados para a memória e processados para a estrutura.
+Na fase do Init a estrutura principal é inicializada, imediatamente a seguir começa o Parse/Load. Os ficheiros xml são carregados para a memória (um de cada vez e aos poucos) e processados para a estrutura.
 
 O código responsável pelas queries foi deixado para o fim, sendo que o código das estruturas e do parser foi desenvolvido em paralelo após as estruturas estarem desenhadas.
 
