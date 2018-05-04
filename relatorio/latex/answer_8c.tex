@@ -1,0 +1,199 @@
+\hypertarget{answer_8c}{}\section{answer.\+c File Reference}
+\label{answer_8c}\index{answer.\+c@{answer.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}mydate.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}answer.\+h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structanswer}{answer}
+\begin{DoxyCompactList}\small\item\em Estrutura de uma Resposta. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+A\+N\+S\+W\+ER \hyperlink{answer_8c_a47271c52121ccbd14ba4189adcc7b742}{create\+\_\+answer} (long my\+\_\+parent\+\_\+id, long my\+\_\+owner\+\_\+id, long my\+\_\+id, My\+Date my\+\_\+creation\+\_\+date, int my\+\_\+score, long comments)
+\begin{DoxyCompactList}\small\item\em Cria um objeto resposta. \end{DoxyCompactList}\item 
+void \hyperlink{answer_8c_a3d7afc8ce57bd7aba2fe513d907dc0ca}{free\+\_\+answer} (void $\ast$a)
+\begin{DoxyCompactList}\small\item\em Da free de uma resposta. \end{DoxyCompactList}\item 
+long \hyperlink{answer_8c_a43b5e9eb8591115cf24f5ca9863b4dc0}{get\+Parent\+Id\+\_\+answer} (A\+N\+S\+W\+ER a)
+\begin{DoxyCompactList}\small\item\em Getter do param Parent\+Id. \end{DoxyCompactList}\item 
+long \hyperlink{answer_8c_a91692f0d90604366413635a188c4fb1a}{get\+I\+D\+\_\+answer} (A\+N\+S\+W\+ER a)
+\begin{DoxyCompactList}\small\item\em Getter do ID da resposta. \end{DoxyCompactList}\item 
+long \hyperlink{answer_8c_aafd5906721779255d9812811c21c4dd5}{get\+Comments\+\_\+answer} (A\+N\+S\+W\+ER a)
+\begin{DoxyCompactList}\small\item\em Getter do param comments. \end{DoxyCompactList}\item 
+My\+Date \hyperlink{answer_8c_a7e32fec5beaf0db41b21a6b434a92ea2}{get\+Date\+\_\+answer} (A\+N\+S\+W\+ER a)
+\begin{DoxyCompactList}\small\item\em Getter do param Date. \end{DoxyCompactList}\item 
+int \hyperlink{answer_8c_abb94c6d22bd847d0d29d8ddba02ca9a3}{get\+Score\+\_\+answer} (A\+N\+S\+W\+ER a)
+\begin{DoxyCompactList}\small\item\em Getter do param score. \end{DoxyCompactList}\item 
+long \hyperlink{answer_8c_a01c65ee1fdc25f84d5427fae1468d025}{get\+Owner\+Id\+\_\+answer} (A\+N\+S\+W\+ER a)
+\begin{DoxyCompactList}\small\item\em Getter do param Owner\+Id. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Ficheiro da estrutura de uma Resposta 
+
+\subsection{Function Documentation}
+\index{answer.\+c@{answer.\+c}!create\+\_\+answer@{create\+\_\+answer}}
+\index{create\+\_\+answer@{create\+\_\+answer}!answer.\+c@{answer.\+c}}
+\subsubsection[{\texorpdfstring{create\+\_\+answer(long my\+\_\+parent\+\_\+id, long my\+\_\+owner\+\_\+id, long my\+\_\+id, My\+Date my\+\_\+creation\+\_\+date, int my\+\_\+score, long comments)}{create_answer(long my_parent_id, long my_owner_id, long my_id, MyDate my_creation_date, int my_score, long comments)}}]{\setlength{\rightskip}{0pt plus 5cm}A\+N\+S\+W\+ER create\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{long}]{my\+\_\+parent\+\_\+id, }
+\item[{long}]{my\+\_\+owner\+\_\+id, }
+\item[{long}]{my\+\_\+id, }
+\item[{My\+Date}]{my\+\_\+creation\+\_\+date, }
+\item[{int}]{my\+\_\+score, }
+\item[{long}]{comments}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8c_a47271c52121ccbd14ba4189adcc7b742}{}\label{answer_8c_a47271c52121ccbd14ba4189adcc7b742}
+
+
+Cria um objeto resposta. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em my\+\_\+parent\+\_\+id} & ID da questão onde pertence a resposta \\
+\hline
+{\em my\+\_\+owner\+\_\+id} & ID do user da resposta \\
+\hline
+{\em my\+\_\+id} & ID da resposta \\
+\hline
+{\em my\+\_\+creation\+\_\+date} & Data de criacao da resposta \\
+\hline
+{\em my\+\_\+score} & Score da resposta \\
+\hline
+{\em comments} & Numero de comentarios pertencente a resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A\+N\+S\+W\+ER Objeto resposta 
+\end{DoxyReturn}
+\index{answer.\+c@{answer.\+c}!free\+\_\+answer@{free\+\_\+answer}}
+\index{free\+\_\+answer@{free\+\_\+answer}!answer.\+c@{answer.\+c}}
+\subsubsection[{\texorpdfstring{free\+\_\+answer(void $\ast$a)}{free_answer(void *a)}}]{\setlength{\rightskip}{0pt plus 5cm}void free\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8c_a3d7afc8ce57bd7aba2fe513d907dc0ca}{}\label{answer_8c_a3d7afc8ce57bd7aba2fe513d907dc0ca}
+
+
+Da free de uma resposta. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Resposta para dar free Recebe um void$\ast$ pois a funcao de destruicao da hashtable onde esta é usada manda como void$\ast$, sendo preciso depois converter para o tipo esperado \\
+\hline
+\end{DoxyParams}
+\index{answer.\+c@{answer.\+c}!get\+Comments\+\_\+answer@{get\+Comments\+\_\+answer}}
+\index{get\+Comments\+\_\+answer@{get\+Comments\+\_\+answer}!answer.\+c@{answer.\+c}}
+\subsubsection[{\texorpdfstring{get\+Comments\+\_\+answer(\+A\+N\+S\+W\+E\+R a)}{getComments_answer(ANSWER a)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Comments\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{A\+N\+S\+W\+ER}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8c_aafd5906721779255d9812811c21c4dd5}{}\label{answer_8c_aafd5906721779255d9812811c21c4dd5}
+
+
+Getter do param comments. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+long Numero de comentarios da resposta 
+\end{DoxyReturn}
+\index{answer.\+c@{answer.\+c}!get\+Date\+\_\+answer@{get\+Date\+\_\+answer}}
+\index{get\+Date\+\_\+answer@{get\+Date\+\_\+answer}!answer.\+c@{answer.\+c}}
+\subsubsection[{\texorpdfstring{get\+Date\+\_\+answer(\+A\+N\+S\+W\+E\+R a)}{getDate_answer(ANSWER a)}}]{\setlength{\rightskip}{0pt plus 5cm}My\+Date get\+Date\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{A\+N\+S\+W\+ER}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8c_a7e32fec5beaf0db41b21a6b434a92ea2}{}\label{answer_8c_a7e32fec5beaf0db41b21a6b434a92ea2}
+
+
+Getter do param Date. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+My\+Date Data da resposta 
+\end{DoxyReturn}
+\index{answer.\+c@{answer.\+c}!get\+I\+D\+\_\+answer@{get\+I\+D\+\_\+answer}}
+\index{get\+I\+D\+\_\+answer@{get\+I\+D\+\_\+answer}!answer.\+c@{answer.\+c}}
+\subsubsection[{\texorpdfstring{get\+I\+D\+\_\+answer(\+A\+N\+S\+W\+E\+R a)}{getID_answer(ANSWER a)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+I\+D\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{A\+N\+S\+W\+ER}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8c_a91692f0d90604366413635a188c4fb1a}{}\label{answer_8c_a91692f0d90604366413635a188c4fb1a}
+
+
+Getter do ID da resposta. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+long id da resposta 
+\end{DoxyReturn}
+\index{answer.\+c@{answer.\+c}!get\+Owner\+Id\+\_\+answer@{get\+Owner\+Id\+\_\+answer}}
+\index{get\+Owner\+Id\+\_\+answer@{get\+Owner\+Id\+\_\+answer}!answer.\+c@{answer.\+c}}
+\subsubsection[{\texorpdfstring{get\+Owner\+Id\+\_\+answer(\+A\+N\+S\+W\+E\+R a)}{getOwnerId_answer(ANSWER a)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Owner\+Id\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{A\+N\+S\+W\+ER}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8c_a01c65ee1fdc25f84d5427fae1468d025}{}\label{answer_8c_a01c65ee1fdc25f84d5427fae1468d025}
+
+
+Getter do param Owner\+Id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+long ID do dono da resposta 
+\end{DoxyReturn}
+\index{answer.\+c@{answer.\+c}!get\+Parent\+Id\+\_\+answer@{get\+Parent\+Id\+\_\+answer}}
+\index{get\+Parent\+Id\+\_\+answer@{get\+Parent\+Id\+\_\+answer}!answer.\+c@{answer.\+c}}
+\subsubsection[{\texorpdfstring{get\+Parent\+Id\+\_\+answer(\+A\+N\+S\+W\+E\+R a)}{getParentId_answer(ANSWER a)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Parent\+Id\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{A\+N\+S\+W\+ER}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8c_a43b5e9eb8591115cf24f5ca9863b4dc0}{}\label{answer_8c_a43b5e9eb8591115cf24f5ca9863b4dc0}
+
+
+Getter do param Parent\+Id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+long id da questao a que pertence a resposta 
+\end{DoxyReturn}
+\index{answer.\+c@{answer.\+c}!get\+Score\+\_\+answer@{get\+Score\+\_\+answer}}
+\index{get\+Score\+\_\+answer@{get\+Score\+\_\+answer}!answer.\+c@{answer.\+c}}
+\subsubsection[{\texorpdfstring{get\+Score\+\_\+answer(\+A\+N\+S\+W\+E\+R a)}{getScore_answer(ANSWER a)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Score\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{A\+N\+S\+W\+ER}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8c_abb94c6d22bd847d0d29d8ddba02ca9a3}{}\label{answer_8c_abb94c6d22bd847d0d29d8ddba02ca9a3}
+
+
+Getter do param score. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Score da resposta 
+\end{DoxyReturn}

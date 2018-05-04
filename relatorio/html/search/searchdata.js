@@ -1,18 +1,24 @@
 var indexSectionsWithContent =
 {
-  0: "e",
-  1: "e"
+  0: "acdfgilmpqst",
+  1: "admpqt",
+  2: "cfgilpst",
+  3: "apqt"
 };
 
 var indexSectionNames =
 {
   0: "all",
-  1: "pages"
+  1: "files",
+  2: "functions",
+  3: "typedefs"
 };
 
 var indexSectionLabels =
 {
   0: "All",
-  1: "Pages"
+  1: "Files",
+  2: "Functions",
+  3: "Typedefs"
 };
 

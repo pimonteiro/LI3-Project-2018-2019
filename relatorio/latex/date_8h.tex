@@ -1,0 +1,121 @@
+\hypertarget{date_8h}{}\section{date.\+h File Reference}
+\label{date_8h}\index{date.\+h@{date.\+h}}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct date $\ast$ {\bfseries Date}\hypertarget{date_8h_a617c0b904a4740fe03937919f8f1a7e7}{}\label{date_8h_a617c0b904a4740fe03937919f8f1a7e7}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Date \hyperlink{date_8h_a1b3eda1abec069a68e3734d8396b2e66}{create\+Date} (int day, int month, int year)
+\begin{DoxyCompactList}\small\item\em Função responsável pela criação de uma data de acordo com o dia, mês e ano. \end{DoxyCompactList}\item 
+int \hyperlink{date_8h_abbaf6881ba9c620dcc8d6d5de803d912}{get\+\_\+day} (Date d)
+\begin{DoxyCompactList}\small\item\em Função responsável pela leitura do dia de uma data. \end{DoxyCompactList}\item 
+int \hyperlink{date_8h_a9ebbba4814427fa4306bfe927a50bdde}{get\+\_\+month} (Date d)
+\begin{DoxyCompactList}\small\item\em Função responsável pela leitura do mês de uma data. Retorna um valor entre 0 e 11. \end{DoxyCompactList}\item 
+int \hyperlink{date_8h_a36bb144d3338c7a687a9cd675def2f73}{get\+\_\+year} (Date d)
+\begin{DoxyCompactList}\small\item\em Função responsável pela leitura do ano de uma data. \end{DoxyCompactList}\item 
+void \hyperlink{date_8h_a2428331a018772af26d6691fb9c1166c}{free\+\_\+date} (Date d)
+\begin{DoxyCompactList}\small\item\em Função que liberta a data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Ficheiro da class My\+Date 
+
+\subsection{Function Documentation}
+\index{date.\+h@{date.\+h}!create\+Date@{create\+Date}}
+\index{create\+Date@{create\+Date}!date.\+h@{date.\+h}}
+\subsubsection[{\texorpdfstring{create\+Date(int day, int month, int year)}{createDate(int day, int month, int year)}}]{\setlength{\rightskip}{0pt plus 5cm}Date create\+Date (
+\begin{DoxyParamCaption}
+\item[{int}]{day, }
+\item[{int}]{month, }
+\item[{int}]{year}
+\end{DoxyParamCaption}
+)}\hypertarget{date_8h_a1b3eda1abec069a68e3734d8396b2e66}{}\label{date_8h_a1b3eda1abec069a68e3734d8396b2e66}
+
+
+Função responsável pela criação de uma data de acordo com o dia, mês e ano. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em day} & Dia,month Mês,year Ano \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+inicialização de uma Data 
+\end{DoxyReturn}
+\index{date.\+h@{date.\+h}!free\+\_\+date@{free\+\_\+date}}
+\index{free\+\_\+date@{free\+\_\+date}!date.\+h@{date.\+h}}
+\subsubsection[{\texorpdfstring{free\+\_\+date(\+Date d)}{free_date(Date d)}}]{\setlength{\rightskip}{0pt plus 5cm}void free\+\_\+date (
+\begin{DoxyParamCaption}
+\item[{Date}]{d}
+\end{DoxyParamCaption}
+)}\hypertarget{date_8h_a2428331a018772af26d6691fb9c1166c}{}\label{date_8h_a2428331a018772af26d6691fb9c1166c}
+
+
+Função que liberta a data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d} & Data \\
+\hline
+\end{DoxyParams}
+\index{date.\+h@{date.\+h}!get\+\_\+day@{get\+\_\+day}}
+\index{get\+\_\+day@{get\+\_\+day}!date.\+h@{date.\+h}}
+\subsubsection[{\texorpdfstring{get\+\_\+day(\+Date d)}{get_day(Date d)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+\_\+day (
+\begin{DoxyParamCaption}
+\item[{Date}]{d}
+\end{DoxyParamCaption}
+)}\hypertarget{date_8h_abbaf6881ba9c620dcc8d6d5de803d912}{}\label{date_8h_abbaf6881ba9c620dcc8d6d5de803d912}
+
+
+Função responsável pela leitura do dia de uma data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d} & Data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+dia de uma dada data 
+\end{DoxyReturn}
+\index{date.\+h@{date.\+h}!get\+\_\+month@{get\+\_\+month}}
+\index{get\+\_\+month@{get\+\_\+month}!date.\+h@{date.\+h}}
+\subsubsection[{\texorpdfstring{get\+\_\+month(\+Date d)}{get_month(Date d)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+\_\+month (
+\begin{DoxyParamCaption}
+\item[{Date}]{d}
+\end{DoxyParamCaption}
+)}\hypertarget{date_8h_a9ebbba4814427fa4306bfe927a50bdde}{}\label{date_8h_a9ebbba4814427fa4306bfe927a50bdde}
+
+
+Função responsável pela leitura do mês de uma data. Retorna um valor entre 0 e 11. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d} & Data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mês de uma dada data 
+\end{DoxyReturn}
+\index{date.\+h@{date.\+h}!get\+\_\+year@{get\+\_\+year}}
+\index{get\+\_\+year@{get\+\_\+year}!date.\+h@{date.\+h}}
+\subsubsection[{\texorpdfstring{get\+\_\+year(\+Date d)}{get_year(Date d)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+\_\+year (
+\begin{DoxyParamCaption}
+\item[{Date}]{d}
+\end{DoxyParamCaption}
+)}\hypertarget{date_8h_a36bb144d3338c7a687a9cd675def2f73}{}\label{date_8h_a36bb144d3338c7a687a9cd675def2f73}
+
+
+Função responsável pela leitura do ano de uma data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d} & Data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ano de uma dada data 
+\end{DoxyReturn}

@@ -1,0 +1,191 @@
+\hypertarget{answer_8h}{}\section{answer.\+h File Reference}
+\label{answer_8h}\index{answer.\+h@{answer.\+h}}
+{\ttfamily \#include \char`\"{}mydate.\+h\char`\"{}}\\*
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct answer $\ast$ \hyperlink{answer_8h_aeaf1c72d90bc3ddee26be12f1a7cf521}{A\+N\+S\+W\+ER}\hypertarget{answer_8h_aeaf1c72d90bc3ddee26be12f1a7cf521}{}\label{answer_8h_aeaf1c72d90bc3ddee26be12f1a7cf521}
+
+\begin{DoxyCompactList}\small\item\em Estrutura que contém os principais atributos associados às respostas como sendo a sua data de criação da resposta, o seu id,id de quem escreveu a resposta,id da questão que está a responder,número de comentários,score. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{answer_8h_aeaf1c72d90bc3ddee26be12f1a7cf521}{A\+N\+S\+W\+ER} \hyperlink{answer_8h_a47271c52121ccbd14ba4189adcc7b742}{create\+\_\+answer} (long my\+\_\+parent\+\_\+id, long my\+\_\+owner\+\_\+id, long my\+\_\+id, My\+Date my\+\_\+creation\+\_\+date, int my\+\_\+score, long comments)
+\begin{DoxyCompactList}\small\item\em Função responsável pela criação de uma resposta de acordo com os seus atributos. \end{DoxyCompactList}\item 
+void \hyperlink{answer_8h_a3d7afc8ce57bd7aba2fe513d907dc0ca}{free\+\_\+answer} (void $\ast$a)
+\begin{DoxyCompactList}\small\item\em Função que liberta uma resposta da memória. \end{DoxyCompactList}\item 
+long \hyperlink{answer_8h_a91692f0d90604366413635a188c4fb1a}{get\+I\+D\+\_\+answer} (\hyperlink{answer_8h_aeaf1c72d90bc3ddee26be12f1a7cf521}{A\+N\+S\+W\+ER} a)
+\begin{DoxyCompactList}\small\item\em $\ast$A função que se segue é responsável pela leitura do atributo do ID da resposta em causa \end{DoxyCompactList}\item 
+My\+Date \hyperlink{answer_8h_a7e32fec5beaf0db41b21a6b434a92ea2}{get\+Date\+\_\+answer} (\hyperlink{answer_8h_aeaf1c72d90bc3ddee26be12f1a7cf521}{A\+N\+S\+W\+ER} a)
+\begin{DoxyCompactList}\small\item\em $\ast$A função que se segue é responsável pela leitura da data de criação \end{DoxyCompactList}\item 
+int \hyperlink{answer_8h_abb94c6d22bd847d0d29d8ddba02ca9a3}{get\+Score\+\_\+answer} (\hyperlink{answer_8h_aeaf1c72d90bc3ddee26be12f1a7cf521}{A\+N\+S\+W\+ER} a)
+\begin{DoxyCompactList}\small\item\em $\ast$A função que se segue é responsável pela leitura do atributo score \end{DoxyCompactList}\item 
+long \hyperlink{answer_8h_a43b5e9eb8591115cf24f5ca9863b4dc0}{get\+Parent\+Id\+\_\+answer} (\hyperlink{answer_8h_aeaf1c72d90bc3ddee26be12f1a7cf521}{A\+N\+S\+W\+ER} a)
+\begin{DoxyCompactList}\small\item\em $\ast$A função que se segue é responsável pela leitura do atributo do ID da questão que está a ser respondida \end{DoxyCompactList}\item 
+long \hyperlink{answer_8h_a01c65ee1fdc25f84d5427fae1468d025}{get\+Owner\+Id\+\_\+answer} (\hyperlink{answer_8h_aeaf1c72d90bc3ddee26be12f1a7cf521}{A\+N\+S\+W\+ER} a)
+\begin{DoxyCompactList}\small\item\em $\ast$A função que se segue é responsável pela leitura do atributo Id da pessoa que respondeu \end{DoxyCompactList}\item 
+long \hyperlink{answer_8h_aafd5906721779255d9812811c21c4dd5}{get\+Comments\+\_\+answer} (\hyperlink{answer_8h_aeaf1c72d90bc3ddee26be12f1a7cf521}{A\+N\+S\+W\+ER} a)
+\begin{DoxyCompactList}\small\item\em $\ast$A função que se segue é responsável pela leitura do número de comentários \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Ficheiro da class A\+N\+S\+W\+ER 
+
+\subsection{Function Documentation}
+\index{answer.\+h@{answer.\+h}!create\+\_\+answer@{create\+\_\+answer}}
+\index{create\+\_\+answer@{create\+\_\+answer}!answer.\+h@{answer.\+h}}
+\subsubsection[{\texorpdfstring{create\+\_\+answer(long my\+\_\+parent\+\_\+id, long my\+\_\+owner\+\_\+id, long my\+\_\+id, My\+Date my\+\_\+creation\+\_\+date, int my\+\_\+score, long comments)}{create_answer(long my_parent_id, long my_owner_id, long my_id, MyDate my_creation_date, int my_score, long comments)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf A\+N\+S\+W\+ER} create\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{long}]{my\+\_\+parent\+\_\+id, }
+\item[{long}]{my\+\_\+owner\+\_\+id, }
+\item[{long}]{my\+\_\+id, }
+\item[{My\+Date}]{my\+\_\+creation\+\_\+date, }
+\item[{int}]{my\+\_\+score, }
+\item[{long}]{comments}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8h_a47271c52121ccbd14ba4189adcc7b742}{}\label{answer_8h_a47271c52121ccbd14ba4189adcc7b742}
+
+
+Função responsável pela criação de uma resposta de acordo com os seus atributos. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em my\+\_\+parent\+\_\+id} & ID da pergunta que está a responder, my\+\_\+owner\+\_\+id ID de quem faz a resposta, my\+\_\+id ID da resposta, my\+\_\+creation\+\_\+date Data de criação de uma resposta, my\+\_\+score Score de uma resposta,comments Número de comentários \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+inicialização de uma resposta A\+N\+S\+W\+ER 
+\end{DoxyReturn}
+\index{answer.\+h@{answer.\+h}!free\+\_\+answer@{free\+\_\+answer}}
+\index{free\+\_\+answer@{free\+\_\+answer}!answer.\+h@{answer.\+h}}
+\subsubsection[{\texorpdfstring{free\+\_\+answer(void $\ast$a)}{free_answer(void *a)}}]{\setlength{\rightskip}{0pt plus 5cm}void free\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8h_a3d7afc8ce57bd7aba2fe513d907dc0ca}{}\label{answer_8h_a3d7afc8ce57bd7aba2fe513d907dc0ca}
+
+
+Função que liberta uma resposta da memória. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Uma resposta(answer) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+libertação de uma dada resposta 
+\end{DoxyReturn}
+\index{answer.\+h@{answer.\+h}!get\+Comments\+\_\+answer@{get\+Comments\+\_\+answer}}
+\index{get\+Comments\+\_\+answer@{get\+Comments\+\_\+answer}!answer.\+h@{answer.\+h}}
+\subsubsection[{\texorpdfstring{get\+Comments\+\_\+answer(\+A\+N\+S\+W\+E\+R a)}{getComments_answer(ANSWER a)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Comments\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{{\bf A\+N\+S\+W\+ER}}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8h_aafd5906721779255d9812811c21c4dd5}{}\label{answer_8h_aafd5906721779255d9812811c21c4dd5}
+
+
+$\ast$A função que se segue é responsável pela leitura do número de comentários 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Uma resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Número de comentários 
+\end{DoxyReturn}
+\index{answer.\+h@{answer.\+h}!get\+Date\+\_\+answer@{get\+Date\+\_\+answer}}
+\index{get\+Date\+\_\+answer@{get\+Date\+\_\+answer}!answer.\+h@{answer.\+h}}
+\subsubsection[{\texorpdfstring{get\+Date\+\_\+answer(\+A\+N\+S\+W\+E\+R a)}{getDate_answer(ANSWER a)}}]{\setlength{\rightskip}{0pt plus 5cm}My\+Date get\+Date\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{{\bf A\+N\+S\+W\+ER}}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8h_a7e32fec5beaf0db41b21a6b434a92ea2}{}\label{answer_8h_a7e32fec5beaf0db41b21a6b434a92ea2}
+
+
+$\ast$A função que se segue é responsável pela leitura da data de criação 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Uma resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Data de criação da resposta 
+\end{DoxyReturn}
+\index{answer.\+h@{answer.\+h}!get\+I\+D\+\_\+answer@{get\+I\+D\+\_\+answer}}
+\index{get\+I\+D\+\_\+answer@{get\+I\+D\+\_\+answer}!answer.\+h@{answer.\+h}}
+\subsubsection[{\texorpdfstring{get\+I\+D\+\_\+answer(\+A\+N\+S\+W\+E\+R a)}{getID_answer(ANSWER a)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+I\+D\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{{\bf A\+N\+S\+W\+ER}}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8h_a91692f0d90604366413635a188c4fb1a}{}\label{answer_8h_a91692f0d90604366413635a188c4fb1a}
+
+
+$\ast$A função que se segue é responsável pela leitura do atributo do ID da resposta em causa 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Uma resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ID da resposta 
+\end{DoxyReturn}
+\index{answer.\+h@{answer.\+h}!get\+Owner\+Id\+\_\+answer@{get\+Owner\+Id\+\_\+answer}}
+\index{get\+Owner\+Id\+\_\+answer@{get\+Owner\+Id\+\_\+answer}!answer.\+h@{answer.\+h}}
+\subsubsection[{\texorpdfstring{get\+Owner\+Id\+\_\+answer(\+A\+N\+S\+W\+E\+R a)}{getOwnerId_answer(ANSWER a)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Owner\+Id\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{{\bf A\+N\+S\+W\+ER}}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8h_a01c65ee1fdc25f84d5427fae1468d025}{}\label{answer_8h_a01c65ee1fdc25f84d5427fae1468d025}
+
+
+$\ast$A função que se segue é responsável pela leitura do atributo Id da pessoa que respondeu 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Uma resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ID de quem respondeu 
+\end{DoxyReturn}
+\index{answer.\+h@{answer.\+h}!get\+Parent\+Id\+\_\+answer@{get\+Parent\+Id\+\_\+answer}}
+\index{get\+Parent\+Id\+\_\+answer@{get\+Parent\+Id\+\_\+answer}!answer.\+h@{answer.\+h}}
+\subsubsection[{\texorpdfstring{get\+Parent\+Id\+\_\+answer(\+A\+N\+S\+W\+E\+R a)}{getParentId_answer(ANSWER a)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Parent\+Id\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{{\bf A\+N\+S\+W\+ER}}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8h_a43b5e9eb8591115cf24f5ca9863b4dc0}{}\label{answer_8h_a43b5e9eb8591115cf24f5ca9863b4dc0}
+
+
+$\ast$A função que se segue é responsável pela leitura do atributo do ID da questão que está a ser respondida 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Uma resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ID da questão a que se está a responder 
+\end{DoxyReturn}
+\index{answer.\+h@{answer.\+h}!get\+Score\+\_\+answer@{get\+Score\+\_\+answer}}
+\index{get\+Score\+\_\+answer@{get\+Score\+\_\+answer}!answer.\+h@{answer.\+h}}
+\subsubsection[{\texorpdfstring{get\+Score\+\_\+answer(\+A\+N\+S\+W\+E\+R a)}{getScore_answer(ANSWER a)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Score\+\_\+answer (
+\begin{DoxyParamCaption}
+\item[{{\bf A\+N\+S\+W\+ER}}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{answer_8h_abb94c6d22bd847d0d29d8ddba02ca9a3}{}\label{answer_8h_abb94c6d22bd847d0d29d8ddba02ca9a3}
+
+
+$\ast$A função que se segue é responsável pela leitura do atributo score 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Uma resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Score de uma resposta 
+\end{DoxyReturn}

@@ -1,0 +1,251 @@
+\hypertarget{querys_8c}{}\section{querys.\+c File Reference}
+\label{querys_8c}\index{querys.\+c@{querys.\+c}}
+{\ttfamily \#include \char`\"{}date.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}user.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}pair.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}list.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}post.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}profile.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}main\+\_\+struct.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}answer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}question.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}interface.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$glib.\+h$>$}\\*
+{\ttfamily \#include $<$gmodule.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structquery2}{query2}
+\item 
+struct \hyperlink{structquery4}{query4}
+\item 
+struct \hyperlink{structquery6}{query6}
+\item 
+struct \hyperlink{structquery7}{query7}
+\item 
+struct \hyperlink{structquery7__extra}{query7\+\_\+extra}
+\item 
+struct \hyperlink{structquery7__dates}{query7\+\_\+dates}
+\item 
+struct \hyperlink{structquery8}{query8}
+\item 
+struct \hyperlink{structquery9}{query9}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structquery2}{query2} $\ast$ {\bfseries Q\+U\+E\+R\+Y2}\hypertarget{querys_8c_a07ecb0e101344cb236f4772a29bf0637}{}\label{querys_8c_a07ecb0e101344cb236f4772a29bf0637}
+
+\item 
+typedef struct \hyperlink{structquery4}{query4} $\ast$ {\bfseries Q\+U\+E\+R\+Y4}\hypertarget{querys_8c_ad34f4672d450e5d5aa85e5c9a09a049c}{}\label{querys_8c_ad34f4672d450e5d5aa85e5c9a09a049c}
+
+\item 
+typedef struct \hyperlink{structquery6}{query6} $\ast$ {\bfseries Q\+U\+E\+R\+Y6}\hypertarget{querys_8c_a94ac7eb5db9beb5bbeb1f03915154bf9}{}\label{querys_8c_a94ac7eb5db9beb5bbeb1f03915154bf9}
+
+\item 
+typedef struct \hyperlink{structquery7}{query7} $\ast$ {\bfseries Q\+U\+E\+R\+Y7}\hypertarget{querys_8c_a66d80dc58a619d14ff2439a401f6a759}{}\label{querys_8c_a66d80dc58a619d14ff2439a401f6a759}
+
+\item 
+typedef struct \hyperlink{structquery7__extra}{query7\+\_\+extra} $\ast$ {\bfseries Q\+U\+E\+R\+Y7\+\_\+\+E\+X\+T\+RA}\hypertarget{querys_8c_a5be1bc8d56660c7722ba9f6e9da0b41e}{}\label{querys_8c_a5be1bc8d56660c7722ba9f6e9da0b41e}
+
+\item 
+typedef struct \hyperlink{structquery7__dates}{query7\+\_\+dates} $\ast$ {\bfseries Q\+U\+E\+R\+Y7\+\_\+\+D\+A\+T\+ES}\hypertarget{querys_8c_a227c1fb808995403d96a65e39b3dffa1}{}\label{querys_8c_a227c1fb808995403d96a65e39b3dffa1}
+
+\item 
+typedef struct \hyperlink{structquery8}{query8} $\ast$ {\bfseries Q\+U\+E\+R\+Y8}\hypertarget{querys_8c_aac3600ef07a6a5e82d9fb635589a7524}{}\label{querys_8c_aac3600ef07a6a5e82d9fb635589a7524}
+
+\item 
+typedef struct \hyperlink{structquery9}{query9} $\ast$ {\bfseries Q\+U\+E\+R\+Y9}\hypertarget{querys_8c_a5657804a8c7a195f18437c1ff9388d32}{}\label{querys_8c_a5657804a8c7a195f18437c1ff9388d32}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+S\+T\+R\+\_\+pair \hyperlink{querys_8c_adb7b42e74205eb8761434661179d772a}{get\+\_\+info\+\_\+from\+\_\+post} (T\+A\+D\+\_\+community com, Q\+U\+E\+S\+T\+I\+ON q)
+\begin{DoxyCompactList}\small\item\em Auxiliar de info\+\_\+from\+\_\+post que retira informacao da questao Devido á possibilidade de receber um ID de um post tipo resposta e sendo retirada apenas a informacao referente á respetiva, a funcao info\+\_\+from\+\_\+post trata o ID de forma a esta auxiliar receber apenas o post tipo pergunta. \end{DoxyCompactList}\item 
+S\+T\+R\+\_\+pair \hyperlink{querys_8c_ac297866fc062cda7f009927571ab55dc}{info\+\_\+from\+\_\+post} (T\+A\+D\+\_\+community com, long id)
+\begin{DoxyCompactList}\small\item\em Retorna o titulo de um dado P\+O\+ST e o nome do seu criador Se for o ID de uma resposta, passa á funcao auxiliar o ID da correspondente pergunta Caso contrário passa diretamente o ID dessa pergunta. \end{DoxyCompactList}\item 
+void \hyperlink{querys_8c_acbdba0d7dabe371c71aa736b8f47f438}{g\+\_\+array\+\_\+insert\+\_\+sorted} (\hyperlink{structquery2}{Q\+U\+E\+R\+Y2} data, P\+R\+O\+F\+I\+LE p)
+\begin{DoxyCompactList}\small\item\em Insere ordenadamente um perfil num array. \end{DoxyCompactList}\item 
+G\+H\+Func \hyperlink{querys_8c_a5fb1b916273991282666a6e3b66e5fcc}{query\+\_\+2\+\_\+hash\+\_\+to\+\_\+array} (gpointer key, gpointer value, gpointer user\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Passa os utilizadores de uma Hash\+Table para um array ordenado pelo número de posts (decrescente) Chama a funcao g\+\_\+insert\+\_\+sorted para inserir ordenadamente um perfil no array de perfis. \end{DoxyCompactList}\item 
+L\+O\+N\+G\+\_\+list \hyperlink{querys_8c_aea6f8074566f0a5373ea67b3469fd4cc}{top\+\_\+most\+\_\+active} (T\+A\+D\+\_\+community com, int N)
+\begin{DoxyCompactList}\small\item\em Retorna os N utilizadores com maior número de posts de sempre Depois de ordenar por ordem decrescente pelo numero de posts de todos os utilizadores é transformada no tipo de retorno. \end{DoxyCompactList}\item 
+L\+O\+N\+G\+\_\+pair {\bfseries total\+\_\+posts} (T\+A\+D\+\_\+community com, Date begin, Date end)\hypertarget{querys_8c_a58aee481445828846cbb908c20800265}{}\label{querys_8c_a58aee481445828846cbb908c20800265}
+
+\item 
+gint {\bfseries query\+\_\+4\+\_\+cmp\+\_\+func} (gconstpointer a, gconstpointer b, gpointer cmp\+\_\+data)\hypertarget{querys_8c_a47a89211ed846cdfd986e1820806babb}{}\label{querys_8c_a47a89211ed846cdfd986e1820806babb}
+
+\item 
+G\+Func {\bfseries search\+\_\+tag\+\_\+questions} (gpointer data, gpointer elem)\hypertarget{querys_8c_a5f20d257033b6667fa02a4e2e8fa0f01}{}\label{querys_8c_a5f20d257033b6667fa02a4e2e8fa0f01}
+
+\item 
+L\+O\+N\+G\+\_\+list {\bfseries questions\+\_\+with\+\_\+tag} (T\+A\+D\+\_\+community com, char $\ast$tag, Date begin, Date end)\hypertarget{querys_8c_a3833b4111827095f7654ff0b1ec6a6ee}{}\label{querys_8c_a3833b4111827095f7654ff0b1ec6a6ee}
+
+\item 
+U\+S\+ER {\bfseries get\+\_\+user\+\_\+info} (T\+A\+D\+\_\+community com, long id)\hypertarget{querys_8c_abbe8e56c4e4552c93a81a625ea641869}{}\label{querys_8c_abbe8e56c4e4552c93a81a625ea641869}
+
+\item 
+G\+Func {\bfseries query\+\_\+6\+\_\+convert\+\_\+long} (gpointer data, gpointer user\+\_\+data)\hypertarget{querys_8c_a1bdf5d2342267f3dc9bd2f19d4bdb182}{}\label{querys_8c_a1bdf5d2342267f3dc9bd2f19d4bdb182}
+
+\item 
+gint {\bfseries query\+\_\+6\+\_\+cmp\+\_\+func} (gconstpointer a, gconstpointer b, gpointer cmp\+\_\+data)\hypertarget{querys_8c_a0b62a1fea3659043b4b6258409548895}{}\label{querys_8c_a0b62a1fea3659043b4b6258409548895}
+
+\item 
+L\+O\+N\+G\+\_\+list {\bfseries most\+\_\+voted\+\_\+answers} (T\+A\+D\+\_\+community com, int N, Date begin, Date end)\hypertarget{querys_8c_abee0976337de52cefdc4e840c803f2f4}{}\label{querys_8c_abee0976337de52cefdc4e840c803f2f4}
+
+\item 
+void {\bfseries query\+\_\+7\+\_\+convert\+\_\+long} (gpointer data, gpointer user\+\_\+data)\hypertarget{querys_8c_ab3ab43547522269450c5e422c363ab1c}{}\label{querys_8c_ab3ab43547522269450c5e422c363ab1c}
+
+\item 
+gint {\bfseries cmp\+\_\+func} (gconstpointer a, gconstpointer b, gpointer cmp\+\_\+data)\hypertarget{querys_8c_ad64f6755de192855716153487d675ac5}{}\label{querys_8c_ad64f6755de192855716153487d675ac5}
+
+\item 
+G\+Sequence\+Iter $\ast$ {\bfseries search\+\_\+for\+\_\+item} (G\+Sequence $\ast$seq, long id)\hypertarget{querys_8c_a39777439dfa8fa5ae064f0be0c89f9d2}{}\label{querys_8c_a39777439dfa8fa5ae064f0be0c89f9d2}
+
+\item 
+gint {\bfseries query\+\_\+7\+\_\+organize} (gpointer data, gpointer user\+\_\+data)\hypertarget{querys_8c_a81cf8e7080ae57174369fe3217f4158c}{}\label{querys_8c_a81cf8e7080ae57174369fe3217f4158c}
+
+\item 
+L\+O\+N\+G\+\_\+list {\bfseries most\+\_\+answered\+\_\+questions} (T\+A\+D\+\_\+community com, int N, Date begin, Date end)\hypertarget{querys_8c_a4847929aa84113b38e6804acefdfd6a4}{}\label{querys_8c_a4847929aa84113b38e6804acefdfd6a4}
+
+\item 
+G\+Func {\bfseries search\+\_\+title\+\_\+name} (gpointer data, gpointer elem)\hypertarget{querys_8c_a44cb4fc350a6dbee65a8402aa473ddc7}{}\label{querys_8c_a44cb4fc350a6dbee65a8402aa473ddc7}
+
+\item 
+L\+O\+N\+G\+\_\+list {\bfseries contains\+\_\+word} (T\+A\+D\+\_\+community com, char $\ast$word, int N)\hypertarget{querys_8c_aade1f77088e1f4e6806c3ee8d33a5d41}{}\label{querys_8c_aade1f77088e1f4e6806c3ee8d33a5d41}
+
+\item 
+gint {\bfseries query\+\_\+9\+\_\+exists\+\_\+question} (gconstpointer a, gconstpointer b, gpointer user\+\_\+data)\hypertarget{querys_8c_a6f9ff97dca75d504654e0298168a80d7}{}\label{querys_8c_a6f9ff97dca75d504654e0298168a80d7}
+
+\item 
+G\+Func {\bfseries sequence\+\_\+function} (gpointer elem, void $\ast$data)\hypertarget{querys_8c_a6edf1e8eb4f65f5a83eb8ce03a0051ec}{}\label{querys_8c_a6edf1e8eb4f65f5a83eb8ce03a0051ec}
+
+\item 
+L\+O\+N\+G\+\_\+list {\bfseries both\+\_\+participated} (T\+A\+D\+\_\+community com, long id1, long id2, int N)\hypertarget{querys_8c_ab2069c6237b5ab6647937173d43d9bac}{}\label{querys_8c_ab2069c6237b5ab6647937173d43d9bac}
+
+\item 
+long {\bfseries better\+\_\+answer} (T\+A\+D\+\_\+community com, long id)\hypertarget{querys_8c_af0bd178e59de59a12a227a1cc5124c58}{}\label{querys_8c_af0bd178e59de59a12a227a1cc5124c58}
+
+\item 
+G\+Func {\bfseries catamorfismo} (gpointer data, gpointer user\+\_\+data)\hypertarget{querys_8c_a2eb3d5beac0ce95a25cf47b79391f345}{}\label{querys_8c_a2eb3d5beac0ce95a25cf47b79391f345}
+
+\item 
+int {\bfseries max\+\_\+index} (long $\ast$a, int n)\hypertarget{querys_8c_a6fbe923a6379de058347a7b26a7ee6a1}{}\label{querys_8c_a6fbe923a6379de058347a7b26a7ee6a1}
+
+\item 
+L\+O\+N\+G\+\_\+list {\bfseries most\+\_\+used\+\_\+best\+\_\+rep} (T\+A\+D\+\_\+community com, int N, Date begin, Date end)\hypertarget{querys_8c_aa048ff54eec00113e9e16d530370fcc1}{}\label{querys_8c_aa048ff54eec00113e9e16d530370fcc1}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Ficheiro das querys 
+
+\subsection{Function Documentation}
+\index{querys.\+c@{querys.\+c}!g\+\_\+array\+\_\+insert\+\_\+sorted@{g\+\_\+array\+\_\+insert\+\_\+sorted}}
+\index{g\+\_\+array\+\_\+insert\+\_\+sorted@{g\+\_\+array\+\_\+insert\+\_\+sorted}!querys.\+c@{querys.\+c}}
+\subsubsection[{\texorpdfstring{g\+\_\+array\+\_\+insert\+\_\+sorted(\+Q\+U\+E\+R\+Y2 data, P\+R\+O\+F\+I\+L\+E p)}{g_array_insert_sorted(QUERY2 data, PROFILE p)}}]{\setlength{\rightskip}{0pt plus 5cm}void g\+\_\+array\+\_\+insert\+\_\+sorted (
+\begin{DoxyParamCaption}
+\item[{{\bf Q\+U\+E\+R\+Y2}}]{data, }
+\item[{P\+R\+O\+F\+I\+LE}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{querys_8c_acbdba0d7dabe371c71aa736b8f47f438}{}\label{querys_8c_acbdba0d7dabe371c71aa736b8f47f438}
+
+
+Insere ordenadamente um perfil num array. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Estrutura contendo o array e outros dados \\
+\hline
+{\em p} & Perfil a ser inserido \\
+\hline
+\end{DoxyParams}
+\index{querys.\+c@{querys.\+c}!get\+\_\+info\+\_\+from\+\_\+post@{get\+\_\+info\+\_\+from\+\_\+post}}
+\index{get\+\_\+info\+\_\+from\+\_\+post@{get\+\_\+info\+\_\+from\+\_\+post}!querys.\+c@{querys.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+info\+\_\+from\+\_\+post(\+T\+A\+D\+\_\+community com, Q\+U\+E\+S\+T\+I\+O\+N q)}{get_info_from_post(TAD_community com, QUESTION q)}}]{\setlength{\rightskip}{0pt plus 5cm}S\+T\+R\+\_\+pair get\+\_\+info\+\_\+from\+\_\+post (
+\begin{DoxyParamCaption}
+\item[{T\+A\+D\+\_\+community}]{com, }
+\item[{Q\+U\+E\+S\+T\+I\+ON}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{querys_8c_adb7b42e74205eb8761434661179d772a}{}\label{querys_8c_adb7b42e74205eb8761434661179d772a}
+
+
+Auxiliar de info\+\_\+from\+\_\+post que retira informacao da questao Devido á possibilidade de receber um ID de um post tipo resposta e sendo retirada apenas a informacao referente á respetiva, a funcao info\+\_\+from\+\_\+post trata o ID de forma a esta auxiliar receber apenas o post tipo pergunta. 
+
+Q\+U\+E\+RY 1
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & Questao a ser analizada \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Par contendo a informaçao do post 
+\end{DoxyReturn}
+\index{querys.\+c@{querys.\+c}!info\+\_\+from\+\_\+post@{info\+\_\+from\+\_\+post}}
+\index{info\+\_\+from\+\_\+post@{info\+\_\+from\+\_\+post}!querys.\+c@{querys.\+c}}
+\subsubsection[{\texorpdfstring{info\+\_\+from\+\_\+post(\+T\+A\+D\+\_\+community com, long id)}{info_from_post(TAD_community com, long id)}}]{\setlength{\rightskip}{0pt plus 5cm}S\+T\+R\+\_\+pair info\+\_\+from\+\_\+post (
+\begin{DoxyParamCaption}
+\item[{T\+A\+D\+\_\+community}]{com, }
+\item[{long}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{querys_8c_ac297866fc062cda7f009927571ab55dc}{}\label{querys_8c_ac297866fc062cda7f009927571ab55dc}
+
+
+Retorna o titulo de um dado P\+O\+ST e o nome do seu criador Se for o ID de uma resposta, passa á funcao auxiliar o ID da correspondente pergunta Caso contrário passa diretamente o ID dessa pergunta. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & ID do post a ser analizado \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Par com informacao do post\+: Titulo do Post -\/ Nome do Utilizador 
+\end{DoxyReturn}
+\index{querys.\+c@{querys.\+c}!query\+\_\+2\+\_\+hash\+\_\+to\+\_\+array@{query\+\_\+2\+\_\+hash\+\_\+to\+\_\+array}}
+\index{query\+\_\+2\+\_\+hash\+\_\+to\+\_\+array@{query\+\_\+2\+\_\+hash\+\_\+to\+\_\+array}!querys.\+c@{querys.\+c}}
+\subsubsection[{\texorpdfstring{query\+\_\+2\+\_\+hash\+\_\+to\+\_\+array(gpointer key, gpointer value, gpointer user\+\_\+data)}{query_2_hash_to_array(gpointer key, gpointer value, gpointer user_data)}}]{\setlength{\rightskip}{0pt plus 5cm}G\+H\+Func query\+\_\+2\+\_\+hash\+\_\+to\+\_\+array (
+\begin{DoxyParamCaption}
+\item[{gpointer}]{key, }
+\item[{gpointer}]{value, }
+\item[{gpointer}]{user\+\_\+data}
+\end{DoxyParamCaption}
+)}\hypertarget{querys_8c_a5fb1b916273991282666a6e3b66e5fcc}{}\label{querys_8c_a5fb1b916273991282666a6e3b66e5fcc}
+
+
+Passa os utilizadores de uma Hash\+Table para um array ordenado pelo número de posts (decrescente) Chama a funcao g\+\_\+insert\+\_\+sorted para inserir ordenadamente um perfil no array de perfis. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Chave da Hash\+Table \\
+\hline
+{\em value} & Valor corresponde da chave da Hashtable (perfil de um utilizador) \\
+\hline
+{\em user\+\_\+data} & Estrutura com os dados necessários a outras funcoes auxiliares \\
+\hline
+\end{DoxyParams}
+\index{querys.\+c@{querys.\+c}!top\+\_\+most\+\_\+active@{top\+\_\+most\+\_\+active}}
+\index{top\+\_\+most\+\_\+active@{top\+\_\+most\+\_\+active}!querys.\+c@{querys.\+c}}
+\subsubsection[{\texorpdfstring{top\+\_\+most\+\_\+active(\+T\+A\+D\+\_\+community com, int N)}{top_most_active(TAD_community com, int N)}}]{\setlength{\rightskip}{0pt plus 5cm}L\+O\+N\+G\+\_\+list top\+\_\+most\+\_\+active (
+\begin{DoxyParamCaption}
+\item[{T\+A\+D\+\_\+community}]{com, }
+\item[{int}]{N}
+\end{DoxyParamCaption}
+)}\hypertarget{querys_8c_aea6f8074566f0a5373ea67b3469fd4cc}{}\label{querys_8c_aea6f8074566f0a5373ea67b3469fd4cc}
+
+
+Retorna os N utilizadores com maior número de posts de sempre Depois de ordenar por ordem decrescente pelo numero de posts de todos os utilizadores é transformada no tipo de retorno. 
+
+Q\+U\+E\+RY 2 
+\begin{DoxyParams}{Parameters}
+{\em N} & Numero de utilizadores \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+L\+O\+N\+G\+\_\+list Lista dos utilizadores 
+\end{DoxyReturn}

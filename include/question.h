@@ -6,6 +6,11 @@
 #include <glib.h>
 
 /**
+@file question.h
+Ficheiro da class QUESTION
+*/
+
+/**
  *  @brief Estrutura que contém os principais atributos associados às questões
  *  como sendo a data de criação, id das respostas associadas a cada questão
  *  título da questão,tag de cada questão,id da questão,id de quem formulou a

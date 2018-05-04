@@ -1,0 +1,334 @@
+\hypertarget{main__struct_8h}{}\section{main\+\_\+struct.\+h File Reference}
+\label{main__struct_8h}\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+{\ttfamily \#include $<$glib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}profile.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}question.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}answer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}post.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mydate.\+h\char`\"{}}\\*
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct T\+C\+D\+\_\+community $\ast$ \hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community}\hypertarget{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{}\label{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}
+
+\begin{DoxyCompactList}\small\item\em Estrutura principal\+: 3 Hashtables para users, posts e tags respetivamente. Tardis é uma estrutura que consiste num array de arrays com G\+Sequences, o primeiro array corresponde aos anos, o segundo array corresponde aos meses e aos dias desse ano. Por último, temos o número de tags. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{main__struct_8h_afd2e20d228591ad09a12a9ddbbac5dab}{insert\+Tag\+\_\+\+T\+AD} (\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} com, char $\ast$tag\+\_\+name, long id)
+\begin{DoxyCompactList}\small\item\em Função responsável pela inserção de uma tag na Estrutura Principal. \end{DoxyCompactList}\item 
+void \hyperlink{main__struct_8h_a03bf4bbe65b7b64162d93d3acb1fdc41}{profiles\+For\+Each\+\_\+\+T\+AD} (\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} com, G\+H\+Func f, gpointer user\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Função que se segue é responsável por percorrer toda a Hash\+Table para cada valor/chave do perfil do user. \end{DoxyCompactList}\item 
+\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} \hyperlink{main__struct_8h_a34b9badcd32a96c96c252849d3395bb9}{create\+\_\+main\+\_\+struct} ()
+\begin{DoxyCompactList}\small\item\em Função que é responsável pela criação da estrutura principal com todas as suas estruturas e componentes. \end{DoxyCompactList}\item 
+\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} \hyperlink{main__struct_8h_aadd031ccf1ce5bbb27994ef338ca2750}{init} ()
+\begin{DoxyCompactList}\small\item\em Função que inicializa a Estrutura Principal. \end{DoxyCompactList}\item 
+\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} \hyperlink{main__struct_8h_ab7f080e43dc99c5cde2c66249cafa252}{clean} (\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} com)
+\begin{DoxyCompactList}\small\item\em Função que liberta tanto as componentes existentes na Estrutura Principal como a Estrutura em si. \end{DoxyCompactList}\item 
+void \hyperlink{main__struct_8h_ab5c788114d676d51069420202d055c5a}{insert\+Profile\+\_\+\+T\+AD} (\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} com, \hyperlink{profile_8h_acde9ff22551de79e45893bfc4d402a12}{P\+R\+O\+F\+I\+LE} p, long id)
+\begin{DoxyCompactList}\small\item\em Função responsável pela inserção de um user na Estrutura Principal. \end{DoxyCompactList}\item 
+void \hyperlink{main__struct_8h_a3af9d3f189a6f30d98e5b3aec3f59e62}{insert\+Question\+\_\+\+T\+AD} (\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} com, \hyperlink{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{Q\+U\+E\+S\+T\+I\+ON} q, long id, long owner\+\_\+id, \hyperlink{post_8h_af70f2b9a73905cf6bd249f914f4c32d9}{P\+O\+ST} p, My\+Date start)
+\begin{DoxyCompactList}\small\item\em Função responsável pela inserção de uma questão na Estrutura Principal. \end{DoxyCompactList}\item 
+void \hyperlink{main__struct_8h_aaa33576a76d5cfacaf7e3c2384366229}{insert\+Answer\+\_\+\+T\+AD} (\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} com, \hyperlink{answer_8h_aeaf1c72d90bc3ddee26be12f1a7cf521}{A\+N\+S\+W\+ER} a, long id, long owner\+\_\+id, long parent\+\_\+id, \hyperlink{post_8h_af70f2b9a73905cf6bd249f914f4c32d9}{P\+O\+ST} p, My\+Date start)
+\begin{DoxyCompactList}\small\item\em Função responsável pela inserção de uma resposta na Estrutura Principal. \end{DoxyCompactList}\item 
+\hyperlink{profile_8h_acde9ff22551de79e45893bfc4d402a12}{P\+R\+O\+F\+I\+LE} \hyperlink{main__struct_8h_a652f6353ae6b5b599f316de235385c1d}{get\+Profile\+\_\+\+T\+AD} (\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} com, long id)
+\begin{DoxyCompactList}\small\item\em Função que se segue responsável pela leitura do perfil de um user da Estrutura Principal. \end{DoxyCompactList}\item 
+\hyperlink{post_8h_af70f2b9a73905cf6bd249f914f4c32d9}{P\+O\+ST} \hyperlink{main__struct_8h_aa510aea4e45b366532b33dbdf4dca98e}{get\+Post\+\_\+\+T\+AD} (\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} com, long id)
+\begin{DoxyCompactList}\small\item\em Função que se segue responsável pela leitura dos Posts da Estrutura Principal. \end{DoxyCompactList}\item 
+G\+Sequence $\ast$ \hyperlink{main__struct_8h_a70e246733fdc19eef5b8a7749215c841}{get\+From\+To\+F\+\_\+\+T\+AD} (\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} com, My\+Date inicio, My\+Date fim, int type, G\+Compare\+Data\+Func f)
+\begin{DoxyCompactList}\small\item\em Função que calcula o intervalo arbitrário de tempo que é pedido em algumas queries. \end{DoxyCompactList}\item 
+long \hyperlink{main__struct_8h_a3de48accca5941309d4bd460e73c599a}{get\+Quark\+\_\+\+T\+AD} (\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} com, char $\ast$tag)
+\begin{DoxyCompactList}\small\item\em Função que se segue tira uma tag da Estrutura. \end{DoxyCompactList}\item 
+long \hyperlink{main__struct_8h_aef228c90cc2b8c2ddd43961dd39cd725}{get\+N\+Tags\+\_\+\+T\+AD} (\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} com)
+\begin{DoxyCompactList}\small\item\em Função responsável pela leitura do número de tags da Estrutura Principal. \end{DoxyCompactList}\item 
+void \hyperlink{main__struct_8h_ae6556dc656a56da43cae6772d05efabe}{set\+N\+Tags\+\_\+\+T\+AD} (\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} com)
+\begin{DoxyCompactList}\small\item\em Função que se segue faz com que seja possível a modificação do número de tags da Estrutura Principal. \end{DoxyCompactList}\item 
+G\+List $\ast$ \hyperlink{main__struct_8h_a4a8a871845c5a3d8c655a8b155811a47}{get\+Tags\+\_\+\+T\+AD} (\hyperlink{main__struct_8h_ac944aefb10ca0650596c6fcc2c33feca}{T\+A\+D\+\_\+community} com)
+\begin{DoxyCompactList}\small\item\em Função responsável pela leitura das chave das tags da Estrutura Principal e guardá-\/las numa lista. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Ficheiro da class T\+A\+D\+\_\+community 
+
+\subsection{Function Documentation}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!clean@{clean}}
+\index{clean@{clean}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{clean(\+T\+A\+D\+\_\+community com)}{clean(TAD_community com)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf T\+A\+D\+\_\+community} clean (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+D\+\_\+community}}]{com}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_ab7f080e43dc99c5cde2c66249cafa252}{}\label{main__struct_8h_ab7f080e43dc99c5cde2c66249cafa252}
+
+
+Função que liberta tanto as componentes existentes na Estrutura Principal como a Estrutura em si. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em com} & Estruturs Principal \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+libertação da Estrutura 
+\end{DoxyReturn}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!create\+\_\+main\+\_\+struct@{create\+\_\+main\+\_\+struct}}
+\index{create\+\_\+main\+\_\+struct@{create\+\_\+main\+\_\+struct}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{create\+\_\+main\+\_\+struct()}{create_main_struct()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf T\+A\+D\+\_\+community} create\+\_\+main\+\_\+struct (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_a34b9badcd32a96c96c252849d3395bb9}{}\label{main__struct_8h_a34b9badcd32a96c96c252849d3395bb9}
+
+
+Função que é responsável pela criação da estrutura principal com todas as suas estruturas e componentes. 
+
+\begin{DoxyReturn}{Returns}
+criação da estrutura 
+\end{DoxyReturn}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!get\+From\+To\+F\+\_\+\+T\+AD@{get\+From\+To\+F\+\_\+\+T\+AD}}
+\index{get\+From\+To\+F\+\_\+\+T\+AD@{get\+From\+To\+F\+\_\+\+T\+AD}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{get\+From\+To\+F\+\_\+\+T\+A\+D(\+T\+A\+D\+\_\+community com, My\+Date inicio, My\+Date fim, int type, G\+Compare\+Data\+Func f)}{getFromToF_TAD(TAD_community com, MyDate inicio, MyDate fim, int type, GCompareDataFunc f)}}]{\setlength{\rightskip}{0pt plus 5cm}G\+Sequence$\ast$ get\+From\+To\+F\+\_\+\+T\+AD (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+D\+\_\+community}}]{com, }
+\item[{My\+Date}]{inicio, }
+\item[{My\+Date}]{fim, }
+\item[{int}]{type, }
+\item[{G\+Compare\+Data\+Func}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_a70e246733fdc19eef5b8a7749215c841}{}\label{main__struct_8h_a70e246733fdc19eef5b8a7749215c841}
+
+
+Função que calcula o intervalo arbitrário de tempo que é pedido em algumas queries. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em com} & Estrutura Principal, inicio e fim intervalo arbitrário de datas, type 1-\/\+Question e 2-\/\+Answer,f compara datas \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+Sequence de um intervalo aleatório de tempo 
+\end{DoxyReturn}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!get\+N\+Tags\+\_\+\+T\+AD@{get\+N\+Tags\+\_\+\+T\+AD}}
+\index{get\+N\+Tags\+\_\+\+T\+AD@{get\+N\+Tags\+\_\+\+T\+AD}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{get\+N\+Tags\+\_\+\+T\+A\+D(\+T\+A\+D\+\_\+community com)}{getNTags_TAD(TAD_community com)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+N\+Tags\+\_\+\+T\+AD (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+D\+\_\+community}}]{com}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_aef228c90cc2b8c2ddd43961dd39cd725}{}\label{main__struct_8h_aef228c90cc2b8c2ddd43961dd39cd725}
+
+
+Função responsável pela leitura do número de tags da Estrutura Principal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em com} & Estrutura Principal \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Número de tags 
+\end{DoxyReturn}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!get\+Post\+\_\+\+T\+AD@{get\+Post\+\_\+\+T\+AD}}
+\index{get\+Post\+\_\+\+T\+AD@{get\+Post\+\_\+\+T\+AD}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{get\+Post\+\_\+\+T\+A\+D(\+T\+A\+D\+\_\+community com, long id)}{getPost_TAD(TAD_community com, long id)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+O\+ST} get\+Post\+\_\+\+T\+AD (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+D\+\_\+community}}]{com, }
+\item[{long}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_aa510aea4e45b366532b33dbdf4dca98e}{}\label{main__struct_8h_aa510aea4e45b366532b33dbdf4dca98e}
+
+
+Função que se segue responsável pela leitura dos Posts da Estrutura Principal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em com} & Estrutura Principal, id do Utilizador \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Post dado o id 
+\end{DoxyReturn}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!get\+Profile\+\_\+\+T\+AD@{get\+Profile\+\_\+\+T\+AD}}
+\index{get\+Profile\+\_\+\+T\+AD@{get\+Profile\+\_\+\+T\+AD}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{get\+Profile\+\_\+\+T\+A\+D(\+T\+A\+D\+\_\+community com, long id)}{getProfile_TAD(TAD_community com, long id)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+R\+O\+F\+I\+LE} get\+Profile\+\_\+\+T\+AD (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+D\+\_\+community}}]{com, }
+\item[{long}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_a652f6353ae6b5b599f316de235385c1d}{}\label{main__struct_8h_a652f6353ae6b5b599f316de235385c1d}
+
+
+Função que se segue responsável pela leitura do perfil de um user da Estrutura Principal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em com} & Estrutura Principal, id ID de um user \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Perfis de um user dado o id 
+\end{DoxyReturn}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!get\+Quark\+\_\+\+T\+AD@{get\+Quark\+\_\+\+T\+AD}}
+\index{get\+Quark\+\_\+\+T\+AD@{get\+Quark\+\_\+\+T\+AD}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{get\+Quark\+\_\+\+T\+A\+D(\+T\+A\+D\+\_\+community com, char $\ast$tag)}{getQuark_TAD(TAD_community com, char *tag)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Quark\+\_\+\+T\+AD (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+D\+\_\+community}}]{com, }
+\item[{char $\ast$}]{tag}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_a3de48accca5941309d4bd460e73c599a}{}\label{main__struct_8h_a3de48accca5941309d4bd460e73c599a}
+
+
+Função que se segue tira uma tag da Estrutura. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em com} & Estrutura Principal, tag Array com as tags \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+valor da tag 
+\end{DoxyReturn}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!get\+Tags\+\_\+\+T\+AD@{get\+Tags\+\_\+\+T\+AD}}
+\index{get\+Tags\+\_\+\+T\+AD@{get\+Tags\+\_\+\+T\+AD}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{get\+Tags\+\_\+\+T\+A\+D(\+T\+A\+D\+\_\+community com)}{getTags_TAD(TAD_community com)}}]{\setlength{\rightskip}{0pt plus 5cm}G\+List$\ast$ get\+Tags\+\_\+\+T\+AD (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+D\+\_\+community}}]{com}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_a4a8a871845c5a3d8c655a8b155811a47}{}\label{main__struct_8h_a4a8a871845c5a3d8c655a8b155811a47}
+
+
+Função responsável pela leitura das chave das tags da Estrutura Principal e guardá-\/las numa lista. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em com} & Estrutura Principal \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Dupla lista ligada com as tags 
+\end{DoxyReturn}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!init@{init}}
+\index{init@{init}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{init()}{init()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf T\+A\+D\+\_\+community} init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_aadd031ccf1ce5bbb27994ef338ca2750}{}\label{main__struct_8h_aadd031ccf1ce5bbb27994ef338ca2750}
+
+
+Função que inicializa a Estrutura Principal. 
+
+\begin{DoxyReturn}{Returns}
+inicialização da Estrutura 
+\end{DoxyReturn}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!insert\+Answer\+\_\+\+T\+AD@{insert\+Answer\+\_\+\+T\+AD}}
+\index{insert\+Answer\+\_\+\+T\+AD@{insert\+Answer\+\_\+\+T\+AD}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{insert\+Answer\+\_\+\+T\+A\+D(\+T\+A\+D\+\_\+community com, A\+N\+S\+W\+E\+R a, long id, long owner\+\_\+id, long parent\+\_\+id, P\+O\+S\+T p, My\+Date start)}{insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, long parent_id, POST p, MyDate start)}}]{\setlength{\rightskip}{0pt plus 5cm}void insert\+Answer\+\_\+\+T\+AD (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+D\+\_\+community}}]{com, }
+\item[{{\bf A\+N\+S\+W\+ER}}]{a, }
+\item[{long}]{id, }
+\item[{long}]{owner\+\_\+id, }
+\item[{long}]{parent\+\_\+id, }
+\item[{{\bf P\+O\+ST}}]{p, }
+\item[{My\+Date}]{start}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_aaa33576a76d5cfacaf7e3c2384366229}{}\label{main__struct_8h_aaa33576a76d5cfacaf7e3c2384366229}
+
+
+Função responsável pela inserção de uma resposta na Estrutura Principal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em com} & Estrutura Principal, a Answer, id ID da resposta, owner\+\_\+id ID de quem formulou a resposta,parent\+\_\+id ID da questão correspondente a uma dada resposta p Post desse user,start Data de escrita da resposta \\
+\hline
+\end{DoxyParams}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!insert\+Profile\+\_\+\+T\+AD@{insert\+Profile\+\_\+\+T\+AD}}
+\index{insert\+Profile\+\_\+\+T\+AD@{insert\+Profile\+\_\+\+T\+AD}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{insert\+Profile\+\_\+\+T\+A\+D(\+T\+A\+D\+\_\+community com, P\+R\+O\+F\+I\+L\+E p, long id)}{insertProfile_TAD(TAD_community com, PROFILE p, long id)}}]{\setlength{\rightskip}{0pt plus 5cm}void insert\+Profile\+\_\+\+T\+AD (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+D\+\_\+community}}]{com, }
+\item[{{\bf P\+R\+O\+F\+I\+LE}}]{p, }
+\item[{long}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_ab5c788114d676d51069420202d055c5a}{}\label{main__struct_8h_ab5c788114d676d51069420202d055c5a}
+
+
+Função responsável pela inserção de um user na Estrutura Principal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em com} & Estrutura Principal, p Perfil de um user, id ID de um user \\
+\hline
+\end{DoxyParams}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!insert\+Question\+\_\+\+T\+AD@{insert\+Question\+\_\+\+T\+AD}}
+\index{insert\+Question\+\_\+\+T\+AD@{insert\+Question\+\_\+\+T\+AD}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{insert\+Question\+\_\+\+T\+A\+D(\+T\+A\+D\+\_\+community com, Q\+U\+E\+S\+T\+I\+O\+N q, long id, long owner\+\_\+id, P\+O\+S\+T p, My\+Date start)}{insertQuestion_TAD(TAD_community com, QUESTION q, long id, long owner_id, POST p, MyDate start)}}]{\setlength{\rightskip}{0pt plus 5cm}void insert\+Question\+\_\+\+T\+AD (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+D\+\_\+community}}]{com, }
+\item[{{\bf Q\+U\+E\+S\+T\+I\+ON}}]{q, }
+\item[{long}]{id, }
+\item[{long}]{owner\+\_\+id, }
+\item[{{\bf P\+O\+ST}}]{p, }
+\item[{My\+Date}]{start}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_a3af9d3f189a6f30d98e5b3aec3f59e62}{}\label{main__struct_8h_a3af9d3f189a6f30d98e5b3aec3f59e62}
+
+
+Função responsável pela inserção de uma questão na Estrutura Principal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em com} & Estrutura Principal, q Questão, id ID da questão, owner\+\_\+id ID de quem formulou a questão,p Post desse user,start Data de escrita da questão \\
+\hline
+\end{DoxyParams}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!insert\+Tag\+\_\+\+T\+AD@{insert\+Tag\+\_\+\+T\+AD}}
+\index{insert\+Tag\+\_\+\+T\+AD@{insert\+Tag\+\_\+\+T\+AD}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{insert\+Tag\+\_\+\+T\+A\+D(\+T\+A\+D\+\_\+community com, char $\ast$tag\+\_\+name, long id)}{insertTag_TAD(TAD_community com, char *tag_name, long id)}}]{\setlength{\rightskip}{0pt plus 5cm}void insert\+Tag\+\_\+\+T\+AD (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+D\+\_\+community}}]{com, }
+\item[{char $\ast$}]{tag\+\_\+name, }
+\item[{long}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_afd2e20d228591ad09a12a9ddbbac5dab}{}\label{main__struct_8h_afd2e20d228591ad09a12a9ddbbac5dab}
+
+
+Função responsável pela inserção de uma tag na Estrutura Principal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em com} & Estrutura Principal,tag\+\_\+name Nome da tag, id ID da tag \\
+\hline
+\end{DoxyParams}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!profiles\+For\+Each\+\_\+\+T\+AD@{profiles\+For\+Each\+\_\+\+T\+AD}}
+\index{profiles\+For\+Each\+\_\+\+T\+AD@{profiles\+For\+Each\+\_\+\+T\+AD}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{profiles\+For\+Each\+\_\+\+T\+A\+D(\+T\+A\+D\+\_\+community com, G\+H\+Func f, gpointer user\+\_\+data)}{profilesForEach_TAD(TAD_community com, GHFunc f, gpointer user_data)}}]{\setlength{\rightskip}{0pt plus 5cm}void profiles\+For\+Each\+\_\+\+T\+AD (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+D\+\_\+community}}]{com, }
+\item[{G\+H\+Func}]{f, }
+\item[{gpointer}]{user\+\_\+data}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_a03bf4bbe65b7b64162d93d3acb1fdc41}{}\label{main__struct_8h_a03bf4bbe65b7b64162d93d3acb1fdc41}
+
+
+Função que se segue é responsável por percorrer toda a Hash\+Table para cada valor/chave do perfil do user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em com} & Estrutura Principal, f Função para cada chave/valor user\+\_\+data Utilizador \\
+\hline
+\end{DoxyParams}
+\index{main\+\_\+struct.\+h@{main\+\_\+struct.\+h}!set\+N\+Tags\+\_\+\+T\+AD@{set\+N\+Tags\+\_\+\+T\+AD}}
+\index{set\+N\+Tags\+\_\+\+T\+AD@{set\+N\+Tags\+\_\+\+T\+AD}!main\+\_\+struct.\+h@{main\+\_\+struct.\+h}}
+\subsubsection[{\texorpdfstring{set\+N\+Tags\+\_\+\+T\+A\+D(\+T\+A\+D\+\_\+community com)}{setNTags_TAD(TAD_community com)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+N\+Tags\+\_\+\+T\+AD (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+D\+\_\+community}}]{com}
+\end{DoxyParamCaption}
+)}\hypertarget{main__struct_8h_ae6556dc656a56da43cae6772d05efabe}{}\label{main__struct_8h_ae6556dc656a56da43cae6772d05efabe}
+
+
+Função que se segue faz com que seja possível a modificação do número de tags da Estrutura Principal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em com} & Estrutura Principal \\
+\hline
+\end{DoxyParams}

@@ -4,13 +4,12 @@
 #include "mydate.h"
 
 struct post{
-    long type; // 1 Question 2 Answer
+    long type;
     union content{
         QUESTION q;
         ANSWER a;
     }content;
 };
-
 
 POST create_post(long type, QUESTION q, ANSWER a){
     POST p = malloc(sizeof(struct post));

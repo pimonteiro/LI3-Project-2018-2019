@@ -9,6 +9,11 @@
 #include "mydate.h"
 
 /**
+@file main_struct.h
+Ficheiro da class TAD_community
+*/
+
+/**
  *  @brief Estrutura principal: 3 Hashtables para users, posts e tags respetivamente.
  *  Tardis é uma estrutura que consiste num array de arrays com GSequences,
  *   o primeiro array corresponde aos anos, o segundo array corresponde aos

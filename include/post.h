@@ -6,6 +6,11 @@
 #include "mydate.h"
 
 /**
+@file post.h
+Ficheiro da class POST
+*/
+
+/**
  *  @brief  Estrutura de um post. Visto dividir-se em Questions e Answers e ambas
  *   partilharem atributos, decidiu-se implmentar uma union, de forma
  *  a conseguir-se juntar os Posts ou separá-los como fosse mais conveniente.

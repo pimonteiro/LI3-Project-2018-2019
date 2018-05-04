@@ -1,0 +1,153 @@
+\hypertarget{post_8c}{}\section{post.\+c File Reference}
+\label{post_8c}\index{post.\+c@{post.\+c}}
+{\ttfamily \#include \char`\"{}post.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}answer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}question.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mydate.\+h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structpost}{post}
+\begin{DoxyCompactList}\small\item\em Estrutura de um P\+O\+ST. \end{DoxyCompactList}\item 
+union \hyperlink{unionpost_1_1content}{post\+::content}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+P\+O\+ST \hyperlink{post_8c_a9e4c5fb191250141313454750ab40e0c}{create\+\_\+post} (long type, Q\+U\+E\+S\+T\+I\+ON q, A\+N\+S\+W\+ER a)
+\begin{DoxyCompactList}\small\item\em Cria um P\+O\+ST. \end{DoxyCompactList}\item 
+void \hyperlink{post_8c_a1363005862aa685e55c3d1842ef8b528}{free\+\_\+post} (void $\ast$p)
+\begin{DoxyCompactList}\small\item\em Da free de um post. \end{DoxyCompactList}\item 
+long \hyperlink{post_8c_a9383150f268a1704e1df5fe34b975fb7}{get\+Type\+\_\+post} (P\+O\+ST p)
+\begin{DoxyCompactList}\small\item\em Getter do param type. \end{DoxyCompactList}\item 
+Q\+U\+E\+S\+T\+I\+ON \hyperlink{post_8c_a3a2920a8dd8185d3edaecbe6c83a4b75}{get\+Question\+\_\+post} (P\+O\+ST p)
+\begin{DoxyCompactList}\small\item\em Getter da questao do post. \end{DoxyCompactList}\item 
+A\+N\+S\+W\+ER \hyperlink{post_8c_acf93108b247d7c5a3bab45d2576bd448}{get\+Answer\+\_\+post} (P\+O\+ST p)
+\begin{DoxyCompactList}\small\item\em Getter da resposta do post. \end{DoxyCompactList}\item 
+My\+Date \hyperlink{post_8c_a18a99dc5160f542f91dd221d0513678d}{get\+Date\+\_\+post} (P\+O\+ST p)
+\begin{DoxyCompactList}\small\item\em Getter do param date. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Ficheiro com a estrutura de um P\+O\+ST 
+
+\subsection{Function Documentation}
+\index{post.\+c@{post.\+c}!create\+\_\+post@{create\+\_\+post}}
+\index{create\+\_\+post@{create\+\_\+post}!post.\+c@{post.\+c}}
+\subsubsection[{\texorpdfstring{create\+\_\+post(long type, Q\+U\+E\+S\+T\+I\+O\+N q, A\+N\+S\+W\+E\+R a)}{create_post(long type, QUESTION q, ANSWER a)}}]{\setlength{\rightskip}{0pt plus 5cm}P\+O\+ST create\+\_\+post (
+\begin{DoxyParamCaption}
+\item[{long}]{type, }
+\item[{Q\+U\+E\+S\+T\+I\+ON}]{q, }
+\item[{A\+N\+S\+W\+ER}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{post_8c_a9e4c5fb191250141313454750ab40e0c}{}\label{post_8c_a9e4c5fb191250141313454750ab40e0c}
+
+
+Cria um P\+O\+ST. 
+
+Apesar de receber uma Q\+U\+E\+S\+T\+I\+ON e uma A\+N\+W\+S\+ER, uma delas será sempre N\+U\+LL. Se {\bfseries type} for 1, será resposta, logo é guardada a Q\+U\+E\+S\+T\+I\+ON, caso contrario sera guardada a A\+N\+S\+W\+ER
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & Tipo do post \\
+\hline
+{\em q} & Questao \\
+\hline
+{\em a} & Resposta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+P\+O\+ST Post com a informacao 
+\end{DoxyReturn}
+\index{post.\+c@{post.\+c}!free\+\_\+post@{free\+\_\+post}}
+\index{free\+\_\+post@{free\+\_\+post}!post.\+c@{post.\+c}}
+\subsubsection[{\texorpdfstring{free\+\_\+post(void $\ast$p)}{free_post(void *p)}}]{\setlength{\rightskip}{0pt plus 5cm}void free\+\_\+post (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{post_8c_a1363005862aa685e55c3d1842ef8b528}{}\label{post_8c_a1363005862aa685e55c3d1842ef8b528}
+
+
+Da free de um post. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Post para dar free Recebe um void$\ast$ pois a funcao de destruicao da hashtable onde esta é usada manda como void$\ast$, sendo preciso depois converter para o tipo esperado \\
+\hline
+\end{DoxyParams}
+\index{post.\+c@{post.\+c}!get\+Answer\+\_\+post@{get\+Answer\+\_\+post}}
+\index{get\+Answer\+\_\+post@{get\+Answer\+\_\+post}!post.\+c@{post.\+c}}
+\subsubsection[{\texorpdfstring{get\+Answer\+\_\+post(\+P\+O\+S\+T p)}{getAnswer_post(POST p)}}]{\setlength{\rightskip}{0pt plus 5cm}A\+N\+S\+W\+ER get\+Answer\+\_\+post (
+\begin{DoxyParamCaption}
+\item[{P\+O\+ST}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{post_8c_acf93108b247d7c5a3bab45d2576bd448}{}\label{post_8c_acf93108b247d7c5a3bab45d2576bd448}
+
+
+Getter da resposta do post. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Post \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A\+N\+S\+W\+ER Resposta pertencente a este post 
+\end{DoxyReturn}
+\index{post.\+c@{post.\+c}!get\+Date\+\_\+post@{get\+Date\+\_\+post}}
+\index{get\+Date\+\_\+post@{get\+Date\+\_\+post}!post.\+c@{post.\+c}}
+\subsubsection[{\texorpdfstring{get\+Date\+\_\+post(\+P\+O\+S\+T p)}{getDate_post(POST p)}}]{\setlength{\rightskip}{0pt plus 5cm}My\+Date get\+Date\+\_\+post (
+\begin{DoxyParamCaption}
+\item[{P\+O\+ST}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{post_8c_a18a99dc5160f542f91dd221d0513678d}{}\label{post_8c_a18a99dc5160f542f91dd221d0513678d}
+
+
+Getter do param date. 
+
+Dependendo do tipo do post, chama a respetiva funcao -\/ da resposta ou da pergunta 
+\begin{DoxyParams}{Parameters}
+{\em p} & Post \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+My\+Date Data de criacao do post (da reposta ou da pergunta) 
+\end{DoxyReturn}
+\index{post.\+c@{post.\+c}!get\+Question\+\_\+post@{get\+Question\+\_\+post}}
+\index{get\+Question\+\_\+post@{get\+Question\+\_\+post}!post.\+c@{post.\+c}}
+\subsubsection[{\texorpdfstring{get\+Question\+\_\+post(\+P\+O\+S\+T p)}{getQuestion_post(POST p)}}]{\setlength{\rightskip}{0pt plus 5cm}Q\+U\+E\+S\+T\+I\+ON get\+Question\+\_\+post (
+\begin{DoxyParamCaption}
+\item[{P\+O\+ST}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{post_8c_a3a2920a8dd8185d3edaecbe6c83a4b75}{}\label{post_8c_a3a2920a8dd8185d3edaecbe6c83a4b75}
+
+
+Getter da questao do post. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Post \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+U\+E\+S\+T\+I\+ON Questao pertencente a este post 
+\end{DoxyReturn}
+\index{post.\+c@{post.\+c}!get\+Type\+\_\+post@{get\+Type\+\_\+post}}
+\index{get\+Type\+\_\+post@{get\+Type\+\_\+post}!post.\+c@{post.\+c}}
+\subsubsection[{\texorpdfstring{get\+Type\+\_\+post(\+P\+O\+S\+T p)}{getType_post(POST p)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Type\+\_\+post (
+\begin{DoxyParamCaption}
+\item[{P\+O\+ST}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{post_8c_a9383150f268a1704e1df5fe34b975fb7}{}\label{post_8c_a9383150f268a1704e1df5fe34b975fb7}
+
+
+Getter do param type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Post \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+long Tipo do post 
+\end{DoxyReturn}

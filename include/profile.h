@@ -5,6 +5,11 @@
 #include "post.h"
 
 /**
+@file profile.h
+Ficheiro da class PROFILE
+*/
+
+/**
  *  @brief Estrutura que contém os principais atributos associados aos utilizadores:
  *  GSequence sao guardadas as questões e respostas criadas pelo dito utilizador;
  *  informação do perfil e nome do utilizador;número de posts;id do utilizador e reputação

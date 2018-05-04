@@ -4,6 +4,11 @@
 #include "mydate.h"
 
 /**
+@file answer.h
+Ficheiro da class ANSWER
+*/
+
+/**
  *  @brief Estrutura que contém os principais atributos associados às respostas como sendo a sua data
  de criação da resposta, o seu id,id de quem escreveu a resposta,id da questão que está a responder,número de comentários,score.
  */

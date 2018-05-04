@@ -4,6 +4,11 @@
 #include "main_struct.h"
 
 /**
+@file parser.h
+Ficheiro do parser
+*/
+
+/**
  * @brief Função que carrega os ficheiros para
  * a Estrutura escolhida
  * @param com Estrutura

@@ -1,0 +1,277 @@
+\hypertarget{question_8h}{}\section{question.\+h File Reference}
+\label{question_8h}\index{question.\+h@{question.\+h}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}mydate.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$glib.\+h$>$}\\*
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct question $\ast$ \hyperlink{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{Q\+U\+E\+S\+T\+I\+ON}\hypertarget{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{}\label{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}
+
+\begin{DoxyCompactList}\small\item\em Estrutura que contém os principais atributos associados às questões como sendo a data de criação, id das respostas associadas a cada questão título da questão,tag de cada questão,id da questão,id de quem formulou a pergunta,número de respostas de cada questão,número de comentários e,por último,o score de uma pergunta. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{Q\+U\+E\+S\+T\+I\+ON} \hyperlink{question_8h_a7beb1cc66eace6bda5522dd502425e44}{create\+\_\+question} (long my\+\_\+id, char $\ast$my\+\_\+title, char $\ast$my\+\_\+tags, long my\+\_\+owner\+\_\+id, My\+Date my\+\_\+creation\+\_\+date, int my\+\_\+score, long my\+\_\+n\+\_\+answer, long comments)
+\begin{DoxyCompactList}\small\item\em Função responsável pela criação de uma questão de acordo com os seus atributos. \end{DoxyCompactList}\item 
+void \hyperlink{question_8h_ae5d0c8eb5272bf6bff46c4b7f04e5654}{free\+\_\+question} (void $\ast$q)
+\begin{DoxyCompactList}\small\item\em Função que liberta uma questão da memória. \end{DoxyCompactList}\item 
+long \hyperlink{question_8h_af024dc9210b9b41c7e24aeae5d8203d4}{get\+Id\+\_\+question} (\hyperlink{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{Q\+U\+E\+S\+T\+I\+ON} q)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura do atributo ID da questão. \end{DoxyCompactList}\item 
+long \hyperlink{question_8h_a3298d39c6c54ad9ef5ca40a5dc871826}{get\+Comments\+\_\+question} (\hyperlink{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{Q\+U\+E\+S\+T\+I\+ON} q)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura do número de comentários. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{question_8h_a2bbeb16edf4a91df67b8344fe8a8fa19}{get\+Title\+\_\+question} (\hyperlink{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{Q\+U\+E\+S\+T\+I\+ON} q)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura do atributo titulo da questão. \end{DoxyCompactList}\item 
+long \hyperlink{question_8h_a02aaa5876f15002a4d33a41e0b044cc7}{get\+Owner\+Id\+\_\+question} (\hyperlink{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{Q\+U\+E\+S\+T\+I\+ON} q)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura do atributo ID de quem formulou a questão. \end{DoxyCompactList}\item 
+My\+Date \hyperlink{question_8h_a5de97988530c9e02cc0607ba4ab47ec6}{get\+Creation\+Date\+\_\+question} (\hyperlink{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{Q\+U\+E\+S\+T\+I\+ON} q)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura da data de criação. \end{DoxyCompactList}\item 
+long \hyperlink{question_8h_ae1faa9a65426e03755cb2cd03fd9fad3}{get\+Nanswers\+\_\+question} (\hyperlink{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{Q\+U\+E\+S\+T\+I\+ON} q)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura do número de respostas associdas a cada questão. \end{DoxyCompactList}\item 
+int \hyperlink{question_8h_a212235d837d623775d08bdd5c77973a6}{get\+Score\+\_\+question} (\hyperlink{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{Q\+U\+E\+S\+T\+I\+ON} q)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura do atributo Score de uma questão. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{question_8h_a0ca0f2df13c7dce251a304f9eafdc25e}{get\+Tags\+\_\+question} (\hyperlink{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{Q\+U\+E\+S\+T\+I\+ON} q)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura do atributo Tag de cada questão. \end{DoxyCompactList}\item 
+G\+Array $\ast$ \hyperlink{question_8h_aece1decb4b46bfa2e9e29fdd1e2ab77c}{get\+Id\+Answers\+\_\+question} (\hyperlink{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{Q\+U\+E\+S\+T\+I\+ON} q)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura do atributo Id das respostas associadas a cada questão. \end{DoxyCompactList}\item 
+void \hyperlink{question_8h_a7bbe811489eac28b5d6fe888832b9161}{set\+Answers\+\_\+array\+\_\+question} (\hyperlink{question_8h_ae147d7cef23a80ed0a6eaa8edf8f01c1}{Q\+U\+E\+S\+T\+I\+ON} q, long id)
+\begin{DoxyCompactList}\small\item\em A função que se segue faz com que seja possível a alteração/modificação do array que tem o Id das respostas de cada questão. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Ficheiro da class Q\+U\+E\+S\+T\+I\+ON 
+
+\subsection{Function Documentation}
+\index{question.\+h@{question.\+h}!create\+\_\+question@{create\+\_\+question}}
+\index{create\+\_\+question@{create\+\_\+question}!question.\+h@{question.\+h}}
+\subsubsection[{\texorpdfstring{create\+\_\+question(long my\+\_\+id, char $\ast$my\+\_\+title, char $\ast$my\+\_\+tags, long my\+\_\+owner\+\_\+id, My\+Date my\+\_\+creation\+\_\+date, int my\+\_\+score, long my\+\_\+n\+\_\+answer, long comments)}{create_question(long my_id, char *my_title, char *my_tags, long my_owner_id, MyDate my_creation_date, int my_score, long my_n_answer, long comments)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Q\+U\+E\+S\+T\+I\+ON} create\+\_\+question (
+\begin{DoxyParamCaption}
+\item[{long}]{my\+\_\+id, }
+\item[{char $\ast$}]{my\+\_\+title, }
+\item[{char $\ast$}]{my\+\_\+tags, }
+\item[{long}]{my\+\_\+owner\+\_\+id, }
+\item[{My\+Date}]{my\+\_\+creation\+\_\+date, }
+\item[{int}]{my\+\_\+score, }
+\item[{long}]{my\+\_\+n\+\_\+answer, }
+\item[{long}]{comments}
+\end{DoxyParamCaption}
+)}\hypertarget{question_8h_a7beb1cc66eace6bda5522dd502425e44}{}\label{question_8h_a7beb1cc66eace6bda5522dd502425e44}
+
+
+Função responsável pela criação de uma questão de acordo com os seus atributos. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em my\+\_\+id} & ID da questão,my\+\_\+title Título de uma questão,my\+\_\+tags Tag de uma questão,my\+\_\+owner\+\_\+id ID de quem faz a questão, my\+\_\+creation\+\_\+date Data de criação de uma questão, my\+\_\+score Score de uma questão, my\+\_\+n\+\_\+answer Número de respostas de uma determinada questão,comments Número de comentários \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+inicialização de uma resposta A\+N\+S\+W\+ER 
+\end{DoxyReturn}
+\index{question.\+h@{question.\+h}!free\+\_\+question@{free\+\_\+question}}
+\index{free\+\_\+question@{free\+\_\+question}!question.\+h@{question.\+h}}
+\subsubsection[{\texorpdfstring{free\+\_\+question(void $\ast$q)}{free_question(void *q)}}]{\setlength{\rightskip}{0pt plus 5cm}void free\+\_\+question (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{question_8h_ae5d0c8eb5272bf6bff46c4b7f04e5654}{}\label{question_8h_ae5d0c8eb5272bf6bff46c4b7f04e5654}
+
+
+Função que liberta uma questão da memória. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & Uma questão(question) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+libertação de uma dada questão 
+\end{DoxyReturn}
+\index{question.\+h@{question.\+h}!get\+Comments\+\_\+question@{get\+Comments\+\_\+question}}
+\index{get\+Comments\+\_\+question@{get\+Comments\+\_\+question}!question.\+h@{question.\+h}}
+\subsubsection[{\texorpdfstring{get\+Comments\+\_\+question(\+Q\+U\+E\+S\+T\+I\+O\+N q)}{getComments_question(QUESTION q)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Comments\+\_\+question (
+\begin{DoxyParamCaption}
+\item[{{\bf Q\+U\+E\+S\+T\+I\+ON}}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{question_8h_a3298d39c6c54ad9ef5ca40a5dc871826}{}\label{question_8h_a3298d39c6c54ad9ef5ca40a5dc871826}
+
+
+A função que se segue é responsável pela leitura do número de comentários. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & Uma questão \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Número de comentários 
+\end{DoxyReturn}
+\index{question.\+h@{question.\+h}!get\+Creation\+Date\+\_\+question@{get\+Creation\+Date\+\_\+question}}
+\index{get\+Creation\+Date\+\_\+question@{get\+Creation\+Date\+\_\+question}!question.\+h@{question.\+h}}
+\subsubsection[{\texorpdfstring{get\+Creation\+Date\+\_\+question(\+Q\+U\+E\+S\+T\+I\+O\+N q)}{getCreationDate_question(QUESTION q)}}]{\setlength{\rightskip}{0pt plus 5cm}My\+Date get\+Creation\+Date\+\_\+question (
+\begin{DoxyParamCaption}
+\item[{{\bf Q\+U\+E\+S\+T\+I\+ON}}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{question_8h_a5de97988530c9e02cc0607ba4ab47ec6}{}\label{question_8h_a5de97988530c9e02cc0607ba4ab47ec6}
+
+
+A função que se segue é responsável pela leitura da data de criação. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & Uma questão \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Data de criação da questão 
+\end{DoxyReturn}
+\index{question.\+h@{question.\+h}!get\+Id\+\_\+question@{get\+Id\+\_\+question}}
+\index{get\+Id\+\_\+question@{get\+Id\+\_\+question}!question.\+h@{question.\+h}}
+\subsubsection[{\texorpdfstring{get\+Id\+\_\+question(\+Q\+U\+E\+S\+T\+I\+O\+N q)}{getId_question(QUESTION q)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Id\+\_\+question (
+\begin{DoxyParamCaption}
+\item[{{\bf Q\+U\+E\+S\+T\+I\+ON}}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{question_8h_af024dc9210b9b41c7e24aeae5d8203d4}{}\label{question_8h_af024dc9210b9b41c7e24aeae5d8203d4}
+
+
+A função que se segue é responsável pela leitura do atributo ID da questão. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & Uma questão \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ID da questão 
+\end{DoxyReturn}
+\index{question.\+h@{question.\+h}!get\+Id\+Answers\+\_\+question@{get\+Id\+Answers\+\_\+question}}
+\index{get\+Id\+Answers\+\_\+question@{get\+Id\+Answers\+\_\+question}!question.\+h@{question.\+h}}
+\subsubsection[{\texorpdfstring{get\+Id\+Answers\+\_\+question(\+Q\+U\+E\+S\+T\+I\+O\+N q)}{getIdAnswers_question(QUESTION q)}}]{\setlength{\rightskip}{0pt plus 5cm}G\+Array$\ast$ get\+Id\+Answers\+\_\+question (
+\begin{DoxyParamCaption}
+\item[{{\bf Q\+U\+E\+S\+T\+I\+ON}}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{question_8h_aece1decb4b46bfa2e9e29fdd1e2ab77c}{}\label{question_8h_aece1decb4b46bfa2e9e29fdd1e2ab77c}
+
+
+A função que se segue é responsável pela leitura do atributo Id das respostas associadas a cada questão. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & Uma questão \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array com ID das respostas de cada questão 
+\end{DoxyReturn}
+\index{question.\+h@{question.\+h}!get\+Nanswers\+\_\+question@{get\+Nanswers\+\_\+question}}
+\index{get\+Nanswers\+\_\+question@{get\+Nanswers\+\_\+question}!question.\+h@{question.\+h}}
+\subsubsection[{\texorpdfstring{get\+Nanswers\+\_\+question(\+Q\+U\+E\+S\+T\+I\+O\+N q)}{getNanswers_question(QUESTION q)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Nanswers\+\_\+question (
+\begin{DoxyParamCaption}
+\item[{{\bf Q\+U\+E\+S\+T\+I\+ON}}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{question_8h_ae1faa9a65426e03755cb2cd03fd9fad3}{}\label{question_8h_ae1faa9a65426e03755cb2cd03fd9fad3}
+
+
+A função que se segue é responsável pela leitura do número de respostas associdas a cada questão. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & Uma questão \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Número de respostas 
+\end{DoxyReturn}
+\index{question.\+h@{question.\+h}!get\+Owner\+Id\+\_\+question@{get\+Owner\+Id\+\_\+question}}
+\index{get\+Owner\+Id\+\_\+question@{get\+Owner\+Id\+\_\+question}!question.\+h@{question.\+h}}
+\subsubsection[{\texorpdfstring{get\+Owner\+Id\+\_\+question(\+Q\+U\+E\+S\+T\+I\+O\+N q)}{getOwnerId_question(QUESTION q)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Owner\+Id\+\_\+question (
+\begin{DoxyParamCaption}
+\item[{{\bf Q\+U\+E\+S\+T\+I\+ON}}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{question_8h_a02aaa5876f15002a4d33a41e0b044cc7}{}\label{question_8h_a02aaa5876f15002a4d33a41e0b044cc7}
+
+
+A função que se segue é responsável pela leitura do atributo ID de quem formulou a questão. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & Uma questão \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ID de quem fez a questão 
+\end{DoxyReturn}
+\index{question.\+h@{question.\+h}!get\+Score\+\_\+question@{get\+Score\+\_\+question}}
+\index{get\+Score\+\_\+question@{get\+Score\+\_\+question}!question.\+h@{question.\+h}}
+\subsubsection[{\texorpdfstring{get\+Score\+\_\+question(\+Q\+U\+E\+S\+T\+I\+O\+N q)}{getScore_question(QUESTION q)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Score\+\_\+question (
+\begin{DoxyParamCaption}
+\item[{{\bf Q\+U\+E\+S\+T\+I\+ON}}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{question_8h_a212235d837d623775d08bdd5c77973a6}{}\label{question_8h_a212235d837d623775d08bdd5c77973a6}
+
+
+A função que se segue é responsável pela leitura do atributo Score de uma questão. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & Uma questão \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Score da questão 
+\end{DoxyReturn}
+\index{question.\+h@{question.\+h}!get\+Tags\+\_\+question@{get\+Tags\+\_\+question}}
+\index{get\+Tags\+\_\+question@{get\+Tags\+\_\+question}!question.\+h@{question.\+h}}
+\subsubsection[{\texorpdfstring{get\+Tags\+\_\+question(\+Q\+U\+E\+S\+T\+I\+O\+N q)}{getTags_question(QUESTION q)}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ get\+Tags\+\_\+question (
+\begin{DoxyParamCaption}
+\item[{{\bf Q\+U\+E\+S\+T\+I\+ON}}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{question_8h_a0ca0f2df13c7dce251a304f9eafdc25e}{}\label{question_8h_a0ca0f2df13c7dce251a304f9eafdc25e}
+
+
+A função que se segue é responsável pela leitura do atributo Tag de cada questão. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & Uma questão \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tag da questão 
+\end{DoxyReturn}
+\index{question.\+h@{question.\+h}!get\+Title\+\_\+question@{get\+Title\+\_\+question}}
+\index{get\+Title\+\_\+question@{get\+Title\+\_\+question}!question.\+h@{question.\+h}}
+\subsubsection[{\texorpdfstring{get\+Title\+\_\+question(\+Q\+U\+E\+S\+T\+I\+O\+N q)}{getTitle_question(QUESTION q)}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ get\+Title\+\_\+question (
+\begin{DoxyParamCaption}
+\item[{{\bf Q\+U\+E\+S\+T\+I\+ON}}]{q}
+\end{DoxyParamCaption}
+)}\hypertarget{question_8h_a2bbeb16edf4a91df67b8344fe8a8fa19}{}\label{question_8h_a2bbeb16edf4a91df67b8344fe8a8fa19}
+
+
+A função que se segue é responsável pela leitura do atributo titulo da questão. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & Uma questão \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+titulo da questão 
+\end{DoxyReturn}
+\index{question.\+h@{question.\+h}!set\+Answers\+\_\+array\+\_\+question@{set\+Answers\+\_\+array\+\_\+question}}
+\index{set\+Answers\+\_\+array\+\_\+question@{set\+Answers\+\_\+array\+\_\+question}!question.\+h@{question.\+h}}
+\subsubsection[{\texorpdfstring{set\+Answers\+\_\+array\+\_\+question(\+Q\+U\+E\+S\+T\+I\+O\+N q, long id)}{setAnswers_array_question(QUESTION q, long id)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Answers\+\_\+array\+\_\+question (
+\begin{DoxyParamCaption}
+\item[{{\bf Q\+U\+E\+S\+T\+I\+ON}}]{q, }
+\item[{long}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{question_8h_a7bbe811489eac28b5d6fe888832b9161}{}\label{question_8h_a7bbe811489eac28b5d6fe888832b9161}
+
+
+A função que se segue faz com que seja possível a alteração/modificação do array que tem o Id das respostas de cada questão. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & Uma questão, id das respostas \\
+\hline
+\end{DoxyParams}

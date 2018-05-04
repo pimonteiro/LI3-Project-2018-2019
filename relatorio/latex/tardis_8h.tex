@@ -1,0 +1,110 @@
+\hypertarget{tardis_8h}{}\section{tardis.\+h File Reference}
+\label{tardis_8h}\index{tardis.\+h@{tardis.\+h}}
+{\ttfamily \#include \char`\"{}mydate.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$glib.\+h$>$}\\*
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct tardis $\ast$ \hyperlink{tardis_8h_a6941aa55af8974503f4813fb4bfbec76}{T\+A\+R\+D\+IS}\hypertarget{tardis_8h_a6941aa55af8974503f4813fb4bfbec76}{}\label{tardis_8h_a6941aa55af8974503f4813fb4bfbec76}
+
+\begin{DoxyCompactList}\small\item\em Estrutura que resolve vários tipos de ordenação. Consiste num array de arrays com G\+Sequences. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tardis_8h_a6941aa55af8974503f4813fb4bfbec76}{T\+A\+R\+D\+IS} \hyperlink{tardis_8h_ab0591034a2a413c9f5d31f7994f46ca5}{landing\+\_\+tardis} (int n\+\_\+years)
+\begin{DoxyCompactList}\small\item\em Função que cria uma tardis com apenas os arrays de anos inicializados com tamanho n\+\_\+years. \end{DoxyCompactList}\item 
+void \hyperlink{tardis_8h_abe97610d93208b7641b657954b67b716}{take\+Of\+\_\+tardis} (void $\ast$t)
+\begin{DoxyCompactList}\small\item\em Função que faz free da Tardis. \end{DoxyCompactList}\item 
+void \hyperlink{tardis_8h_a9701d8f9c1f35765154edcf4f2bb470b}{insert\+\_\+\+T\+A\+R\+D\+IS} (\hyperlink{tardis_8h_a6941aa55af8974503f4813fb4bfbec76}{T\+A\+R\+D\+IS} type40, void $\ast$elem, My\+Date d, int type)
+\begin{DoxyCompactList}\small\item\em Função que insere uma questão ou resposta na Tardis, cria o array de meses e dias caso seja a primeira questão/resposta desse alcance temporal. \end{DoxyCompactList}\item 
+G\+Sequence $\ast$ \hyperlink{tardis_8h_acd7a50d76240c38f8510782f5dcad84c}{get\+Range\+Filter\+\_\+\+T\+A\+R\+D\+IS} (\hyperlink{tardis_8h_a6941aa55af8974503f4813fb4bfbec76}{T\+A\+R\+D\+IS} m, My\+Date inicio, My\+Date fim, int type, G\+Compare\+Data\+Func f)
+\begin{DoxyCompactList}\small\item\em Função que se segue retorna perguntas ou questões entre 2 datas,organizadas pela ordem que for pedida. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Ficheiro da class T\+A\+R\+D\+IS 
+
+\subsection{Function Documentation}
+\index{tardis.\+h@{tardis.\+h}!get\+Range\+Filter\+\_\+\+T\+A\+R\+D\+IS@{get\+Range\+Filter\+\_\+\+T\+A\+R\+D\+IS}}
+\index{get\+Range\+Filter\+\_\+\+T\+A\+R\+D\+IS@{get\+Range\+Filter\+\_\+\+T\+A\+R\+D\+IS}!tardis.\+h@{tardis.\+h}}
+\subsubsection[{\texorpdfstring{get\+Range\+Filter\+\_\+\+T\+A\+R\+D\+I\+S(\+T\+A\+R\+D\+I\+S m, My\+Date inicio, My\+Date fim, int type, G\+Compare\+Data\+Func f)}{getRangeFilter_TARDIS(TARDIS m, MyDate inicio, MyDate fim, int type, GCompareDataFunc f)}}]{\setlength{\rightskip}{0pt plus 5cm}G\+Sequence$\ast$ get\+Range\+Filter\+\_\+\+T\+A\+R\+D\+IS (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+R\+D\+IS}}]{m, }
+\item[{My\+Date}]{inicio, }
+\item[{My\+Date}]{fim, }
+\item[{int}]{type, }
+\item[{G\+Compare\+Data\+Func}]{f}
+\end{DoxyParamCaption}
+)}\hypertarget{tardis_8h_acd7a50d76240c38f8510782f5dcad84c}{}\label{tardis_8h_acd7a50d76240c38f8510782f5dcad84c}
+
+
+Função que se segue retorna perguntas ou questões entre 2 datas,organizadas pela ordem que for pedida. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & Estrura,inicio Data de começo \\
+\hline
+{\em fim} & Data de desfecho type 1-\/\+Question e 2-\/\+Resposta \\
+\hline
+{\em f} & Para organizar segundo o que é pedido (ordem cronológica inversa por exemplo) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+Sequence com perguntas/respostas organizadas pelo que for pedido 
+\end{DoxyReturn}
+\index{tardis.\+h@{tardis.\+h}!insert\+\_\+\+T\+A\+R\+D\+IS@{insert\+\_\+\+T\+A\+R\+D\+IS}}
+\index{insert\+\_\+\+T\+A\+R\+D\+IS@{insert\+\_\+\+T\+A\+R\+D\+IS}!tardis.\+h@{tardis.\+h}}
+\subsubsection[{\texorpdfstring{insert\+\_\+\+T\+A\+R\+D\+I\+S(\+T\+A\+R\+D\+I\+S type40, void $\ast$elem, My\+Date d, int type)}{insert_TARDIS(TARDIS type40, void *elem, MyDate d, int type)}}]{\setlength{\rightskip}{0pt plus 5cm}void insert\+\_\+\+T\+A\+R\+D\+IS (
+\begin{DoxyParamCaption}
+\item[{{\bf T\+A\+R\+D\+IS}}]{type40, }
+\item[{void $\ast$}]{elem, }
+\item[{My\+Date}]{d, }
+\item[{int}]{type}
+\end{DoxyParamCaption}
+)}\hypertarget{tardis_8h_a9701d8f9c1f35765154edcf4f2bb470b}{}\label{tardis_8h_a9701d8f9c1f35765154edcf4f2bb470b}
+
+
+Função que insere uma questão ou resposta na Tardis, cria o array de meses e dias caso seja a primeira questão/resposta desse alcance temporal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type40} & Estrutura Principal,elem Tardis \\
+\hline
+{\em d} & Data,type 1-\/\+Questão e 2-\/\+Resposta \\
+\hline
+\end{DoxyParams}
+\index{tardis.\+h@{tardis.\+h}!landing\+\_\+tardis@{landing\+\_\+tardis}}
+\index{landing\+\_\+tardis@{landing\+\_\+tardis}!tardis.\+h@{tardis.\+h}}
+\subsubsection[{\texorpdfstring{landing\+\_\+tardis(int n\+\_\+years)}{landing_tardis(int n_years)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf T\+A\+R\+D\+IS} landing\+\_\+tardis (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+\_\+years}
+\end{DoxyParamCaption}
+)}\hypertarget{tardis_8h_ab0591034a2a413c9f5d31f7994f46ca5}{}\label{tardis_8h_ab0591034a2a413c9f5d31f7994f46ca5}
+
+
+Função que cria uma tardis com apenas os arrays de anos inicializados com tamanho n\+\_\+years. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+years} & Tamanho anos \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Tardis correspondente ao tamanho dos anos 
+\end{DoxyReturn}
+\index{tardis.\+h@{tardis.\+h}!take\+Of\+\_\+tardis@{take\+Of\+\_\+tardis}}
+\index{take\+Of\+\_\+tardis@{take\+Of\+\_\+tardis}!tardis.\+h@{tardis.\+h}}
+\subsubsection[{\texorpdfstring{take\+Of\+\_\+tardis(void $\ast$t)}{takeOf_tardis(void *t)}}]{\setlength{\rightskip}{0pt plus 5cm}void take\+Of\+\_\+tardis (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{tardis_8h_abe97610d93208b7641b657954b67b716}{}\label{tardis_8h_abe97610d93208b7641b657954b67b716}
+
+
+Função que faz free da Tardis. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & Tardis \\
+\hline
+\end{DoxyParams}

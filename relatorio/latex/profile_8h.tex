@@ -1,0 +1,206 @@
+\hypertarget{profile_8h}{}\section{profile.\+h File Reference}
+\label{profile_8h}\index{profile.\+h@{profile.\+h}}
+{\ttfamily \#include $<$glib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}post.\+h\char`\"{}}\\*
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct profile $\ast$ \hyperlink{profile_8h_acde9ff22551de79e45893bfc4d402a12}{P\+R\+O\+F\+I\+LE}\hypertarget{profile_8h_acde9ff22551de79e45893bfc4d402a12}{}\label{profile_8h_acde9ff22551de79e45893bfc4d402a12}
+
+\begin{DoxyCompactList}\small\item\em Estrutura que contém os principais atributos associados aos utilizadores\+: G\+Sequence sao guardadas as questões e respostas criadas pelo dito utilizador; informação do perfil e nome do utilizador;número de posts;id do utilizador e reputação de um utilizador. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{profile_8h_acde9ff22551de79e45893bfc4d402a12}{P\+R\+O\+F\+I\+LE} \hyperlink{profile_8h_a7f04990de88def87c6ef2f3c27481fc2}{create\+\_\+profile} (char $\ast$my\+\_\+about, long my\+\_\+id, char $\ast$my\+\_\+name, int my\+\_\+reputation)
+\begin{DoxyCompactList}\small\item\em Função responsável pela criação dos perfis dos utilizadores de acordo com os atributos acima referidos. \end{DoxyCompactList}\item 
+void \hyperlink{profile_8h_a81853581cc93d9a4155a6b091838ab45}{free\+\_\+profile} (void $\ast$p)
+\begin{DoxyCompactList}\small\item\em Função que liberta o perfil do utilizador assim como alguns dos seus atributos. \end{DoxyCompactList}\item 
+G\+Sequence $\ast$ \hyperlink{profile_8h_adc7b6de1df76d022f2139fac33e52fda}{get\+Posts\+\_\+profile} (\hyperlink{profile_8h_acde9ff22551de79e45893bfc4d402a12}{P\+R\+O\+F\+I\+LE} p)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura dos Posts do perfil de um Utilizador. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{profile_8h_adfcb3ae19e1696b44cf2ee83cc3b6d0e}{get\+About\+Me\+\_\+profile} (\hyperlink{profile_8h_acde9ff22551de79e45893bfc4d402a12}{P\+R\+O\+F\+I\+LE} p)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura da informação do perfil de um Utilizador. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{profile_8h_a236ce2f70975a7314000a8690b7a68bf}{get\+Name\+\_\+profile} (\hyperlink{profile_8h_acde9ff22551de79e45893bfc4d402a12}{P\+R\+O\+F\+I\+LE} p)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura do nome de um Utilizador. \end{DoxyCompactList}\item 
+long \hyperlink{profile_8h_a30cb7dfa9400443191b45fb14d983b01}{get\+Nposts\+\_\+profile} (\hyperlink{profile_8h_acde9ff22551de79e45893bfc4d402a12}{P\+R\+O\+F\+I\+LE} p)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura do número de Posts do perfil de um Utilizador. \end{DoxyCompactList}\item 
+long \hyperlink{profile_8h_ae54fd4b655f594c3f9e159754f2057d6}{get\+Id\+\_\+profile} (\hyperlink{profile_8h_acde9ff22551de79e45893bfc4d402a12}{P\+R\+O\+F\+I\+LE} p)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura do ID de um Utilizador. \end{DoxyCompactList}\item 
+int \hyperlink{profile_8h_a6302b49ca54d47ad2f246c77938de106}{get\+Reputation\+\_\+profile} (\hyperlink{profile_8h_acde9ff22551de79e45893bfc4d402a12}{P\+R\+O\+F\+I\+LE} p)
+\begin{DoxyCompactList}\small\item\em A função que se segue é responsável pela leitura da Reputação de um Utilizador. \end{DoxyCompactList}\item 
+void \hyperlink{profile_8h_a3ea64b7314fd45516095cfbe0c5fb0b2}{insert\+Lastest\+\_\+profile} (\hyperlink{profile_8h_acde9ff22551de79e45893bfc4d402a12}{P\+R\+O\+F\+I\+LE} p, \hyperlink{post_8h_af70f2b9a73905cf6bd249f914f4c32d9}{P\+O\+ST} post)
+\begin{DoxyCompactList}\small\item\em Função responsável pela inserção do utilizador mais recente no início. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Ficheiro da class P\+R\+O\+F\+I\+LE 
+
+\subsection{Function Documentation}
+\index{profile.\+h@{profile.\+h}!create\+\_\+profile@{create\+\_\+profile}}
+\index{create\+\_\+profile@{create\+\_\+profile}!profile.\+h@{profile.\+h}}
+\subsubsection[{\texorpdfstring{create\+\_\+profile(char $\ast$my\+\_\+about, long my\+\_\+id, char $\ast$my\+\_\+name, int my\+\_\+reputation)}{create_profile(char *my_about, long my_id, char *my_name, int my_reputation)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+R\+O\+F\+I\+LE} create\+\_\+profile (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{my\+\_\+about, }
+\item[{long}]{my\+\_\+id, }
+\item[{char $\ast$}]{my\+\_\+name, }
+\item[{int}]{my\+\_\+reputation}
+\end{DoxyParamCaption}
+)}\hypertarget{profile_8h_a7f04990de88def87c6ef2f3c27481fc2}{}\label{profile_8h_a7f04990de88def87c6ef2f3c27481fc2}
+
+
+Função responsável pela criação dos perfis dos utilizadores de acordo com os atributos acima referidos. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em my\+\_\+about} & Informação do perfil,my\+\_\+id ID do utilizador,my\+\_\+name Nome do Utilizador,my\+\_\+reputation Reputação do Utilizador \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Criação do Perfil dos Utilizadores 
+\end{DoxyReturn}
+\index{profile.\+h@{profile.\+h}!free\+\_\+profile@{free\+\_\+profile}}
+\index{free\+\_\+profile@{free\+\_\+profile}!profile.\+h@{profile.\+h}}
+\subsubsection[{\texorpdfstring{free\+\_\+profile(void $\ast$p)}{free_profile(void *p)}}]{\setlength{\rightskip}{0pt plus 5cm}void free\+\_\+profile (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{profile_8h_a81853581cc93d9a4155a6b091838ab45}{}\label{profile_8h_a81853581cc93d9a4155a6b091838ab45}
+
+
+Função que liberta o perfil do utilizador assim como alguns dos seus atributos. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Um Post \\
+\hline
+\end{DoxyParams}
+\index{profile.\+h@{profile.\+h}!get\+About\+Me\+\_\+profile@{get\+About\+Me\+\_\+profile}}
+\index{get\+About\+Me\+\_\+profile@{get\+About\+Me\+\_\+profile}!profile.\+h@{profile.\+h}}
+\subsubsection[{\texorpdfstring{get\+About\+Me\+\_\+profile(\+P\+R\+O\+F\+I\+L\+E p)}{getAboutMe_profile(PROFILE p)}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ get\+About\+Me\+\_\+profile (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+R\+O\+F\+I\+LE}}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{profile_8h_adfcb3ae19e1696b44cf2ee83cc3b6d0e}{}\label{profile_8h_adfcb3ae19e1696b44cf2ee83cc3b6d0e}
+
+
+A função que se segue é responsável pela leitura da informação do perfil de um Utilizador. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Perfil Utilizador \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array com a informação do Utilizador 
+\end{DoxyReturn}
+\index{profile.\+h@{profile.\+h}!get\+Id\+\_\+profile@{get\+Id\+\_\+profile}}
+\index{get\+Id\+\_\+profile@{get\+Id\+\_\+profile}!profile.\+h@{profile.\+h}}
+\subsubsection[{\texorpdfstring{get\+Id\+\_\+profile(\+P\+R\+O\+F\+I\+L\+E p)}{getId_profile(PROFILE p)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Id\+\_\+profile (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+R\+O\+F\+I\+LE}}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{profile_8h_ae54fd4b655f594c3f9e159754f2057d6}{}\label{profile_8h_ae54fd4b655f594c3f9e159754f2057d6}
+
+
+A função que se segue é responsável pela leitura do ID de um Utilizador. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Perfil Utilizador \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ID de um utilizador 
+\end{DoxyReturn}
+\index{profile.\+h@{profile.\+h}!get\+Name\+\_\+profile@{get\+Name\+\_\+profile}}
+\index{get\+Name\+\_\+profile@{get\+Name\+\_\+profile}!profile.\+h@{profile.\+h}}
+\subsubsection[{\texorpdfstring{get\+Name\+\_\+profile(\+P\+R\+O\+F\+I\+L\+E p)}{getName_profile(PROFILE p)}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ get\+Name\+\_\+profile (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+R\+O\+F\+I\+LE}}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{profile_8h_a236ce2f70975a7314000a8690b7a68bf}{}\label{profile_8h_a236ce2f70975a7314000a8690b7a68bf}
+
+
+A função que se segue é responsável pela leitura do nome de um Utilizador. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Perfil Utilizador \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array com o nome dos vários Utilizadores 
+\end{DoxyReturn}
+\index{profile.\+h@{profile.\+h}!get\+Nposts\+\_\+profile@{get\+Nposts\+\_\+profile}}
+\index{get\+Nposts\+\_\+profile@{get\+Nposts\+\_\+profile}!profile.\+h@{profile.\+h}}
+\subsubsection[{\texorpdfstring{get\+Nposts\+\_\+profile(\+P\+R\+O\+F\+I\+L\+E p)}{getNposts_profile(PROFILE p)}}]{\setlength{\rightskip}{0pt plus 5cm}long get\+Nposts\+\_\+profile (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+R\+O\+F\+I\+LE}}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{profile_8h_a30cb7dfa9400443191b45fb14d983b01}{}\label{profile_8h_a30cb7dfa9400443191b45fb14d983b01}
+
+
+A função que se segue é responsável pela leitura do número de Posts do perfil de um Utilizador. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Perfil Utilizador \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Número de Posts de um Utilizador 
+\end{DoxyReturn}
+\index{profile.\+h@{profile.\+h}!get\+Posts\+\_\+profile@{get\+Posts\+\_\+profile}}
+\index{get\+Posts\+\_\+profile@{get\+Posts\+\_\+profile}!profile.\+h@{profile.\+h}}
+\subsubsection[{\texorpdfstring{get\+Posts\+\_\+profile(\+P\+R\+O\+F\+I\+L\+E p)}{getPosts_profile(PROFILE p)}}]{\setlength{\rightskip}{0pt plus 5cm}G\+Sequence$\ast$ get\+Posts\+\_\+profile (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+R\+O\+F\+I\+LE}}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{profile_8h_adc7b6de1df76d022f2139fac33e52fda}{}\label{profile_8h_adc7b6de1df76d022f2139fac33e52fda}
+
+
+A função que se segue é responsável pela leitura dos Posts do perfil de um Utilizador. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Perfil Utilizador \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+G\+Sequence com o tipo do Post 
+\end{DoxyReturn}
+\index{profile.\+h@{profile.\+h}!get\+Reputation\+\_\+profile@{get\+Reputation\+\_\+profile}}
+\index{get\+Reputation\+\_\+profile@{get\+Reputation\+\_\+profile}!profile.\+h@{profile.\+h}}
+\subsubsection[{\texorpdfstring{get\+Reputation\+\_\+profile(\+P\+R\+O\+F\+I\+L\+E p)}{getReputation_profile(PROFILE p)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Reputation\+\_\+profile (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+R\+O\+F\+I\+LE}}]{p}
+\end{DoxyParamCaption}
+)}\hypertarget{profile_8h_a6302b49ca54d47ad2f246c77938de106}{}\label{profile_8h_a6302b49ca54d47ad2f246c77938de106}
+
+
+A função que se segue é responsável pela leitura da Reputação de um Utilizador. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Perfil Utilizador \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+quantia da Reputação 
+\end{DoxyReturn}
+\index{profile.\+h@{profile.\+h}!insert\+Lastest\+\_\+profile@{insert\+Lastest\+\_\+profile}}
+\index{insert\+Lastest\+\_\+profile@{insert\+Lastest\+\_\+profile}!profile.\+h@{profile.\+h}}
+\subsubsection[{\texorpdfstring{insert\+Lastest\+\_\+profile(\+P\+R\+O\+F\+I\+L\+E p, P\+O\+S\+T post)}{insertLastest_profile(PROFILE p, POST post)}}]{\setlength{\rightskip}{0pt plus 5cm}void insert\+Lastest\+\_\+profile (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+R\+O\+F\+I\+LE}}]{p, }
+\item[{{\bf P\+O\+ST}}]{post}
+\end{DoxyParamCaption}
+)}\hypertarget{profile_8h_a3ea64b7314fd45516095cfbe0c5fb0b2}{}\label{profile_8h_a3ea64b7314fd45516095cfbe0c5fb0b2}
+
+
+Função responsável pela inserção do utilizador mais recente no início. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Perfil do Utilizador,post Post do Utilizador \\
+\hline
+\end{DoxyParams}

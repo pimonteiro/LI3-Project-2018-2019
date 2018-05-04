@@ -5,6 +5,11 @@
 #include <glib.h>
 
 /**
+@file tardis.h
+Ficheiro da class TARDIS
+*/
+
+/**
  *@brief Estrutura que resolve vários tipos de ordenação.
  Consiste num array de arrays com GSequences
  */

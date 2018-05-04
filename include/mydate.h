@@ -4,6 +4,11 @@
 #include "date.h"
 
 /**
+@file date.h
+Ficheiro da class MyDate
+*/
+
+/**
  *  @brief Estrutura das datas, que vai desde milisegundo
  *  até ano.
  */
