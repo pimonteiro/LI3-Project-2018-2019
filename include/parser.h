@@ -3,6 +3,14 @@
 
 #include "main_struct.h"
 
+/**
+ * @brief Função que carrega os ficheiros para
+ * a Estrutura escolhida
+ * @param com Estrutura
+ * @param dump_path Diretoria onde se encontram os ficheiros dump
+ * @return Estrutura com os ficheiros carregados
+ */
+
 TAD_community load(TAD_community com, char* dump_path);
 
 #endif

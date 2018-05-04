@@ -171,11 +171,6 @@ LONG_list top_most_active(TAD_community com, int N){
 
 
 //QUERY nº3
-/**
- *  @brief
- *  @param
- *  @return
- */
 LONG_pair total_posts(TAD_community com, Date begin, Date end){
     MyDate beginn = create_date_with_teachers_date(begin);
     MyDate endd   = create_date_with_teachers_date(end);
@@ -204,11 +199,6 @@ typedef struct query4{
     GArray* arr;
 }* QUERY4;
 
-/**
- *  @brief
- *  @param
- *  @return
- */
 gint query_4_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     (void)cmp_data;
     QUESTION aa = (QUESTION) a;
@@ -221,11 +211,6 @@ gint query_4_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     return (gint) compare_dates(mb, ma);
 }
 
-/**
- *  @brief
- *  @param
- *  @return
- */
 GFunc search_tag_questions(gpointer data, gpointer elem){
     QUERY4 user_data = (QUERY4) elem;
     QUESTION q = (QUESTION) data;
@@ -237,11 +222,6 @@ GFunc search_tag_questions(gpointer data, gpointer elem){
     }
 }
 
-/**
- *  @brief
- *  @param
- *  @return
- */
 LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end){
     MyDate beginn = create_date_with_teachers_date(begin);
     MyDate endd   = create_date_with_teachers_date(end);
@@ -260,7 +240,7 @@ LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end)
     for(int i = 0; i < (int) tst->len; i++){
         set_list(final, i, g_array_index(tst, long, i));
     }
-    
+
     free(user_data);
     g_array_free(tst, TRUE);
     g_sequence_free(seq);
@@ -273,11 +253,6 @@ LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end)
 
 
 //QUERY 5
-/**
- *  @brief
- *  @param
- *  @return
- */
 USER get_user_info(TAD_community com, long id){
     USER res = NULL;
     long post_history[10];
@@ -318,11 +293,6 @@ typedef struct query6{
     int i;
 }* QUERY6;
 
-/**
- *  @brief
- *  @param
- *  @return
- */
 GFunc query_6_convert_long(gpointer data, gpointer user_data){
     QUERY6 tmp = (QUERY6) user_data;
     ANSWER a = (ANSWER) data;
@@ -331,11 +301,6 @@ GFunc query_6_convert_long(gpointer data, gpointer user_data){
     tmp->i++;
 }
 
-/**
- *  @brief
- *  @param
- *  @return
- */
 gint query_6_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     (void)cmp_data;
     ANSWER aa = (ANSWER) a;
@@ -355,11 +320,6 @@ gint query_6_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
         }
 }
 
-/**
- *  @brief
- *  @param
- *  @return
- */
 LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
     MyDate beginn = create_date_with_teachers_date(begin);
     MyDate endd   = create_date_with_teachers_date(end);
@@ -418,12 +378,6 @@ typedef struct query7_dates{
     GSequence* seq;
 }* QUERY7_DATES;
 
-
-/**
- *  @brief
- *  @param
- *  @return
- */
 void query_7_convert_long(gpointer data, gpointer user_data){
     QUERY7 tmp = (QUERY7) user_data;
     QUERY7_EXTRA q = (QUERY7_EXTRA) data;
@@ -435,11 +389,6 @@ void query_7_convert_long(gpointer data, gpointer user_data){
    // }
 }
 
-/**
- *  @brief
- *  @param
- *  @return
- */
 gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     QUERY7_EXTRA aa = (QUERY7_EXTRA) a;
     QUERY7_EXTRA bb = (QUERY7_EXTRA) b;
@@ -484,11 +433,6 @@ gint query_7_organize(gpointer data, gpointer user_data){
     }
 }
 
-/**
- *  @brief
- *  @param
- *  @return
- */
 LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end){
     MyDate beginn = create_date_with_teachers_date(begin);
     MyDate endd   = create_date_with_teachers_date(end);
@@ -527,7 +471,7 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
     //g_sequence_foreach_range(bg, ed, (GFunc) query_7_convert_long, user_data);
 
     LONG_list ret = user_data->ret;
-    
+
     free(user_data);
     g_sequence_free(tmp); //Falta dar free de cada
     free_Mydate(beginn);
@@ -544,11 +488,6 @@ typedef struct query8{
     char* title_name;
 }* QUERY8;
 
-/**
- *  @brief
- *  @param
- *  @return
- */
 GFunc search_title_name(gpointer data, gpointer elem){
     QUERY8 user_data = (QUERY8) elem;
     QUESTION q = (QUESTION) data;
@@ -560,11 +499,6 @@ GFunc search_title_name(gpointer data, gpointer elem){
     }
 }
 
-/**
- *  @brief
- *  @param
- *  @return
- */
 LONG_list contains_word(TAD_community com, char* word, int N){
     MyDate begin = create_date(0,0,0,0,1,1,2008);
     MyDate end = create_date(0,0,0,0,31,12,2018);
@@ -615,11 +549,6 @@ gint query_9_exists_question(gconstpointer a, gconstpointer b, gpointer user_dat
     return a - b;
 }
 
-/**
- *  @brief
- *  @param
- *  @return
- */
 GFunc sequence_function(gpointer elem, void* data){
     POST p = (POST) elem;
     QUERY9 user_data = (QUERY9) data;
@@ -654,12 +583,6 @@ GFunc sequence_function(gpointer elem, void* data){
     }
 }
 
-
-/**
- *  @brief
- *  @param
- *  @return
- */
 LONG_list both_participated(TAD_community com, long id1, long id2, int N){
     PROFILE p1 = getProfile_TAD(com, id1);
     if(p1 == NULL) return NULL;
@@ -710,11 +633,6 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
 
 
 //QUERY nº10
-/**
- *  @brief
- *  @param
- *  @return
- */
 long better_answer(TAD_community com, long id){
     QUESTION q = getQuestion_post(getPost_TAD(com, id));
     if(q == NULL) return -1;
@@ -763,12 +681,6 @@ long better_answer(TAD_community com, long id){
 //END QUERY nº10
 
 //QUERY nº11
-//
-/**
- *  @brief
- *  @param
- *  @return
- */
 GFunc catamorfismo(gpointer data, gpointer user_data){
     QUESTION q = (QUESTION) data;
     QUERY2 userd = (QUERY2) user_data;
@@ -783,11 +695,6 @@ GFunc catamorfismo(gpointer data, gpointer user_data){
     }
 }
 
-/**
- *  @brief
- *  @param
- *  @return
- */
 int max_index(long* a, int n){
     if(n <= 0) return -1;
     int i, max_i = 0;
@@ -801,11 +708,6 @@ int max_index(long* a, int n){
     return max_i;
 }
 
-/**
- *  @brief
- *  @param
- *  @return
- */
 LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
     GList* tags = getTags_TAD(com);
     long ntags = getNTags_TAD(com);

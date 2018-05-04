@@ -67,7 +67,7 @@ Laboratórios de Informática III - Projecto em C
 %         {\tt\small pmisra@cs.wright.edu}}
 %}
 
-\author{Adriana Meireles (a82582)$^{1}$, Eduardo Jorge Barbosa (a83344)$^{2}$, Filipe Monteiro (puta)% <-this % stops a space
+\author{Adriana Meireles (a82582), Eduardo Jorge Barbosa (a83344), Filipe Monteiro (a80229)% <-this % stops a space
 }
 
 
@@ -258,23 +258,23 @@ Visto que a granularidade pedida era apenas até aos dias, escolhemos criar a no
 
 \subsection{QUERY 1}
 
-Dado o \textit{Id} de um \textit{Post} vai-se busca-lo consultando a \textit{Hash Table} e verifica-se se é que \textit{Question} ou \textit{Answer}. Caso seja um \textit{Answer} obtem-se o \textit{Id} da \textit{Question} correspondente. No fim, é chamada uma função auxiliar que recebe uma \textit{Question} e devolve o titulo e o nome do criador. O nome é obtido consultado a \textit{Hash Table} dos \textit{Users}.
+Dado o \textit{Id} de um \textit{Post} vai-se buscá-lo consultando a \textit{Hash Table} e verifica-se se é uma \textit{Question} ou uma \textit{Answer}. Caso seja uma \textit{Answer} obtém-se o \textit{Id} da \textit{Question} correspondente. No fim, é chamada uma função auxiliar que recebe uma \textit{Question} e devolve o título e o nome do criador. O nome é obtido consultando a \textit{Hash Table} dos \textit{Users}.
 
 \subsection{QUERY 2}
 
-Percorremos todos os \textit{Users} e vamos fazendo um \textit{insertion sort} num array com N+1 elementos tendo por base o número de \textit{Posts}. No fim removemos o elemento N+1.
+Todos os \textit{Users} são percorridos e é feito um \textit{insertion sort} num array com N+1 elementos tendo por base o número de \textit{Posts}. No fim removemos o elemento N+1. Poderia ser otimizado.
 
 \subsection{QUERY 3}
 
-A TARDIS é percorrida duas vezes dentro desses intervalos de tempo, uma para cada tipo de \textit{Post}. No fim vemos o tamanho das \textit{GSequence} e é feito o \textit{return}.
+A TARDIS é percorrida duas vezes dentro desses intervalos de tempo, uma para cada tipo de \textit{Post}. No fim é visto o tamanho das \textit{GSequence} e é feito o \textit{return}.
 
 \subsection{QUERY 4}
 
-A TARDIS é percorrida entre as datas, percorre-se as tags à procura da tag e se existir é posta num array. Podia ser otimizada.
+A TARDIS é percorrida entre as datas, percorre-se as tags de cada \textit{Question} à procura da tag e se existir é posta num array. Podia ser otimizada.
 
 \subsection{QUERY 5}
 
-Dado o \textit{ID} de um \textit{User} obtem-se o seu perfil. Do perfil conseguimos a \textit{short bio} e ordenamos a \textit{GSequence} inversamente e tiramos os 10 primeiros.
+Dado o \textit{ID} de um \textit{User} obtém-se o seu perfil. Do perfil conseguimos a \textit{short bio} e ordenamos a \textit{GSequence} inversamente e tiramos os 10 primeiros.
 
 \subsection{QUERY 6}
 
@@ -282,41 +282,44 @@ A TARDIS é percorrida entre as datas dadas e devolve uma \textit{GSequence} ord
 
 \subsection{QUERY 7}
 
-A TARDIS é percorrida entre as datas dadas e devove uma \textit{GSequence} ordenada por número de respostas.
+A TARDIS é percorrida entre as datas dadas e devolve uma \textit{GSequence} ordenada por número de respostas.
 
 \subsection{QUERY 8}
 
-A TARDIS é percorrida entre as datas dadas e devove uma \textit{GSequence} ordenada inversamente por datas. É feito um \textit{for each} na \textit{GSquence} que verifica se contem a palavra e em caso afirmativo é guardado o \textit{Id}.
+A TARDIS é percorrida entre as datas dadas e devolve uma \textit{GSequence} ordenada inversamente por datas. É feito um \textit{for each} na \textit{GSquence} que verifica se contém a palavra e em caso afirmativo é guardado o \textit{Id}.
 
 \subsection{QUERY 9}
 
-Dados os \textit{Ids} dos dois utilizadores, ve-se qual dos dois têm menos \textit{Posts} consultado a \textit{GSequence}. No \textit{User} como menos \textit{Posts} percorre-se a \textit{GSquence} por ordem cronologica inversa e em cada \textit{Post} verifica-se se o outro \textit{User} particia na thread.
+Dados os \textit{Ids} dos dois utilizadores, vê-se qual dos dois têm menos \textit{Posts} consultando a \textit{GSequence}. No \textit{User} com menos \textit{Posts} percorre-se a \textit{GSquence} por ordem cronológica inversa e em cada \textit{Post} verifica-se se o outro \textit{User} participa na thread.
 
 \subsection{QUERY 10}
 
-Dado o \textit{Id} consulta-se o \textit{GArray} com as respostas e para cada aplica-se a formula dada.
+Dado o \textit{Id} consulta-se o \textit{GArray} com as respostas e para cada aplica-se a fórmula dada.
 \subsection{QUERY 11}
 
-Magic
+Obtemos os Top N \textit{Users}.
+Percorremos a TARDIS entre das datas dadas e filtramos as \textit{Questions} que não fora feitas por nenhum dos top \textit{Users}. Finalmente as \textit{Questions} são percorridas, as tags removidas e processadas.
+É criado um array de correspondência para a \textit{Tags} que sempre é encontrada dada tag é incrementado numa unidade. No fim verificamos nos N indices com maiores elementos e fazemos a correspondência inversa.
 
 
 \section{OTIMIZAÇÕES}
 
 O principal foco a nível de otimizações foi estruturar a estutura principal segundo as queries. Fora isso, várias otimizações a nível de código foram feitas, \textit{exempli gratia} $++counter$ vs $counter++$, switch vs vários ifs, etc.
-Foram usadas algumas flags de otimização do \textit{GCC}, a mais notória é \textit{-march=native} que gera código assembly específica para o CPU do computador.
+Foram usadas algumas flags de otimização do \textit{GCC}, a mais notória é \textit{-march=native} que gera código assembly específico para o CPU do computador.
+De forma a ocupar menos memórias, os elementos das estruturas estão ordeanados por tamanho dos tipos.
 
 \section{MODULARIDADE}
 
 Dado o tamanho do projecto foi preciso dividi-lo em várias fases.
 
 \begin{itemize}
-\item Init/
+\item Init;
 \item Pase/Load;
 \item Estrutura;
 \item Queries.
 \end{itemize}
 
-Na fase do Init a estrutura principal é inicializada, imediatamente a seguir começa o Parse/Load. Os ficheiros xml são carregados para a memória e processados para a estrutura.
+Na fase do Init a estrutura principal é inicializada, imediatamente a seguir começa o Parse/Load. Os ficheiros xml são carregados para a memória (um de cada vez e aos poucos) e processados para a estrutura.
 
 O código responsável pelas queries foi deixado para o fim, sendo que o código das estruturas e do parser foi desenvolvido em paralelo após as estruturas estarem desenhadas.
 
@@ -333,14 +336,9 @@ Dado a quantidade enorme de informação não é viavel estar a fazer "cópias" 
 \section{DIFICULDADES}
 
 O facto de ser utilizar \textit{GLIB} levou a algumas dificuldades. A \textit{TARDIS} foi inicialmente implementada usando \textit{GPtrArrays}, e o encadeamente destas estruturas levantou vários problemas dado não terem funções genéricas.
-A utlização de \textit{function pointers} também foi confuso no inicio mas rápidamente se tornou normal. Tentou-se também implementar as funções mais básicas e mais usadas em \textit{inline assembly} mas dado a falta de tempo teve que se abandonar a ideia.
+A utlização de \textit{function pointers} também foi confuso no início mas rapidamente se tornou normal. Tentou-se também implementar as funções mais básicas e mais usadas em \textit{inline assembly} mas dado a falta de tempo teve que se abandonar a ideia.
 
 Dados o número de estruturas instanciadas, limpar os \textit{memory leaks} tornou-se numa tarefa complexa.
-
-\section{CONCLUSÃO}
-
-
-Dada a dimensão do trabalho e
 
 
 
