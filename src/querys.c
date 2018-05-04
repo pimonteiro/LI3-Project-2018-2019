@@ -447,7 +447,7 @@ gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     int na = aa->count;
     int nb = bb->count;
     //Ordem decrescente de nº de respostas
-    return na - nb;
+    return nb - na;
 }
 
 GSequenceIter* search_for_item(GSequence* seq, long id){
@@ -520,8 +520,8 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
 
     g_sequence_sort(tmp, cmp_func, NULL);
 
-    GSequenceIter* bg = g_sequence_get_begin_iter(tmp);
-    GSequenceIter* ed = g_sequence_get_iter_at_pos(tmp, N);
+    //GSequenceIter* bg = g_sequence_get_begin_iter(tmp);
+    //GSequenceIter* ed = g_sequence_get_iter_at_pos(tmp, N);
 
     g_sequence_foreach(tmp, (GFunc) query_7_convert_long, user_data);
     //g_sequence_foreach_range(bg, ed, (GFunc) query_7_convert_long, user_data);
@@ -590,7 +590,7 @@ LONG_list contains_word(TAD_community com, char* word, int N){
     for(int i = 0; i < N; i++){
         set_list(final, i, g_array_index(tst, long, i));
     }
-    set_list(final, N, NULL);
+    set_list(final, N, (long)NULL);
 
     g_sequence_free(seq);
     free_Mydate(begin);
