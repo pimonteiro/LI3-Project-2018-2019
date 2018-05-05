@@ -382,11 +382,11 @@ void query_7_convert_long(gpointer data, gpointer user_data){
     QUERY7 tmp = (QUERY7) user_data;
     QUERY7_EXTRA q = (QUERY7_EXTRA) data;
 
-    //if(tmp->i < tmp->size){
-        printf("%d --- %ld -> %d\n", tmp->i, q->id, q->count); //TODO
-        //set_list(tmp->ret, tmp->i, q->id);
-        //tmp->i++;
-   // }
+    if(tmp->i < tmp->size){
+   //     printf("%d --- %ld -> %d\n", tmp->i, q->id, q->count); //TODO
+        set_list(tmp->ret, tmp->i, q->id);
+        tmp->i++;
+    }
 }
 
 gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
@@ -685,20 +685,21 @@ GFunc catamorfismo(gpointer data, gpointer user_data){
     QUESTION q = (QUESTION) data;
     QUERY2 userd = (QUERY2) user_data;
     int i = 0;
+    int j = 0;
     int present = 0;
     long parent_id = getOwnerId_question(q);
-    for(i = 0; i < userd->len; i++){
-        if(parent_id == getId_profile(userd->arrlist[i])){
-            userd->present[userd->present_index] = q;
-            ++(userd->present_index);
-        }
-        else continue;
+      for(i = 0; i < userd->len; i++){
+          if(parent_id == getId_profile(userd->arrlist[i])){
+              userd->present[userd->present_index] = q;
+              ++(userd->present_index);
+          }
+          else continue;
     }
 }
 
-int max_index(long* a, int n){
+long max_index(long* a, int n){
     if(n <= 0) return -1;
-    int i, max_i = 0;
+    long i, max_i = 0;
     long max = a[0];
     for(i = 1; i < n; ++i){
         if(a[i] > max){
@@ -709,6 +710,16 @@ int max_index(long* a, int n){
     return max_i;
 }
 
+gint query_11_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
+    (void)cmp_data;
+    QUESTION aa = (QUESTION) a;
+    QUESTION bb = (QUESTION) b;
+
+    long ida = getId_question(aa);
+    long idb = getId_question(bb);
+    //Decrescente - Mais recente para mais antigo
+    return (gint) ida-idb;
+}
 LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
     GList* tags = getTags_TAD(com);
     long ntags = getNTags_TAD(com);
@@ -718,9 +729,9 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
     }
     // get by dates
     GSequence* seq = getFromToF_TAD(com, create_date_with_teachers_date(begin), create_date_with_teachers_date(end), 1,
-            NULL);
+            query_11_cmp_func);
 
-    PROFILE* arrlist = malloc(sizeof(PROFILE) * (N + 1));
+    PROFILE* arrlist = malloc(sizeof(PROFILE) * (N));
     QUESTION* presents = malloc(sizeof(QUESTION) * (g_sequence_get_length(seq)));
     QUERY2 user_data = malloc(sizeof(struct query2));
     user_data->arrlist = arrlist;
@@ -731,10 +742,10 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
 
     profilesForEach_TAD(com, (GHFunc) query_2_hash_to_array, (gpointer) user_data);
     g_sequence_foreach(seq, (GFunc) catamorfismo, user_data);
-
+    user_data->size = N;
     if(user_data->present_index == 0) return NULL;
 
-    char tag1[50], tag2[50], tag3[50], tag4[50], tag5[50];
+    char tag1[64], tag2[64], tag3[64], tag4[64], tag5[64];
     tag1[0] = tag2[0] = tag3[0] = tag4[0] = tag5[0] = 0;
     int i = 0;
     int j = 0;
@@ -806,7 +817,7 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
     LONG_list l = create_list(N);
     int n = 0;
     while(n < N){
-        int m = max_index(countTags, (int) ntags);
+        long m = max_index(countTags, (int) ntags);
         char* t = (char*) g_list_nth_data(tags, (guint) m);
         set_list(l, n, getQuark_TAD(com, t));
         countTags[m] = 0;
