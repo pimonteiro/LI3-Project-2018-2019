@@ -328,8 +328,7 @@ O código responsável pelas queries foi deixado para o fim, sendo que o código
 
 \section{ENCAPSULAMENTO}
 
-Visto que usamos o parser \textit{SAX} não é possivel escrever nos ficheiros xml. Toda a informação vem de fora e apenas organizamo-la. Dado que o ficheiro \textit{interface.h} corresponde a \textit{API} do programa, sendo que nenhuma devolve uma instância do estado interno.
-O programa é fechado para o exterior.
+Visto que usamos o parser \textit{SAX} não é possivel escrever nos ficheiros xml. Toda a informação vem de fora e  é apenas organizada de outra forma.. Dado que o ficheiro \textit{interface.h} corresponde a \textit{API} do programa e sendo que nenhuma \textit{query} devolve uma instância do estado interno o programa é fechado para o exterior.
 Dado a quantidade enorme de informação não é viavel estar a fazer "cópias" das estruturas sempre que se acede à estrutura interna. Tendo em conta este custo tempora, decidiu-se não o fazer.
 
 
