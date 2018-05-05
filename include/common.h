@@ -7,5 +7,6 @@
  *  @param s String
  *  @return duplicação da String s
  */
+
 char * mystrdup (const char *s);
 #endif

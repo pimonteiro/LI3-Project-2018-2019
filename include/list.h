@@ -1,6 +1,10 @@
 #ifndef __LONG_LIST__
 #define __LONG_LIST__
 
+/**
+ * @brief Estrutura que armazena um LONG_list
+ */
+
 typedef struct llist * LONG_list;
 
 /**
@@ -9,6 +13,7 @@ typedef struct llist * LONG_list;
  *  @param size Tamanho da lista
  *  @return criação da lista
  */
+
 LONG_list create_list(int size);
 
 /**
@@ -17,6 +22,7 @@ LONG_list create_list(int size);
  *  @param l Lista, index Indice
  *  @return acesso à lista
  */
+
 long get_list(LONG_list l, int index);
 
 /**
@@ -25,12 +31,14 @@ long get_list(LONG_list l, int index);
  *  @param l Lista,index Indice para onde se quer mudar
  *  @param value Novo valor que vai para esse Indice
  */
+
 void set_list(LONG_list l, int index, long value);
 
 /**
  *  @brief Função que liberta uma lista da memória
  *  @param l Lista
  */
+
 void free_list(LONG_list l);
 
 #endif

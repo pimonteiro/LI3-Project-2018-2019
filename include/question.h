@@ -17,6 +17,7 @@ Ficheiro da class QUESTION
  *  pergunta,número de respostas de cada questão,número de comentários e,por
  *  último,o score de uma pergunta.
  */
+
 typedef struct question* QUESTION;
 
 /**
@@ -26,6 +27,7 @@ typedef struct question* QUESTION;
  *  my_n_answer Número de respostas de uma determinada questão,comments Número de comentários
  *  @return inicialização de uma resposta ANSWER
  */
+
 QUESTION create_question(long my_id,
                          char* my_title,
                          char* my_tags,
@@ -40,6 +42,7 @@ QUESTION create_question(long my_id,
  *  @param q Uma questão(question)
  *  @return libertação de uma dada questão
  */
+
 void free_question(void* q);
 
 /**
@@ -48,6 +51,7 @@ void free_question(void* q);
  *  @param q Uma questão
  *  @return ID da questão
  */
+
 long getId_question(QUESTION q);
 
 /**
@@ -56,6 +60,7 @@ long getId_question(QUESTION q);
  *  @param q Uma questão
  *  @return Número de comentários
  */
+
 long getComments_question(QUESTION q);
 
 /**
@@ -64,6 +69,7 @@ long getComments_question(QUESTION q);
  *  @param q Uma questão
  *  @return titulo da questão
  */
+
 char* getTitle_question(QUESTION q);
 
 /**
@@ -72,6 +78,7 @@ char* getTitle_question(QUESTION q);
  *  @param q Uma questão
  *  @return ID de quem fez a questão
  */
+
 long getOwnerId_question(QUESTION q);
 
 /**
@@ -80,6 +87,7 @@ long getOwnerId_question(QUESTION q);
  *  @param q Uma questão
  *  @return Data de criação da questão
  */
+
 MyDate getCreationDate_question(QUESTION q);
 
 /**
@@ -88,6 +96,7 @@ MyDate getCreationDate_question(QUESTION q);
  *  @param q Uma questão
  *  @return Número de respostas
  */
+
 long getNanswers_question(QUESTION q);
 
 /**
@@ -96,6 +105,7 @@ long getNanswers_question(QUESTION q);
  *  @param q Uma questão
  *  @return Score da questão
  */
+
 int getScore_question(QUESTION q);
 
 /**
@@ -104,6 +114,7 @@ int getScore_question(QUESTION q);
  *  @param q Uma questão
  *  @return Tag da questão
  */
+
 char* getTags_question(QUESTION q);
 
 /**
@@ -112,6 +123,7 @@ char* getTags_question(QUESTION q);
  *  @param q Uma questão
  *  @return Array com ID das respostas de cada questão
  */
+
 GArray* getIdAnswers_question(QUESTION q);
 
 /**
@@ -120,6 +132,7 @@ GArray* getIdAnswers_question(QUESTION q);
  *  respostas de cada questão
  *  @param q Uma questão, id das respostas
  */
+
 void setAnswers_array_question(QUESTION q, long id);
 
 #endif // __QUESTION_H__

@@ -10,11 +10,12 @@ Ficheiro da class PROFILE
 */
 
 /**
- *  @brief Estrutura que contém os principais atributos associados aos utilizadores:
+ *  @brief Estrutura que armazena os principais atributos associados aos utilizadores:
  *  GSequence sao guardadas as questões e respostas criadas pelo dito utilizador;
  *  informação do perfil e nome do utilizador;número de posts;id do utilizador e reputação
  *  de um utilizador
  */
+
 typedef struct profile* PROFILE;
 
 /**
@@ -32,6 +33,7 @@ PROFILE create_profile(char* my_about, long my_id, char* my_name, int my_reputat
  *  dos seus atributos
  *  @param p Um Post
  */
+
 void free_profile(void* p);
 
 /**
@@ -40,6 +42,7 @@ void free_profile(void* p);
  *  @param p Perfil Utilizador
  *  @return GSequence com o tipo do Post
  */
+
 GSequence* getPosts_profile(PROFILE p);
 
 /**
@@ -48,6 +51,7 @@ GSequence* getPosts_profile(PROFILE p);
  *  @param p Perfil Utilizador
  *  @return Array com a informação do Utilizador
  */
+
 char* getAboutMe_profile(PROFILE p);
 
 /**
@@ -56,6 +60,7 @@ char* getAboutMe_profile(PROFILE p);
  *  @param p Perfil Utilizador
  *  @return Array com o nome dos vários Utilizadores
  */
+
 char* getName_profile(PROFILE p);
 
 /**
@@ -64,6 +69,7 @@ char* getName_profile(PROFILE p);
  *  @param p Perfil Utilizador
  *  @return Número de Posts de um Utilizador
  */
+
 long getNposts_profile(PROFILE p);
 
 /**
@@ -72,6 +78,7 @@ long getNposts_profile(PROFILE p);
  *  @param p Perfil Utilizador
  *  @return ID de um utilizador
  */
+
 long getId_profile(PROFILE p);
 
 /**
@@ -80,12 +87,14 @@ long getId_profile(PROFILE p);
  *  @param p Perfil Utilizador
  *  @return quantia da Reputação
  */
+
 int getReputation_profile(PROFILE p);
 
 /**
  *  @brief Função responsável pela inserção do utilizador mais recente no início
  *  @param p Perfil do Utilizador,post Post do Utilizador
  */
+
 void insertLastest_profile(PROFILE p, POST post);
 
 #endif /* __PROFILE_H__ */

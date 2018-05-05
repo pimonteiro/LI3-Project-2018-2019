@@ -9,9 +9,10 @@ Ficheiro da class MyDate
 */
 
 /**
- *  @brief Estrutura das datas, que vai desde milisegundo
- *  até ano.
+ *  @brief Estrutura que armazena uma data,bem como
+ *  a Hora respetiva
  */
+
 typedef struct mydate* MyDate;
 
 /**
@@ -20,6 +21,7 @@ typedef struct mydate* MyDate;
  *  @param milisegundo,segundo,minuto,hora,dia,mes,ano
  *  @return inicialização da data
  */
+
 MyDate create_date(int milisegundo, int segundo, int minuto, int hora, int dia, int mes, int ano);
 
 /**
@@ -29,12 +31,14 @@ MyDate create_date(int milisegundo, int segundo, int minuto, int hora, int dia, 
  *  @param d Data
  *  @return Uma Data
  */
+
 MyDate create_date_with_teachers_date(Date d);
 
 /**
  *  @brief Função que liberta as datas
  *  @param d Data
  */
+
 void free_Mydate(MyDate d);
 
 /**
@@ -42,6 +46,7 @@ void free_Mydate(MyDate d);
  *  @param d Data
  *  @return dia de uma dada data
  */
+
 int get_dia(MyDate d);
 
 /**
@@ -49,6 +54,7 @@ int get_dia(MyDate d);
  *  @param d Data
  *  @return mês de uma dada data
  */
+
 int get_mes(MyDate d);
 
 /**
@@ -56,6 +62,7 @@ int get_mes(MyDate d);
  *  @param d Data
  *  @return ano de uma dada data
  */
+
 int get_ano(MyDate d);
 
 /**
@@ -63,6 +70,7 @@ int get_ano(MyDate d);
  *  @param d Data
  *  @return hora de uma data
  */
+
 int get_hora(MyDate d);
 
 /**
@@ -70,6 +78,7 @@ int get_hora(MyDate d);
  *  @param d Data
  *  @return minutos de uma data
  */
+
 int get_minuto(MyDate d);
 
 /**
@@ -77,6 +86,7 @@ int get_minuto(MyDate d);
  *  @param d Data
  *  @return segundos de uma data
  */
+
 int get_segundo(MyDate d);
 
 /**
@@ -84,6 +94,7 @@ int get_segundo(MyDate d);
  *  @param d Data
  *  @return milisegundos de uma data
  */
+
 int get_milisegundo(MyDate d);
 
 /**
@@ -92,6 +103,7 @@ int get_milisegundo(MyDate d);
  *  @param a Data1,b Data2
  *  @return componente da Data que é mais recente
  */
+
 int compare_dates(MyDate a, MyDate b);
 
 #endif

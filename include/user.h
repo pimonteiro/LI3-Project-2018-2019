@@ -1,6 +1,12 @@
 #ifndef __USER__
 #define __USER__
+
+/**
+ * @brief Estrutura que armazena um Utilizador
+ */
+
 typedef struct user* USER;
+
 /**
  @brief Função que se segue é responsável pela devolução
 * da informação de um perfil e do histórico de posts
@@ -9,6 +15,7 @@ typedef struct user* USER;
  @param post_history Lista de Posts de um utilizador
  @return User
 */
+
 USER create_user(char* short_bio, long* post_history);
 
 /**
@@ -18,6 +25,7 @@ USER create_user(char* short_bio, long* post_history);
  @param u Utilizador
  @return Informação da biografia de um Utilizador
 */
+
 char* get_bio(USER u);
 
 /**
@@ -27,6 +35,7 @@ char* get_bio(USER u);
  @param u Utilizador
  @return informação de últimos Posts
 */
+
 long* get_10_latest_posts(USER u);
 
 /**
@@ -34,6 +43,7 @@ long* get_10_latest_posts(USER u);
 *libertação da estrutura do utilizador
  @param u Utilizador
 */
+
 void free_user(USER u);
 
 #endif
