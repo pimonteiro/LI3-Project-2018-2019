@@ -692,6 +692,7 @@ GFunc catamorfismo(gpointer data, gpointer user_data){
             userd->present[userd->present_index] = q;
             ++(userd->present_index);
         }
+        else continue;
     }
 }
 
