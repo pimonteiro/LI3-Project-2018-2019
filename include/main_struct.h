@@ -19,6 +19,7 @@ Ficheiro da class TAD_community
  *   o primeiro array corresponde aos anos, o segundo array corresponde aos
  *    meses e aos dias desse ano. Por último, temos o número de tags
 */
+
 typedef struct TCD_community* TAD_community;
 
 /**
@@ -26,6 +27,7 @@ typedef struct TCD_community* TAD_community;
  *  tag na Estrutura Principal
  *  @param com Estrutura Principal,tag_name Nome da tag, id ID da tag
 */
+
 void insertTag_TAD(TAD_community com, char* tag_name, long id);
 
 /**
@@ -34,6 +36,7 @@ void insertTag_TAD(TAD_community com, char* tag_name, long id);
  *  @param com Estrutura Principal, f Função para cada chave/valor
  *  user_data Utilizador
  */
+
 void profilesForEach_TAD(TAD_community com, GHFunc f, gpointer user_data);
 
 /**
@@ -41,12 +44,14 @@ void profilesForEach_TAD(TAD_community com, GHFunc f, gpointer user_data);
     com todas as suas estruturas e componentes
  *  @return criação da estrutura
  */
+
 TAD_community create_main_struct();
 
 /**
  *  @brief  Função que inicializa a Estrutura Principal
  *  @return inicialização da Estrutura
  */
+
 TAD_community init();
 
 /**
@@ -55,6 +60,7 @@ TAD_community init();
  *  @param com Estruturs Principal
  *  @return libertação da Estrutura
  */
+
 TAD_community clean(TAD_community com);
 
 /**
@@ -62,6 +68,7 @@ TAD_community clean(TAD_community com);
  *  user na Estrutura Principal
  *  @param com Estrutura Principal, p Perfil de um user, id ID de um user
  */
+
 void insertProfile_TAD(TAD_community com, PROFILE p, long id);
 
 /**
@@ -70,6 +77,7 @@ void insertProfile_TAD(TAD_community com, PROFILE p, long id);
  *  @param com Estrutura Principal, q Questão, id ID da questão, owner_id ID de
  * quem formulou a questão,p Post desse user,start Data de escrita da questão
  */
+
 void insertQuestion_TAD(TAD_community com, QUESTION q, long id, long owner_id, POST p, MyDate start);
 
 /**
@@ -79,6 +87,7 @@ void insertQuestion_TAD(TAD_community com, QUESTION q, long id, long owner_id, P
  * quem formulou a resposta,parent_id ID da questão correspondente a uma dada resposta
  *  p Post desse user,start Data de escrita da resposta
  */
+
 void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, long parent_id, POST p, MyDate start);
 
 /**
@@ -87,6 +96,7 @@ void insertAnswer_TAD(TAD_community com, ANSWER a, long id, long owner_id, long 
  *  @param com Estrutura Principal, id ID de um user
  *  @return Perfis de um user dado o id
  */
+
 PROFILE getProfile_TAD(TAD_community com, long id);
 
 /**
@@ -95,6 +105,7 @@ PROFILE getProfile_TAD(TAD_community com, long id);
  *  @param com Estrutura Principal, id do Utilizador
  *  @return Post dado o id
  */
+
 POST getPost_TAD(TAD_community com, long id);
 
 /**
@@ -102,6 +113,7 @@ POST getPost_TAD(TAD_community com, long id);
  *  @param com Estrutura Principal, inicio  e fim intervalo arbitrário de datas, type 1-Question e 2-Answer,f compara datas
  *  @return GSequence de um intervalo aleatório de tempo
  */
+
 GSequence* getFromToF_TAD(TAD_community com, MyDate inicio, MyDate fim, int type, GCompareDataFunc f);
 
 /**
@@ -109,6 +121,7 @@ GSequence* getFromToF_TAD(TAD_community com, MyDate inicio, MyDate fim, int type
  *  @param com Estrutura Principal, tag Array com as tags
  *  @return valor da tag
  */
+
 long getQuark_TAD(TAD_community com, char* tag);
 
 /**
@@ -117,6 +130,7 @@ long getQuark_TAD(TAD_community com, char* tag);
  *  @param com Estrutura Principal
  *  @return Número de tags
 */
+
 long getNTags_TAD(TAD_community com);
 
 /**
@@ -124,6 +138,7 @@ long getNTags_TAD(TAD_community com);
  *  a modificação do número de tags da Estrutura Principal
  *  @param com Estrutura Principal
  */
+
 void setNTags_TAD(TAD_community com);
 
 /**
@@ -132,6 +147,7 @@ void setNTags_TAD(TAD_community com);
  *  @param com Estrutura Principal
  *  @return Dupla lista ligada com as tags
 */
+
 GList* getTags_TAD(TAD_community com);
 
 #endif //__MAIN_STRUCT_H__

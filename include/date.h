@@ -1,6 +1,10 @@
 #ifndef __DATE_H__
 #define __DATE_H__
 
+/**
+ * @brief Estrutura que armazena a data
+ */
+
 typedef struct date* Date;
 
 /**
@@ -9,6 +13,7 @@ typedef struct date* Date;
  *  @param day Dia,month Mês,year Ano
  *  @return inicialização de uma Data
  */
+
 Date createDate(int day, int month, int year);
 
 /**
@@ -16,6 +21,7 @@ Date createDate(int day, int month, int year);
  *  @param d Data
  *  @return dia de uma dada data
  */
+
 int get_day(Date d);
 
 /**
@@ -24,6 +30,7 @@ int get_day(Date d);
  *  @param d Data
  *  @return mês de uma dada data
  */
+
 int get_month(Date d);
 
 /**
@@ -31,12 +38,14 @@ int get_month(Date d);
  *  @param d Data
  *  @return ano de uma dada data
  */
+
 int get_year(Date d);
 
 /**
  *  @brief Função que liberta a data
  *  @param d Data
  */
+
 void free_date(Date d);
 
 #endif

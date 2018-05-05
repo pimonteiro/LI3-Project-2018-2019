@@ -15,6 +15,7 @@ Ficheiro da class POST
  *   partilharem atributos, decidiu-se implmentar uma union, de forma
  *  a conseguir-se juntar os Posts ou separá-los como fosse mais conveniente.
  */
+
 typedef struct post* POST;
 
 /**
@@ -23,12 +24,14 @@ typedef struct post* POST;
  *  @param type Tipo 1 para Question e 2 para Answer, q Questão, a Answer
  *  @return criação de um Post
  */
+
 POST create_post(long type, QUESTION q, ANSWER a);
 
 /**
  *  @brief  Função que liberta um post da memória
  *  @param p Um Post
  */
+
 void free_post(void* p);
 
 /**
@@ -37,6 +40,7 @@ void free_post(void* p);
  *  @param p Um post
  *  @return Tipo de um Post
  */
+
 long getType_post(POST p);
 
 /**
@@ -45,6 +49,7 @@ long getType_post(POST p);
  *  @param p Um Post
  *  @return Conteúdo de uma questão de um Post
  */
+
 QUESTION getQuestion_post(POST p);
 
 /**
@@ -53,6 +58,7 @@ QUESTION getQuestion_post(POST p);
  *  @param p Um Post
  *  @return Conteúdo de uma resposta de um Post
  */
+
 ANSWER getAnswer_post(POST p);
 
 /**
@@ -61,6 +67,7 @@ ANSWER getAnswer_post(POST p);
  *  @param p Um Post
  *  @return Data de um Post
  */
+
 MyDate getDate_post(POST p);
 
 #endif

@@ -10,7 +10,7 @@ Ficheiro da class TARDIS
 */
 
 /**
- *@brief Estrutura que resolve vários tipos de ordenação.
+ *@brief Estrutura que armazena a Tardis.
  Consiste num array de arrays com GSequences
  */
 

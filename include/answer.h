@@ -12,6 +12,7 @@ Ficheiro da class ANSWER
  *  @brief Estrutura que contém os principais atributos associados às respostas como sendo a sua data
  de criação da resposta, o seu id,id de quem escreveu a resposta,id da questão que está a responder,número de comentários,score.
  */
+
 typedef struct answer* ANSWER;
 
 /**
@@ -20,6 +21,7 @@ typedef struct answer* ANSWER;
  *  my_creation_date Data de criação de uma resposta, my_score Score de uma resposta,comments Número de comentários
  *  @return inicialização de uma resposta ANSWER
  */
+
 ANSWER create_answer(long my_parent_id, long my_owner_id, long my_id, MyDate my_creation_date, int my_score, long comments);
 
 /**
@@ -27,6 +29,7 @@ ANSWER create_answer(long my_parent_id, long my_owner_id, long my_id, MyDate my_
  *  @param a Uma resposta(answer)
  *  @return libertação de uma dada resposta
  */
+
 void free_answer(void* a);
 
 /**
@@ -35,6 +38,7 @@ void free_answer(void* a);
  *  @param a Uma resposta
  *  @return ID da resposta
  */
+
 long getID_answer(ANSWER a);
 
 /**
@@ -52,6 +56,7 @@ MyDate getDate_answer(ANSWER a);
  *  @param a Uma resposta
  *  @return Score de uma resposta
  */
+
 int getScore_answer(ANSWER a);
 
 /**
@@ -60,6 +65,7 @@ int getScore_answer(ANSWER a);
  *  @param a Uma resposta
  *  @return ID da questão a que se está a responder
  */
+
 long getParentId_answer(ANSWER a);
 
 /**
@@ -68,6 +74,7 @@ long getParentId_answer(ANSWER a);
  *  @param a Uma resposta
  *  @return ID de quem respondeu
  */
+
 long getOwnerId_answer(ANSWER a);
 
 /**
@@ -76,6 +83,7 @@ long getOwnerId_answer(ANSWER a);
  *  @param a Uma resposta
  *  @return Número de comentários
  */
+
 long getComments_answer(ANSWER a);
 
 #endif //__ANSWER_H__

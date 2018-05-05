@@ -16,23 +16,6 @@
 #include <gmodule.h>
 #include <string.h>
 
-
-/**
-@file querys.c
-Ficheiro das querys
-*/
-
-
-/**
- * QUERY 1
- *
- * @brief Auxiliar de info_from_post que retira informacao da questao
- * Devido á possibilidade de receber um ID de um post tipo resposta e sendo retirada apenas
- * a informacao referente á respetiva, a funcao info_from_post trata o ID de forma a
- * esta auxiliar receber apenas o post tipo pergunta.
- * @param q Questao a ser analizada
- * @return Par contendo a informaçao do post
- */
 STR_pair get_info_from_post(TAD_community com, QUESTION q){
     char* titulo;
     char* name;
@@ -52,13 +35,6 @@ STR_pair get_info_from_post(TAD_community com, QUESTION q){
     return ret;
 }
 
-/**
-* @brief Retorna o titulo de um dado POST e o nome do seu criador
-* Se for o ID de uma resposta, passa á funcao auxiliar o ID da correspondente pergunta
-* Caso contrário passa diretamente o ID dessa pergunta
-* @param id ID do post a ser analizado
-* @return Par com informacao do post: Titulo do Post - Nome do Utilizador
-*/
 STR_pair info_from_post(TAD_community com, long id){
     POST post_ptr = getPost_TAD(com, id);
     STR_pair ret = NULL;
@@ -76,15 +52,6 @@ STR_pair info_from_post(TAD_community com, long id){
 }
 //END QUERY 1
 
-/**
- * QUERY 2
- *
- * @brief Estrutura para faciliar a passagem de dados entre funcoes
- * @var size Número máximo de utilizadores dentro do array
- * @var len Tamanho do array com os perfis dos utilizadores
- * @var arrlist Array de perfis dos utilizadores
- *
- */
 typedef struct query2{
     int size;
     int len;
@@ -93,12 +60,6 @@ typedef struct query2{
     int present_index;
 }* QUERY2;
 
-/**
- * @brief Insere ordenadamente um perfil num array
- *
- * @param data Estrutura contendo o array e outros dados
- * @param p Perfil a ser inserido
- */
 void g_array_insert_sorted(QUERY2 data, PROFILE p){
     int done = 0;
     int tmp = data->len;
@@ -125,13 +86,6 @@ void g_array_insert_sorted(QUERY2 data, PROFILE p){
     if(data->len > data->size) data->len--;
 }
 
-/**
- * @brief Passa os utilizadores de uma HashTable para um array ordenado pelo número de posts (decrescente)
- * Chama a funcao g_insert_sorted para inserir ordenadamente um perfil no array de perfis
- * @param key Chave da HashTable
- * @param value Valor corresponde da chave da Hashtable (perfil de um utilizador)
- * @param user_data Estrutura com os dados necessários a outras funcoes auxiliares
- */
 GHFunc query_2_hash_to_array(gpointer key, gpointer value, gpointer user_data){
     (void)key;
     QUERY2 data = (QUERY2) user_data;
@@ -140,14 +94,6 @@ GHFunc query_2_hash_to_array(gpointer key, gpointer value, gpointer user_data){
     g_array_insert_sorted(data, p);
 }
 
-/**
- * QUERY 2
- * @brief Retorna os N utilizadores com maior número de posts de sempre
- * Depois de ordenar por ordem decrescente pelo numero de posts de todos os utilizadores
- * é transformada no tipo de retorno
- * @param N Numero de utilizadores
- * @return LONG_list Lista dos utilizadores
- */
 LONG_list top_most_active(TAD_community com, int N){
     PROFILE* arrlist = malloc(sizeof(PROFILE) * (N + 1));
     QUERY2 user_data = malloc(sizeof(struct query2));

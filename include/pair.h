@@ -1,5 +1,10 @@
 #ifndef __PAIR_H__
 #define __PAIR_H__
+
+ /**
+  * @brief Estrutura que define um str_pair
+  */
+
 typedef struct str_pair* STR_pair;
 
 /**
@@ -55,56 +60,62 @@ char* get_snd_str(STR_pair pair);
 
 void free_str_pair(STR_pair pair);
 
+ /**
+  * @brief Estrutura que define um LONG_pair
+  */
 
 typedef struct long_pair* LONG_pair;
 
 /**
  * @brief Função responsável pela criação
- * de um par
+ * de um par do tipo long_pair
  * @param fst 1ªcomponente do par,snd 2ªcomponente do par
  * @return criação do Par
  */
-LONG_pair create_long_pair(long fst, long snd);
 
+LONG_pair create_long_pair(long fst, long snd);
 
 /**
  * @brief Função responsável por permitir que a
  * 1ª componente do par possa ser alterada
- * @param pair Par com as 2 componentes, str String passada
+ * @param pair Par com as 2 componentes, l long passado
  */
-void set_fst_long(LONG_pair pair, long l);
 
+void set_fst_long(LONG_pair pair, long l);
 
 /**
  * @brief Função responsável por permitir que a
  * 2ªcomponente do par possa ser alterada
- * @param pair Par com as 2 componentes, str String passada
+ * @param pair Par com as 2 componentes, l long passada
  *
  */
+
 void set_snd_long(LONG_pair pair, long l);
 
 /**
  * @brief Função responsável pela leitura
  * da 1ª componente do par
  * @param pair Par com as 2 componentes
- * @return Array com a informação relativa à 1ª componente
+ * @return Long com a informação relativa à 1ª componente
  */
+
 long get_fst_long(LONG_pair pair);
 
 /**
  * @brief Função responsável pela leitura
- * da 2ª componente do par
+ * da 2ª parte de long_pair
  * @param pair Par com as 2 componentes
- * @return Array com a informação relativa à 2ªcomponente
+ * @return Long com informação relativa à 2ªcomponente
  */
-long get_snd_long(LONG_pair pair);
 
+long get_snd_long(LONG_pair pair);
 
 /**
  * @brief  Função responsável pela libertação
- *na memória do Par
+ *na memória de long_pair
  * @param pair Par
  */
+
 void free_long_pair(LONG_pair pair);
 
 
