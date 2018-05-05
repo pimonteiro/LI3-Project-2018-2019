@@ -65,6 +65,7 @@ int getReputation_profile(PROFILE p){
 }
 
 static gint cmpPosts(gconstpointer a, gconstpointer b, gpointer cmp_data){
+    (void)cmp_data;
     POST pa = (POST) a;
     POST pb = (POST) b;
 

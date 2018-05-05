@@ -99,7 +99,7 @@ typedef struct query2{
  * @param data Estrutura contendo o array e outros dados
  * @param p Perfil a ser inserido
  */
-void g_array_insert_sorted(QUERY2 data, PROFILE p){
+static void g_array_insert_sorted(QUERY2 data, PROFILE p){
     int done = 0;
     int tmp = data->len;
     if(data->len == 0){
@@ -132,12 +132,13 @@ void g_array_insert_sorted(QUERY2 data, PROFILE p){
  * @param value Valor corresponde da chave da Hashtable (perfil de um utilizador)
  * @param user_data Estrutura com os dados necessários a outras funcoes auxiliares
  */
-GHFunc query_2_hash_to_array(gpointer key, gpointer value, gpointer user_data){
+static GHFunc query_2_hash_to_array(gpointer key, gpointer value, gpointer user_data){
     (void)key;
     QUERY2 data = (QUERY2) user_data;
     PROFILE p = (PROFILE) value;
 
     g_array_insert_sorted(data, p);
+    return NULL;
 }
 
 /**
@@ -199,7 +200,7 @@ typedef struct query4{
     GArray* arr;
 }* QUERY4;
 
-gint query_4_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
+static gint query_4_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     (void)cmp_data;
     QUESTION aa = (QUESTION) a;
     QUESTION bb = (QUESTION) b;
@@ -211,7 +212,7 @@ gint query_4_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     return (gint) compare_dates(mb, ma);
 }
 
-GFunc search_tag_questions(gpointer data, gpointer elem){
+static GFunc search_tag_questions(gpointer data, gpointer elem){
     QUERY4 user_data = (QUERY4) elem;
     QUESTION q = (QUESTION) data;
 
@@ -220,6 +221,7 @@ GFunc search_tag_questions(gpointer data, gpointer elem){
         long id = getId_question(q);
         g_array_append_val(user_data->arr, id);
     }
+    return NULL;
 }
 
 LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end){
@@ -293,15 +295,17 @@ typedef struct query6{
     int i;
 }* QUERY6;
 
-GFunc query_6_convert_long(gpointer data, gpointer user_data){
+static GFunc query_6_convert_long(gpointer data, gpointer user_data){
     QUERY6 tmp = (QUERY6) user_data;
     ANSWER a = (ANSWER) data;
 
     set_list(tmp->ret, tmp->i, getID_answer(a));
     tmp->i++;
+
+    return NULL;
 }
 
-gint query_6_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
+static gint query_6_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     (void)cmp_data;
     ANSWER aa = (ANSWER) a;
     ANSWER bb = (ANSWER) b;
@@ -378,18 +382,19 @@ typedef struct query7_dates{
     GSequence* seq;
 }* QUERY7_DATES;
 
-void query_7_convert_long(gpointer data, gpointer user_data){
+static void query_7_convert_long(gpointer data, gpointer user_data){
     QUERY7 tmp = (QUERY7) user_data;
     QUERY7_EXTRA q = (QUERY7_EXTRA) data;
 
-    if(tmp->i < tmp->size){
+    //if(tmp->i < tmp->size){
    //     printf("%d --- %ld -> %d\n", tmp->i, q->id, q->count); //TODO
         set_list(tmp->ret, tmp->i, q->id);
         tmp->i++;
-    }
+  //  }
 }
 
-gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
+static gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
+    (void)cmp_data;
     QUERY7_EXTRA aa = (QUERY7_EXTRA) a;
     QUERY7_EXTRA bb = (QUERY7_EXTRA) b;
 
@@ -399,7 +404,7 @@ gint cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     return nb - na;
 }
 
-GSequenceIter* search_for_item(GSequence* seq, long id){
+static GSequenceIter* search_for_item(GSequence* seq, long id){
     GSequenceIter* bg = g_sequence_get_begin_iter(seq);
     GSequenceIter* nd = g_sequence_get_end_iter(seq);
 
@@ -411,7 +416,7 @@ GSequenceIter* search_for_item(GSequence* seq, long id){
     return NULL;
 }
 
-gint query_7_organize(gpointer data, gpointer user_data){
+static GFunc query_7_organize(gpointer data, gpointer user_data){
     QUERY7_DATES dados = (QUERY7_DATES) user_data;
     ANSWER a = (ANSWER) data;
 
@@ -419,7 +424,7 @@ gint query_7_organize(gpointer data, gpointer user_data){
 
     if(gg == NULL){ //Nao existe essa questao na seq
         MyDate cmp = getDate_post(getPost_TAD(dados->cam, getParentId_answer(a)));
-        if(cmp == NULL) return;
+        if(cmp == NULL) return NULL;
         if(compare_dates(dados->bg, cmp) && compare_dates(dados->nd, cmp)){
             QUERY7_EXTRA tp = malloc(sizeof(struct query7_extra));
             tp->id = getParentId_answer(a);
@@ -431,6 +436,7 @@ gint query_7_organize(gpointer data, gpointer user_data){
         QUERY7_EXTRA qq = g_sequence_get(gg);
         qq->count++;
     }
+    return NULL;
 }
 
 LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end){
@@ -488,7 +494,7 @@ typedef struct query8{
     char* title_name;
 }* QUERY8;
 
-GFunc search_title_name(gpointer data, gpointer elem){
+static GFunc search_title_name(gpointer data, gpointer elem){
     QUERY8 user_data = (QUERY8) elem;
     QUESTION q = (QUESTION) data;
 
@@ -497,6 +503,8 @@ GFunc search_title_name(gpointer data, gpointer elem){
         long id = getId_question(q);
         g_array_append_val(user_data->ret, id);
     }
+
+    return NULL;
 }
 
 LONG_list contains_word(TAD_community com, char* word, int N){
@@ -549,7 +557,7 @@ gint query_9_exists_question(gconstpointer a, gconstpointer b, gpointer user_dat
     return a - b;
 }
 
-GFunc sequence_function(gpointer elem, void* data){
+static GFunc sequence_function(gpointer elem, void* data){
     POST p = (POST) elem;
     QUERY9 user_data = (QUERY9) data;
     QUESTION q;
@@ -563,7 +571,7 @@ GFunc sequence_function(gpointer elem, void* data){
             //Verificar se já existe
             if(g_sequence_lookup(user_data->seq, (gpointer) q, (GCompareDataFunc)query_9_exists_question, NULL) == NULL){
                 g_sequence_insert_sorted(user_data->seq, (gpointer) q, (GCompareDataFunc) query_4_cmp_func, NULL);
-                return;
+                return NULL;
             }
         }
     }else{
@@ -577,10 +585,12 @@ GFunc sequence_function(gpointer elem, void* data){
             //So quero perguntas e Verificar se já existe
             if(g_sequence_lookup(user_data->seq, (gpointer) q, (GCompareDataFunc)query_9_exists_question, NULL) == NULL){
                 g_sequence_insert_sorted(user_data->seq, (gpointer) q, (GCompareDataFunc) query_4_cmp_func, NULL);
-                return;
+                return NULL;
             }
         }
     }
+
+    return NULL;
 }
 
 LONG_list both_participated(TAD_community com, long id1, long id2, int N){
@@ -681,23 +691,23 @@ long better_answer(TAD_community com, long id){
 //END QUERY nº10
 
 //QUERY nº11
-GFunc catamorfismo(gpointer data, gpointer user_data){
+static GFunc catamorfismo(gpointer data, gpointer user_data){
     QUESTION q = (QUESTION) data;
     QUERY2 userd = (QUERY2) user_data;
     int i = 0;
-    int j = 0;
-    int present = 0;
     long parent_id = getOwnerId_question(q);
       for(i = 0; i < userd->len; i++){
           if(parent_id == getId_profile(userd->arrlist[i])){
               userd->present[userd->present_index] = q;
               ++(userd->present_index);
           }
-          else continue;
+          else
+            continue;
     }
+    return NULL;
 }
 
-long max_index(long* a, int n){
+static long max_index(long* a, int n){
     if(n <= 0) return -1;
     long i, max_i = 0;
     long max = a[0];
@@ -710,7 +720,7 @@ long max_index(long* a, int n){
     return max_i;
 }
 
-gint query_11_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
+static gint query_11_cmp_func(gconstpointer a, gconstpointer b, gpointer cmp_data){
     (void)cmp_data;
     QUESTION aa = (QUESTION) a;
     QUESTION bb = (QUESTION) b;
