@@ -17,8 +17,8 @@
 #include <string.h>
 
 STR_pair get_info_from_post(TAD_community com, QUESTION q){
-    char* titulo;
-    char* name;
+    char* titulo = NULL;
+    char* name = NULL;
 
     titulo = getTitle_question(q);
 
