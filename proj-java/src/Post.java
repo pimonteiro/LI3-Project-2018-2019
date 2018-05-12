@@ -1,4 +1,5 @@
-public class Post{
+public abstract class Post {
+
     private long type;
 
     public Post(){
@@ -13,17 +14,15 @@ public class Post{
         this.type = p.getType();
     }
 
-    public long getType() {
+    public long getType(){
         return type;
     }
 
-    public void setType(long type) {
+    public void setType(long type){
         this.type = type;
     }
 
-    public Post clone(){
-        return new Post(this);
-    }
+    public abstract Post clone();
 
     public boolean equals(Object o){
         if(o == this) return true;
@@ -36,12 +35,12 @@ public class Post{
         return "Type: " + this.type;
     }
 
-    public int compareTo(Post p) { //TODO Is this right?
-        if (p instanceof Answer) {
+    public int compareTo(Post p){ //TODO Is this right?
+        if(p instanceof Answer){
             Answer a = (Answer) p;
             return ((Answer) this).getCreation_date().compareTo(a.getCreation_date());
         }
-        if (p instanceof Question){
+        if(p instanceof Question){
             Question q = (Question) p;
             return ((Question) this).getCreation_date().compareTo(q.getCreation_date());
         }

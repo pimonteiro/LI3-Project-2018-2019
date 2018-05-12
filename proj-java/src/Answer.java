@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 
 public class Answer extends Post {
+
     private LocalDate creation_date;
     private long id;
     private long owner_id;
@@ -8,7 +9,7 @@ public class Answer extends Post {
     private long comments;
     private long score;
 
-    public Answer(LocalDate creation_date, long id, long owner_id, long parent_id, long comments, long score) {
+    public Answer(LocalDate creation_date, long id, long owner_id, long parent_id, long comments, long score){
         super(2); //2 - Resposta
         this.creation_date = creation_date;
         this.id = id;
@@ -32,51 +33,51 @@ public class Answer extends Post {
         this.creation_date = a.getCreation_date();
     }
 
-    public LocalDate getCreation_date() {
+    public LocalDate getCreation_date(){
         return this.creation_date;
     }
 
-    public long getId() {
+    public long getId(){
         return this.id;
     }
 
-    public long getOwner_id() {
+    public long getOwner_id(){
         return this.owner_id;
     }
 
-    public long getParent_id() {
+    public long getParent_id(){
         return this.parent_id;
     }
 
-    public long getComments() {
+    public long getComments(){
         return this.comments;
     }
 
-    public long getScore() {
+    public long getScore(){
         return this.score;
     }
 
-    public void setCreation_date(LocalDate creation_date) {
+    public void setCreation_date(LocalDate creation_date){
         this.creation_date = creation_date;
     }
 
-    public void setId(long id) {
+    public void setId(long id){
         this.id = id;
     }
 
-    public void setOwner_id(long owner_id) {
+    public void setOwner_id(long owner_id){
         this.owner_id = owner_id;
     }
 
-    public void setParent_id(long parent_id) {
+    public void setParent_id(long parent_id){
         this.parent_id = parent_id;
     }
 
-    public void setComments(long comments) {
+    public void setComments(long comments){
         this.comments = comments;
     }
 
-    public void setScore(long score) {
+    public void setScore(long score){
         this.score = score;
     }
 
@@ -87,17 +88,17 @@ public class Answer extends Post {
     public boolean equals(Object o){
         if(o == this) return true;
         if(o == null || o.getClass() != this.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if(!super.equals(o)) return false;
         Answer a = (Answer) o;
         return this.creation_date.equals(((Answer) o).getCreation_date()) &&
-                this.id == a.getId() && this.owner_id == a.getOwner_id() &&
-                this.parent_id == a.getParent_id() && this.comments == a.getComments() &&
-                this.score == a.getScore();
+               this.id == a.getId() && this.owner_id == a.getOwner_id() &&
+               this.parent_id == a.getParent_id() && this.comments == a.getComments() &&
+               this.score == a.getScore();
     }
 
     public String toString(){
         return super.toString() + "Creation Date: " + this.creation_date.toString() + "ID: " + this.id +
-                "Owner ID: " + this.owner_id + "Parent ID: " + this.parent_id +
-                "Comments: " + this.comments + "Score :" + this.score;
+               "Owner ID: " + this.owner_id + "Parent ID: " + this.parent_id +
+               "Comments: " + this.comments + "Score :" + this.score;
     }
 }

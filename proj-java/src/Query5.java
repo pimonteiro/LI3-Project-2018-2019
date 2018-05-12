@@ -2,7 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Query5 {
-    public void get_user_info(Main_Struct com, long id) throws NoProfileFound{
+
+    public void get_user_info(Main_Struct com, long id) throws NoProfileFoundException{
         List<Integer> post_history = new ArrayList<>(10);
 
         Profile p = com.getProfile(id);
