@@ -1,15 +1,15 @@
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Answer extends Post {
 
-    private LocalDate creation_date;
+    private LocalDateTime creation_date;
     private long id;
     private long owner_id;
     private long parent_id;
     private long comments;
     private long score;
 
-    public Answer(LocalDate creation_date, long id, long owner_id, long parent_id, long comments, long score){
+    public Answer(LocalDateTime creation_date, long id, long owner_id, long parent_id, long comments, long score){
         super(2); //2 - Resposta
         this.creation_date = creation_date;
         this.id = id;
@@ -21,7 +21,7 @@ public class Answer extends Post {
 
     public Answer(){
         super();
-        this.creation_date = LocalDate.now();
+        this.creation_date = LocalDateTime.now();
         this.id = -1;
         this.owner_id = -1;
         this.parent_id = -1;
@@ -33,7 +33,7 @@ public class Answer extends Post {
         this.creation_date = a.getCreation_date();
     }
 
-    public LocalDate getCreation_date(){
+    public LocalDateTime getCreation_date(){
         return this.creation_date;
     }
 
@@ -57,7 +57,7 @@ public class Answer extends Post {
         return this.score;
     }
 
-    public void setCreation_date(LocalDate creation_date){
+    public void setCreation_date(LocalDateTime creation_date){
         this.creation_date = creation_date;
     }
 

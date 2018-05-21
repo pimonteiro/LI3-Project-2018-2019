@@ -1,7 +1,7 @@
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Profile {
+public class Profile{
 
     private TreeSet<Post> posts;
     private String about_me;

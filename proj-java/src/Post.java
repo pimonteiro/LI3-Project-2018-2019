@@ -35,6 +35,7 @@ public abstract class Post {
         return "Type: " + this.type;
     }
 
+    //Reformular
     public int compareTo(Post p){ //TODO Is this right?
         if(p instanceof Answer){
             Answer a = (Answer) p;

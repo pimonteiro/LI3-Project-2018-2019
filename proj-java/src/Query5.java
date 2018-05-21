@@ -1,10 +1,13 @@
+import sun.reflect.generics.tree.Tree;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public class Query5 {
 
     public void get_user_info(Main_Struct com, long id) throws NoProfileFoundException{
-        List<Integer> post_history = new ArrayList<>(10);
+        TreeSet<Post> post_history = new TreeSet<>(new PostCreationDateComparator());
 
         Profile p = com.getProfile(id);
         StringBuilder aboutme = new StringBuilder();
