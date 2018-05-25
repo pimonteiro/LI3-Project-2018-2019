@@ -1,9 +1,8 @@
-import sun.reflect.generics.tree.Tree;
-
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Profile {
+public class Profile{
+
     private TreeSet<Post> posts;
     private String about_me;
     private String name;
@@ -30,7 +29,7 @@ public class Profile {
     }
 
     public Profile(Profile p){
-        setPosts(p.getPosts());
+        this.setPosts(p.getPosts());
         this.about_me = p.getAbout_me();
         this.name = p.getName();
         this.n_posts = p.getN_posts();
@@ -40,26 +39,27 @@ public class Profile {
 
     public Set<Post> getPosts(){
         Set<Post> ret = new TreeSet<>();
-        this.posts.stream().forEach(p -> ret.add(p.clone()));
+        this.posts.forEach(p -> ret.add(p.clone()));
         return ret;
     }
-    public String getAbout_me() {
+
+    public String getAbout_me(){
         return this.about_me;
     }
 
-    public String getName() {
+    public String getName(){
         return this.name;
     }
 
-    public long getN_posts() {
+    public long getN_posts(){
         return this.n_posts;
     }
 
-    public long getId() {
+    public long getId(){
         return this.id;
     }
 
-    public int getReputation() {
+    public int getReputation(){
         return this.reputation;
     }
 
@@ -68,27 +68,27 @@ public class Profile {
         posts.stream().forEach(p -> this.posts.add(p.clone()));
     }
 
-    public void setAbout_me(String about_me) {
+    public void setAbout_me(String about_me){
         this.about_me = about_me;
     }
 
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
 
-    public void setN_posts(long n_posts) {
+    public void setN_posts(long n_posts){
         this.n_posts = n_posts;
     }
 
 
-    public void setId(long id) {
+    public void setId(long id){
         this.id = id;
     }
 
 
-    public void setReputation(int reputation) {
+    public void setReputation(int reputation){
         this.reputation = reputation;
     }
 
@@ -101,15 +101,15 @@ public class Profile {
         if(o == null || o.getClass() != this.getClass()) return false;
         Profile p = (Profile) o;
         return this.about_me.equals(p.getAbout_me()) &&
-                this.name.equals(p.getName()) &&
-                this.n_posts == p.getN_posts() &&
-                this.reputation == p.getReputation() &&
-                this.id == p.getId();
+               this.name.equals(p.getName()) &&
+               this.n_posts == p.getN_posts() &&
+               this.reputation == p.getReputation() &&
+               this.id == p.getId();
     }
 
     public String toString(){
         return "Name: " + this.name + "AboutMe: " + this.about_me +
-                "N_Posts: " + this.n_posts + "Reputation: " + this.reputation +
-                "ID: " + this.id;
+               "N_Posts: " + this.n_posts + "Reputation: " + this.reputation +
+               "ID: " + this.id;
     }
 }

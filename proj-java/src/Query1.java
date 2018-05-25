@@ -1,8 +1,6 @@
-import sun.applet.Main;
-
 public class Query1 {
 
-    public void get_info_from_post(Main_Struct com, Question q) throws NoProfileFound{
+    public void get_info_from_post(Main_Struct com, Question q) throws NoProfileFoundException{
         String titulo = q.getTitle();
         String name;
 
@@ -12,12 +10,11 @@ public class Query1 {
 
     }
 
-    public void info_from_post(Main_Struct com, long id) throws NoPostFound, NoProfileFound{
+    public void info_from_post(Main_Struct com, long id) throws NoPostFoundException, NoProfileFoundException{
         Post p = com.getPost(id);
         if(p.getType() == 1){
-            get_info_from_post(com, (Question)p);
-        }
-        else{
+            get_info_from_post(com, (Question) p);
+        }else{
             long parent_id = ((Answer) p).getParent_id();
             Question q = (Question) com.getPost(parent_id);
             get_info_from_post(com, q);
