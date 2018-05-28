@@ -1,3 +1,5 @@
+package common;
+
 import java.util.Comparator;
 
 public class QuestionCreationDateComparator implements Comparator<Question> {

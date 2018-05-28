@@ -1,3 +1,5 @@
+package common;
+
 import javax.swing.*;
 import java.util.Comparator;
 import java.util.TreeSet;
@@ -7,12 +9,12 @@ public class BoundedTreeSet<E> extends TreeSet<E> {
 
     public BoundedTreeSet(int size){
         super();
-        this.limit = limit;
+        this.limit = size;
     }
 
     public BoundedTreeSet(int size, Comparator c){
         super(c);
-        this.limit = limit;
+        this.limit = size;
     }
 
     @Override

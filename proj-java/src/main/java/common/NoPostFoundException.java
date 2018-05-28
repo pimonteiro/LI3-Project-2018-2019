@@ -1,3 +1,5 @@
+package common;
+
 public class NoPostFoundException extends Exception {
 
     public NoPostFoundException(){

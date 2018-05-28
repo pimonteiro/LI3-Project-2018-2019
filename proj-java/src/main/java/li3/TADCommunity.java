@@ -2,13 +2,16 @@ package li3;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import common.NoPostFoundException;
+import common.NoProfileFoundException;
 import common.Pair;
 
 public interface TADCommunity {
     public void load(String dumpPath);
 
     // Query 1
-    public Pair<String,String> infoFromPost(long id);
+    public Pair<String,String> infoFromPost(long id)  throws NoPostFoundException, NoProfileFoundException;
 
     // Query 2
     public List<Long> topMostActive(int N);

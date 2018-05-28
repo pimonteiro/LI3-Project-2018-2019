@@ -1,3 +1,5 @@
+package common;
+
 import java.util.HashMap;
 
 public class Main_Struct {
@@ -5,6 +7,7 @@ public class Main_Struct {
     private HashMap<Long,Profile> profiles;
     private HashMap<Long,Post> posts;
     private HashMap<String,Long> tags;
+    private Tardis tardis64;
 
     public Main_Struct(){
         this.profiles = new HashMap<>();

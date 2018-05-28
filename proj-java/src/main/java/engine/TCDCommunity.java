@@ -1,7 +1,6 @@
 package engine;
 
-import common.MyLog;
-import common.Pair;
+import common.*;
 import li3.TADCommunity;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -15,9 +14,10 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-public class TCDExample implements TADCommunity {
+public class TCDCommunity implements TADCommunity {
 
     private MyLog qelog;
+    private Main_Struct data;
 
     /*
     public void init() {
@@ -48,17 +48,20 @@ public class TCDExample implements TADCommunity {
     }
 
     // Query 1
-    public Pair<String,String> infoFromPost(long id) {
-        return new Pair<>("What are the actual risks of giving www-data sudo nopasswd access?", "WebNinja");
+    public Pair<String,String> infoFromPost(long id) throws NoPostFoundException, NoProfileFoundException {
+        return new Query1().info_from_post(this.data, id);
+        //return new Pair<>("What are the actual risks of giving www-data sudo nopasswd access?", "WebNinja");
     }
 
     // Query 2
     public List<Long> topMostActive(int N) {
-        return Arrays.asList(15811L,449L,158442L,167850L,367165L,295286L,59676L,93977L,35795L,3940L);
+        return new Query2().top_most_active(this.data, N);
+        //return Arrays.asList(15811L,449L,158442L,167850L,367165L,295286L,59676L,93977L,35795L,3940L);
     }
 
     // Query 3
     public Pair<Long,Long> totalPosts(LocalDate begin, LocalDate end) {
+        //return Query3.totalPosts(this.data, begin, end);
         return new Pair<>(3667L,4102L);
     }
 

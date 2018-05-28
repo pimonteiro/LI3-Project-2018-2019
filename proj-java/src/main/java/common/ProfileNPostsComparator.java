@@ -1,3 +1,5 @@
+package common;
+
 import java.util.Comparator;
 
 public class ProfileNPostsComparator implements Comparator<Profile>{

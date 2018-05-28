@@ -1,3 +1,5 @@
+package common;
+
 public abstract class Post {
 
     private long type;

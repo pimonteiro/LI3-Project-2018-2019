@@ -1,3 +1,5 @@
+package common;
+
 import java.time.LocalDateTime;
 
 public class Answer extends Post {

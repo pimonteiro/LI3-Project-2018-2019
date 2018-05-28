@@ -1,19 +1,19 @@
 package common;
 
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
+//import org.apache.log4j.FileAppender;
+//import org.apache.log4j.Logger;
+//import org.apache.log4j.PatternLayout;
 
 import java.io.IOException;
 
 public class MyLog {
 
-    private Logger log;
+    /*private Logger log;
 
     public MyLog(String name){
-        /*
+        *//*
             LOG CONFIGURATION
-         */
+         *//*
         this.log = Logger.getLogger(name);
         this.log.setAdditivity(false);
         FileAppender capp = null;
@@ -30,5 +30,5 @@ public class MyLog {
     public void writeLog(String message){
         this.log.info(message);
     }
-
+*/
 }
