@@ -21,6 +21,13 @@ public class Profile{
         this.reputation = reputation;
     }
 
+    public Profile(String about_me, String name, long id, int reputation){
+        this.about_me = about_me;
+        this.name = name;
+        this.id = id;
+        this.reputation = reputation;
+    }
+
     public Profile(){
         this.posts = new TreeSet<>();
         this.about_me = "";

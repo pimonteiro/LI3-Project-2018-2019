@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Main_Struct {
 
     private HashMap<Long,Profile> profiles;
-    private HashMap<Long, Post> posts;
+    private HashMap<Long,Post> posts;
     private HashMap<String,Long> tags;
     private Tardis tardis64;
 
@@ -53,7 +53,7 @@ public class Main_Struct {
         return ret;
     }
 
-    public Profile getProfile(long id) throws NoProfileFoundException {
+    public Profile getProfile(long id) throws NoProfileFoundException{
         Profile p = this.profiles.get(id);
         if(p == null){
             throw new NoProfileFoundException();
@@ -61,7 +61,7 @@ public class Main_Struct {
         return p.clone();
     }
 
-    public Post getPost(long id) throws NoPostFoundException {
+    public Post getPost(long id) throws NoPostFoundException{
         Post p = this.posts.get(id);
         if(p == null){
             throw new NoPostFoundException();
@@ -69,7 +69,7 @@ public class Main_Struct {
         return p.clone();
     }
 
-    public long getTag(String tag) throws NoTagFoundException {
+    public long getTag(String tag) throws NoTagFoundException{
         Long id = this.tags.get(tag);
         if(id == null){
             throw new NoTagFoundException();
@@ -77,4 +77,8 @@ public class Main_Struct {
         return id;
     }
 
+    public void addProfile(Profile p){
+        if(!this.profiles.containsKey(p.getId()))
+            this.profiles.put(p.getId(), p);
+    }
 }
