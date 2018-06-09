@@ -1,9 +1,12 @@
+package li3;
+
 import common.NoPostFoundException;
 import common.NoProfileFoundException;
 import common.Pair;
 import engine.TCDCommunity;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,6 +35,9 @@ public class StackOverflowController {
                     break;
                 case 2 :
                     flowQuery2();
+                    break;
+                case 3:
+                    flowQuery3();
                     break;
                 default:
                     System.out.println("Opcao Invalida.");
@@ -76,5 +82,24 @@ public class StackOverflowController {
         for(Long id : ret){
             System.out.println(i++ + " => " + id);
         }
+    }
+
+    private void flowQuery3(){
+        System.out.println("QUERY 3 = = = = = Total Posts");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Scanner a = new Scanner(System.in);
+
+        System.out.println("Date of begin: (year-month-day");
+        String beginS = a.nextLine();
+        LocalDate begin = LocalDate.parse(beginS,formatter);
+
+        System.out.println("Date of end: (year-month-day");
+        String endS = a.nextLine();
+        LocalDate end = LocalDate.parse(endS,formatter);
+
+        Pair<Long,Long> ret = com.totalPosts(begin, end);
+        System.out.println("-----Results-----");
+        System.out.println("=>Questions: " + ret.getFst());
+        System.out.println("=>Answers:   " + ret.getSnd());
     }
 }

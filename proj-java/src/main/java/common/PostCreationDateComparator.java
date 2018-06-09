@@ -1,5 +1,7 @@
 package common;
 
+import engine.Post;
+
 import java.util.Comparator;
 
 public class PostCreationDateComparator implements Comparator<Post> {

@@ -1,6 +1,6 @@
-package common;
+package engine;
 
-public abstract class Post {
+public abstract class Post implements Comparable<Post>{
 
     private long type;
 

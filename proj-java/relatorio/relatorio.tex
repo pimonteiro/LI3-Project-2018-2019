@@ -1,0 +1,213 @@
+\documentclass[letterpaper, 10 pt, conference]{IEEEtran}  % Comment this line out
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}                                                         % if you need a4paper
+\usepackage[portuges]{babel}
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4
+ \usepackage{listings}
+ \lstset { %
+    language=Java,
+}                                                         % paper
+\usepackage{tikz}
+\usepackage{xstring}
+\usetikzlibrary{calc, arrows}
+\usetikzlibrary{matrix,positioning,arrows.meta,arrows}
+
+\tikzset{
+mymat/.style={
+  matrix of math nodes,
+  text height=2.5ex,
+  text depth=0.75ex,
+  text width=3.25ex,
+  align=center,
+  column sep=-\pgflinewidth
+  },
+mymats/.style={
+  mymat,
+  nodes={draw,fill=#1}
+  }
+}
+\IEEEoverridecommandlockouts                              % This command is only
+                                                          % needed if you want to
+                                                          % use the \thanks command
+\overrideIEEEmargins
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+
+\title{\LARGE \bf
+Laboratórios de Informática III - Projecto em Java
+}
+
+%\author{ \parbox{3 in}{\centering Huibert Kwakernaak*
+%         \thanks{*Use the $\backslash$thanks command to put information here}\\
+%         Faculty of Electrical Engineering, Mathematics and Computer Science\\
+%         University of Twente\\
+%         7500 AE Enschede, The Netherlands\\
+%         {\tt\small h.kwakernaak@autsubmit.com}}
+%         \hspace*{ 0.5 in}
+%         \parbox{3 in}{ \centering Pradeep Misra**
+%         \thanks{**The footnote marks may be inserted manually}\\
+%        Department of Electrical Engineering \\
+%         Wright State University\\
+%         Dayton, OH 45435, USA\\
+%         {\tt\small pmisra@cs.wright.edu}}
+%}
+
+\author{Adriana Meireles (a82582), Eduardo Jorge Barbosa (a83344), Filipe Monteiro (a80229)% <-this % stops a space
+}
+
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+Este trabalho prático teve como objectivo replicar o anterior projeto (aplicado em C) mas agora em Java - a organização
+de grandes volumes de dados de forma a responder a questões, pré definidas, em tempo útil. Os objectos de estudo foram vários dumps do \textit{Stack Exchange}.
+
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{INTRODUÇÃO}
+
+O fundamental deste trabalho prático consistiu em converter as existente estruturas e querys construidas no anterior projeto,
+em estruturas mais dinâmicas, de mais flexibilidade e portabilidade, assim como melhoras de desempenho por parte de
+\textit{features} existentes na linguagem de programação Java.
+
+\section{ESTRUTURAS DE DADOS}
+
+\subsection{MAIN STRUCT}
+
+\begin{lstlisting}
+public class Main_Struct {
+
+private HashMap<Long,Profile> profiles;
+private HashMap<Long, Post> posts;
+private HashMap<String,Long> tags;
+private Tardis tardis64;
+
+}
+\end{lstlisting}
+
+Tal como no projeto em C, a estrutura principal é constituida por 3 HashMaps, uma para os perfis, outra para posts
+e outra para tags, e ainda a reformulado Tardis que contem os posts todos organizados pelo critério \textit{x}.
+
+
+\subsection{USER}
+
+Na Class de um Utilizador existem, entre os dados pessoais (nome, bio, ID, etc) uma TreeSet de Posts
+pertencentes ao utilizador (ordenados naturalmente do mais recente - mais antigo).
+Sendo uma Class tão básica, não foi necessário acrescentar extras para possivelmente melhorar desempenhos.
+
+\begin{lstlisting}
+public class Profile{
+    private TreeSet<Post> posts;
+    private String about_me;
+    private String name;
+    private long n_posts;
+    private long id;
+    private int reputation;
+}
+\end{lstlisting}
+
+Nesta foram implementados apenas os métodos básicos (construtores, gets, sets, clone, toString).
+
+\subsection{POST, QUESTION, ANSWER}
+
+A Class Post é uma Class Abstracta de onde duas classes extendem: Question e Answer.
+Foi utilizada uma class Abstrata para podermos tratar destas duas subclasses como se fossem
+"do mesmo tipo", facilitando assim o uso destas.
+
+Class Post:
+\begin{lstlisting}
+public abstract class Post {
+
+    private long type;
+}
+
+public class Question extends Post {
+
+    private LocalDateTime creation_date;
+    private HashMap<Long,Answer> answers;
+    private String title;
+    private List<String> tags; //TODO Maybe we can change with java
+    private long id;
+    private long owner_id;
+    private long n_answers;
+    private long comments;
+    private long score;
+}
+
+public class Answer extends Post {
+
+    private LocalDateTime creation_date;
+    private long id;
+    private long owner_id;
+    private long parent_id;
+    private long comments;
+    private long score;
+
+}
+\end{lstlisting}
+Esta possui também um método compARE FALTA VER ISTO.
+
+\subsection{TARDIS}
+//eduardo
+
+
+
+\subsection{ESTRUTURAS AUXILIARES && EXCEPÇÕES}
+Para facilitar o manuseamento de algumas querys, decidiu-se criar e/ou recriar algumas classes já implementadas
+pelo Java, mas com pequenos acréscimos. Nomeadamente:
+\subsubsection{BoundedTreeSet}
+\begin{lstlisting}
+public class BoundedTreeSet<E> extends TreeSet<E> {
+    private int limit;
+
+    @Override
+    public boolean add(E e){
+        super.add(e);
+        if(this.size() > this.limit){
+        this.remove(this.last());
+        }
+        return true;
+    }
+}
+\end{lstlisting}
+Esta TreeSet, funciona exatamente como uma TreeSet habitual, perfeita para inserções ordenadas, mas tem
+uma informação e cuidado extra: um limite de tamanho. Sempre que estiver no tamanho máximo insere ordenadamente
+e retira o último, mantendo sempre o seu tamanho controlado. Isto foi nos útil particularmente na \underline{Query 5}.
+
+
+Em relação a comparadores, temos as seguintes:
+\begin{itemize}
+    \item PostCreationDateComparator --> Compara dois Posts em relação á sua data de criação, de forma \textbf{Descendente}.
+    \item ProfileNPostsComparator --> Compara dois Utilizadores em relacão ao número de posts, de forma \textbf{Descendente}.
+    \item QuestionCreationDateComparator --> Compara duas Question em relação á sua data de criação, de forma \textbf{Descendente}.
+\end{itemize}
+
+
+Quanto a excepções, criamos as seguintes:
+\begin{itemize}
+    \item NoPostFoundException --> Caso um ID nao exista entre os Posts.
+    \item NoProfileFoundException --> Caso um ID nao exista entre os Perfis.
+    \item NoTagFoundException --> Caso um ID nao exista entre as Tags. SUJEITO A TROCA
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{BENCHMARKS}
+
+\end{document}

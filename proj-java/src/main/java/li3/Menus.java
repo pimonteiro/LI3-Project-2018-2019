@@ -1,3 +1,5 @@
+package li3;
+
 import java.util.HashMap;
 
 public class Menus {
