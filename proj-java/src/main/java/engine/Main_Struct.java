@@ -81,4 +81,23 @@ public class Main_Struct {
         if(!this.profiles.containsKey(p.getId()))
             this.profiles.put(p.getId(), p);
     }
+
+    public void addAnswer(Answer a){
+        if(!this.posts.containsKey(a.getId()))
+            this.posts.put(a.getId(), a);
+
+        // TODO INSERT TARDIS; INSERT IN QUESTION; INSERT USER
+    }
+
+    public void addQuestion(Question q){
+        if(!this.posts.containsKey(q.getId()))
+            this.posts.put(q.getId(), q);
+
+        // TODO INSERT IN USER
+    }
+
+    public void addTag(long id, String s){
+        if(!this.tags.containsKey(s))
+            this.tags.put(s, id);
+    }
 }

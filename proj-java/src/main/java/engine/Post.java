@@ -10,20 +10,23 @@ public abstract class Post implements Comparable<Post> {
     private LocalDateTime creation_date;
     private long owner_id;
     private long score;
+    private long n_comments;
 
-
-    public Post(long id, long owner_id, long score, LocalDateTime creation_date){
+    public Post(long id, long owner_id, long score, LocalDateTime creation_date, long n_comments){
         this.id = id;
         this.owner_id = owner_id;
         this.score = score;
         this.creation_date = creation_date;
+        this.n_comments = n_comments;
     }
+
 
     public Post(Post p){
         this.id = p.id;
         this.owner_id = p.owner_id;
         this.score = p.score;
         this.creation_date = p.creation_date;
+        this.n_comments = p.n_comments;
     }
 
     public long getId(){
@@ -35,8 +38,10 @@ public abstract class Post implements Comparable<Post> {
     }
 
     public long getScore(){
-        return score;
+        return this.score;
     }
+
+    public long getN_comments() { return this.n_comments; }
 
     public LocalDateTime getCreation_date(){
         return this.creation_date;
@@ -49,6 +54,7 @@ public abstract class Post implements Comparable<Post> {
                ", creation_date=" + creation_date +
                ", owner_id=" + owner_id +
                ", score=" + score +
+               ", n_comments=" + n_comments +
                '}';
     }
 
@@ -60,12 +66,13 @@ public abstract class Post implements Comparable<Post> {
         return id == post.id &&
                owner_id == post.owner_id &&
                score == post.score &&
+               n_comments == post.n_comments &&
                Objects.equals(creation_date, post.creation_date);
     }
 
     @Override
     public int hashCode(){
-        return Objects.hash(id, creation_date, owner_id, score);
+        return Objects.hash(id, creation_date, owner_id, score, n_comments);
     }
 
     @Override
