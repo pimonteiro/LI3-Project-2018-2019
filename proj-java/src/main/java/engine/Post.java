@@ -1,52 +1,78 @@
 package engine;
 
-public abstract class Post implements Comparable<Post>{
+import java.time.LocalDateTime;
+import java.util.Objects;
 
-    private long type;
 
-    public Post(){
-        this.type = -1;
-    }
+public abstract class Post implements Comparable<Post> {
 
-    public Post(long type){
-        this.type = type;
+    private long id;
+    private LocalDateTime creation_date;
+    private long owner_id;
+    private long score;
+
+
+    public Post(long id, long owner_id, long score, LocalDateTime creation_date){
+        this.id = id;
+        this.owner_id = owner_id;
+        this.score = score;
+        this.creation_date = creation_date;
     }
 
     public Post(Post p){
-        this.type = p.getType();
+        this.id = p.id;
+        this.owner_id = p.owner_id;
+        this.score = p.score;
+        this.creation_date = p.creation_date;
     }
 
-    public long getType(){
-        return type;
+    public long getId(){
+        return this.id;
     }
 
-    public void setType(long type){
-        this.type = type;
+    public long getOwner_id(){
+        return this.owner_id;
     }
 
+    public long getScore(){
+        return score;
+    }
+
+    public LocalDateTime getCreation_date(){
+        return this.creation_date;
+    }
+
+    @Override
+    public String toString(){
+        return "Post{" +
+               "id=" + id +
+               ", creation_date=" + creation_date +
+               ", owner_id=" + owner_id +
+               ", score=" + score +
+               '}';
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return id == post.id &&
+               owner_id == post.owner_id &&
+               score == post.score &&
+               Objects.equals(creation_date, post.creation_date);
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(id, creation_date, owner_id, score);
+    }
+
+    @Override
     public abstract Post clone();
 
-    public boolean equals(Object o){
-        if(o == this) return true;
-        if(o == null || o.getClass() != this.getClass()) return false;
-        Post p = (Post) o;
-        return this.type == p.getType();
-    }
-
-    public String toString(){
-        return "Type: " + this.type;
-    }
-
-    //Reformular
-    public int compareTo(Post p){ //TODO Is this right?
-        if(p instanceof Answer){
-            Answer a = (Answer) p;
-            return ((Answer) this).getCreation_date().compareTo(a.getCreation_date());
-        }
-        if(p instanceof Question){
-            Question q = (Question) p;
-            return ((Question) this).getCreation_date().compareTo(q.getCreation_date());
-        }
-        return 0; //Im in doubt
+    public int compareTo(Post p){
+        return this.creation_date.compareTo(p.getCreation_date());
     }
 }
+

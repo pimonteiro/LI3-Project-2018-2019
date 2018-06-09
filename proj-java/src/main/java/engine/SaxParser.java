@@ -39,7 +39,7 @@ public class SaxParser {
 
             XMLReader reader = parser.getXMLReader();
 
-            reader.setContentHandler(new UserHandler(null));
+            reader.setContentHandler(new UserHandler(ms));
             reader.parse(convertToFileURL(path));
 
             //reader.parse(convertToFileURL("/home/herulume/Downloads/ubuntu/Users.xml"));
