@@ -1,6 +1,5 @@
 package engine;
 
-import li3.Main;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -29,7 +28,7 @@ public class SaxParser {
         return "file:" + path;
     }
 
-    /*public static void main(String[] args){
+   /* public static void main(String[] args){
         Main_Struct s = SaxParser.multParse("/home/herulume/Downloads/ubuntu/");
     }*/
 
@@ -121,7 +120,7 @@ class PostHandler extends DefaultHandler {
 
 
         StringBuilder sb = new StringBuilder(atts.getValue("CreationDate"));
-        sb.delete(15, sb.length() - 1); // TODO check index
+        sb.delete(15, sb.length() - 1);
         String cd = sb.toString().replace('T', ' ');
         LocalDateTime creation_date = LocalDateTime.parse(cd, formatter);
 
@@ -137,13 +136,11 @@ class PostHandler extends DefaultHandler {
 
         if(type == 1){
 
-            //TODO tags
-
+            String tags = atts.getValue("Tags");
             long n_answers = Long.parseLong(atts.getValue("AnswerCount"));
             String title = atts.getValue("Title");
 
-
-            Question q = new Question(id, owner_id, score, creation_date, n_comments, title, n_answers);
+            Question q = new Question(id, owner_id, score, creation_date, n_comments, title, n_answers, tags);
 
 
             lmao.addQuestion(q);

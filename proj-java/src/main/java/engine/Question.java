@@ -1,23 +1,25 @@
 package engine;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class Question extends Post {
 
     private Map<Long,Answer> answers;
     private String title;
-    private List<String> tags; //TODO Maybe we can change with java
+    private String tags; //TODO Maybe we can change with java
     private long n_answers;
 
 
     public Question(long id, long owner_id, long score, LocalDateTime creation_date, String title, long n_answers,
-                    long comments, List<String> tags, Map<Long,Answer> answersl){
+                    long comments, String tags, Map<Long,Answer> answersl){
 
         super(id, owner_id, score, creation_date, comments);
         this.title = title;
         this.n_answers = n_answers;
-        this.tags = new ArrayList<>(tags);
+        this.tags = tags;
         this.answers = new HashMap<>();
 
         for(Map.Entry<Long,Answer> a : answersl.entrySet()){
@@ -30,7 +32,7 @@ public class Question extends Post {
         super(q);
         this.title = q.title;
         this.n_answers = q.n_answers;
-        this.tags = new ArrayList<>(q.tags);
+        this.tags = q.tags;
         this.answers = new HashMap<>();
 
         for(Map.Entry<Long,Answer> a : q.answers.entrySet()){
@@ -38,15 +40,17 @@ public class Question extends Post {
         }
     }
 
-    public Question(long id, long owner_id, long score, LocalDateTime creation_date, long n_comments, String title, long n_answers){
+    public Question(long id, long owner_id, long score, LocalDateTime creation_date, long n_comments, String title,
+                    long n_answers, String tags){
         super(id, owner_id, score, creation_date, n_comments);
         this.title = title;
         this.n_answers = n_answers;
 
-        this.tags = new ArrayList<>();
+        this.tags = tags;
         this.answers = new HashMap<>();
 
     }
+
 
     public Map<Long,Answer> getAnswers(){
         return answers;
@@ -56,7 +60,7 @@ public class Question extends Post {
         return title;
     }
 
-    public List<String> getTags(){
+    public String getTags(){
         return tags;
     }
 
@@ -84,10 +88,10 @@ public class Question extends Post {
     }
 
     @Override
-    public String toString(){
+    public java.lang.String toString(){
         return "Question{" +
                "answers=" + answers +
-               ", title='" + title + '\'' +
+               ", title=" + title +
                ", tags=" + tags +
                ", n_answers=" + n_answers +
                '}' + super.toString();
