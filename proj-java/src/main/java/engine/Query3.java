@@ -1,8 +1,8 @@
 package engine;
-import common.*;
+
+import common.Pair;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.TreeSet;
 
 public class Query3 {
@@ -11,11 +11,10 @@ public class Query3 {
         TreeSet<Post> posts = com.getPostsBetweenDate(
                 begin.atStartOfDay(),
                 end.atStartOfDay(),
-                null,null, 0);
-        Long a = posts.stream().filter(p -> p instanceof Answer).count();
-        Long q = posts.stream().filter(p -> p instanceof Question).count();
-        Pair<Long,Long> ret = new Pair<>(a,q);
+                null, null, Post.class);
+        Long a = posts.stream().filter(Answer.class::isInstance).count();
+        Long q = posts.stream().filter(Question.class::isInstance).count();
 
-        return ret;
+        return new Pair<>(a, q);
     }
 }

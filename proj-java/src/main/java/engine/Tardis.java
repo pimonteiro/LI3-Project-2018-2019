@@ -1,10 +1,6 @@
 package engine;
 
 
-import com.sun.xml.internal.bind.v2.util.CollisionCheckStack;
-import sun.reflect.generics.tree.Tree;
-
-import javax.transaction.TransactionRequiredException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -42,8 +38,8 @@ public class Tardis {
     // 0 - Questions and Answers
     // 1 - Questions
     // 2 - Answers
-    public TreeSet<? extends Post> getBetweenBy(LocalDateTime start, LocalDateTime end, Comparator<Answer> an,
-                                      Comparator<Question> ques, int type){
+    public  <E extends Post> TreeSet<E> getBetweenBy(LocalDateTime start, LocalDateTime end, Comparator<Answer> an,
+                                                Comparator<Question> ques, Class<E> type){
 
 
         long index_ano_inicio = start.getYear() - 2008;
@@ -56,7 +52,22 @@ public class Tardis {
         long mes_fim = end.getMonthValue() - 1;
         long index_mes_fim = (dia_fim) + (31 * (mes_fim));
 
-        List<Post> tmp = new ArrayList<>();
+
+        List<Post> tmp = this.posts.entrySet()
+                                   .stream()
+                                   .filter(f -> f.getKey() >= index_ano_inicio && f.getKey() <= index_ano_fim)
+                                   .map(Map.Entry::getValue)
+                                   .flatMap(f -> f.entrySet()
+                                                  .stream()
+                                                  .filter(sf -> sf.getKey() >= index_mes_inicio
+                                                                && sf.getKey() <= index_mes_fim)
+                                                  .map(Map.Entry::getValue)
+                                                  .flatMap(Collection::stream)
+
+                                   ).collect(Collectors.toList());
+
+
+      /*  List<Post> tmp = new ArrayList<>();
 
         Map<Long,List<Post>> anos = this.posts.get(index_ano_inicio);
         while(index_ano_inicio <= index_ano_fim){
@@ -78,22 +89,29 @@ public class Tardis {
             anos = this.posts.get(++index_ano_inicio);
         }
 
-        if(type == 1){
+        */
+        if(type == Question.class){
             TreeSet<Question> returnQuestion = new TreeSet<>(ques);
-            List<Question> lq = tmp.stream().filter(Question.class::isInstance).map(Question.class::cast).collect(Collectors.toList());
+            List<Question> lq = tmp.stream()
+                                   .filter(Question.class::isInstance)
+                                   .map(Question.class::cast)
+                                   .collect(Collectors.toList());
             returnQuestion.addAll(lq);
-            return returnQuestion;
+            return (TreeSet<E>)returnQuestion;
 
         }
-        if(type == 2){
-            TreeSet<Answer> returnAnswer= new TreeSet<>(an);
-            List<Answer> la = tmp.stream().filter(Answer.class::isInstance).map(Answer.class::cast).collect(Collectors.toList());
+        if(type == Answer.class){
+            TreeSet<Answer> returnAnswer = new TreeSet<>(an);
+            List<Answer> la = tmp.stream()
+                                 .filter(Answer.class::isInstance)
+                                 .map(Answer.class::cast)
+                                 .collect(Collectors.toList());
             returnAnswer.addAll(la);
-            return returnAnswer;
+            return (TreeSet<E>) returnAnswer;
         }
 
-        if(type == 0){
-            return new TreeSet<>(tmp);
+        if(type == Post.class){
+            return  (TreeSet<E>) new TreeSet<Post>(tmp);
         }
         return null;
 

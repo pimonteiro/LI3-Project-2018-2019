@@ -41,7 +41,9 @@ public abstract class Post implements Comparable<Post> {
         return this.score;
     }
 
-    public long getN_comments() { return this.n_comments; }
+    public long getN_comments(){
+        return this.n_comments;
+    }
 
     public LocalDateTime getCreation_date(){
         return this.creation_date;

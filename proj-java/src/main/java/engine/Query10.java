@@ -16,7 +16,10 @@ public class Query10 {
     }
 
 
-    public static long betterAnswer(Main_Struct com, long id) throws NoPostFoundException, PostIsNotOfRightTypeException, NoProfileFoundException{
+    public static long betterAnswer(Main_Struct com, long id) throws
+                                                              NoPostFoundException,
+                                                              PostIsNotOfRightTypeException,
+                                                              NoProfileFoundException{
         Post p = com.getPost(id);
         if(p instanceof Answer){
             throw new PostIsNotOfRightTypeException("Post não é uma pergunta");
