@@ -16,7 +16,7 @@ import java.util.List;
 
 public class TCDCommunity implements TADCommunity {
 
-    private MyLog qelog;
+    //private MyLog qelog;
     private Main_Struct data;
 
     /*
@@ -26,7 +26,9 @@ public class TCDCommunity implements TADCommunity {
     */
 
     public void load(String dumpPath) {
-        File inputFile = new File(dumpPath);
+        this.data = SaxParser.multParse(dumpPath);
+
+        /*File inputFile = new File(dumpPath);
         try {
 
         DocumentBuilderFactory dbFactory
@@ -44,7 +46,7 @@ public class TCDCommunity implements TADCommunity {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     // Query 1
@@ -103,22 +105,13 @@ public class TCDCommunity implements TADCommunity {
     }
 
     // Query 9
-    public List<Long> bothParticipated(int N, long id1, long id2){
-        try {
-            return Query9.bothParticipated(data, N, id1, id2);
-        }
-        catch (NoProfileFoundException e){
-            System.out.println("No profile found" + e.getMessage());
-        }
-        catch (NoPostFoundException e){
-            System.out.println("No post found" + e.getMessage());
-        }
-        return null;
+    public List<Long> bothParticipated(int N, long id1, long id2) throws NoProfileFoundException, NoPostFoundException{
+        return Query9.bothParticipated(data, N, id1, id2);
         //return Arrays.asList(594L);
     }
 
     // Query 10
-    public long betterAnswer(long id) {
+    public long betterAnswer(long id) throws NoProfileFoundException, NoPostFoundException, PostIsNotOfRightTypeException{
         return Query10.betterAnswer(this.data, id);
         //return 175891;
     }

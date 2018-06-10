@@ -3,6 +3,7 @@ package engine;
 import common.PostCreationDateComparator;
 import sun.reflect.generics.tree.Tree;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -60,7 +61,7 @@ public class Profile {
         Iterator<Post> it = this.posts.iterator();
         boolean flag = false;
         while(it.hasNext() && !flag){
-            Post p = (Post) it.next();
+            Post p = it.next();
             if(ret.size() < N) ret.add(p.clone());
             if(ret.size() == N) flag = true;
         }

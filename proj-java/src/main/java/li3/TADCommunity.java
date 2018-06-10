@@ -6,6 +6,7 @@ import java.util.List;
 import common.NoPostFoundException;
 import common.NoProfileFoundException;
 import common.Pair;
+import common.PostIsNotOfRightTypeException;
 
 public interface TADCommunity {
     public void load(String dumpPath);
@@ -35,10 +36,10 @@ public interface TADCommunity {
     public List<Long> containsWord(int N, String word);
 
     // Query 9
-    public List<Long> bothParticipated(int N, long id1, long id2);
+    public List<Long> bothParticipated(int N, long id1, long id2) throws NoProfileFoundException, NoPostFoundException;
 
     // Query 10
-    public long betterAnswer(long id);
+    public long betterAnswer(long id) throws NoProfileFoundException, NoPostFoundException, PostIsNotOfRightTypeException;
 
     // Query 11
     public List<Long> mostUsedBestRep(int N, LocalDate begin, LocalDate end);
