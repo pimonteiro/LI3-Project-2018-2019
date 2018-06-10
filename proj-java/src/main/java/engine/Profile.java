@@ -3,11 +3,10 @@ package engine;
 import common.PostCreationDateComparator;
 import sun.reflect.generics.tree.Tree;
 
-import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Profile{
+public class Profile {
 
     private TreeSet<Post> posts;
     private String about_me;
@@ -138,5 +137,9 @@ public class Profile{
         return "Name: " + this.name + "AboutMe: " + this.about_me +
                "N_Posts: " + this.n_posts + "Reputation: " + this.reputation +
                "ID: " + this.id;
+    }
+
+    public void addPost(Post a){
+        this.posts.add(a);
     }
 }
