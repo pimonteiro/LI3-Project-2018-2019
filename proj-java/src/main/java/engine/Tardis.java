@@ -1,10 +1,8 @@
 package engine;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class Tardis {
 
@@ -63,6 +61,13 @@ public class Tardis {
         }
 
 
+    }
+
+    // 0 - Questions and Answers
+    // 1 - Questions
+    // 2 - Answers
+    public TreeSet<Post> getBetweenBy(LocalDateTime start, LocalDateTime end, Comparator<Answer> an, Comparator<Question> ques, int type){
+        return null;
     }
 
 
