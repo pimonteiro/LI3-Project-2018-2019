@@ -56,7 +56,7 @@ public class Main_Struct {
         return ret;
     }
 
-    public TreeSet<Post> getPostsBetweenDate(LocalDateTime start, LocalDateTime end, Comparator<Answer> an, Comparator<Question> ques, int type){
+    public TreeSet<? extends Post> getPostsBetweenDate(LocalDateTime start, LocalDateTime end, Comparator<Answer> an, Comparator<Question> ques, int type){
         return this.tardis64.getBetweenBy(start, end, an, ques, type);
     }
 
@@ -93,14 +93,28 @@ public class Main_Struct {
         if(!this.posts.containsKey(a.getId()))
             this.posts.put(a.getId(), a);
 
-        // TODO INSERT TARDIS; INSERT IN QUESTION; INSERT USER
+        tardis64.insert(a);
+
+        Question q = (Question) this.posts.get(a.getParent_id());
+        if(q != null)
+            q.addAnswer(a);
+
+        Profile p = this.profiles.get(a.getOwner_id());
+        if(p != null)
+            p.addPost(a);
+
     }
 
     public void addQuestion(Question q){
         if(!this.posts.containsKey(q.getId()))
             this.posts.put(q.getId(), q);
 
-        // TODO INSERT IN USER
+        tardis64.insert(q);
+
+        Profile p = this.profiles.get(q.getOwner_id());
+        if(p != null)
+            p.addPost(q);
+
     }
 
     public void addTag(long id, String s){
