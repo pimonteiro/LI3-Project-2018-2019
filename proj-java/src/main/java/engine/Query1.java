@@ -4,7 +4,7 @@ import common.*;
 
 public class Query1 {
 
-    private Pair<String,String> get_info_from_post(Main_Struct com, Question q) throws NoProfileFoundException {
+    private static Pair<String,String> get_info_from_post(Main_Struct com, Question q) throws NoProfileFoundException {
         String titulo = q.getTitle();
         String name;
 
@@ -16,7 +16,7 @@ public class Query1 {
 
     }
 
-    public Pair<String,String> info_from_post(Main_Struct com, long id) throws NoPostFoundException, NoProfileFoundException {
+    public static Pair<String,String> info_from_post(Main_Struct com, long id) throws NoPostFoundException, NoProfileFoundException {
         Post p = com.getPost(id);
         Pair<String,String> ret;
         if(p instanceof Question){

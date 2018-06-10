@@ -49,30 +49,30 @@ public class TCDCommunity implements TADCommunity {
 
     // Query 1
     public Pair<String,String> infoFromPost(long id) throws NoPostFoundException, NoProfileFoundException {
-        return new Query1().info_from_post(this.data, id);
+        return Query1.info_from_post(this.data, id);
         //return new Pair<>("What are the actual risks of giving www-data sudo nopasswd access?", "WebNinja");
     }
 
     // Query 2
     public List<Long> topMostActive(int N) {
-        return new Query2().top_most_active(this.data, N);
+        return Query2.top_most_active(this.data, N);
         //return Arrays.asList(15811L,449L,158442L,167850L,367165L,295286L,59676L,93977L,35795L,3940L);
     }
 
     // Query 3
     public Pair<Long,Long> totalPosts(LocalDate begin, LocalDate end) {
-        //return Query3.totalPosts(this.data, begin, end);
-        return new Pair<>(3667L,4102L);
+        return Query3.totalPosts(this.data, begin, end);
+        //return new Pair<>(3667L,4102L);
     }
 
     // Query 4
     public List<Long> questionsWithTag(String tag, LocalDate begin, LocalDate end) {
-        //return Query4.questions_with_tag(this.data, tag, begin, end);
-        return Arrays.asList(276174L,276029L,274462L,274324L,274316L,274141L,274100L,272937L,
-                272813L,272754L,272666L,272565L,272450L,272313L,271816L,271683L,271647L,270853L,270608L,270528L,270488L,
-                270188L,270014L,269876L,269781L,269095L,268501L,268155L,267746L,267656L,267625L,266742L,266335L,266016L,
-                265531L,265483L,265443L,265347L,265104L,265067L,265028L,264764L,264762L,264616L,264525L,264292L,263816L,
-                263740L,263460L,263405L,263378L,263253L,262733L,262574L);
+        return Query4.questions_with_tag(this.data, tag, begin, end);
+        //return Arrays.asList(276174L,276029L,274462L,274324L,274316L,274141L,274100L,272937L,
+        //       272813L,272754L,272666L,272565L,272450L,272313L,271816L,271683L,271647L,270853L,270608L,270528L,270488L,
+        //       270188L,270014L,269876L,269781L,269095L,268501L,268155L,267746L,267656L,267625L,266742L,266335L,266016L,
+        //        265531L,265483L,265443L,265347L,265104L,265067L,265028L,264764L,264762L,264616L,264525L,264292L,263816L,
+        //        263740L,263460L,263405L,263378L,263253L,262733L,262574L);
     }
 
     // Query 5
@@ -98,7 +98,8 @@ public class TCDCommunity implements TADCommunity {
 
     // Query 8
     public List<Long> containsWord(int N, String word) {
-        return Arrays.asList(980835L,979082L,974117L,974105L,973832L,971812L,971056L,968451L,964999L,962770L);
+        return Query8.containsWord(this.data, N, word);
+        //return Arrays.asList(980835L,979082L,974117L,974105L,973832L,971812L,971056L,968451L,964999L,962770L);
     }
 
     // Query 9

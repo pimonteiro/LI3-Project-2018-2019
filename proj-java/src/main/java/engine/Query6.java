@@ -1,7 +1,6 @@
 package engine;
 
 import common.AnwserScoreComparator;
-import common.DateToLocalDate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,10 +10,10 @@ import java.util.TreeSet;
 
 public class Query6 {
 
-    public List<Long> mostVotedAnswers(Main_Struct com, int N, LocalDate begin, LocalDate end) {
+    public static List<Long> mostVotedAnswers(Main_Struct com, int N, LocalDate begin, LocalDate end) {
         TreeSet<Post> seq = com.getPostsBetweenDate(
-                DateToLocalDate.dateToLocalDateTime(begin),
-                DateToLocalDate.dateToLocalDateTime(end),
+                begin.atStartOfDay(),
+                end.atStartOfDay(),
                 new AnwserScoreComparator(),
                 null,
                 1);

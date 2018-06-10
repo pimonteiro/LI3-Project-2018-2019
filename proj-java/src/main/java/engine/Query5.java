@@ -10,7 +10,7 @@ import common.*;
 
 public class Query5 {
 
-    public Pair<String, List<Long>> get_user_info(Main_Struct com, long id) throws NoProfileFoundException {
+    public static Pair<String, List<Long>> get_user_info(Main_Struct com, long id) throws NoProfileFoundException {
         Profile p = com.getProfile(id);
         BoundedTreeSet<Post> post_history = p.getPosts();
         StringBuilder aboutme = new StringBuilder();
@@ -20,7 +20,7 @@ public class Query5 {
         return new Pair<>(aboutme.toString(), pts);
     }
 
-/*    public Pair<String, List<Long>> get_user_info(Main_Struct com, long id) throws NoProfileFoundException {
+/*    public static Pair<String, List<Long>> get_user_info(Main_Struct com, long id) throws NoProfileFoundException {
         Profile p = com.getProfile(id);
         BoundedTreeSet<Post> post_history = p.getPosts();
         StringBuilder aboutme = new StringBuilder();

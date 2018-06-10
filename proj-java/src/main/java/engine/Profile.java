@@ -1,6 +1,7 @@
 package engine;
 
 import common.BoundedTreeSet;
+import common.PostCreationDateComparator;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -32,7 +33,7 @@ public class Profile{
     }
 
     public Profile(){
-        this.posts = new BoundedTreeSet<>(10);
+        this.posts = new TreeSet<>(new PostCreationDateComparator());
         this.about_me = "";
         this.name = "";
         this.n_posts = 0;
@@ -49,8 +50,8 @@ public class Profile{
         this.reputation = p.getReputation();
     }
 
-    public BoundedTreeSet<Post> getPosts(){
-        BoundedTreeSet<Post> ret = new BoundedTreeSet<>(10);
+    public TreeSet<Post> getPosts(){
+        TreeSet<Post> ret = new TreeSet<>();
         this.posts.forEach(p -> ret.add(p.clone()));
         return ret;
     }
@@ -75,9 +76,10 @@ public class Profile{
         return this.reputation;
     }
 
+    //TODO funciona?
     public void setPosts(Set<Post> posts){
-        this.posts = new TreeSet<>();
-        posts.stream().forEach(p -> this.posts.add(p.clone()));
+        this.posts = new TreeSet<>(new PostCreationDateComparator());
+        posts.forEach(p -> this.posts.add(p.clone()));
     }
 
     public void setAbout_me(String about_me){

@@ -1,16 +1,16 @@
 package engine;
 
-import common.DateToLocalDate;
 import common.QuestionCreationDateComparator;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Query4 {
-    public List<Long> questions_with_tag(Main_Struct com, String tag, Date begin, Date end){
+    public static List<Long> questions_with_tag(Main_Struct com, String tag, LocalDate begin, LocalDate end){
         TreeSet<Post> seq = com.getPostsBetweenDate(
-                DateToLocalDate.dateToLocalDateTime(begin),
-                DateToLocalDate.dateToLocalDateTime(end),
+                begin.atStartOfDay(),
+                end.atStartOfDay(),
                 null, new QuestionCreationDateComparator(), 1);
         if(seq.isEmpty()) return new ArrayList<>();
 
@@ -20,7 +20,7 @@ public class Query4 {
     }
 
 /*
-    public List<Long> questions_with_tag(Main_Struct com, String tag, Date begin, Date end){
+    public static List<Long> questions_with_tag(Main_Struct com, String tag, Date begin, Date end){
         TreeSet<Question> seq = new TreeSet<>(); //A mudar no futuro
         if(seq.isEmpty()) return new ArrayList<>();
 
