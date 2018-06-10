@@ -9,7 +9,7 @@ public class Tardis {
     // TODO First draft
 
     private Map<Long,Map<Long,List<Question>>> questions;
-    private Map<Long,Map<Long,List<Answer>>> answer;
+    private Map<Long,Map<Long,List<engine.Answer>>> answer;
 
     public Tardis(){
         this.questions = new HashMap<>();
@@ -67,7 +67,17 @@ public class Tardis {
     // 1 - Questions
     // 2 - Answers
     public TreeSet<Post> getBetweenBy(LocalDateTime start, LocalDateTime end, Comparator<Answer> an, Comparator<Question> ques, int type){
-        return null;
+        long index_ano_inicio = start.getYear() - 2008;
+        long mes_inicio = start.getMonthValue() -1;
+        long dia_inicio = start.getDayOfMonth() -1;
+        long index_mes_inicio = ((dia_inicio) + (31*(mes_inicio)));
+
+        long index_ano_fim = end.getYear() - 2008;
+        long dia_fim = end.getDayOfMonth() - 1;
+        long mes_fim = end.getMonthValue() - 1;
+        long index_mes_fim = (dia_fim) + (31*(mes_fim));
+
+
     }
 
 
