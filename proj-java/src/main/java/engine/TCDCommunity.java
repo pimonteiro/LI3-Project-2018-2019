@@ -103,13 +103,24 @@ public class TCDCommunity implements TADCommunity {
     }
 
     // Query 9
-    public List<Long> bothParticipated(int N, long id1, long id2) {
-        return Arrays.asList(594L);
+    public List<Long> bothParticipated(int N, long id1, long id2){
+        try {
+            return Query9.bothParticipated(data, N, id1, id2);
+        }
+        catch (NoProfileFoundException e){
+            System.out.println("No profile found" + e.getMessage());
+        }
+        catch (NoPostFoundException e){
+            System.out.println("No post found" + e.getMessage());
+        }
+        return null;
+        //return Arrays.asList(594L);
     }
 
     // Query 10
     public long betterAnswer(long id) {
-        return 175891;
+        return Query10.betterAnswer(this.data, id);
+        //return 175891;
     }
 
     // Query 11

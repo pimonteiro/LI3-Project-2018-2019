@@ -1,7 +1,7 @@
 package engine;
 
-import common.BoundedTreeSet;
 import common.PostCreationDateComparator;
+import sun.reflect.generics.tree.Tree;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -53,6 +53,19 @@ public class Profile{
     public TreeSet<Post> getPosts(){
         TreeSet<Post> ret = new TreeSet<>();
         this.posts.forEach(p -> ret.add(p.clone()));
+        return ret;
+    }
+
+    public TreeSet<Post> getPosts(int N){
+        TreeSet<Post> ret = new TreeSet<>();
+        Iterator<Post> it = this.posts.iterator();
+        boolean flag = false;
+        while(it.hasNext() && !flag){
+            Post p = (Post) it.next();
+            if(ret.size() < N) ret.add(p.clone());
+            if(ret.size() == N) flag = true;
+        }
+
         return ret;
     }
 

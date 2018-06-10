@@ -1,15 +1,19 @@
 package engine;
 
+import common.NoPostFoundException;
 import common.NoProfileFoundException;
+import common.PostCreationDateComparator;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Query9 {
 
-    public static List<Long> bothParticipated(Main_Struct com, int N, long id1, long id2) throws NoProfileFoundException{
+    private static void insert_post_ordered(TreeSet<Post> seq, Post q){
+        if(!seq.contains(q)) seq.add(q);
+    }
+
+    public static List<Long> bothParticipated(Main_Struct com, int N, long id1, long id2) throws NoProfileFoundException, NoPostFoundException{
         Profile p1 = com.getProfile(id1);
         if(p1.getN_posts() == 0) return new ArrayList<>();
         Profile p2 = com.getProfile(id2);
@@ -18,7 +22,32 @@ public class Query9 {
         TreeSet<Post> posts = p1.getPosts();
         Iterator<Post> it = posts.iterator();
 
-        return null;
+        TreeSet<Post> ret = new TreeSet<>(new PostCreationDateComparator());
 
+        while(it.hasNext()){
+            Post p = (Post) it.next();
+            Question q;
+            if(p instanceof Answer){
+                Answer a = (Answer) p;
+                q = (Question) com.getPost(a.getParent_id());
+                if(q.getOwner_id() == id2){
+                    insert_post_ordered(ret, q);
+                    continue; //Continua pois se há já algo em comum, nao vale a pena verificar mais
+                }
+            }
+            else{
+                q = (Question) p;
+            }
+
+            //Answers de uma Question
+            Map<Long,Answer> answers = q.getAnswers();
+            for(Answer a : answers.values()) {
+                if (a.getOwner_id() == id2) { //Adiciona apenas a Pergunta
+                    insert_post_ordered(ret, com.getPost(a.getParent_id()));
+                    continue; //Continua pois é inutil verificar as outras respostas, os utilizadores ja tem este Post em comum
+                }
+            }
+        }
+        return ret.stream().map(p -> p.getId()).limit(N).collect(Collectors.toList());
     }
 }
