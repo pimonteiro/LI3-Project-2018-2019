@@ -15,12 +15,12 @@ public class Query2 {
         TreeSet<Profile> ret = new TreeSet<>(new ProfileNPostsComparator());
 
         Iterator<Profile> it = profiles.values().iterator();
-        int i = 0;
-        while (it.hasNext() && i < N) {
+        while (it.hasNext()) {
             Profile q = it.next();
             ret.add(q);
-            i++;
         }
-        return ret.stream().map(p -> p.getId()).collect(Collectors.toList());
+        return ret.stream().map(p -> p.getId())
+                .limit(N)
+                .collect(Collectors.toList());
     }
 }
