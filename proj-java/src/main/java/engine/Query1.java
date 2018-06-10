@@ -19,7 +19,7 @@ public class Query1 {
     public Pair<String,String> info_from_post(Main_Struct com, long id) throws NoPostFoundException, NoProfileFoundException {
         Post p = com.getPost(id);
         Pair<String,String> ret;
-        if(p.getType() == 1){
+        if(p instanceof Question){
             ret = get_info_from_post(com, (Question) p);
         }else{
             long parent_id = ((Answer) p).getParent_id();

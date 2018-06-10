@@ -4,7 +4,10 @@ import common.NoPostFoundException;
 import common.NoProfileFoundException;
 import common.NoTagFoundException;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.TreeSet;
 
 public class Main_Struct {
 
@@ -51,6 +54,10 @@ public class Main_Struct {
             ret.put(s, this.tags.get(s));
         }
         return ret;
+    }
+
+    public TreeSet<Post> getPostsBetweenDate(LocalDateTime start, LocalDateTime end, Comparator<Answer> an, Comparator<Question> ques, int type){
+        return this.tardis64.getBetweenBy(start, end, an, ques, type);
     }
 
     public Profile getProfile(long id) throws NoProfileFoundException{

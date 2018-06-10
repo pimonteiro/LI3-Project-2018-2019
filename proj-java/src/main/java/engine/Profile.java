@@ -1,5 +1,8 @@
 package engine;
 
+import common.BoundedTreeSet;
+
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -29,7 +32,7 @@ public class Profile{
     }
 
     public Profile(){
-        this.posts = new TreeSet<>();
+        this.posts = new BoundedTreeSet<>(10);
         this.about_me = "";
         this.name = "";
         this.n_posts = 0;
@@ -46,8 +49,8 @@ public class Profile{
         this.reputation = p.getReputation();
     }
 
-    public Set<Post> getPosts(){
-        Set<Post> ret = new TreeSet<>();
+    public BoundedTreeSet<Post> getPosts(){
+        BoundedTreeSet<Post> ret = new BoundedTreeSet<>(10);
         this.posts.forEach(p -> ret.add(p.clone()));
         return ret;
     }
