@@ -16,7 +16,7 @@ public class Query5 {
         StringBuilder aboutme = new StringBuilder();
         aboutme.append(p.getAbout_me());
 
-        List<Long> pts = post_history.stream().map(q -> q.getId()).collect(Collectors.toList());
+        List<Long> pts = post_history.stream().map(Post::getId).collect(Collectors.toList());
         return new Pair<>(aboutme.toString(), pts);
     }
 

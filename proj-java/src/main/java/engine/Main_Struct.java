@@ -56,7 +56,8 @@ public class Main_Struct {
         return ret;
     }
 
-    public TreeSet<? extends Post> getPostsBetweenDate(LocalDateTime start, LocalDateTime end, Comparator<Answer> an, Comparator<Question> ques, int type){
+    public <T extends Post> TreeSet<T> getPostsBetweenDate(LocalDateTime start, LocalDateTime end, Comparator<Answer> an,
+                                             Comparator<Question> ques, Class<T> type){
         return this.tardis64.getBetweenBy(start, end, an, ques, type);
     }
 

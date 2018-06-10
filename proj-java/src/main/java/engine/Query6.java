@@ -10,21 +10,21 @@ import java.util.TreeSet;
 
 public class Query6 {
 
-    public static List<Long> mostVotedAnswers(Main_Struct com, int N, LocalDate begin, LocalDate end) {
-        TreeSet<Post> seq = com.getPostsBetweenDate(
+    public static List<Long> mostVotedAnswers(Main_Struct com, int N, LocalDate begin, LocalDate end){
+        TreeSet<Answer> seq = com.getPostsBetweenDate(
                 begin.atStartOfDay(),
                 end.atStartOfDay(),
                 new AnwserScoreComparator(),
                 null,
-                1);
+                Answer.class);
 
         if(seq.size() == 0) return new ArrayList<>();
 
         int i = 0;
         List<Long> ret = new ArrayList<>();
-        Iterator<Post> it = seq.iterator();
+        Iterator<Answer> it = seq.iterator();
         while(it.hasNext() && i < N){
-            Answer a = (Answer) it.next();
+            Answer a = it.next();
             ret.add(a.getId());
             i++;
         }

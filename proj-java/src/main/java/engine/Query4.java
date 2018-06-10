@@ -3,20 +3,24 @@ package engine;
 import common.QuestionCreationDateComparator;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Query4 {
+
     public static List<Long> questions_with_tag(Main_Struct com, String tag, LocalDate begin, LocalDate end){
-        TreeSet<Post> seq = com.getPostsBetweenDate(
+        TreeSet<Question> seq = com.getPostsBetweenDate(
                 begin.atStartOfDay(),
                 end.atStartOfDay(),
-                null, new QuestionCreationDateComparator(), 1);
+                null, new QuestionCreationDateComparator(), Question.class);
         if(seq.isEmpty()) return new ArrayList<>();
 
-        List<Long> ret = seq.stream().filter(q -> ((Question)q).getTags().contains(tag)).map(q -> q.getId()).collect(Collectors.toList());
-
-        return ret;
+        return seq.stream()
+                  .filter(q -> q.getTags().contains(tag))
+                  .map(Post::getId)
+                  .collect(Collectors.toList());
     }
 
 /*
