@@ -67,6 +67,7 @@ public class TCDCommunity implements TADCommunity {
 
     // Query 4
     public List<Long> questionsWithTag(String tag, LocalDate begin, LocalDate end) {
+        return Query4.
         return Arrays.asList(276174L,276029L,274462L,274324L,274316L,274141L,274100L,272937L,
                 272813L,272754L,272666L,272565L,272450L,272313L,271816L,271683L,271647L,270853L,270608L,270528L,270488L,
                 270188L,270014L,269876L,269781L,269095L,268501L,268155L,267746L,267656L,267625L,266742L,266335L,266016L,

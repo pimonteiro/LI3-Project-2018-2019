@@ -1,5 +1,6 @@
 package engine;
 
+import java.util.List;
 import java.util.TreeSet;
 import common.*;
 
@@ -12,6 +13,6 @@ public class Query5 {
         StringBuilder aboutme = new StringBuilder();
         aboutme.append(p.getAbout_me());
 
-        //TODO Get 10 latest posts
+        List<Long> pts = p.getPosts().stream().map()
     }
 }
