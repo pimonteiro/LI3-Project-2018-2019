@@ -32,7 +32,6 @@ public class Query11 {
                           .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                           .entrySet()
                           .stream()
-                          .map(f -> new AbstractMap.SimpleEntry<>(f.))
                           .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
                           .limit(N)
                           .map(Map.Entry::getKey)
