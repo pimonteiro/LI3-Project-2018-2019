@@ -99,14 +99,6 @@ Abordaremos a estrutura utilizada,soluções alternativas e os diferentes caminh
 
 Como o parse usado na primeira fase existe por \textit{default} em \textit{Java}, escolheu-se mais uma vez utilizar o parser do tipo \textit{SAX}.
 É do notar a diferença entre a impletação em \textit{C} e em \textit{Java}. Utilizando uma implementação análoga do projecto original, o tempo de load aumentou cerca de \textbf{6 milisegundos}.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Modularidade}
-????????????????????????????????????????????????????????????????????????????????
-
-A estrutura do \textit{package} engine tem o seguinte diagrama:
-
-?????????????????????????????????????????????????????????????????????????????????
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -145,8 +137,7 @@ Nesta foram implementados apenas os métodos básicos (construtores, gets, sets,
 \subsection{POST, QUESTION, ANSWER}
 
 A Class Post é uma Class Abstracta de onde duas classes extendem: Question e Answer.
-Foi utilizada uma class Abstrata para podermos tratar destas duas subclasses como se fossem
-"do mesmo tipo", facilitando assim o uso destas.
+Foi utilizada uma class Abstrata para podermos tratar destas duas subclasses como se fossem "do mesmo tipo", facilitando assim o uso destas.
 
 \begin{lstlisting}
 public abstract class Post implements Comparable<Post> {
@@ -273,7 +264,7 @@ TODO
 
 \section{Conclusão}
 
-Esta segunda fase do projeto deu para aprender como deve ser feito um trabalho em Java onde devemos conseguir o menor tempo de execução.Tal como em C, devem ser implementadas estruturas eficientes,guardar apenas o necessário e não fazer cópias desnecessárias.
+Esta segunda fase do projeto deu para aprender como deve ser feito um trabalho em Java, no entanto o processamento foi mais lento relativamente ao trabalho em C.Também devem ser implementadas estruturas eficientes,guardar apenas o necessário e não fazer cópias desnecessárias.
 \newline
 Em comparação à primeira fase, esta foi mais fácil.Não tivemos que criar tabelas de Hash ou listas ligadas,visto que o Java contém muitas estruturas pré definidas eficientes e relativamente mais fáceis de usar.Também não houve necessidade de libertar memória alocada, visto que o garbage collector faz isso por nós.
 \newline

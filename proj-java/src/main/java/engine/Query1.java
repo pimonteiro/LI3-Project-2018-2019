@@ -30,6 +30,7 @@ public class Query1 {
             Question q = (Question) com.getPost(parent_id);
             ret = get_info_from_post(com, q);
         }
+        System.out.println(ret);
         return ret;
     }
 }
