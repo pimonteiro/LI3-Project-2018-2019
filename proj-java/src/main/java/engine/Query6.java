@@ -3,6 +3,7 @@ package engine;
 import common.Comparators.AnwserScoreComparator;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Query6 {
     public static List<Long> mostVotedAnswers(Main_Struct com, int N, LocalDate begin, LocalDate end){
         TreeSet<? extends Post> seq = com.getPostsBetweenDate(
                 begin.atStartOfDay(),
-                end.atStartOfDay(),
+                end.atTime(LocalTime.MAX),
                 new AnwserScoreComparator(),
                 null,
                 Answer.class);

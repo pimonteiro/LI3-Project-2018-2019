@@ -83,5 +83,11 @@ public abstract class Post implements Comparable<Post> {
     public int compareTo(Post p){
         return this.creation_date.compareTo(p.getCreation_date());
     }
+
+    public boolean isBetweenDates(LocalDateTime begin, LocalDateTime end){
+        return this.creation_date.isBefore(end) && this.creation_date.isAfter(begin);
+    }
+
+
 }
 

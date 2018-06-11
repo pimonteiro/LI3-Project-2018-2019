@@ -3,9 +3,17 @@ package engine;
 import common.Exceptions.NoPostFoundException;
 import common.Exceptions.NoProfileFoundException;
 import common.Exceptions.PostIsNotOfRightTypeException;
+import common.MyLog;
 import common.Pair;
 import li3.TADCommunity;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -14,17 +22,18 @@ public class TCDCommunity implements TADCommunity {
 
     //private MyLog qelog;
     private Main_Struct data;
+    private MyLog qelog;
 
-    /*
+
     public void init() {
         this.qelog = new MyLog("queryengine");
     }
-    */
+    
 
     public void load(String dumpPath){
         this.data = SaxParser.multParse(dumpPath);
 
-        /*File inputFile = new File(dumpPath);
+        File inputFile = new File(dumpPath);
         try {
 
         DocumentBuilderFactory dbFactory
@@ -34,15 +43,11 @@ public class TCDCommunity implements TADCommunity {
 
         Document doc = null;
 
-            doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
-        } catch (SAXException e) {
+        doc = dBuilder.parse(inputFile);
+        doc.getDocumentElement().normalize();
+        } catch (SAXException | IOException | ParserConfigurationException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }*/
+        }
     }
 
     // Query 1

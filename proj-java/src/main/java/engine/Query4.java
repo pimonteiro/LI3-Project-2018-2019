@@ -3,6 +3,7 @@ package engine;
 import common.Comparators.QuestionCreationDateComparator;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
@@ -13,7 +14,7 @@ public class Query4 {
     public static List<Long> questions_with_tag(Main_Struct com, String tag, LocalDate begin, LocalDate end){
         TreeSet<? extends Post> seq = com.getPostsBetweenDate(
                 begin.atStartOfDay(),
-                end.atStartOfDay(),
+                end.atTime(LocalTime.MAX),
                 null, new QuestionCreationDateComparator(), Question.class);
         if(seq.isEmpty()) return new ArrayList<>();
 
