@@ -1,4 +1,4 @@
-\documentclass[letterpaper, 10 pt, conference]{IEEEtran}  % Comment this line out
+ss[letterpaper, 10 pt, conference]{IEEEtran}  % Comment this line out
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}                                                         % if you need a4paper
 \usepackage[portuges]{babel}
@@ -89,31 +89,32 @@ Este trabalho prático teve como objectivo replicar o anterior projeto (aplicado
 Neste relatório iremos falar sobre a realização da 2ª fase do trabalho de laboratórios de informática III.
 É semelhante ao trabalho realizado na primeira fase, à exceção que este é feito em \textit{Java}.
 \newline
-O fundamental deste trabalho prático consistiu em converter as estruturas e querys existentes ,construídas no projeto anterior ,em estruturas mais dinâmicas, de mais flexibilidade e portabilidade, assim como melhoras de desempenho por parte de \textit{features} existentes na linguagem de programação Java.
+O fundamental deste trabalho prático consistiu em converter as estruturas e querys existentes, construídas no projeto anterior, utilizando as \textit{Java Collections} que possuem uma maior flexibilidade e portabilidade.
 \newline
-Abordaremos a estrutura utilizada, a maneira como chegamos à solução e os diferentes caminhos que percorremos para tentar minimizar o tempo de execução, bem como as dificuldades que foram surgindo.
+Abordaremos a estrutura utilizada,soluções alternativas e os diferentes caminhos que percorremos para tentar minimizar o tempo de execução, bem como as dificuldades que foram surgindo.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Parser}
 
-Como o parse usado na primeira fase foi desenvolvido para \textit{Java},escolheu-se mais uma vez utilizar o parser do tipo \textit{SAX}. Este parser é orientado a eventos e recomendado pela documentação do \textit{libxml} para dar parse a grandes ficheiros.
-
+Como o parse usado na primeira fase existe por \textit{default} em \textit{Java}, escolheu-se mais uma vez utilizar o parser do tipo \textit{SAX}.
+É do notar a diferença entre a impletação em \textit{C} e em \textit{Java}. Utilizando uma implementação análoga do projecto original, o tempo de load aumentou cerca de \textbf{6 milisegundos}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Modularidade}
+????????????????????????????????????????????????????????????????????????????????
+
 A estrutura do \textit{package} engine tem o seguinte diagrama:
 
-
+?????????????????????????????????????????????????????????????????????????????????
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Classes e Estrutura}
 
 \subsection{MAIN STRUCT}
-Tal como no projeto em C, a estrutura principal é constituida por 3 HashMaps, uma para os perfis, outra para posts e outra para tags, e ainda a reformulado Tardis que contem os posts todos organizados pelo critério \textit{x}.
+À semelhança do projeto em \textit{C}, a estrutura principal é constituida por 3 \textit{HashMaps}, uma para os perfis, outra para posts e outra para tags, e pela \textit{Tardis} que permite reaver os \textit{Posts} organizados por qualquer critéri.
 \newline
-Temos assim as seguintes variáveis de instância:
 \begin{lstlisting}
 private HashMap<Long,Profile> profiles;
 private HashMap<Long,Post> posts;
@@ -330,3 +331,4 @@ Tal como na primeira fase,consideramos que cumprimos os objetivos pretendidos.
 
 %\end{thebibliography}
 \end{document}
+
