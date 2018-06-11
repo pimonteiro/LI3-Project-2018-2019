@@ -11,6 +11,7 @@ public class Query5 {
 
     public static Pair<String,List<Long>> get_user_info(Main_Struct com, long id) throws NoProfileFoundException{
         Profile p = com.getProfile(id);
+
         TreeSet<Post> post_history = p.getPosts(10);
 
         List<Long> pts = post_history.stream().map(Post::getId).collect(Collectors.toList());

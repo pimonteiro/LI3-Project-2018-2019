@@ -79,24 +79,27 @@ public class TCDCommunity implements TADCommunity {
     }
 
     // Query 5
-    public Pair<String,List<Long>> getUserInfo(long id){
-        String shortBio = "<p>Coder. JS, Perl, Python, Basic<br>Books/movies: SF+F.<br>Dead:" +
-                          "dell 9300<br>Dead: dell 1720 as of may 10th 2011.</p>\n" +
-                          "<p>Current system: Acer Aspire 7750G.<br>\n" +
-                          "Works OOTB as of Ubuntu 12.04.<br></p>";
-        List<Long> ids = Arrays.asList(982507L, 982455L, 980877L, 980197L, 980189L, 976713L, 974412L,
-                                       974359L, 973895L, 973838L);
-        return new Pair<>(shortBio, ids);
+    public Pair<String,List<Long>> getUserInfo(long id) throws NoProfileFoundException{
+        return Query5.get_user_info(this.data, id);
+        //String shortBio = "<p>Coder. JS, Perl, Python, Basic<br>Books/movies: SF+F.<br>Dead:" +
+        //                  "dell 9300<br>Dead: dell 1720 as of may 10th 2011.</p>\n" +
+        //                  "<p>Current system: Acer Aspire 7750G.<br>\n" +
+        //                  "Works OOTB as of Ubuntu 12.04.<br></p>";
+        //List<Long> ids = Arrays.asList(982507L, 982455L, 980877L, 980197L, 980189L, 976713L, 974412L,
+        //                               974359L, 973895L, 973838L);
+        //return new Pair<>(shortBio, ids);
     }
 
     // Query 6
     public List<Long> mostVotedAnswers(int N, LocalDate begin, LocalDate end){
-        return Arrays.asList(701775L, 697197L, 694560L, 696641L, 704208L);
+        return Query6.mostVotedAnswers(this.data, N, begin, end);
+        //return Arrays.asList(701775L, 697197L, 694560L, 696641L, 704208L);
     }
 
     // Query 7
     public List<Long> mostAnsweredQuestions(int N, LocalDate begin, LocalDate end){
-        return Arrays.asList(505506L, 508221L, 506510L, 508029L, 506824L, 505581L, 505368L, 509498L, 509283L, 508635L);
+        return Query7.mostAnsweredQuestions(this.data, N, begin, end);
+        //return Arrays.asList(505506L, 508221L, 506510L, 508029L, 506824L, 505581L, 505368L, 509498L, 509283L, 508635L);
     }
 
     // Query 8

@@ -29,7 +29,7 @@ public class Profile {
         this.name = name;
         this.id = id;
         this.reputation = reputation;
-        this.posts = new TreeSet<>();
+        this.posts = new TreeSet<>(new PostCreationDateComparator());
         this.n_posts = 0;
     }
 
@@ -52,13 +52,13 @@ public class Profile {
     }
 
     public TreeSet<Post> getPosts(){
-        TreeSet<Post> ret = new TreeSet<>();
+        TreeSet<Post> ret = new TreeSet<>(new PostCreationDateComparator());
         this.posts.forEach(p -> ret.add(p.clone()));
         return ret;
     }
 
     public TreeSet<Post> getPosts(int N){
-        TreeSet<Post> ret = new TreeSet<>();
+        TreeSet<Post> ret = new TreeSet<>(new PostCreationDateComparator());
         Iterator<Post> it = this.posts.iterator();
         boolean flag = false;
         while(it.hasNext() && !flag){

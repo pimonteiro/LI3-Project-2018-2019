@@ -1,5 +1,7 @@
 package engine;
 
+import common.Comparators.PostCreationDateComparator;
+import common.Comparators.QuestionCreationDateComparator;
 import common.Exceptions.NoPostFoundException;
 import common.Exceptions.NoProfileFoundException;
 import common.Exceptions.NoTagFoundException;
@@ -63,6 +65,7 @@ public class Main_Struct {
         return this.posts.values()
                          .stream()
                          .filter(Question.class::isInstance)
+                         .sorted(new PostCreationDateComparator())
                          .map(Question.class::cast)
                          .collect(Collectors.toCollection(TreeSet::new));
     }
@@ -71,6 +74,7 @@ public class Main_Struct {
         return this.posts.values()
                          .stream()
                          .filter(Answer.class::isInstance)
+                         .sorted(new PostCreationDateComparator())
                          .map(Answer.class::cast)
                          .collect(Collectors.toCollection(TreeSet::new));
     }

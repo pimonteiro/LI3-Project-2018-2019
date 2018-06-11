@@ -25,7 +25,7 @@ public interface TADCommunity {
     public List<Long> questionsWithTag(String tag, LocalDate begin, LocalDate end);
 
     // Query 5
-    public Pair<String,List<Long>> getUserInfo(long id);
+    public Pair<String,List<Long>> getUserInfo(long id) throws NoProfileFoundException;
 
     // Query 6
     public List<Long> mostVotedAnswers(int N, LocalDate begin, LocalDate end);

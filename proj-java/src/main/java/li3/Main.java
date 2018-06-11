@@ -5,6 +5,7 @@ import common.Exceptions.NoPostFoundException;
 import common.Exceptions.NoProfileFoundException;
 import common.Pair;
 import common.Exceptions.PostIsNotOfRightTypeException;
+import engine.Profile;
 import engine.TCDCommunity;
 
 import java.time.LocalDate;
@@ -92,7 +93,13 @@ public class Main {
         */
 
         before = System.currentTimeMillis();
-        Pair<String, List<Long>> q5 = qe.getUserInfo(15811);
+        Pair<String, List<Long>> q5 = null;
+        try{
+            q5 = qe.getUserInfo(15811);
+        }
+        catch (NoProfileFoundException e){
+            System.out.println("No user found");
+        }
         after = System.currentTimeMillis();
         logtime.writeLog("Query 5 -> " + (after - before) + " ms");
         log.writeLog("Query 5 -> " + q5);

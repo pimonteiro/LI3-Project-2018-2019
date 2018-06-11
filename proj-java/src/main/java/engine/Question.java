@@ -79,6 +79,13 @@ public class Question extends Post {
         return n_answers;
     }
 
+    public void setAnswers(Map<Long,Answer> ans){
+        this.answers = new HashMap<>();
+        ans.forEach((k,v) -> this.answers.put(k, v.clone()));
+    }
+
+
+
 
     @Override
     public boolean equals(Object o){
