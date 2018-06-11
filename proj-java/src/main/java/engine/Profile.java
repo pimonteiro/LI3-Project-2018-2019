@@ -30,6 +30,7 @@ public class Profile {
         this.id = id;
         this.reputation = reputation;
         this.posts = new TreeSet<>();
+        this.n_posts = 0;
     }
 
     public Profile(){
@@ -143,5 +144,6 @@ public class Profile {
 
     public void addPost(Post a){
         this.posts.add(a);
+        ++(this.n_posts);
     }
 }
