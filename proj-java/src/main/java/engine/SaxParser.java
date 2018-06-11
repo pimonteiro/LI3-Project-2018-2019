@@ -28,16 +28,13 @@ public class SaxParser {
         return "file:" + path;
     }
 
-   /* public static void main(String[] args){
-        Main_Struct s = SaxParser.multParse("/home/herulume/Downloads/ubuntu/");
-    }*/
 
     public static Main_Struct multParse(String path){
         Main_Struct lmao = new Main_Struct();
 
-        SaxParser.parse(path + "Posts.xml", lmao, 0);
-        SaxParser.parse(path + "Users.xml", lmao, 1);
-        SaxParser.parse(path + "Tags.xml", lmao, 2);
+        SaxParser.parse(path + "/Posts.xml", lmao, 0);
+        SaxParser.parse(path + "/Users.xml", lmao, 1);
+        SaxParser.parse(path + "/Tags.xml", lmao, 2);
 
         return lmao;
 

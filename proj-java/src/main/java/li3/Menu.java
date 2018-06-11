@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
+
     private String title;
     private ArrayList<Opcao> linhas;
 

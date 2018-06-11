@@ -1,15 +1,15 @@
 package engine;
 
+import common.Exceptions.NoProfileFoundException;
+import common.Pair;
+
 import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import common.*;
-import common.Exceptions.NoProfileFoundException;
-
 public class Query5 {
 
-    public static Pair<String, List<Long>> get_user_info(Main_Struct com, long id) throws NoProfileFoundException {
+    public static Pair<String,List<Long>> get_user_info(Main_Struct com, long id) throws NoProfileFoundException{
         Profile p = com.getProfile(id);
         TreeSet<Post> post_history = p.getPosts(10);
         StringBuilder aboutme = new StringBuilder();

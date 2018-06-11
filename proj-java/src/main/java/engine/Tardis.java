@@ -38,8 +38,8 @@ public class Tardis {
     // 0 - Questions and Answers
     // 1 - Questions
     // 2 - Answers
-    public  <E extends Post> TreeSet<E> getBetweenBy(LocalDateTime start, LocalDateTime end, Comparator<Answer> an,
-                                                Comparator<Question> ques, Class<E> type){
+    public <E extends Post> TreeSet<E> getBetweenBy(LocalDateTime start, LocalDateTime end, Comparator<Answer> an,
+                                                    Comparator<Question> ques, Class<E> type){
 
 
         long index_ano_inicio = start.getYear() - 2008;
@@ -67,7 +67,35 @@ public class Tardis {
                                    ).collect(Collectors.toList());
 
 
-      /*  List<Post> tmp = new ArrayList<>();
+        if(type == Question.class){
+            TreeSet<Question> returnQuestion = new TreeSet<>(ques);
+            List<Question> lq = tmp.stream()
+                                   .filter(Question.class::isInstance)
+                                   .map(Question.class::cast)
+                                   .collect(Collectors.toList());
+            returnQuestion.addAll(lq);
+            return (TreeSet<E>) returnQuestion;
+
+        }
+        if(type == Answer.class){
+            TreeSet<Answer> returnAnswer = new TreeSet<>(an);
+            List<Answer> la = tmp.stream()
+                                 .filter(Answer.class::isInstance)
+                                 .map(Answer.class::cast)
+                                 .collect(Collectors.toList());
+            returnAnswer.addAll(la);
+            return (TreeSet<E>) returnAnswer;
+        }
+
+        if(type == Post.class){
+            return (TreeSet<E>) new TreeSet<Post>(tmp);
+        }
+        return null;
+
+
+
+
+     /*  List<Post> tmp = new ArrayList<>();
 
         Map<Long,List<Post>> anos = this.posts.get(index_ano_inicio);
         while(index_ano_inicio <= index_ano_fim){
@@ -90,30 +118,6 @@ public class Tardis {
         }
 
         */
-        if(type == Question.class){
-            TreeSet<Question> returnQuestion = new TreeSet<>(ques);
-            List<Question> lq = tmp.stream()
-                                   .filter(Question.class::isInstance)
-                                   .map(Question.class::cast)
-                                   .collect(Collectors.toList());
-            returnQuestion.addAll(lq);
-            return (TreeSet<E>)returnQuestion;
-
-        }
-        if(type == Answer.class){
-            TreeSet<Answer> returnAnswer = new TreeSet<>(an);
-            List<Answer> la = tmp.stream()
-                                 .filter(Answer.class::isInstance)
-                                 .map(Answer.class::cast)
-                                 .collect(Collectors.toList());
-            returnAnswer.addAll(la);
-            return (TreeSet<E>) returnAnswer;
-        }
-
-        if(type == Post.class){
-            return  (TreeSet<E>) new TreeSet<Post>(tmp);
-        }
-        return null;
 
     }
 

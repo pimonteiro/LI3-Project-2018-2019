@@ -1,10 +1,11 @@
 package li3;
 
 //import common.MyLog;
+
 import common.Exceptions.NoPostFoundException;
 import common.Exceptions.NoProfileFoundException;
-import common.Pair;
 import common.Exceptions.PostIsNotOfRightTypeException;
+import common.Pair;
 import engine.TCDCommunity;
 
 import java.time.LocalDate;
@@ -21,7 +22,7 @@ public class Main {
 
         //MyLog log = new MyLog("results");
         //MyLog logtime = new MyLog("times");
-/* -------------------------------------------------------------------------------------------*/
+        /* -------------------------------------------------------------------------------------------*/
 
 
         long before, after;
@@ -31,12 +32,12 @@ public class Main {
             LOAD PHASE
          */
 
-        try {
-        before = System.currentTimeMillis();
-        qe.load(args[0]);
-        after = System.currentTimeMillis();
-        //logtime.writeLog("LOAD -> "+(after-before)+" ms");
-        } catch(IndexOutOfBoundsException e){
+        try{
+            before = System.currentTimeMillis();
+            qe.load(args[0]);
+            after = System.currentTimeMillis();
+            //logtime.writeLog("LOAD -> "+(after-before)+" ms");
+        }catch(IndexOutOfBoundsException e){
             System.out.println("Deve passar o caminho do dump como argumento.");
         }
 /*
@@ -44,13 +45,11 @@ public class Main {
         */
 
         before = System.currentTimeMillis();
-        try {
-            Pair<String, String> q1 = qe.infoFromPost(801049);
-        }
-        catch (NoPostFoundException e){
+        try{
+            Pair<String,String> q1 = qe.infoFromPost(801049);
+        }catch(NoPostFoundException e){
             System.out.println("No Post found." + e.getMessage());
-        }
-        catch (NoProfileFoundException e){
+        }catch(NoProfileFoundException e){
             System.out.println("No Profile found." + e.getMessage());
         }
         after = System.currentTimeMillis();
@@ -70,8 +69,8 @@ public class Main {
         */
 
         before = System.currentTimeMillis();
-        Pair<Long,Long> q3 = qe.totalPosts(LocalDate.of(2016, Month.JULY,1),
-                LocalDate.of(2016,Month.JULY,31));
+        Pair<Long,Long> q3 = qe.totalPosts(LocalDate.of(2016, Month.JULY, 1),
+                                           LocalDate.of(2016, Month.JULY, 31));
         after = System.currentTimeMillis();
         //logtime.writeLog("Query 3 -> "+(after-before)+" ms");
         //log.writeLog("Query 3 -> "+q3);
@@ -81,7 +80,7 @@ public class Main {
 
         before = System.currentTimeMillis();
         List<Long> query4 = qe.questionsWithTag("package-management", LocalDate.of(2013, Month.MARCH, 1),
-                LocalDate.of(2013, Month.MARCH,31));
+                                                LocalDate.of(2013, Month.MARCH, 31));
         after = System.currentTimeMillis();
         //logtime.writeLog("Query 4 -> " + (after - before) + " ms");
         //log.writeLog("Query 4 -> " + query4);
@@ -90,7 +89,7 @@ public class Main {
         */
 
         before = System.currentTimeMillis();
-        Pair<String, List<Long>> q5 = qe.getUserInfo(15811);
+        Pair<String,List<Long>> q5 = qe.getUserInfo(15811);
         after = System.currentTimeMillis();
         //logtime.writeLog("Query 5 -> "+(after-before)+" ms");
         //log.writeLog("Query 5 -> "+q5);
@@ -100,7 +99,7 @@ public class Main {
 
         before = System.currentTimeMillis();
         List<Long> q6 = qe.mostVotedAnswers(5, LocalDate.of(2015, Month.NOVEMBER, 1),
-                LocalDate.of(2015, Month.NOVEMBER,30));
+                                            LocalDate.of(2015, Month.NOVEMBER, 30));
         after = System.currentTimeMillis();
         //logtime.writeLog("Query6 -> " + (after - before) + " ms");
         //log.writeLog("Query6 -> " + q6);
@@ -109,8 +108,8 @@ public class Main {
         */
 
         before = System.currentTimeMillis();
-        List<Long> q7 = qe.mostAnsweredQuestions(10, LocalDate.of(2014,Month.AUGUST,1),
-                LocalDate.of(2014,Month.AUGUST,10));
+        List<Long> q7 = qe.mostAnsweredQuestions(10, LocalDate.of(2014, Month.AUGUST, 1),
+                                                 LocalDate.of(2014, Month.AUGUST, 10));
         after = System.currentTimeMillis();
         //logtime.writeLog("Query 7 -> "+(after-before)+" ms");
         //log.writeLog("Query 7 -> "+q7);
@@ -128,13 +127,11 @@ public class Main {
         */
 
         before = System.currentTimeMillis();
-        try {
+        try{
             List<Long> q9 = qe.bothParticipated(10, 87, 5691);
-        }
-        catch (NoProfileFoundException e){
+        }catch(NoProfileFoundException e){
             System.out.println("No profile found" + e.getMessage());
-        }
-        catch (NoPostFoundException e){
+        }catch(NoPostFoundException e){
             System.out.println("No post found" + e.getMessage());
         }
         after = System.currentTimeMillis();
@@ -145,16 +142,13 @@ public class Main {
         */
 
         before = System.currentTimeMillis();
-        try {
+        try{
             long q10 = qe.betterAnswer(30334);
-        }
-        catch (NoProfileFoundException e){
+        }catch(NoProfileFoundException e){
             System.out.println("No profile found" + e.getMessage());
-        }
-        catch (NoPostFoundException e){
+        }catch(NoPostFoundException e){
             System.out.println("No Post found" + e.getMessage());
-        }
-        catch (PostIsNotOfRightTypeException e){
+        }catch(PostIsNotOfRightTypeException e){
             System.out.println(e.getMessage());
         }
         after = System.currentTimeMillis();
@@ -165,8 +159,8 @@ public class Main {
         */
 
         before = System.currentTimeMillis();
-        List<Long> q11 = qe.mostUsedBestRep(5, LocalDate.of(2013,Month.NOVEMBER,01),
-                LocalDate.of(2013,Month.NOVEMBER,30));
+        List<Long> q11 = qe.mostUsedBestRep(5, LocalDate.of(2013, Month.NOVEMBER, 01),
+                                            LocalDate.of(2013, Month.NOVEMBER, 30));
         after = System.currentTimeMillis();
         //logtime.writeLog("Query 11 -> "+(after-before)+" ms");
         //log.writeLog("Query 11 -> "+q11);

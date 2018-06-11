@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class StackOverflowController {
+
     private StackOverflowView viewTxt;
     private TCDCommunity com;
 
@@ -26,14 +27,14 @@ public class StackOverflowController {
         Menu menu = this.viewTxt.getMenu(0);
         int op;
         Scanner a = new Scanner(System.in);
-        do {
+        do{
             menu.show();
             op = a.nextInt();
-            switch (op){
-                case 1 :
+            switch(op){
+                case 1:
                     flowQuery1();
                     break;
-                case 2 :
+                case 2:
                     flowQuery2();
                     break;
                 case 3:
@@ -48,7 +49,6 @@ public class StackOverflowController {
     }
 
 
-
     private void flowQuery1(){
         System.out.println("QUERY 1 = = = = = Info from Post");
         System.out.println("Post ID:");
@@ -57,12 +57,10 @@ public class StackOverflowController {
         Pair<String,String> ret;
         try{
             ret = com.infoFromPost(id);
-        }
-        catch (NoPostFoundException e){
+        }catch(NoPostFoundException e){
             System.out.println("No Post found with given ID.");
             return;
-        }
-        catch (NoProfileFoundException e) {
+        }catch(NoProfileFoundException e){
             System.out.println("The owner of the given post doesn't exist.");
             return;
         }
@@ -91,11 +89,11 @@ public class StackOverflowController {
 
         System.out.println("Date of begin: (year-month-day");
         String beginS = a.nextLine();
-        LocalDate begin = LocalDate.parse(beginS,formatter);
+        LocalDate begin = LocalDate.parse(beginS, formatter);
 
         System.out.println("Date of end: (year-month-day");
         String endS = a.nextLine();
-        LocalDate end = LocalDate.parse(endS,formatter);
+        LocalDate end = LocalDate.parse(endS, formatter);
 
         Pair<Long,Long> ret = com.totalPosts(begin, end);
         System.out.println("-----Results-----");

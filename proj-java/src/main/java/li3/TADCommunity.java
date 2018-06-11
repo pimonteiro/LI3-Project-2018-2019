@@ -1,18 +1,19 @@
 package li3;
 
+import common.Exceptions.NoPostFoundException;
+import common.Exceptions.NoProfileFoundException;
+import common.Exceptions.PostIsNotOfRightTypeException;
+import common.Pair;
+
 import java.time.LocalDate;
 import java.util.List;
 
-import common.Exceptions.NoPostFoundException;
-import common.Exceptions.NoProfileFoundException;
-import common.Pair;
-import common.Exceptions.PostIsNotOfRightTypeException;
-
 public interface TADCommunity {
+
     public void load(String dumpPath);
 
     // Query 1
-    public Pair<String,String> infoFromPost(long id)  throws NoPostFoundException, NoProfileFoundException;
+    public Pair<String,String> infoFromPost(long id) throws NoPostFoundException, NoProfileFoundException;
 
     // Query 2
     public List<Long> topMostActive(int N);
@@ -24,7 +25,7 @@ public interface TADCommunity {
     public List<Long> questionsWithTag(String tag, LocalDate begin, LocalDate end);
 
     // Query 5
-    public Pair<String, List<Long>> getUserInfo(long id);
+    public Pair<String,List<Long>> getUserInfo(long id);
 
     // Query 6
     public List<Long> mostVotedAnswers(int N, LocalDate begin, LocalDate end);
@@ -39,7 +40,10 @@ public interface TADCommunity {
     public List<Long> bothParticipated(int N, long id1, long id2) throws NoProfileFoundException, NoPostFoundException;
 
     // Query 10
-    public long betterAnswer(long id) throws NoProfileFoundException, NoPostFoundException, PostIsNotOfRightTypeException;
+    public long betterAnswer(long id) throws
+                                      NoProfileFoundException,
+                                      NoPostFoundException,
+                                      PostIsNotOfRightTypeException;
 
     // Query 11
     public List<Long> mostUsedBestRep(int N, LocalDate begin, LocalDate end);

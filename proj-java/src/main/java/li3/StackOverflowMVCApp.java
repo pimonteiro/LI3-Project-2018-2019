@@ -11,7 +11,7 @@ public class StackOverflowMVCApp {
         return new TCDCommunity(); // TODO A preencher com o load
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Scanner in = new Scanner(System.in);
         System.out.println("[1] - Run all Querys\n[2] - Choose the Query");
         int ch = in.nextInt();

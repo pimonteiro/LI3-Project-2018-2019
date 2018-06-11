@@ -1,6 +1,7 @@
 package li3;
 
 public class Opcao {
+
     private String tag;
     private String linha;
 
@@ -14,7 +15,7 @@ public class Opcao {
         this.linha = a.getLinha();
     }
 
-    public String getTag() {
+    public String getTag(){
         return this.tag;
     }
 
