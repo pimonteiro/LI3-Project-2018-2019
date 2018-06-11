@@ -125,7 +125,6 @@ private Tardis tardis64;
 
 Na Class de um Utilizador existem, entre os dados pessoais (nome, bio, ID,reputação) uma TreeSet de Posts
 pertencentes ao utilizador (ordenados naturalmente do mais recente - mais antigo).
-É composta pelas seguintes variáveis:
 
 \begin{lstlisting}
 public class Profile {
@@ -194,21 +193,6 @@ Quanto a excepções, criamos as seguintes:
      \item NoTagFoundException --> Caso um ID nao exista entre as Tags;
      \item PostIsNotOfRightTypeException --> Caso uma query exiga algo sobre um tipo de Post, mas recebe outro.
 \end{itemize}
-
-\section{Conclusão}
-
-Esta segunda fase do projeto deu para aprender como deve ser feito um trabalho em Java onde devemos conseguir o menor tempo de execução.Tal como em C, devem ser implementadas estruturas eficientes,guardar apenas o necessário e não fazer cópias desnecessárias.
-\newline
-Em comparação à primeira fase, esta foi mais fácil.Não tivemos que criar tabelas de Hash ou listas ligadas,visto que o Java contém muitas estruturas pré definidas eficientes e relativamente mais fáceis de usar.Também não houve necessidade de libertar memória alocada, visto que o garbage collector faz isso por nós.
-\newline
-Também podemos aprender a usar streams do Java 8, apesar de serem ligeiramente mais lentas que os iteradores externos,tornam o código mais compacto,facilitando a leitura e o debug.
-\newline
-Tal como na primeira fase,consideramos que cumprimos os objetivos pretendidos.
-
-
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -286,7 +270,15 @@ Para facilitar, criamos um metodo que calcula o score de uma Anwser.
 
 TODO
 
+\section{Conclusão}
 
+Esta segunda fase do projeto deu para aprender como deve ser feito um trabalho em Java onde devemos conseguir o menor tempo de execução.Tal como em C, devem ser implementadas estruturas eficientes,guardar apenas o necessário e não fazer cópias desnecessárias.
+\newline
+Em comparação à primeira fase, esta foi mais fácil.Não tivemos que criar tabelas de Hash ou listas ligadas,visto que o Java contém muitas estruturas pré definidas eficientes e relativamente mais fáceis de usar.Também não houve necessidade de libertar memória alocada, visto que o garbage collector faz isso por nós.
+\newline
+Também podemos aprender a usar streams do Java 8, apesar de serem ligeiramente mais lentas que os iteradores externos,tornam o código mais compacto,facilitando a leitura e o debug.
+\newline
+Tal como na primeira fase,consideramos que cumprimos os objetivos pretendidos.
 
 
 
