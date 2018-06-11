@@ -55,7 +55,7 @@ dkms.conf
 program*
 *.swp
 *main.c
-
+*.txt
 #clion
 .idea/
 *CMakeLists.txt

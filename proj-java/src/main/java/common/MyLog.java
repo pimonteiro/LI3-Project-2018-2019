@@ -1,5 +1,5 @@
 package common;
-/*
+
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
@@ -14,7 +14,7 @@ public class MyLog {
          /*
             LOG CONFIGURATION
 
-
+        */
         this.log = Logger.getLogger(name);
         this.log.setAdditivity(false);
         FileAppender capp = null;
@@ -22,6 +22,7 @@ public class MyLog {
             capp = new FileAppender(new PatternLayout("%m\n"),name+".txt");
         } catch (IOException e1) {
             e1.printStackTrace();
+            return;
         }
         capp.setName(name);
         this.log.removeAllAppenders();
@@ -33,4 +34,3 @@ public class MyLog {
     }
 
 }
-*/
