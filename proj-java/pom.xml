@@ -56,7 +56,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>li3.Main</mainClass>
+                            <mainClass>li3.StackOverflowMVCApp</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
