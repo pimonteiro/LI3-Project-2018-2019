@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class Main_Struct {
 
@@ -56,6 +57,22 @@ public class Main_Struct {
             ret.put(s, this.tags.get(s));
         }
         return ret;
+    }
+
+    public TreeSet<Question> getAllQuestions(){
+        return this.posts.values()
+                         .stream()
+                         .filter(Question.class::isInstance)
+                         .map(Question.class::cast)
+                         .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    public TreeSet<Answer> getAllAnswers(){
+        return this.posts.values()
+                         .stream()
+                         .filter(Answer.class::isInstance)
+                         .map(Answer.class::cast)
+                         .collect(Collectors.toCollection(TreeSet::new));
     }
 
     public TreeSet<Post> getAllPosts(){
