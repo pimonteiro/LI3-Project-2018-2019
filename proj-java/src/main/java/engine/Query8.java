@@ -8,8 +8,8 @@ import java.util.TreeSet;
 public class Query8 {
 
     public static List<Long> containsWord(Main_Struct com, int N, String word){
-        TreeSet<Post> seq = new TreeSet<>();
-        // Sempre True
+        TreeSet<Post> seq = com.getAllPosts();
+        // TODO
         if(seq.isEmpty()) return new ArrayList<>();
 
         List<Long> ret = new ArrayList<>();

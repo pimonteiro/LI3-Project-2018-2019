@@ -59,7 +59,7 @@ program*
 #clion
 .idea/
 *CMakeLists.txt
-
+target/
 
 # Intellij
 .idea/
