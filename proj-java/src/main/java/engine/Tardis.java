@@ -34,6 +34,17 @@ public class Tardis {
         posts.add(tmp);
     }
 
+    public TreeSet<Post> getAll(){
+        return this.posts.entrySet()
+                         .stream()
+                         .map(Map.Entry::getValue)
+                         .flatMap(f -> f.entrySet()
+                                        .stream()
+                                        .map(Map.Entry::getValue)
+                                        .flatMap(Collection::stream)
+
+                         ).collect(Collectors.toCollection(TreeSet::new));
+    }
 
     // 0 - Questions and Answers
     // 1 - Questions
