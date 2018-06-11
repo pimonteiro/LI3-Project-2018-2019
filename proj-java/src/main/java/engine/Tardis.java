@@ -35,20 +35,19 @@ public class Tardis {
     }
 
     public TreeSet<Post> getAll(){
-        return this.posts.entrySet()
+        return this.posts.values()
                          .stream()
-                         .map(Map.Entry::getValue)
-                         .flatMap(f -> f.entrySet()
+                         .flatMap(f -> f.values()
                                         .stream()
-                                        .map(Map.Entry::getValue)
                                         .flatMap(Collection::stream)
 
                          ).collect(Collectors.toCollection(TreeSet::new));
     }
 
 
-    public <E extends Post> TreeSet<? extends Post> getBetweenBy(LocalDateTime start, LocalDateTime end, Comparator<Answer> an,
-                                                    Comparator<Question> ques, Class<E> type){
+    public <E extends Post> TreeSet<? extends Post> getBetweenBy(LocalDateTime start, LocalDateTime end,
+                                                                 Comparator<Answer> an,
+                                                                 Comparator<Question> ques, Class<E> type){
 
 
         long index_ano_inicio = start.getYear() - 2008;
@@ -100,33 +99,6 @@ public class Tardis {
             return new TreeSet<>(tmp);
         }
         return null;
-
-
-
-
-     /*  List<Post> tmp = new ArrayList<>();
-
-        Map<Long,List<Post>> anos = this.posts.get(index_ano_inicio);
-        while(index_ano_inicio <= index_ano_fim){
-            while(dia_inicio + 1 + (mes_inicio + 1) * 31 <= dia_fim + 1 + (mes_fim + 1) * 31){
-                if(anos == null) break;
-                if(anos.containsKey(index_mes_inicio)){
-                    tmp.addAll(anos.get(index_ano_inicio));
-                }
-                if(dia_inicio < 31) ++dia_inicio;
-                if(dia_inicio == 31 && mes_inicio < 11){
-                    ++mes_inicio;
-                    dia_inicio = 0;
-                }
-                index_mes_inicio = dia_inicio + (31 * mes_inicio);
-            }
-            dia_inicio = 0;
-            mes_inicio = 0;
-
-            anos = this.posts.get(++index_ano_inicio);
-        }
-
-        */
 
     }
 

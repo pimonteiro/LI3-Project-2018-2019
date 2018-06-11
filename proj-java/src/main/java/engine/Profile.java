@@ -29,6 +29,7 @@ public class Profile {
         this.name = name;
         this.id = id;
         this.reputation = reputation;
+        this.posts = new TreeSet<>();
     }
 
     public Profile(){

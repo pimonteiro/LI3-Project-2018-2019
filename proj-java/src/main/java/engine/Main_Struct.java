@@ -20,6 +20,7 @@ public class Main_Struct {
         this.profiles = new HashMap<>();
         this.posts = new HashMap<>();
         this.tags = new HashMap<>();
+        this.tardis64 = new Tardis();
     }
 
     public Main_Struct(Main_Struct ms){

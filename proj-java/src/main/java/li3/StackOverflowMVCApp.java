@@ -7,8 +7,10 @@ import java.util.Scanner;
 public class StackOverflowMVCApp {
 
 
-    private static TCDCommunity loadData(){
-        return new TCDCommunity(); // TODO A preencher com o load
+    private static TCDCommunity loadData(String path){
+        TCDCommunity tmp = new TCDCommunity();
+        tmp.load(path);
+        return tmp;
     }
 
     public static void main(String[] args){
@@ -21,7 +23,7 @@ public class StackOverflowMVCApp {
             System.exit(0);
         }
 
-        TCDCommunity com = loadData();
+        TCDCommunity com = loadData(args[0]);
         StackOverflowView view = new StackOverflowView();
         StackOverflowController control = new StackOverflowController();
 
