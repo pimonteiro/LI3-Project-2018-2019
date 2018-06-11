@@ -18,7 +18,7 @@ public class Query1 {
 
     }
 
-    public static Pair<String,String> info_from_post(Main_Struct com, long id) throws
+    static Pair<String,String> info_from_post(Main_Struct com, long id) throws
                                                                                NoPostFoundException,
                                                                                NoProfileFoundException{
         Post p = com.getPost(id);

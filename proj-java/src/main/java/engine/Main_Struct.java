@@ -26,6 +26,7 @@ public class Main_Struct {
         this.profiles = ms.getProfiles();
         this.posts = ms.getPosts();
         this.tags = ms.getTags();
+        this.tardis64 = ms.tardis64;
     }
 
     public HashMap<Long,Profile> getProfiles(){
@@ -40,9 +41,9 @@ public class Main_Struct {
         HashMap<Long,Post> ret = new HashMap<>();
         for(Post p : this.posts.values()){
             if(p instanceof Answer){
-                ret.put(((Answer) p).getId(), p);
+                ret.put(p.getId(), p);
             }else{
-                ret.put(((Question) p).getId(), p);
+                ret.put(p.getId(), p);
             }
         }
         return ret;
@@ -56,7 +57,7 @@ public class Main_Struct {
         return ret;
     }
 
-    public <T extends Post> TreeSet<T> getPostsBetweenDate(LocalDateTime start, LocalDateTime end,
+    public <T extends Post> TreeSet<? extends Post> getPostsBetweenDate(LocalDateTime start, LocalDateTime end,
                                                            Comparator<Answer> an,
                                                            Comparator<Question> ques, Class<T> type){
         return this.tardis64.getBetweenBy(start, end, an, ques, type);

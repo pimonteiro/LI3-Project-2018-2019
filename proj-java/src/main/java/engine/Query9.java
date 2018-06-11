@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class Query9 {
 
     private static void insert_post_ordered(TreeSet<Post> seq, Post q){
-        if(!seq.contains(q)) seq.add(q);
+        seq.add(q);
     }
 
     public static List<Long> bothParticipated(Main_Struct com, int N, long id1, long id2) throws

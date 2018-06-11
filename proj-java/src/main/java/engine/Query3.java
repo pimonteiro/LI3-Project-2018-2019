@@ -8,7 +8,7 @@ import java.util.TreeSet;
 public class Query3 {
 
     public static Pair<Long,Long> totalPosts(Main_Struct com, LocalDate begin, LocalDate end){
-        TreeSet<Post> posts = com.getPostsBetweenDate(
+        TreeSet<? extends Post> posts = com.getPostsBetweenDate(
                 begin.atStartOfDay(),
                 end.atStartOfDay(),
                 null, null, Post.class);

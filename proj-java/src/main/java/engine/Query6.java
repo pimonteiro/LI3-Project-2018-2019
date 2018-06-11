@@ -11,7 +11,7 @@ import java.util.TreeSet;
 public class Query6 {
 
     public static List<Long> mostVotedAnswers(Main_Struct com, int N, LocalDate begin, LocalDate end){
-        TreeSet<Answer> seq = com.getPostsBetweenDate(
+        TreeSet<? extends Post> seq = com.getPostsBetweenDate(
                 begin.atStartOfDay(),
                 end.atStartOfDay(),
                 new AnwserScoreComparator(),
@@ -22,9 +22,9 @@ public class Query6 {
 
         int i = 0;
         List<Long> ret = new ArrayList<>();
-        Iterator<Answer> it = seq.iterator();
+        Iterator<? extends Post> it = seq.iterator();
         while(it.hasNext() && i < N){
-            Answer a = it.next();
+            Answer a = (Answer) it.next();
             ret.add(a.getId());
             i++;
         }

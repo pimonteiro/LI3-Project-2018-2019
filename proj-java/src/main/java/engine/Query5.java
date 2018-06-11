@@ -12,11 +12,9 @@ public class Query5 {
     public static Pair<String,List<Long>> get_user_info(Main_Struct com, long id) throws NoProfileFoundException{
         Profile p = com.getProfile(id);
         TreeSet<Post> post_history = p.getPosts(10);
-        StringBuilder aboutme = new StringBuilder();
-        aboutme.append(p.getAbout_me());
 
         List<Long> pts = post_history.stream().map(Post::getId).collect(Collectors.toList());
-        return new Pair<>(aboutme.toString(), pts);
+        return new Pair<>(p.getAbout_me(), pts);
     }
 
 /*    public static Pair<String, List<Long>> get_user_info(Main_Struct com, long id) throws NoProfileFoundException {

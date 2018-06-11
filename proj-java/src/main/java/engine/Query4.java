@@ -11,14 +11,14 @@ import java.util.stream.Collectors;
 public class Query4 {
 
     public static List<Long> questions_with_tag(Main_Struct com, String tag, LocalDate begin, LocalDate end){
-        TreeSet<Question> seq = com.getPostsBetweenDate(
+        TreeSet<? extends Post> seq = com.getPostsBetweenDate(
                 begin.atStartOfDay(),
                 end.atStartOfDay(),
                 null, new QuestionCreationDateComparator(), Question.class);
         if(seq.isEmpty()) return new ArrayList<>();
 
         return seq.stream()
-                  .filter(q -> q.getTags().contains(tag))
+                  .filter(q -> ((Question) q).getTags().contains(tag))
                   .map(Post::getId)
                   .collect(Collectors.toList());
     }

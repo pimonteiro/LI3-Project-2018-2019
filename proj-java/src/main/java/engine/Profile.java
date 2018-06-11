@@ -118,6 +118,7 @@ public class Profile {
         this.reputation = reputation;
     }
 
+    @Override
     public Profile clone(){
         return new Profile(this);
     }

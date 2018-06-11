@@ -46,10 +46,8 @@ public class Tardis {
                          ).collect(Collectors.toCollection(TreeSet::new));
     }
 
-    // 0 - Questions and Answers
-    // 1 - Questions
-    // 2 - Answers
-    public <E extends Post> TreeSet<E> getBetweenBy(LocalDateTime start, LocalDateTime end, Comparator<Answer> an,
+
+    public <E extends Post> TreeSet<? extends Post> getBetweenBy(LocalDateTime start, LocalDateTime end, Comparator<Answer> an,
                                                     Comparator<Question> ques, Class<E> type){
 
 
@@ -85,7 +83,7 @@ public class Tardis {
                                    .map(Question.class::cast)
                                    .collect(Collectors.toList());
             returnQuestion.addAll(lq);
-            return (TreeSet<E>) returnQuestion;
+            return returnQuestion;
 
         }
         if(type == Answer.class){
@@ -95,11 +93,11 @@ public class Tardis {
                                  .map(Answer.class::cast)
                                  .collect(Collectors.toList());
             returnAnswer.addAll(la);
-            return (TreeSet<E>) returnAnswer;
+            return returnAnswer;
         }
 
         if(type == Post.class){
-            return (TreeSet<E>) new TreeSet<Post>(tmp);
+            return new TreeSet<>(tmp);
         }
         return null;
 
