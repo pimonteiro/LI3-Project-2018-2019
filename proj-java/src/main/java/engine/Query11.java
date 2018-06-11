@@ -12,7 +12,8 @@ public class Query11 {
 
     static List<Long> mostUsedBestRep(Main_Struct cum, int N, LocalDate begin, LocalDate end){
 
-        TreeSet<Profile> topProfiles = new TreeSet<>(Comparator.comparingInt(Profile::getReputation));
+        TreeSet<Profile> topProfiles = new TreeSet<>(
+                Comparator.comparing(Profile::getReputation, Comparator.reverseOrder()));
         topProfiles.addAll(cum.getProfiles().values());
 
 
@@ -23,13 +24,13 @@ public class Query11 {
                                              .filter(p -> p.isBetweenDates(begin.atStartOfDay(),
                                                                            end.atTime(LocalTime.MAX))
                                                           && (p instanceof Question))
-                                             .map(Question.class::cast).map(Question::getTags)
-                                             .map(f -> (f.split(
-                                                     "<(.*?)><(.*?)><(.*?)><(.*?)><(.*?)>")))
-                                             .flatMap(Arrays::stream)
+                                             .map(Question.class::cast)
+                                             .map(Question::getTags)
+                                             .flatMap(Collection::stream)
 
                           )
                           .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+
                           .entrySet()
                           .stream()
                           .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
@@ -37,7 +38,7 @@ public class Query11 {
                           .map(Map.Entry::getKey)
                           .map(f -> {
                               try{
-                                  return cum.getTag((String) f);
+                                  return cum.getTag(f);
                               }catch(NoTagFoundException e){
                                   return null;
                               }

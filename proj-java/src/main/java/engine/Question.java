@@ -1,17 +1,29 @@
 package engine;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Question extends Post {
 
     private Map<Long,Answer> answers;
     private String title;
-    private String tags;
+    private List<String> tags;
     private long n_answers;
 
+    private List<String> tagstoList(String tags){
+        String regexString = Pattern.quote("<") + "(.*?)" + Pattern.quote(">");
+        Pattern pattern = Pattern.compile(regexString);
+        Matcher matcher = pattern.matcher(tags);
+        List<String> tmp = new ArrayList<>();
+        while(matcher.find()){
+            String textInBetween = matcher.group(1); // Since (.*?) is capturing group 1
+            tmp.add(textInBetween);
+        }
+
+        return tmp;
+    }
 
     public Question(long id, long owner_id, long score, LocalDateTime creation_date, String title, long n_answers,
                     long comments, String tags, Map<Long,Answer> answersl){
@@ -19,7 +31,7 @@ public class Question extends Post {
         super(id, owner_id, score, creation_date, comments);
         this.title = title;
         this.n_answers = n_answers;
-        this.tags = tags;
+        this.tags = new ArrayList<>(tagstoList(tags));
         this.answers = new HashMap<>();
 
         for(Map.Entry<Long,Answer> a : answersl.entrySet()){
@@ -45,8 +57,7 @@ public class Question extends Post {
         super(id, owner_id, score, creation_date, n_comments);
         this.title = title;
         this.n_answers = n_answers;
-
-        this.tags = tags;
+        this.tags = tags == null ? new ArrayList<>() : new ArrayList<>(tagstoList(tags));
         this.answers = new HashMap<>();
 
     }
@@ -60,7 +71,7 @@ public class Question extends Post {
         return title;
     }
 
-    public String getTags(){
+    public List<String> getTags(){
         return tags;
     }
 

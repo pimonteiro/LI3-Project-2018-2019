@@ -34,7 +34,7 @@ public class TCDCommunity implements TADCommunity {
         this.data = SaxParser.multParse(dumpPath);
 
         File inputFile = new File(dumpPath);
-        try {
+       /* try {
 
         DocumentBuilderFactory dbFactory
                 = DocumentBuilderFactory.newInstance();
@@ -47,7 +47,7 @@ public class TCDCommunity implements TADCommunity {
         doc.getDocumentElement().normalize();
         } catch (SAXException | IOException | ParserConfigurationException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     // Query 1
@@ -122,7 +122,8 @@ public class TCDCommunity implements TADCommunity {
 
     // Query 11
     public List<Long> mostUsedBestRep(int N, LocalDate begin, LocalDate end){
-        return Arrays.asList(6L, 29L, 72L, 163L, 587L);
+        return Query11.mostUsedBestRep(this.data, N, begin, end);
+        //return Arrays.asList(6L, 29L, 72L, 163L, 587L);
     }
 
     public void clear(){

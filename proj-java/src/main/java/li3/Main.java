@@ -169,8 +169,8 @@ public class Main {
         */
 
         before = System.currentTimeMillis();
-        List<Long> q11 = qe.mostUsedBestRep(5, LocalDate.of(2013,Month.NOVEMBER,01),
-                LocalDate.of(2013,Month.NOVEMBER,30));
+        List<Long> q11 = qe.mostUsedBestRep(5, LocalDate.of(2010,Month.NOVEMBER,01),
+                LocalDate.of(2014,Month.NOVEMBER,30));
         after = System.currentTimeMillis();
         logtime.writeLog("Query 11 -> " + (after - before) + " ms");
         log.writeLog("Query 11 -> " + q11);
