@@ -1,4 +1,4 @@
-ss[letterpaper, 10 pt, conference]{IEEEtran}  % Comment this line out
+\documentclass[letterpaper, 10 pt, conference]{IEEEtran} % Comment this line out
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}                                                         % if you need a4paper
 \usepackage[portuges]{babel}
@@ -78,7 +78,7 @@ Laboratórios de Informática III - Projecto em Java
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-Este trabalho prático teve como objectivo replicar o anterior projeto (aplicado em C) mas agora em Java - a organização de grandes volumes de dados de forma a responder a questões, pré definidas, em tempo útil. Os objectos de estudo foram vários dumps do \textit{Stack Exchange}.
+O objectivo desta parte do trabalho foi re-implementar a solução desenvolvida em \textit{C} num paradigma totalmente orientado a objectos em \textit{Java}. Apesar de seguir a arquitectura anterior não é um factor que limite esta fase, sendo que \textit{Java} proporciona um número enorme de estruturas já implementadas através das \textit{Java Collections}.
 
 \end{abstract}
 
@@ -86,86 +86,149 @@ Este trabalho prático teve como objectivo replicar o anterior projeto (aplicado
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{INTRODUÇÃO}
 
-Neste relatório iremos falar sobre a realização da 2ª fase do trabalho de laboratórios de informática III.
-É semelhante ao trabalho realizado na primeira fase, à exceção que este é feito em \textit{Java}.
-\newline
-O fundamental deste trabalho prático consistiu em converter as estruturas e querys existentes, construídas no projeto anterior, utilizando as \textit{Java Collections} que possuem uma maior flexibilidade e portabilidade.
-\newline
-Abordaremos a estrutura utilizada,soluções alternativas e os diferentes caminhos que percorremos para tentar minimizar o tempo de execução, bem como as dificuldades que foram surgindo.
+Irá ser abordado neste relatório a arquitectura da nossa solução nomeadamente estruturas usadas, estratégias utilizadas nas \textit{queries}, encapsulamento e o modelo \textit{MVC}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Parser}
+\section{PARSER}
 
-Como o parse usado na primeira fase existe por \textit{default} em \textit{Java}, escolheu-se mais uma vez utilizar o parser do tipo \textit{SAX}.
-É do notar a diferença entre a impletação em \textit{C} e em \textit{Java}. Utilizando uma implementação análoga do projecto original, o tempo de load aumentou cerca de \textbf{6 milisegundos}.
+Como o \textit{parse} usado na primeira fase existe por \textit{default} em \textit{Java}, escolheu-se mais uma vez utilizar o parser do tipo \textit{SAX}.
+É do notar a diferença entre a impletação em \textit{C} e em \textit{Java}. Utilizando uma implementação análoga do projecto original, o tempo de load aumentou cerca de \textbf{4 a 8 milisegundos}.
+
+\subsection{ALTERNATIVAS}
+
+Um \textit{parser} alternativo que surgiu foi o \textit{StAX}.
+Tal como o \textit{Sax} esta \textit{parser} é orientado a eventos. A diferença entre os dois encontra-se no facto do \textit{Sax} ser \textit{push based} e o \textit{StAX} ser \textit{pull based}. De facto, o \textit{StAX} pode ser visto como uma espécie de iterador que gera os eventos que o \textit{parser handler} tem que lidar, já o \textit{sax} recebe os eventos e lida com eles.
+Do que foi pesquisado \textit{StAX} não oferece nenhuma vantagem sobre \textit{sax} e sendo que para a parte de \textit{C} já foi usado \textit{sax} mantivemos.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{MODULARIDADE}
+
+\subsection{ENGINE}
+A nossa arquitetura segue este diagrama:
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{engine.png}
+   \caption{Classes principais}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{engine2.png}
+   \caption{Diagrama de dependências}
+\end{figure}
+
+Os utilizadores são guardados na classe \textit{Profile}. Questões e respostas são guardadas nas classes \textit{Question} e \textit{Answer} respectivamente que estendem a classe \textit{Post}. Entra outras estruturas os \textit{Posts} são guardados na \textit{Tardis}.
+A classe \textit{MainStruct} agrega todos os dados. Por fim, a classe \textit{TCDCommunity} implementa a \textit{interface} com as \textit{queries}.
+Todas as \textit{queries} foram resolvidas na sua respectiva classe sendo que cada classe apenas possui um método estático (que resolve a questão).
+
+\subsection{LI3}
+
+PI acrescenta aqui o que meteste no package li3
 
 \section{Classes e Estrutura}
 
+Em seguida irá ser feita uma descrição das estruturas utilizadas para efeitos de contextualização. Alem do mais são \textbf{discutidas} certas decisões.
+
 \subsection{MAIN STRUCT}
-À semelhança do projeto em \textit{C}, a estrutura principal é constituida por 3 \textit{HashMaps}, uma para os perfis, outra para posts e outra para tags, e pela \textit{Tardis} que permite reaver os \textit{Posts} organizados por qualquer critéri.
+À semelhança do projecto em \textit{C}, a estrutura principal é constituída por 3 \textit{HashMaps}, uma para os perfis, outra para \textit{posts} e outra para as \textit{tags}, e pela \textit{Tardis} que permite reaver os \textit{Posts} organizados por qualquer critério.
 \newline
-\begin{lstlisting}
-private HashMap<Long,Profile> profiles;
-private HashMap<Long,Post> posts;
-private HashMap<String,Long> tags;
-private Tardis tardis64;
-\end{lstlisting}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.3\textwidth]{estruturas.png}
+   \caption{Estruturas principais}
+\end{figure}
 
 \subsection{USER}
+A seguinte informação é guardada para cada utilizador:
+\newline
 
-Na Class de um Utilizador existem, entre os dados pessoais (nome, bio, ID,reputação) uma TreeSet de Posts
-pertencentes ao utilizador (ordenados naturalmente do mais recente - mais antigo).
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.3\textwidth]{profile.png}
+   \caption{User}
+\end{figure}
 
-\begin{lstlisting}
-public class Profile {
 
-    private TreeSet<Post> posts;
-    private String about_me;
-    private String name;
-    private long n_posts;
-    private long id;
-    private int reputation;
 
-}
-\end{lstlisting}
+\subsubsection{POSTS}
 
-Nesta foram implementados apenas os métodos básicos (construtores, gets, sets, clone, toString).
+
+Todos os \textit{posts} do utilizador são guardados num \textit{TreeSet} que segue a ordem natural dos mesmos (cronológica).
+Foi debatido guardar todos os \textit{posts} ou apenas os últimos 10 e caso fosse esse o cenário se eram guardados num \textit{BoundedTreeSet} ou numa \textit{max heap}.
+Um \textit{BoundedTreeSet} tem a vantagem de ser de relativamente fácil implementação mas a ordenação é mais custosa que uma \textit{max heap}.
+No fim decidimos guardar todos os \textit{posts} do utilizador visto terem utilidade para outras \textit{queries} nomeadamente a \textit{11}.
+
+\subsubsection{COMPARABLE}
+
+Foi discutido implementar uma ordem natural para os \textit{users} mas visto que apenas é necessária em duas \textit{queries} e por critérios diferentes (reputação e número de posts), não foi feito.
 
 \subsection{POST, QUESTION, ANSWER}
 
-A Class Post é uma Class Abstracta de onde duas classes extendem: Question e Answer.
-Foi utilizada uma class Abstrata para podermos tratar destas duas subclasses como se fossem "do mesmo tipo", facilitando assim o uso destas.
+\subsubsection{POST}
+Como classe \textit{mae} temos a \textit{Post} que guardas as informações comuns tanto a questões como respostas. Esta classe implementa a \textit{interface comparable} forçando a ordem natural ser cronológica (critério mais comum encontrado por nós).
 
-\begin{lstlisting}
-public abstract class Post implements Comparable<Post> {
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.3\textwidth]{post.png}
+   \caption{Post}
+\end{figure}
 
-    private long id;
-    private LocalDateTime creation_date;
-    private long owner_id;
-    private long score;
-    private long n_comments;
+\subsubsection{ANSWER}
 
-}
-public class Question extends Post {
+As respostas apenas acrescentam um campo do tipo \textit{long} que corresponde ao \textit{id} da questão a que se refere.
 
-    private Map<Long,Answer> answers;
-    private String title;
-    private String tags;
-    private long n_answers;
+\subsubsection{QUESTION}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.3\textwidth]{question.png}
+   \caption{Question}
+\end{figure}
 
-}
-
-public class Answer extends Post {
-
-    private long parent_id;
-
-}
-\end{lstlisting}
+Com o objectivo de inter-ligar as respostas com as questões decidiu-se guardar num \textit{Map} todas as respostas relativas a uma dada questão onde a chave é o \textit{id} respectivo.
 
 \subsection{TARDIS}
+
+A \textit{TARDIS} foi a estrutura que mais alterações sofreu.
+Enquanto que na implementação em \textit{C} consistia em duas "variaveis de classe", decidiu-se implementar apenas uma do tipo genérico \textit{Post}. Esta mudança deu-se ao facto de não se ter ganho quase nada com a separação de perguntas e respostas.
+Outra mudança significativa foram as estruturas usadas para criar a \textit{TARDIS} em si Enquanto que no projecto em \textit{C} foram usados \textit{Arrays} de \textit{Arrays} para \textit{GSequences} nesta implementação foram usados \textit{HashMap} para \textit{HashMap} para \textit{List<Post>}. Cada chave corresponde a um indice (ou de anos ou de meses/dias).
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{tardisVar.png}
+   \caption{Tardis}
+\end{figure}
+
+\subsubsection{ANAMORFISMO}
+
+De forma a obter \textit{posts} dentro de um intrevalo de tempo e ordenados por um critério \textit{ad hoc}  foi implementado o metodo \textit{getBetweenBy}:
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{tardisMetodos.png}
+   \caption{Metodos da Tardis}
+\end{figure}
+
+
+Em primeiro lugar é interessante notar a assinatura do metódo \textit{TreeSet<? extends Post>}. Restringimos o tipo de retorno com uma \textit{bounded wildcard} sendo assim possivel retornar tanto um \textit{TreeSet} de \textit{Post}, \textit{Answer} ou \texit{Question}.
+Os seus parametros também são bastante interessantes. De forma a saber que tipo procurar (ou tipos), passamos a Class de procura como um generico \texit{Class<E> type} onde o \textit{genérico E} é \textit{restringido} na assinatura do método \textit{<E extends Post>}.
+Dado a falta de \textit{function pointers} (tanto quanto sabemos) passamos um \texit{Comparator} para ordenar o \texit{TreeSet}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{ana.png}
+   \caption{Stream da vida}
+\end{figure}
+
+
+Este metodo tem como gene uma stream torna o raciocinio muito mais simples do que com \textit{forEach} ou iteradores externos.
+De facto, este metodo é um anamorfismo de \textit{TreeSets}.
+
+12
+
 
 \subsection{COMPARATORS --- EXCEPÇÕES}
 
