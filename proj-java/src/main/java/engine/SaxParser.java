@@ -11,7 +11,6 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 
 public class SaxParser {
@@ -27,6 +26,8 @@ public class SaxParser {
         }
         return "file:" + path;
     }
+
+
 
 
     public static Main_Struct multParse(String path){
@@ -96,7 +97,6 @@ class UserHandler extends DefaultHandler {
 class PostHandler extends DefaultHandler {
 
     private Main_Struct lmao;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     PostHandler(Main_Struct cum){
         lmao = cum;
@@ -115,11 +115,7 @@ class PostHandler extends DefaultHandler {
         long score = Long.parseLong(atts.getValue("Score"));
         long n_comments = Long.parseLong(atts.getValue("CommentCount"));
 
-
-        StringBuilder sb = new StringBuilder(atts.getValue("CreationDate"));
-        sb.delete(15, sb.length() - 1);
-        String cd = sb.toString().replace('T', ' ');
-        LocalDateTime creation_date = LocalDateTime.parse(cd, formatter);
+        LocalDateTime creation_date = LocalDateTime.parse(atts.getValue("CreationDate"));
 
 
         if(type == 2){

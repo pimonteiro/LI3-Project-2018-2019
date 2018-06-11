@@ -12,6 +12,7 @@ public class Query3 {
                 begin.atStartOfDay(),
                 end.atStartOfDay(),
                 null, null, Post.class);
+
         Long a = posts.stream().filter(Answer.class::isInstance).count();
         Long q = posts.stream().filter(Question.class::isInstance).count();
 

@@ -9,7 +9,7 @@ public class Question extends Post {
 
     private Map<Long,Answer> answers;
     private String title;
-    private String tags; //TODO Maybe we can change with java
+    private String tags;
     private long n_answers;
 
 
