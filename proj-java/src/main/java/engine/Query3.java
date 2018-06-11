@@ -17,6 +17,6 @@ public class Query3 {
         Long a = posts.stream().filter(Answer.class::isInstance).count();
         Long q = posts.stream().filter(Question.class::isInstance).count();
 
-        return new Pair<>(a, q);
+        return new Pair<>(q, a);
     }
 }

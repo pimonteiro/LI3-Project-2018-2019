@@ -115,4 +115,5 @@ public class Question extends Post {
     public void addAnswer(Answer a){
         this.answers.put(a.getId(), a);
     }
+
 }
