@@ -1,6 +1,6 @@
 package engine;
 
-import common.AnwserScoreComparator;
+import common.Comparators.AnwserScoreComparator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

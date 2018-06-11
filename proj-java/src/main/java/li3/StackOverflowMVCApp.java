@@ -15,7 +15,7 @@ public class StackOverflowMVCApp {
         Scanner in = new Scanner(System.in);
         System.out.println("[1] - Run all Querys\n[2] - Choose the Query");
         int ch = in.nextInt();
-        if(ch == 2){
+        if(ch == 1){
             Main o = new Main();
             o.controlled_main(args);
             System.exit(0);

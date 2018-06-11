@@ -1,4 +1,4 @@
-package common;
+package common.Exceptions;
 
 public class NoPostFoundException extends Exception {
 

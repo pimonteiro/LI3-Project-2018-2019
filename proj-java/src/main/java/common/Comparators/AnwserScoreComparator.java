@@ -1,4 +1,4 @@
-package common;
+package common.Comparators;
 
 import engine.Answer;
 import engine.Post;

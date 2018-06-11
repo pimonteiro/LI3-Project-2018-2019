@@ -1,15 +1,11 @@
 package engine;
 
 import common.*;
+import common.Exceptions.NoPostFoundException;
+import common.Exceptions.NoProfileFoundException;
+import common.Exceptions.PostIsNotOfRightTypeException;
 import li3.TADCommunity;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -111,7 +107,7 @@ public class TCDCommunity implements TADCommunity {
     }
 
     // Query 10
-    public long betterAnswer(long id) throws NoProfileFoundException, NoPostFoundException, PostIsNotOfRightTypeException{
+    public long betterAnswer(long id) throws NoProfileFoundException, NoPostFoundException, PostIsNotOfRightTypeException {
         return Query10.betterAnswer(this.data, id);
         //return 175891;
     }

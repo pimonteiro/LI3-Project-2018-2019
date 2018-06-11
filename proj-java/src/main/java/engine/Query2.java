@@ -1,6 +1,6 @@
 package engine;
 
-import common.ProfileNPostsComparator;
+import common.Comparators.ProfileNPostsComparator;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,21 +15,12 @@ public class Query2 {
         TreeSet<Profile> ret = new TreeSet<>(new ProfileNPostsComparator());
 
         Iterator<Profile> it = profiles.values().iterator();
-<<<<<<< HEAD
         while (it.hasNext()) {
-=======
-        int i = 0;
-        while(it.hasNext() && i < N){
->>>>>>> 3ff5c29f97bca7a69db11bfd4c7a72d86602c73a
             Profile q = it.next();
             ret.add(q);
         }
-<<<<<<< HEAD
         return ret.stream().map(p -> p.getId())
                 .limit(N)
                 .collect(Collectors.toList());
-=======
-        return ret.stream().map(Profile::getId).collect(Collectors.toList());
->>>>>>> 3ff5c29f97bca7a69db11bfd4c7a72d86602c73a
     }
 }

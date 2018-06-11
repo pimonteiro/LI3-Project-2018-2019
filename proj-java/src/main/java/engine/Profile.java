@@ -1,6 +1,6 @@
 package engine;
 
-import common.PostCreationDateComparator;
+import common.Comparators.PostCreationDateComparator;
 
 import java.util.Iterator;
 import java.util.Set;

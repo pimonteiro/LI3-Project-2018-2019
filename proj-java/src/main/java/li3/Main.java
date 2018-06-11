@@ -1,10 +1,10 @@
 package li3;
 
 //import common.MyLog;
-import common.NoPostFoundException;
-import common.NoProfileFoundException;
+import common.Exceptions.NoPostFoundException;
+import common.Exceptions.NoProfileFoundException;
 import common.Pair;
-import common.PostIsNotOfRightTypeException;
+import common.Exceptions.PostIsNotOfRightTypeException;
 import engine.TCDCommunity;
 
 import java.time.LocalDate;

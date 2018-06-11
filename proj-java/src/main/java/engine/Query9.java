@@ -1,8 +1,8 @@
 package engine;
 
-import common.NoPostFoundException;
-import common.NoProfileFoundException;
-import common.PostCreationDateComparator;
+import common.Exceptions.NoPostFoundException;
+import common.Exceptions.NoProfileFoundException;
+import common.Comparators.PostCreationDateComparator;
 
 import java.util.*;
 import java.util.stream.Collectors;

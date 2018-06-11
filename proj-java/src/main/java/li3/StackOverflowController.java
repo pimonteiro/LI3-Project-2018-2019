@@ -1,7 +1,7 @@
 package li3;
 
-import common.NoPostFoundException;
-import common.NoProfileFoundException;
+import common.Exceptions.NoPostFoundException;
+import common.Exceptions.NoProfileFoundException;
 import common.Pair;
 import engine.TCDCommunity;
 

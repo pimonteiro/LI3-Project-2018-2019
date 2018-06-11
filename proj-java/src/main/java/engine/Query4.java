@@ -1,6 +1,6 @@
 package engine;
 
-import common.QuestionCreationDateComparator;
+import common.Comparators.QuestionCreationDateComparator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

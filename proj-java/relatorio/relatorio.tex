@@ -1,11 +1,11 @@
-ss[letterpaper, 10 pt, conference]{IEEEtran}  % Comment this line out
+\documentclass[letterpaper, 10 pt, conference]{IEEEtran}  % Comment this line out
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}                                                         % if you need a4paper
 \usepackage[portuges]{babel}
 %\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4
- \usepackage{listings}
- \lstset { %
-    language=Java,
+\usepackage{listings}
+\lstset { %
+language=Java,
 }                                                         % paper
 \usepackage{tikz}
 \usepackage{xstring}
@@ -14,21 +14,21 @@ ss[letterpaper, 10 pt, conference]{IEEEtran}  % Comment this line out
 
 \tikzset{
 mymat/.style={
-  matrix of math nodes,
-  text height=2.5ex,
-  text depth=0.75ex,
-  text width=3.25ex,
-  align=center,
-  column sep=-\pgflinewidth
-  },
+matrix of math nodes,
+text height=2.5ex,
+text depth=0.75ex,
+text width=3.25ex,
+align=center,
+column sep=-\pgflinewidth
+},
 mymats/.style={
-  mymat,
-  nodes={draw,fill=#1}
-  }
+mymat,
+nodes={draw,fill=#1}
+}
 }
 \IEEEoverridecommandlockouts                              % This command is only
-                                                          % needed if you want to
-                                                          % use the \thanks command
+                                                      % needed if you want to
+                                                      % use the \thanks command
 \overrideIEEEmargins
 % See the \addtolength command later in the file to balance the column lengths
 % on the last page of the document
@@ -65,7 +65,7 @@ Laboratórios de Informática III - Projecto em Java
 \author{Adriana Meireles (a82582), Eduardo Jorge Barbosa (a83344), Filipe Monteiro (a80229)% <-this % stops a space
 }
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
 
@@ -75,7 +75,7 @@ Laboratórios de Informática III - Projecto em Java
 \pagestyle{empty}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
 Este trabalho prático teve como objectivo replicar o anterior projeto (aplicado em C) mas agora em Java - a organização de grandes volumes de dados de forma a responder a questões, pré definidas, em tempo útil. Os objectos de estudo foram vários dumps do \textit{Stack Exchange}.
@@ -83,7 +83,7 @@ Este trabalho prático teve como objectivo replicar o anterior projeto (aplicado
 \end{abstract}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{INTRODUÇÃO}
 
 Neste relatório iremos falar sobre a realização da 2ª fase do trabalho de laboratórios de informática III.
@@ -93,123 +93,107 @@ O fundamental deste trabalho prático consistiu em converter as estruturas e que
 \newline
 Abordaremos a estrutura utilizada, a maneira como chegamos à solução e os diferentes caminhos que percorremos para tentar minimizar o tempo de execução, bem como as dificuldades que foram surgindo.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Parser}
 
 Como o parse usado na primeira fase foi desenvolvido para \textit{Java},escolheu-se mais uma vez utilizar o parser do tipo \textit{SAX}. Este parser é orientado a eventos e recomendado pela documentação do \textit{libxml} para dar parse a grandes ficheiros.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Modularidade}
 A estrutura do \textit{package} engine tem o seguinte diagrama:
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Classes e Estrutura}
 
-\subsection{Main Struct}
+\subsection{MAIN STRUCT}
 Tal como no projeto em C, a estrutura principal é constituida por 3 HashMaps, uma para os perfis, outra para posts e outra para tags, e ainda a reformulado Tardis que contem os posts todos organizados pelo critério \textit{x}.
 \newline
 Temos assim as seguintes variáveis de instância:
 \begin{lstlisting}
- private HashMap<Long,Profile> profiles;
- private HashMap<Long,Post> posts;
- private HashMap<String,Long> tags;
- private Tardis tardis64;
- \end{lstlisting}
+private HashMap<Long,Profile> profiles;
+private HashMap<Long,Post> posts;
+private HashMap<String,Long> tags;
+private Tardis tardis64;
+\end{lstlisting}
 
 \subsection{USER}
 
- Na Class de um Utilizador existem, entre os dados pessoais (nome, bio, ID,reputação) uma TreeSet de Posts
- pertencentes ao utilizador (ordenados naturalmente do mais recente - mais antigo).
- É composta pelas seguintes variáveis:
+Na Class de um Utilizador existem, entre os dados pessoais (nome, bio, ID,reputação) uma TreeSet de Posts
+pertencentes ao utilizador (ordenados naturalmente do mais recente - mais antigo).
+É composta pelas seguintes variáveis:
 
- \begin{lstlisting}
+\begin{lstlisting}
+public class Profile {
+
     private TreeSet<Post> posts;
     private String about_me;
     private String name;
     private long n_posts;
     private long id;
     private int reputation;
- \end{lstlisting}
 
- Nesta foram implementados apenas os métodos básicos (construtores, gets, sets, clone, toString).
+}
+\end{lstlisting}
+
+Nesta foram implementados apenas os métodos básicos (construtores, gets, sets, clone, toString).
 
 \subsection{POST, QUESTION, ANSWER}
 
- A Class Post é uma Class Abstracta de onde duas classes extendem: Question e Answer.
- Foi utilizada uma class Abstrata para podermos tratar destas duas subclasses como se fossem
- "do mesmo tipo", facilitando assim o uso destas.
+A Class Post é uma Class Abstracta de onde duas classes extendem: Question e Answer.
+Foi utilizada uma class Abstrata para podermos tratar destas duas subclasses como se fossem
+"do mesmo tipo", facilitando assim o uso destas.
 
- Class Post:
- \begin{lstlisting}
- public abstract class Post {
+\begin{lstlisting}
+public abstract class Post implements Comparable<Post> {
 
-    private long type;
- }
+    private long id;
+    private LocalDateTime creation_date;
+    private long owner_id;
+    private long score;
+    private long n_comments;
 
- public class Question extends Post {
+}
+public class Question extends Post {
 
-     private LocalDateTime creation_date;
-     private HashMap<Long,Answer> answers;
-     private String title;
-     private List<String> tags; //TODO Maybe we can change with java
-     private long id;
-     private long owner_id;
-     private long n_answers;
-     private long comments;
-     private long score;
- }
+    private Map<Long,Answer> answers;
+    private String title;
+    private String tags;
+    private long n_answers;
 
- public class Answer extends Post {
+}
 
-     private LocalDateTime creation_date;
-     private long id;
-     private long owner_id;
-     private long parent_id;
-     private long comments;
-     private long score;
+public class Answer extends Post {
 
- }
- \end{lstlisting}
+    private long parent_id;
 
- \subsection{TARDIS}
+}
+\end{lstlisting}
 
- \subsection{ESTRUTURAS AUXILIARES && EXCEPÇÕES}
- Para facilitar o manuseamento de algumas querys, decidiu-se criar e/ou recriar algumas classes já implementadas
- pelo Java, mas com pequenos acréscimos. Nomeadamente:
+\subsection{TARDIS}
 
- \subsubsection{BoundedTreeSet}
- \begin{lstlisting}
- public class BoundedTreeSet<E> extends TreeSet<E> {
-     private int limit;
+\subsection{COMPARATORS --- EXCEPÇÕES}
 
-     @Override
-     public boolean add(E e){
-         super.add(e);
-         if(this.size() > this.limit){
-         this.remove(this.last());
-         }
-
-         return true;
-     }
- }
- \end{lstlisting}
- Esta TreeSet, funciona exatamente como uma TreeSet habitual, perfeita para inserções ordenadas, mas tem
- uma informação e cuidado extra: um limite de tamanho. Sempre que estiver no tamanho máximo insere ordenadamente
- e retira o último, mantendo sempre o seu tamanho controlado. Isto foi nos útil particularmente na \underline{Query 5}.
- \newline
-
- Em relação a comparadores, temos as seguintes:
- \begin{itemize}
-     \item PostCreationDateComparator --> Compara dois Posts em relação á sua data de criação, de forma \textbf{Descendente}.
-     \item ProfileNPostsComparator --> Compara dois Utilizadores em relacão ao número de posts, de forma \textbf{Descendente}.
-
-    \item QuestionCreationDateComparator --> Compara duas Question em relação á sua data de criação, de forma \textbf{Descendente}.
- \end{itemize}
+Para comparadores, temos as seguintes:
+\begin{itemize}
+    \item \item PostCreationDateComparator --> Compara dois Posts em relação á sua data de criação, de forma \textbf{descendente};
+    \item ProfileNPostsComparator --> Compara dois Utilizadores em relacão ao número de posts, de forma \textbf{descendente};
+    \item AnwserScoreComparator --> Compara duas Answer em relação ao seu score, de forma \textbf{descendente};
+    \item QuestionCreationDateComparator --> Compara duas Question em relação á sua data de criação, de forma \textbf{descendente}.
+\end{itemize}
 
 
- Quanto a excepções, criamos as seguintes:
- \begin{itemize}
-     \item NoPostFoundException --> Caso um ID nao exista entre os Posts.
-     \item NoProfileFoundException --> Caso um ID nao exista entre os Perfis.
-     \item NoTagFoundException --> Caso um ID nao exista entre as Tags.
- \end{itemize}
+Quanto a excepções, criamos as seguintes:
+\begin{itemize}
+     \item NoPostFoundException --> Caso um ID nao exista entre os Posts;
+     \item NoProfileFoundException --> Caso um ID nao exista entre os Perfis;
+     \item NoTagFoundException --> Caso um ID nao exista entre as Tags;
+     \item PostIsNotOfRightTypeException --> Caso uma query exiga algo sobre um tipo de Post, mas recebe outro.
+\end{itemize}
 
 \section{Conclusão}
 
@@ -223,12 +207,105 @@ Tal como na primeira fase,consideramos que cumprimos os objetivos pretendidos.
 
 
 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{ESTRUTURAÇÃO DE QUERYS}
+
+\subsection{QUERY1}
+
+Nesta query começamos por verificar o tipo do \textit{Post} pedido. Caso seja uma \textit{Answer} vais buscar a informação
+á \textit{Question} a que pertence, caso contrário vai diretamente a esta.
+É importante referir que alteramos a interface \negrito{TADCommunity}, colocando na assinatura desta query a
+possbilidade de produzir \negrito{excepções} caso: nao haja o Post ou o utilizador a que pertence a Question não exista.
+
+
+\subsection{QUERY2}
+
+Aqui inserimos todos os perfis existentes na estrutura principal num TreeSet, usando o comparador \textit{ProfileNPostsComparator}
+que ordena perfis consoante o nº de posts deste(descendente). Depois retorna apenas os primeiros N
+perfis, sobre a forma de uma lista de longs (usando streams, maps e limites).
+
+\subsection{QUERY3}
+
+Como a nossa estrutura Tardis possui um método que retorna todos os Posts existentes no programa, apenas chamamos esse método,
+retornando um par apenas com o tamanho de cada tipo de Post(Question e Answer).
+
+\subsection{QUERY4}
+
+Nesta query começamos por recolher todas as Question entre as datas pedidas, através da Tardis(ordenadas por data).
+Depois retornamos uma lista com o ID de todas as Question da Tardis.
+\newline
+É importante referir que experimentamos a implementação com iteradores externos e internos, estando os resultados mais á frente
+no relatório.
+
+\subsection{QUERY5}
+
+Aqui acedemos ao HashMap da estrutura principal para receber o Profile com o ID passado. Depois retornamos um par com a bio deste Profile e os
+10 posts mais recentes(através do TreeSet<Post> existente no Profile, apenas pegando os 10 primeiros).
+Fizemos também a experiência de ir buscar os 10 últimos posts deste (sendo os 10 primeiros no TreeSet do Profile) com
+iteradores internos e externos, mais á frente apresenando resultados.
+
+\subsection{QUERY6}
+
+Usando a Tardis para ter todas as Anwsers entre as datas pretendidas, ordenadas por um comparator \textint{AnswerScoreComparator}
+que ordena por score (votos - descendente). Depois usamos um iterador externo para percorrer apenas as primeiras N Anwser ordenadas.
+
+\subsection{QUERY7}
+
+TODO
+
+\subsection{QUERY8}
+
+Percorrendo todas as Question (que possuem título), recorrendo á Tardis, adicionamos as primeiras N Question ID onde a palavra
+existe no título(usando iteradores externos).
+
+\subsection{QUERY9}
+
+Nesta query pegamos em todos os Post do primeiro utilizador passado e fazemos o seguinte flow:
+\begin{itemize}
+    \item Se o Post for uma Answer, verificamos se a Question a que pertence a resposta pertence ao segundo utiizador. Se sim,
+    inserimos num TreeSet ordenado por data(PostCreationDateComparator) caso ainda não exista neste;
+    \item Se for uma Question, percorremos todas as respostas, verificando se alguma pertence ao segundo utilizador. Se sim, inserimos
+    no TreeSet caso ainda nao exista.
+\end{itemize}
+    Importante referir que: não vale a pena continuar a percorrer as respostas ou questoes quando já se encontrou algo em comum.
+
+
+\subsection{QUERY10}
+
+Nesta começamos por ir buscar o Post a que pertence o ID. Se não for uma Question atira uma excepção \textit{PostIsNotOfRightType}
+, indicando que não se pode obter as respostas de uma reposta.
+Depois percorremos cada resposta, calculando o score desta e atribuindo a um par constituido por este e pelo ID da resposta.
+Caso algum score seja superior ao existente no par, atualiza-se este, retornando no fim a parte do par com o ID da reposta.
+Para facilitar, criamos um metodo que calcula o score de uma Anwser.
+
+\subsection{QUERY11}
+
+TODO
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
-                                  % on the last page of the document manually. It shortens
-                                  % the textheight of the last page by a suitable amount.
-                                  % This command does not take effect until the next page
-                                  % so it should come on the page before the last. Make
-                                  % sure that you do not shorten the textheight too much.
+                              % on the last page of the document manually. It shortens
+                              % the textheight of the last page by a suitable amount.
+                              % This command does not take effect until the next page
+                              % so it should come on the page before the last. Make
+                              % sure that you do not shorten the textheight too much.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -260,8 +337,4 @@ Tal como na primeira fase,consideramos que cumprimos os objetivos pretendidos.
 %\bibitem{c2} W.-K. Chen, Linear Networks and Systems (Book style).  Belmont, CA: Wadsworth, 1993, pp. 123Ð135.
 
 %\end{thebibliography}
-
-
-
-
 \end{document}

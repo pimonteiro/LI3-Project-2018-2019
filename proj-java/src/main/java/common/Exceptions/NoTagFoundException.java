@@ -1,4 +1,4 @@
-package common;
+package common.Exceptions;
 
 public class NoTagFoundException extends Exception {
 
