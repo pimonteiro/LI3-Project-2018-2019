@@ -18,6 +18,7 @@ public class Query5 {
      * @return Par com a bio e uma lista dos IDs dos últimos 10 posts deste.
      * @throws NoProfileFoundException Caso o utilizador não exista/já nao exista no banco de dados.
      */
+
     public static Pair<String,List<Long>> get_user_info(Main_Struct com, long id) throws NoProfileFoundException{
         Profile p = com.getProfile(id);
 

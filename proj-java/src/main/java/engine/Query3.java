@@ -17,6 +17,7 @@ public class Query3 {
      * @param end Data de fim dos posts.
      * @return Par com o número de questoes e de respostas.
      */
+
     public static Pair<Long,Long> totalPosts(Main_Struct com, LocalDate begin, LocalDate end){
         TreeSet<? extends Post> posts = com.getPostsBetweenDate(
                 begin.atStartOfDay(),

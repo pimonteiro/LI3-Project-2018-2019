@@ -20,6 +20,7 @@ public class Query4 {
      * @param end Data do fim.
      * @return Lista de IDs de todas as questoes com a tag.
      */
+
     public static List<Long> questions_with_tag(Main_Struct com, String tag, LocalDate begin, LocalDate end){
         TreeSet<? extends Post> seq = com.getPostsBetweenDate(
                 begin.atStartOfDay(),

@@ -23,6 +23,7 @@ public class Query9 {
      * @throws NoProfileFoundException Caso nao exista um utilizador.
      * @throws NoPostFoundException Caso nao exista um post.
      */
+
     public static List<Long> bothParticipated(Main_Struct com, int N, long id1, long id2) throws
                                                                                           NoProfileFoundException,
                                                                                           NoPostFoundException{

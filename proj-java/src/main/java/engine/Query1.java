@@ -14,6 +14,7 @@ public class Query1 {
      * @return Par contendo a informação
      * @throws NoProfileFoundException Caso já nao exista o utilizador no banco de dados.
      */
+
     private static Pair<String,String> get_info_from_post(Main_Struct com, Question q) throws NoProfileFoundException{
         String titulo = q.getTitle();
         String name;
@@ -36,6 +37,7 @@ public class Query1 {
      * @throws NoPostFoundException Caso nao existe um Post com este ID.
      * @throws NoProfileFoundException Caso já nao exista o utilizador no banco de dados.
      */
+
     static Pair<String,String> info_from_post(Main_Struct com, long id) throws NoPostFoundException, NoProfileFoundException{
         Post p = com.getPost(id);
         Pair<String,String> ret;

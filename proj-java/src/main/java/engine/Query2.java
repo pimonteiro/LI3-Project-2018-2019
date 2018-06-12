@@ -17,6 +17,7 @@ public class Query2 {
      * @param N Número de perfis pretendidos.
      * @return Lista com os IDs dos n utilizadores.
      */
+
     public static List<Long> top_most_active(Main_Struct com, int N){
         HashMap<Long,Profile> profiles = com.getProfiles();
         TreeSet<Profile> ret = new TreeSet<>(new ProfileNPostsComparator());
@@ -30,6 +31,7 @@ public class Query2 {
 
             como fizeste na query8
          */
+
         return ret.stream().map(Profile::getId)
                   .limit(N)
                   .collect(Collectors.toList());

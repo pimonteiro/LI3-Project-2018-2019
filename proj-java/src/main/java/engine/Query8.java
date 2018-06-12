@@ -17,6 +17,7 @@ public class Query8 {
      * @param word Palavra a verificar
      * @return Lista com os IDs das questoes que possuem.
      */
+
     public static List<Long> containsWord(Main_Struct com, int N, String word){
         TreeSet<Question> seq = com.getAllQuestions();
         if(seq.isEmpty()) return new ArrayList<>();

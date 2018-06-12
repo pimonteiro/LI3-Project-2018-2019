@@ -93,12 +93,12 @@ Irá ser abordado neste relatório a arquitectura da nossa solução nomeadament
 \section{PARSER}
 
 Como o \textit{parse} usado na primeira fase existe por \textit{default} em \textit{Java}, escolheu-se mais uma vez utilizar o parser do tipo \textit{SAX}.
-É do notar a diferença entre a impletação em \textit{C} e em \textit{Java}. Utilizando uma implementação análoga do projecto original, o tempo de load aumentou cerca de \textbf{4 a 8 milisegundos}.
+É do notar a diferença entre a implementação em \textit{C} e em \textit{Java}. Utilizando uma implementação análoga do projecto original, o tempo de load aumentou cerca de \textbf{4 a 8 milisegundos}.
 
 \subsection{ALTERNATIVAS}
 
 Um \textit{parser} alternativo que surgiu foi o \textit{StAX}.
-Tal como o \textit{Sax} esta \textit{parser} é orientado a eventos. A diferença entre os dois encontra-se no facto do \textit{Sax} ser \textit{push based} e o \textit{StAX} ser \textit{pull based}. De facto, o \textit{StAX} pode ser visto como uma espécie de iterador que gera os eventos que o \textit{parser handler} tem que lidar, já o \textit{sax} recebe os eventos e lida com eles.
+Tal como o \textit{Sax} este \textit{parser} é orientado a eventos. A diferença entre os dois encontra-se no facto do \textit{Sax} ser \textit{push based} e o \textit{StAX} ser \textit{pull based}. De facto, o \textit{StAX} pode ser visto como uma espécie de iterador que gera os eventos que o \textit{parser handler} tem que lidar, já o \textit{sax} recebe os eventos e lida com eles.
 Do que foi pesquisado \textit{StAX} não oferece nenhuma vantagem sobre \textit{sax} e sendo que para a parte de \textit{C} já foi usado \textit{sax} mantivemos.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -127,18 +127,18 @@ Todas as \textit{queries} foram resolvidas na sua respectiva classe sendo que ca
 \subsection{LI3}
 
 Com base numa estruturação MVC, tentamos criar um menu simples, onde se pode testar cada query independentemente. Foi baseado no pdf colocado na página da cadeira,
-com modificações para este contexto, assim como acréscimo de opçoes.
+com modificações para este contexto, assim como acréscimo de opções.
 Por isso temos as seguintes classes:
 \begin{itemize}
-    \item \textit{StackOverflowMVCApp}: main do programa. Aqui fazemmos a lógica de usar chamar as queries independentes, ou executar a main dada pelos professores que corre todas as queries de uma vez, apresntando tempos e resultados;
+    \item \textit{StackOverflowMVCApp}: main do programa. Aqui fazemmos a lógica de chamar as queries independentes, ou executar a main dada pelos professores que corre todas as queries de uma vez, apresntando tempos e resultados;
     \item \textit{StackOverflowView}: onde tem as views do programa (estáticas), os menus;
     \item \textit{StackOverflowController}: controlador do flow do programa. Aqui fazem-se as decisões de menus a apresentar, chamadas das queries;
-    \item \textit{Opcao,Menu,Menus}: opçcao, menu e conjunto de menus, respetivamente.
+    \item \textit{Opção,Menu,Menus}: opçcão, menu e conjunto de menus, respetivamente.
 \end{itemize}
 
 \section{Classes e Estrutura}
 
-Em seguida irá ser feita uma descrição das estruturas utilizadas para efeitos de contextualização. Alem do mais são \textbf{discutidas} certas decisões.
+Em seguida irá ser feita uma descrição das estruturas utilizadas para efeitos de contextualização. Além do mais são \textbf{discutidas} certas decisões.
 
 \subsection{MAIN STRUCT}
 À semelhança do projecto em \textit{C}, a estrutura principal é constituída por 3 \textit{HashMaps}, uma para os perfis, outra para \textit{posts} e outra para as \textit{tags}, e pela \textit{Tardis} que permite reaver os \textit{Posts} organizados por qualquer critério.
@@ -221,8 +221,8 @@ De forma a obter \textit{posts} dentro de um intrevalo de tempo e ordenados por 
 \end{figure}
 
 
-Em primeiro lugar é interessante notar a assinatura do metódo \textit{TreeSet<? extends Post>}. Restringimos o tipo de retorno com uma \textit{bounded wildcard} sendo assim possivel retornar tanto um \textit{TreeSet} de \textit{Post}, \textit{Answer} ou \texit{Question}.
-Os seus parametros também são bastante interessantes. De forma a saber que tipo procurar (ou tipos), passamos a Class de procura como um generico \texit{Class<E> type} onde o \textit{genérico E} é \textit{restringido} na assinatura do método \textit{<E extends Post>}.
+Em primeiro lugar é interessante notar a assinatura do metódo \textit{TreeSet<? extends Post>}. Restringimos o tipo de retorno com uma \textit{bounded wildcard} sendo assim possível retornar tanto um \textit{TreeSet} de \textit{Post}, \textit{Answer} ou \texit{Question}.
+Os seus parâmetros também são bastante interessantes. De forma a saber que tipo procurar (ou tipos), passamos a Class de procura como um genérico \texit{Class<E> type} onde o \textit{genérico E} é \textit{restringido} na assinatura do método \textit{<E extends Post>}.
 Dado a falta de \textit{function pointers} (tanto quanto sabemos) passamos um \texit{Comparator} para ordenar o \texit{TreeSet}.
 
 \begin{figure}[h!]
@@ -232,15 +232,15 @@ Dado a falta de \textit{function pointers} (tanto quanto sabemos) passamos um \t
 \end{figure}
 
 
-Este metodo tem como gene uma stream torna o raciocinio muito mais simples do que com \textit{forEach} ou iteradores externos.
-De facto, este metodo é um anamorfismo de \textit{TreeSets}.
+Este método tem como gene uma stream. Isto torna o raciocinio muito mais simples do que com \textit{forEach} ou iteradores externos.
+De facto, este método é um anamorfismo de \textit{TreeSets}.
 
 12
 
 
 \subsection{COMPARATORS --- EXCEPÇÕES}
 
-Para comparadores, temos as seguintes:
+Para comparadores, temos os seguintes:
 \begin{itemize}
     \item PostCreationDateComparator --> Compara dois Posts em relação á sua data de criação, de forma \textbf{descendente};
     \item QuestionCreationDateComparator --> Compara duas Question em relação á sua data de criação, de forma \textbf{descendente}\footnote{Apesar de já existir um comparador igual para Posts, este foi necessário para o uso da Tardis, em alguns métodos.};
@@ -265,17 +265,17 @@ Quanto a excepções, criamos as seguintes:
 
 \subsection{QUERY1}
 
-Nesta query começamos por verificar o tipo do \textit{Post} pedido. Caso seja uma \textit{Answer} vais buscar a informação
-á \textit{Question} a que pertence, caso contrário vai diretamente a esta.
+Nesta query começamos por verificar o tipo do \textit{Post} pedido. Caso seja uma \textit{Answer} vai buscar a informação
+à \textit{Question} a que pertence, caso contrário vai diretamente a esta.
 É importante referir que alteramos a interface \negrito{TADCommunity}, colocando na assinatura desta query a
-possbilidade de produzir \negrito{excepções} caso: nao haja o Post ou o utilizador a que pertence a Question não exista.
+possibilidade de produzir \negrito{excepções} caso: não haja o Post ou o utilizador a que pertence, a Question não existe.
 
 
 \subsection{QUERY2}
 
 Aqui inserimos todos os perfis existentes na estrutura principal num TreeSet, usando o comparador \textit{ProfileNPostsComparator}
 que ordena perfis consoante o nº de posts deste(descendente). Depois retorna apenas os primeiros N
-perfis, sobre a forma de uma lista de longs (usando streams, maps e limites).
+perfis, sob a forma de uma lista de longs (usando streams, maps e limites).
 
 \subsection{QUERY3}
 
@@ -287,7 +287,7 @@ retornando um par apenas com o tamanho de cada tipo de Post(Question e Answer).
 Nesta query começamos por recolher todas as Question entre as datas pedidas, através da Tardis(ordenadas por data).
 Depois retornamos uma lista com o ID de todas as Question da Tardis.
 \newline
-É importante referir que experimentamos a implementação com iteradores externos e internos, estando os resultados mais á frente
+É importante referir que experimentamos a implementação com iteradores externos e internos, estando os resultados mais à frente
 no relatório.
 
 \subsection{QUERY5}
@@ -295,24 +295,24 @@ no relatório.
 Aqui acedemos ao HashMap da estrutura principal para receber o Profile com o ID passado. Depois retornamos um par com a bio deste Profile e os
 10 posts mais recentes(através do TreeSet<Post> existente no Profile, apenas pegando os 10 primeiros).
 Fizemos também a experiência de ir buscar os 10 últimos posts deste (sendo os 10 primeiros no TreeSet do Profile) com
-iteradores internos e externos, mais á frente apresenando resultados.
+iteradores internos e externos, mais à frente apresentando resultados.
 
 \subsection{QUERY6}
 
-Usando a Tardis para ter todas as Anwsers entre as datas pretendidas, ordenadas por um comparator \textint{AnswerScoreComparator}
-que ordena por score (votos - descendente). Depois usamos um iterador externo para percorrer apenas as primeiras N Anwser ordenadas.
+Usando a Tardis para ter todas as Answers entre as datas pretendidas, ordenadas por um comparator \textint{AnswerScoreComparator}
+que ordena por score (votos - descendente). Depois usamos um iterador externo para percorrer apenas as primeiras N Answer ordenadas.
 
 \subsection{QUERY7}
 
 É importante referir que tomamos a estratégia onde tanto as perguntas como as respostas têm de estar entre as datas pedidas.
-Por isso, começamos por recolher todas as Question compreendidas entre as datas pedidas, onde depois, percorremos cada uma contando quantas respostas tem tambem entre estas datas,
-adicionando a um par constituido pelo número de respostas calculado e o ID da Question. Estes pares
-adicionamos a uma TreeSet que ordena os pares por ordem decrescente da sua primeira componente (numero de respostas),
+Por isso, começamos por recolher todas as Question compreendidas entre as datas pedidas, onde depois, percorremos cada uma contando quantas respostas tem também entre estas datas,
+adicionando a um par constituído pelo número de respostas calculado e o ID da Question. Adicionamos estes pares
+a uma TreeSet que ordena os pares por ordem decrescente da sua primeira componente (número de respostas),
 retornando assim a segunda componente do primeiro par do Set.
 
 \subsection{QUERY8}
 
-Percorrendo todas as Question (que possuem título), recorrendo á Tardis, adicionamos as primeiras N Question ID onde a palavra
+Percorrendo todas as Question (que possuem título), recorrendo à Tardis, adicionamos as primeiras N Question ,o ID onde a palavra
 existe no título(usando iteradores externos).
 
 \subsection{QUERY9}
@@ -331,9 +331,9 @@ Nesta query pegamos em todos os Post do primeiro utilizador passado e fazemos o 
 
 Nesta começamos por ir buscar o Post a que pertence o ID. Se não for uma Question atira uma excepção \textit{PostIsNotOfRightType}
 , indicando que não se pode obter as respostas de uma reposta.
-Depois percorremos cada resposta, calculando o score desta e atribuindo a um par constituido por este e pelo ID da resposta.
+Depois percorremos cada resposta, calculando o score desta e atribuindo a um par constituído por este e pelo ID da resposta.
 Caso algum score seja superior ao existente no par, atualiza-se este, retornando no fim a parte do par com o ID da reposta.
-Para facilitar, criamos um metodo que calcula o score de uma Anwser.
+Para facilitar, criamos um método que calcula o score de uma Answer.
 
 \subsection{QUERY11}
 
@@ -399,4 +399,3 @@ Tal como na primeira fase,consideramos que cumprimos os objetivos pretendidos.
 
 %\end{thebibliography}
 \end{document}
-

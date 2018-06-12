@@ -18,6 +18,7 @@ public class Query7 {
      * @param end Data do fim
      * @return Par com o numero de respostas entre as datas e o ID da Question.
      */
+
     private static Pair<Integer,Long> count_answers(Question q, LocalDate begin, LocalDate end){
         int n = 0;
         Map<Long,Answer> ans = q.getAnswers();
@@ -42,6 +43,7 @@ public class Query7 {
      * @param end Data do fim
      * @return Lista com os IDs das Questoes entre as datas pedidas, com mais respostas tambem entre estas datas.
      */
+
     public static List<Long> mostAnsweredQuestions(Main_Struct com, int N, LocalDate begin, LocalDate end){
         TreeSet<? extends Post> questions = com.getPostsBetweenDate(begin.atStartOfDay(), end.atTime(LocalTime.MAX), null, null, Question.class);
 

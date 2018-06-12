@@ -16,6 +16,7 @@ public class Query10 {
      * @param a Answer a ser analisada
      * @return Score da resposta.
      */
+
     private static double calculate_score(Profile p, Answer a){
         return (a.getScore() * 0.65) + (p.getReputation() * 0.25) + (a.getN_comments() * 0.1);
     }
@@ -32,6 +33,7 @@ public class Query10 {
      * @throws PostIsNotOfRightTypeException Caso se peça a resposta mais votada de uma resposta(impossivel acontecer).
      * @throws NoProfileFoundException Caso o utilizador nao exista.
      */
+
     public static long betterAnswer(Main_Struct com, long id) throws
                                                               NoPostFoundException,
                                                               PostIsNotOfRightTypeException,

@@ -21,6 +21,7 @@ public class Query6 {
      * @param end Data do fim
      * @return Lista com os IDs das respostas.
      */
+
     public static List<Long> mostVotedAnswers(Main_Struct com, int N, LocalDate begin, LocalDate end){
         TreeSet<? extends Post> seq = com.getPostsBetweenDate(
                 begin.atStartOfDay(),
