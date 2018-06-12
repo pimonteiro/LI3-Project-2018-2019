@@ -51,6 +51,7 @@ public class StackOverflowView {
         op.add(new Opcao("Query 9  -----> ", "[9]"));
         op.add(new Opcao("Query 10 -----> ", "[10]"));
         op.add(new Opcao("Query 11 -----> ", "[11]"));
+        op.add(new Opcao("Sair -----> ", "[0]"));
         op.add(new Opcao("=============================", ""));
 
         Menu menu = new Menu(title.toString(), op);

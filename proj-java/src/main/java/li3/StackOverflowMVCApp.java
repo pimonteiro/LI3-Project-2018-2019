@@ -16,7 +16,10 @@ public class StackOverflowMVCApp {
      */
     private static TCDCommunity loadData(String path){
         TCDCommunity tmp = new TCDCommunity();
+        long before = System.currentTimeMillis();
         tmp.load(path);
+        long after = System.currentTimeMillis();
+        System.out.println("Time to load: " + (after-before));
         return tmp;
     }
 

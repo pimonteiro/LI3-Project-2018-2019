@@ -75,6 +75,10 @@ public class Main_Struct {
         return ret;
     }
 
+    /**
+     * Metodo que retorna todas as Question existentes, por ordem decrescente
+     * @return TreeSet com as Questions
+     */
     public TreeSet<Question> getAllQuestions(){
         TreeSet<Question> tmp = new TreeSet<>(new PostCreationDateComparator());
         this.posts.values()
@@ -88,6 +92,10 @@ public class Main_Struct {
     }
 
 
+    /**
+     * Metodo que retorna todas as Answers existentes, por ordem Decrescente
+     * @return TreeSet com as Answers
+     */
     public TreeSet<Answer> getAllAnswers(){
         TreeSet<Answer> tmp = new TreeSet<>(new PostCreationDateComparator());
         this.posts.values()
@@ -100,6 +108,10 @@ public class Main_Struct {
         return tmp;
     }
 
+    /**
+     * Metodo que retorna todos os Posts existentes, por ordem decrescente
+     * @return TreeSet com os Posts ordenados
+     */
     public TreeSet<Post> getAllPosts(){
         return this.tardis64.getAll();
     }

@@ -17,7 +17,6 @@ import java.util.List;
 
 public class TCDCommunity implements TADCommunity {
 
-    //private MyLog qelog;
     private Main_Struct data;
     private MyLog qelog;
 
@@ -29,22 +28,6 @@ public class TCDCommunity implements TADCommunity {
 
     public void load(String dumpPath){
         this.data = SaxParser.multParse(dumpPath);
-
-        File inputFile = new File(dumpPath);
-       /* try {
-
-        DocumentBuilderFactory dbFactory
-                = DocumentBuilderFactory.newInstance();
-
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-
-        Document doc = null;
-
-        doc = dBuilder.parse(inputFile);
-        doc.getDocumentElement().normalize();
-        } catch (SAXException | IOException | ParserConfigurationException e) {
-            e.printStackTrace();
-        }*/
     }
 
     // Query 1
