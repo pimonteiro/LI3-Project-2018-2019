@@ -58,7 +58,10 @@ public class Query11 {
                               }catch(NoTagFoundException e){
                                   return null;
                               }
-                          }).filter(Objects::nonNull).collect(Collectors.toList());
+                          })
+                          .filter(Objects::nonNull)
+                          .sorted()
+                          .collect(Collectors.toList());
 
     }
 }
