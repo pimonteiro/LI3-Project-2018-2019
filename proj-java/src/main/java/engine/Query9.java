@@ -41,14 +41,14 @@ public class Query9 {
         TreeSet<Post> ret = new TreeSet<>(new PostCreationDateComparator());
 
         while(it.hasNext()){
-            Post p = (Post) it.next();
+            Post p = it.next();
             Question q;
             if(p instanceof Answer){
                 Answer a = (Answer) p;
                 q = (Question) com.getPost(a.getParent_id());
                 if(q.getOwner_id() == id2){
                     ret.add(q);
-                    continue; //Continua pois se há já algo em comum, nao vale a pena verificar mais
+                    continue;
                 }
             }else{
                 q = (Question) p;
@@ -59,7 +59,6 @@ public class Query9 {
             for(Answer a : answers.values()){
                 if(a.getOwner_id() == id2){ //Adiciona apenas a Pergunta
                     ret.add(com.getPost(a.getParent_id()));
-                    continue; //Continua pois é inutil verificar as outras respostas, os utilizadores ja tem este Post em comum
                 }
             }
         }

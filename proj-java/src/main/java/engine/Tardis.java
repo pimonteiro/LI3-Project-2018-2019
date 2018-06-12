@@ -99,7 +99,7 @@ public class Tardis {
         }
 
         if(type == Post.class){
-            return new TreeSet<>(tmp);
+            return new TreeSet<Post>(tmp);
         }
         return null;
 
