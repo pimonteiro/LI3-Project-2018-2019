@@ -3,7 +3,7 @@ package engine;
 import common.Pair;
 
 import java.time.LocalDate;
-import java.util.TreeSet;
+import java.time.LocalTime;
 
 public class Query3 {
 
@@ -20,13 +20,11 @@ public class Query3 {
      */
 
     public static Pair<Long,Long> totalPosts(Main_Struct com, LocalDate begin, LocalDate end){
-        TreeSet<? extends Post> posts = com.getPostsBetweenDate(
-                begin.atStartOfDay(),
-                end.atStartOfDay(),
-                null, null, Post.class);
 
-        Long a = posts.stream().filter(Answer.class::isInstance).count();
-        Long q = posts.stream().filter(Question.class::isInstance).count();
+        Long a = (long) com.getPostsBetweenDate(begin.atStartOfDay(), end.atTime(LocalTime.MAX), null,
+                                                null, Answer.class).size();
+        Long q = (long) com.getPostsBetweenDate(begin.atStartOfDay(), end.atTime(LocalTime.MAX), null,
+                                                null, Question.class).size();
 
         return new Pair<>(q, a);
     }
