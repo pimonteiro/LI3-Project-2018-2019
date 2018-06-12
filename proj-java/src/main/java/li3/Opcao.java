@@ -1,5 +1,8 @@
 package li3;
 
+/**
+ * Linha/Opcao existente num menu.
+ */
 public class Opcao {
 
     private String tag;

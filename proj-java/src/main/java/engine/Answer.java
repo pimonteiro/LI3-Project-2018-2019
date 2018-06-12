@@ -3,6 +3,10 @@ package engine;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * @brief Anwser extendida de um Post.
+ * Possui apenas mais o ID da questao a que pertence.
+ */
 public class Answer extends Post {
 
     private long parent_id;

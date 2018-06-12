@@ -10,12 +10,28 @@ import java.util.Iterator;
 
 public class Query10 {
 
-    //Calcula o score de uma resposta
+    /**
+     * @brief Calcula o score de uma resposta.
+     * @param p Dono da Answer
+     * @param a Answer a ser analisada
+     * @return Score da resposta.
+     */
     private static double calculate_score(Profile p, Answer a){
         return (a.getScore() * 0.65) + (p.getReputation() * 0.25) + (a.getN_comments() * 0.1);
     }
 
 
+    /**
+     * @brief Procura a resposta com maior score de uma dada questao.
+     * Percorrendo cada Answer do Post pedido, vamos atualizando um par contendo o score e o ID da resposta com maior score,
+     * para no fim retornar o ID nesse par (que será o que tem maior score)
+     * @param com Estrutura com os dados
+     * @param id ID da Question
+     * @return ID da resposta com maior score.
+     * @throws NoPostFoundException Caso o post nao exista.
+     * @throws PostIsNotOfRightTypeException Caso se peça a resposta mais votada de uma resposta(impossivel acontecer).
+     * @throws NoProfileFoundException Caso o utilizador nao exista.
+     */
     public static long betterAnswer(Main_Struct com, long id) throws
                                                               NoPostFoundException,
                                                               PostIsNotOfRightTypeException,

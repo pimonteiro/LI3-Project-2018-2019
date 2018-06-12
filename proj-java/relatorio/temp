@@ -1,0 +1,5 @@
+Nesta query começamos por recolher todas as Question compreendidas entre as datas pedidas.
+Depois, percorremos cada pergunta contando quantas respostas tem tambem entre estas datas,
+adicionando a um par constituido pelo número de respostas calculado e o ID da Question. Estes pares
+adicionamos a uma TreeSet que ordena os pares por ordem decrescente da sua primeira componente (numero de respostas),
+retornando assim a segunda componente do primeiro par do Set.

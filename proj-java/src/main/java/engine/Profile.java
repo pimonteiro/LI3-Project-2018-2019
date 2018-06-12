@@ -6,6 +6,11 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * @brief Perfil de um utilizador.
+ * Possui um TreeSet de posts ordenados por data (descendente), a bio, o nome, o número de posts, o ID e a reputação
+ * deste.
+ */
 public class Profile {
 
     private TreeSet<Post> posts;
@@ -90,7 +95,6 @@ public class Profile {
         return this.reputation;
     }
 
-    //TODO funciona?
     public void setPosts(Set<Post> posts){
         this.posts = new TreeSet<>(new PostCreationDateComparator());
         posts.forEach(p -> this.posts.add(p.clone()));
@@ -142,6 +146,10 @@ public class Profile {
                "ID: " + this.id;
     }
 
+    /**
+     * @brief Adiciona um post ao Set de posts do utilizador.
+     * @param a Post a adicionar
+     */
     public void addPost(Post a){
         this.posts.add(a);
         ++(this.n_posts);

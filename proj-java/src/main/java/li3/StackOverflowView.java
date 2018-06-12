@@ -2,6 +2,9 @@ package li3;
 
 import java.util.ArrayList;
 
+/**
+ * @brief Views do programa: criacao dos menus a serem apresentados.
+ */
 public class StackOverflowView {
 
     private Menus menus;
@@ -17,6 +20,10 @@ public class StackOverflowView {
     }
 
 
+    /**
+     * @brief Inicialização dos menus.
+     * @return Um conjunto de menus para o programa.
+     */
     private static Menus initView(){
         Menus menusSOF = new Menus();
 
@@ -51,5 +58,4 @@ public class StackOverflowView {
 
         return menusSOF;
     }
-
 }

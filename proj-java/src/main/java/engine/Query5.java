@@ -9,6 +9,15 @@ import java.util.stream.Collectors;
 
 public class Query5 {
 
+    /**
+     * @brief Devolve a Bio e os últimos 10 posts de um utilizador.
+     * Depois de ir buscar ao HashMap da estrutura principal o utilizador, retorna se um par com a bio e os útltimos 10 posts.
+     * Durante o parsing, o útilizador vai sendo atualizado com os posts em que aparece, por ordem decrescente.
+     * @param com Estrutura com os dados.
+     * @param id ID do utilizador.
+     * @return Par com a bio e uma lista dos IDs dos últimos 10 posts deste.
+     * @throws NoProfileFoundException Caso o utilizador não exista/já nao exista no banco de dados.
+     */
     public static Pair<String,List<Long>> get_user_info(Main_Struct com, long id) throws NoProfileFoundException{
         Profile p = com.getProfile(id);
 

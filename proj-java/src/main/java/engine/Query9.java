@@ -9,10 +9,20 @@ import java.util.stream.Collectors;
 
 public class Query9 {
 
-    private static void insert_post_ordered(TreeSet<Post> seq, Post q){
-            seq.add(q);
-    }
 
+    /**
+     * @brief Procura os N posts (Question) onde os dois utilizadores participaram.
+     * Percorrendo os posts do utilizador 1, analisamos se o outro utiliador é dono de: alguma das respostas da Question
+     * do utilizador 1 ou se é dono da Question onde o utilizador 1 tem a resposta ou se tem tambem uma resposta na mesma questao
+     * que o utilizador 1 tenha. Ordenados por data descendente.
+     * @param com Estrutura com os dados.
+     * @param N Número de posts
+     * @param id1 ID de um dos utilizadores
+     * @param id2 ID de um dos utilizadores
+     * @return Lista de IDs dos posts (Question) em comum, ordenados por data.
+     * @throws NoProfileFoundException Caso nao exista um utilizador.
+     * @throws NoPostFoundException Caso nao exista um post.
+     */
     public static List<Long> bothParticipated(Main_Struct com, int N, long id1, long id2) throws
                                                                                           NoProfileFoundException,
                                                                                           NoPostFoundException{
@@ -33,7 +43,7 @@ public class Query9 {
                 Answer a = (Answer) p;
                 q = (Question) com.getPost(a.getParent_id());
                 if(q.getOwner_id() == id2){
-                    insert_post_ordered(ret, q);
+                    ret.add(q);
                     continue; //Continua pois se há já algo em comum, nao vale a pena verificar mais
                 }
             }else{
@@ -44,7 +54,7 @@ public class Query9 {
             Map<Long,Answer> answers = q.getAnswers();
             for(Answer a : answers.values()){
                 if(a.getOwner_id() == id2){ //Adiciona apenas a Pergunta
-                    insert_post_ordered(ret, com.getPost(a.getParent_id()));
+                    ret.add(com.getPost(a.getParent_id()));
                     continue; //Continua pois é inutil verificar as outras respostas, os utilizadores ja tem este Post em comum
                 }
             }

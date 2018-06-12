@@ -126,7 +126,15 @@ Todas as \textit{queries} foram resolvidas na sua respectiva classe sendo que ca
 
 \subsection{LI3}
 
-PI acrescenta aqui o que meteste no package li3
+Com base numa estruturação MVC, tentamos criar um menu simples, onde se pode testar cada query independentemente. Foi baseado no pdf colocado na página da cadeira,
+com modificações para este contexto, assim como acréscimo de opçoes.
+Por isso temos as seguintes classes:
+\begin{itemize}
+    \item \textit{StackOverflowMVCApp}: main do programa. Aqui fazemmos a lógica de usar chamar as queries independentes, ou executar a main dada pelos professores que corre todas as queries de uma vez, apresntando tempos e resultados;
+    \item \textit{StackOverflowView}: onde tem as views do programa (estáticas), os menus;
+    \item \textit{StackOverflowController}: controlador do flow do programa. Aqui fazem-se as decisões de menus a apresentar, chamadas das queries;
+    \item \textit{Opcao,Menu,Menus}: opçcao, menu e conjunto de menus, respetivamente.
+\end{itemize}
 
 \section{Classes e Estrutura}
 
@@ -234,11 +242,13 @@ De facto, este metodo é um anamorfismo de \textit{TreeSets}.
 
 Para comparadores, temos as seguintes:
 \begin{itemize}
-    \item \item PostCreationDateComparator --> Compara dois Posts em relação á sua data de criação, de forma \textbf{descendente};
+    \item PostCreationDateComparator --> Compara dois Posts em relação á sua data de criação, de forma \textbf{descendente};
+    \item QuestionCreationDateComparator --> Compara duas Question em relação á sua data de criação, de forma \textbf{descendente}\footnote{Apesar de já existir um comparador igual para Posts, este foi necessário para o uso da Tardis, em alguns métodos.};
     \item ProfileNPostsComparator --> Compara dois Utilizadores em relacão ao número de posts, de forma \textbf{descendente};
-    \item AnwserScoreComparator --> Compara duas Answer em relação ao seu score, de forma \textbf{descendente};
-    \item QuestionCreationDateComparator --> Compara duas Question em relação á sua data de criação, de forma \textbf{descendente}.
+    \item AnswserScoreComparator --> Compara duas Answer em relação ao seu score, de forma \textbf{descendente};
+    \item QuestionAnswerCountComparator --> Compara duas Question em relação ao número de respostas, de forma \textbf{descendente}.
 \end{itemize}
+
 
 
 Quanto a excepções, criamos as seguintes:
@@ -294,7 +304,11 @@ que ordena por score (votos - descendente). Depois usamos um iterador externo pa
 
 \subsection{QUERY7}
 
-TODO
+É importante referir que tomamos a estratégia onde tanto as perguntas como as respostas têm de estar entre as datas pedidas.
+Por isso, começamos por recolher todas as Question compreendidas entre as datas pedidas, onde depois, percorremos cada uma contando quantas respostas tem tambem entre estas datas,
+adicionando a um par constituido pelo número de respostas calculado e o ID da Question. Estes pares
+adicionamos a uma TreeSet que ordena os pares por ordem decrescente da sua primeira componente (numero de respostas),
+retornando assim a segunda componente do primeiro par do Set.
 
 \subsection{QUERY8}
 

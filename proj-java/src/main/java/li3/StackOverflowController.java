@@ -10,6 +10,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @brief Controlador do flow do programa. Aqui controla-se os eventos conforme as escolhas do utilizador.
+ */
 public class StackOverflowController {
 
     private StackOverflowView viewTxt;
@@ -23,6 +26,9 @@ public class StackOverflowController {
         this.viewTxt = txt;
     }
 
+    /**
+     * Inicialização do flow do programa
+     */
     public void startFlow(){
         Menu menu = this.viewTxt.getMenu(0);
         int op;
@@ -48,8 +54,11 @@ public class StackOverflowController {
         while(op != 0);
     }
 
-
+    /**
+     * Flow para a Query1
+     */
     private void flowQuery1(){
+        Menu menu = this.viewTxt.getMenu(1);
         System.out.println("QUERY 1 = = = = = Info from Post");
         System.out.println("Post ID:");
         Scanner a = new Scanner(System.in);
@@ -69,6 +78,9 @@ public class StackOverflowController {
         System.out.println("=>Owner: " + ret.getSnd());
     }
 
+    /**
+     * Flow para a Query2
+     */
     private void flowQuery2(){
         System.out.println("QUERY 2 = = = = = Top Most Active Users");
         System.out.println("Number of users:");
@@ -82,6 +94,9 @@ public class StackOverflowController {
         }
     }
 
+    /**
+     * Flow para a Query3
+     */
     private void flowQuery3(){
         System.out.println("QUERY 3 = = = = = Total Posts");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

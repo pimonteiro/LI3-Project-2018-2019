@@ -5,6 +5,10 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @brief Question que extende de Post.
+ * Possui um Map com as respostas desta Question, titulo, lista de tags e número de respostas.
+ */
 public class Question extends Post {
 
     private Map<Long,Answer> answers;
@@ -119,6 +123,11 @@ public class Question extends Post {
         return new Question(this);
     }
 
+    //TODO nao incrementas o n_answers ?
+    /**
+     * @brief Adiciona uma resposta á lista de respostas.
+     * @param a
+     */
     public void addAnswer(Answer a){
         this.answers.put(a.getId(), a);
     }

@@ -11,6 +11,16 @@ import java.util.TreeSet;
 
 public class Query6 {
 
+    /**
+     * @brief Procura as Answer com mais votos(maior score)
+     * Usando a Tardis para ter as repostas entre as datas pedidas(já ordenadas por score), adicionam-se N ou menos a uma lista
+     * de IDs para retornar.
+     * @param com Estrutura com os dados.
+     * @param N Número de Answers
+     * @param begin Data de inicio
+     * @param end Data do fim
+     * @return Lista com os IDs das respostas.
+     */
     public static List<Long> mostVotedAnswers(Main_Struct com, int N, LocalDate begin, LocalDate end){
         TreeSet<? extends Post> seq = com.getPostsBetweenDate(
                 begin.atStartOfDay(),

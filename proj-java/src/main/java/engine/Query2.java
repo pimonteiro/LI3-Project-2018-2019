@@ -9,6 +9,14 @@ import java.util.stream.Collectors;
 
 public class Query2 {
 
+    /**
+     * @brief Procura os top n utilizadores mais ativos.
+     * Pegando em todos os perfis na estrutura principal, sao todos adicionados a uma TreeSet que organiza pelo número de posts
+     * que cada um possui.
+     * @param com Estrutura com os dados.
+     * @param N Número de perfis pretendidos.
+     * @return Lista com os IDs dos n utilizadores.
+     */
     public static List<Long> top_most_active(Main_Struct com, int N){
         HashMap<Long,Profile> profiles = com.getProfiles();
         TreeSet<Profile> ret = new TreeSet<>(new ProfileNPostsComparator());

@@ -3,7 +3,10 @@ package engine;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-
+/**
+ * @brief Post, de onde extendem as Question e Answer.
+ * Esta possui um ID, data de criação, ID do user a que pertence, score e número de comentários.
+ */
 public abstract class Post implements Comparable<Post> {
 
     private long id;
@@ -80,10 +83,17 @@ public abstract class Post implements Comparable<Post> {
     @Override
     public abstract Post clone();
 
+    //TODO Isto é necessário?
     public int compareTo(Post p){
         return this.creation_date.compareTo(p.getCreation_date());
     }
 
+    /**
+     * @brief Verifica se este post está entre duas datas.
+     * @param begin Data de inicio.
+     * @param end Data do fim
+     * @return True se estiver no intervalo, False em contrário.
+     */
     public boolean isBetweenDates(LocalDateTime begin, LocalDateTime end){
         return this.creation_date.isBefore(end) && this.creation_date.isAfter(begin);
     }

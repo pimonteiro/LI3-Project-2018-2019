@@ -1,6 +1,5 @@
 package engine;
 
-import common.Comparators.AnswerCountComparator;
 import common.Pair;
 
 import java.time.LocalDate;
@@ -10,6 +9,15 @@ import java.util.stream.Collectors;
 
 public class Query7 {
 
+    /**
+     * @brief Conta o número de respostas entre duas datas, de uma Question
+     * Percorrendo cada resposta da pergunta, verificamos se esta está dentro das datas. Se estiver, incrementamos um contador
+     * para devolver no fim.
+     * @param q Question a analisar
+     * @param begin Data de inicio
+     * @param end Data do fim
+     * @return Par com o numero de respostas entre as datas e o ID da Question.
+     */
     private static Pair<Integer,Long> count_answers(Question q, LocalDate begin, LocalDate end){
         int n = 0;
         Map<Long,Answer> ans = q.getAnswers();
@@ -23,6 +31,17 @@ public class Query7 {
         return new Pair<>(n, q.getId());
     }
 
+    /**
+     * @brief Procura as Question com mais respostas entre as datas pedidas.
+     * Tanto as Question como as Answer têm de estar entre as datas pedidas. Usando a Tardis para recolher
+     * todas as Question entre as datas, para cada uma chama-se o metodo auxiliar que calcula o numero de repostas no intervalo
+     * de tempo. É adicionado o par resultante de cada uma a uma lista ordenada pelo maior número de respostas, devolvendo apenas N.
+     * @param com Estrutura com os dados.
+     * @param N Número de Posts
+     * @param begin Data de inicio
+     * @param end Data do fim
+     * @return Lista com os IDs das Questoes entre as datas pedidas, com mais respostas tambem entre estas datas.
+     */
     public static List<Long> mostAnsweredQuestions(Main_Struct com, int N, LocalDate begin, LocalDate end){
         TreeSet<? extends Post> questions = com.getPostsBetweenDate(begin.atStartOfDay(), end.atTime(LocalTime.MAX), null, null, Question.class);
 

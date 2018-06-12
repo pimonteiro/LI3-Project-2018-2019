@@ -8,6 +8,15 @@ import java.util.TreeSet;
 
 public class Query3 {
 
+    /**
+     * @brief Calcula quantos posts de cada tipo existem entre as datas indicadas.
+     * Usando a Tardis para pedir os posts entre as datas (já ordenadas), apenas contamos quantos sao do tipo Answer e quantos do tipo
+     * Question.
+     * @param com Estrutura com os dados.
+     * @param begin Data de inicio dos posts.
+     * @param end Data de fim dos posts.
+     * @return Par com o número de questoes e de respostas.
+     */
     public static Pair<Long,Long> totalPosts(Main_Struct com, LocalDate begin, LocalDate end){
         TreeSet<? extends Post> posts = com.getPostsBetweenDate(
                 begin.atStartOfDay(),
