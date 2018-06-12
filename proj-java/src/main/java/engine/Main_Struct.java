@@ -1,7 +1,6 @@
 package engine;
 
 import common.Comparators.PostCreationDateComparator;
-import common.Comparators.QuestionCreationDateComparator;
 import common.Exceptions.NoPostFoundException;
 import common.Exceptions.NoProfileFoundException;
 import common.Exceptions.NoTagFoundException;
@@ -10,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 /**
  * @brief Classe com a Estruta Principal como sendo 3 HashMaps para perfis,posts e tags e a Estrutura das Datas:Tardis.
@@ -34,9 +32,9 @@ public class Main_Struct {
         this.tardis64 = new Tardis();
     }
 
-/**
- * @brief Construtor por cópia da Estrutura Principal
- */
+    /**
+     * @brief Construtor por cópia da Estrutura Principal
+     */
 
     public Main_Struct(Main_Struct ms){
         this.profiles = ms.getProfiles();
@@ -78,21 +76,28 @@ public class Main_Struct {
     }
 
     public TreeSet<Question> getAllQuestions(){
-        return this.posts.values()
-                         .stream()
-                         .filter(Question.class::isInstance)
-                         .sorted(new PostCreationDateComparator())
-                         .map(Question.class::cast)
-                         .collect(Collectors.toCollection(TreeSet::new));
+        TreeSet<Question> tmp = new TreeSet<>(new PostCreationDateComparator());
+        this.posts.values()
+                  .stream()
+                  .filter(Question.class::isInstance)
+                  .map(Question.class::cast)
+                  .forEach(tmp::add);
+
+
+        return tmp;
     }
 
+
     public TreeSet<Answer> getAllAnswers(){
-        return this.posts.values()
-                         .stream()
-                         .filter(Answer.class::isInstance)
-                         .sorted(new PostCreationDateComparator())
-                         .map(Answer.class::cast)
-                         .collect(Collectors.toCollection(TreeSet::new));
+        TreeSet<Answer> tmp = new TreeSet<>(new PostCreationDateComparator());
+        this.posts.values()
+                  .stream()
+                  .filter(Answer.class::isInstance)
+                  .map(Answer.class::cast)
+                  .forEach(tmp::add);
+
+
+        return tmp;
     }
 
     public TreeSet<Post> getAllPosts(){
@@ -134,8 +139,8 @@ public class Main_Struct {
     }
 
     /**
-     * @brief Adiciona um perfil à HashMap de perfis.
      * @param p Perfil a adicionar
+     * @brief Adiciona um perfil à HashMap de perfis.
      */
 
     public void addProfile(Profile p){
@@ -145,8 +150,8 @@ public class Main_Struct {
 
 
     /**
-     * @brief Adiciona uma answer à HashMap de answers.
      * @param a Answer a adicionar
+     * @brief Adiciona uma answer à HashMap de answers.
      */
 
     public void addAnswer(Answer a){
@@ -167,8 +172,8 @@ public class Main_Struct {
 
 
     /**
-     * @brief Adiciona uma questão à HashMap de questões.
      * @param q Questão a adicionar
+     * @brief Adiciona uma questão à HashMap de questões.
      */
 
     public void addQuestion(Question q){

@@ -30,10 +30,11 @@ public class Question extends Post {
         return tmp;
     }
 
- /** @brief Construtor parametrizado da Questão
-  *  @param id,owner_id,score,creation_date,comments,title Titulo de uma Questão, n_answers Número de respostas,
-  *  @param tags Tags, answersl HashMap com as respostas de uma dada Questão
- */
+    /**
+     * @param id,owner_id,score,creation_date,comments,title Titulo de uma Questão, n_answers Número de respostas,
+     * @param tags                                           Tags, answersl HashMap com as respostas de uma dada Questão
+     * @brief Construtor parametrizado da Questão
+     */
 
     public Question(long id, long owner_id, long score, LocalDateTime creation_date, String title, long n_answers,
                     long comments, String tags, Map<Long,Answer> answersl){
@@ -49,9 +50,9 @@ public class Question extends Post {
         }
     }
 
-/**
- * @brief Construtor por cópia de uma questão
- */
+    /**
+     * @brief Construtor por cópia de uma questão
+     */
 
     public Question(Question q){
         super(q);
@@ -65,9 +66,9 @@ public class Question extends Post {
         }
     }
 
-/**
- *@brief Construtor parametrizado de uma Questão
- */
+    /**
+     * @brief Construtor parametrizado de uma Questão
+     */
 
     public Question(long id, long owner_id, long score, LocalDateTime creation_date, long n_comments, String title,
                     long n_answers, String tags){
@@ -79,9 +80,9 @@ public class Question extends Post {
 
     }
 
-/**
- * @brief Getters relativos às questões
- */
+    /**
+     * @brief Getters relativos às questões
+     */
 
     public Map<Long,Answer> getAnswers(){
         return answers;
@@ -99,17 +100,17 @@ public class Question extends Post {
         return n_answers;
     }
 
-/**
- * @brief Setter da HashMap de answers
- */
+    /**
+     * @brief Setter da HashMap de answers
+     */
     public void setAnswers(Map<Long,Answer> ans){
         this.answers = new HashMap<>();
-        ans.forEach((k,v) -> this.answers.put(k, v.clone()));
+        ans.forEach((k, v) -> this.answers.put(k, v.clone()));
     }
 
-/**
- * @brief Método equals de uma Questão
- */
+    /**
+     * @brief Método equals de uma Questão
+     */
 
     @Override
     public boolean equals(Object o){
@@ -122,9 +123,10 @@ public class Question extends Post {
                Objects.equals(title, question.title) &&
                Objects.equals(tags, question.tags);
     }
-/**
- * @brief Método HashCode para Questão
- */
+
+    /**
+     * @brief Método HashCode para Questão
+     */
 
     @Override
     public int hashCode(){
@@ -155,8 +157,8 @@ public class Question extends Post {
     }
 
     /**
-     * @brief Adiciona uma resposta á lista de respostas.
      * @param a
+     * @brief Adiciona uma resposta á lista de respostas.
      */
 
     public void addAnswer(Answer a){

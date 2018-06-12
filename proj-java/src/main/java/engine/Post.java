@@ -15,10 +15,10 @@ public abstract class Post implements Comparable<Post> {
     private long score;
     private long n_comments;
 
-/**
- * @brief Construtor parametrizado do Post
- * @param ID id de um Post,owner_id ID do Post a que pertence,score,número de comentários e data de criação
- */
+    /**
+     * @param ID id de um Post,owner_id ID do Post a que pertence,score,número de comentários e data de criação
+     * @brief Construtor parametrizado do Post
+     */
 
     public Post(long id, long owner_id, long score, LocalDateTime creation_date, long n_comments){
         this.id = id;
@@ -28,9 +28,9 @@ public abstract class Post implements Comparable<Post> {
         this.n_comments = n_comments;
     }
 
-/**
- * @brief Construtor por cópia do Post
- */
+    /**
+     * @brief Construtor por cópia do Post
+     */
 
     public Post(Post p){
         this.id = p.id;
@@ -107,9 +107,10 @@ public abstract class Post implements Comparable<Post> {
     public abstract Post clone();
 
     /**
-     * @brief Compara a data de criação de um Post com a passada como parametro
      * @param p Post
      * @return True se for igual, False caso contrário
+     *
+     * @brief Compara a data de criação de um Post com a passada como parametro
      */
 
     public int compareTo(Post p){
@@ -117,10 +118,11 @@ public abstract class Post implements Comparable<Post> {
     }
 
     /**
-     * @brief Verifica se este post está entre duas datas.
      * @param begin Data de inicio.
-     * @param end Data do fim
+     * @param end   Data do fim
      * @return True se estiver no intervalo, False em contrário.
+     *
+     * @brief Verifica se este post está entre duas datas.
      */
     public boolean isBetweenDates(LocalDateTime begin, LocalDateTime end){
         return this.creation_date.isBefore(end) && this.creation_date.isAfter(begin);

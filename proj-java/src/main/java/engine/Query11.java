@@ -30,7 +30,6 @@ public class Query11 {
 
                           )
                           .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-
                           .entrySet()
                           .stream()
                           .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))

@@ -6,16 +6,9 @@ import common.Exceptions.PostIsNotOfRightTypeException;
 import common.MyLog;
 import common.Pair;
 import li3.TADCommunity;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,7 +22,7 @@ public class TCDCommunity implements TADCommunity {
     private MyLog qelog;
 
 
-    public void init() {
+    public void init(){
         this.qelog = new MyLog("queryengine");
     }
 
@@ -123,6 +116,7 @@ public class TCDCommunity implements TADCommunity {
                                       NoProfileFoundException,
                                       NoPostFoundException,
                                       PostIsNotOfRightTypeException{
+
         return Query10.betterAnswer(this.data, id);
         //return 175891;
     }

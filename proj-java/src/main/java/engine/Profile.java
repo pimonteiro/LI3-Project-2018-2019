@@ -22,11 +22,12 @@ public class Profile {
     private int reputation;
 
 
-/**
- * @brief Construtor parametrizado do Perfil
- * @param String a bio, name O nome, n_posts O número de posts, id o ID,reputation A reputação e posts TreeSet com os posts
- * deste.
- **/
+    /**
+     * @param String a bio, name O nome, n_posts O número de posts, id o ID,reputation A reputação e posts TreeSet com
+     *               os posts
+     *               deste.
+     * @brief Construtor parametrizado do Perfil
+     **/
 
     public Profile(String about_me, String name, long n_posts, long id, int reputation, TreeSet<Post> posts){
         this.setPosts(posts);
@@ -37,9 +38,9 @@ public class Profile {
         this.reputation = reputation;
     }
 
-/**
- * @brief Construtor por cópia do Perfil
- */
+    /**
+     * @brief Construtor por cópia do Perfil
+     */
 
     public Profile(String about_me, String name, long id, int reputation){
         this.about_me = about_me;
@@ -63,9 +64,9 @@ public class Profile {
         this.reputation = 0;
     }
 
-/**
- * @brief Construtor por cópia do Perfil
- */
+    /**
+     * @brief Construtor por cópia do Perfil
+     */
 
     public Profile(Profile p){
         this.setPosts(p.getPosts());
@@ -76,9 +77,9 @@ public class Profile {
         this.reputation = p.getReputation();
     }
 
-/**
- * @brief Getters de um Perfil
- */
+    /**
+     * @brief Getters de um Perfil
+     */
 
     public TreeSet<Post> getPosts(){
         TreeSet<Post> ret = new TreeSet<>(new PostCreationDateComparator());
@@ -161,9 +162,9 @@ public class Profile {
         return new Profile(this);
     }
 
-  /**
-   * @brief Método equals de um Perfil
- */
+    /**
+     * @brief Método equals de um Perfil
+     */
 
     public boolean equals(Object o){
         if(o == this) return true;
@@ -187,8 +188,8 @@ public class Profile {
     }
 
     /**
-     * @brief Adiciona um post ao Set de posts do utilizador.
      * @param a Post a adicionar
+     * @brief Adiciona um post ao Set de posts do utilizador.
      */
 
     public void addPost(Post a){

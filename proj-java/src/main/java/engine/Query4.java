@@ -12,13 +12,15 @@ import java.util.stream.Collectors;
 public class Query4 {
 
     /**
-     * @brief Procura as qestoes que possuem uma tag entre especificas datas, por ordem decrescente
-     * Usando a Tardis para ter as questoes entre as datas (ja ordenadas), filtramos aquelas que tenham a tag na sua lista de tags.
-     * @param com Estrutura com os dados.
-     * @param tag Tag a ser procurada.
+     * @param com   Estrutura com os dados.
+     * @param tag   Tag a ser procurada.
      * @param begin Data de inicio.
-     * @param end Data do fim.
+     * @param end   Data do fim.
      * @return Lista de IDs de todas as questoes com a tag.
+     *
+     * @brief Procura as qestoes que possuem uma tag entre especificas datas, por ordem decrescente
+     * Usando a Tardis para ter as questoes entre as datas (ja ordenadas), filtramos aquelas que tenham a tag na sua
+     * lista de tags.
      */
 
     public static List<Long> questions_with_tag(Main_Struct com, String tag, LocalDate begin, LocalDate end){

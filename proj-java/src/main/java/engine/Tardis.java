@@ -17,13 +17,10 @@ public class Tardis {
         this.posts = new HashMap<>();
     }
 
-    public void insert(Object o){
-        if(!(o instanceof Post)) return;
-        Post tmp = (Post) o;
-
-        long index_year = tmp.getCreation_date().getYear() - 2008;
-        long index_mes = (tmp.getCreation_date().getDayOfMonth() - 1) + (31 * (tmp.getCreation_date().getMonthValue()
-                                                                               - 1));
+    public void insert(Post o){
+        long index_year = o.getCreation_date().getYear() - 2008;
+        long index_mes = (o.getCreation_date().getDayOfMonth() - 1) + (31 * (o.getCreation_date().getMonthValue()
+                                                                             - 1));
         Map<Long,List<Post>> anos = this.posts.get(index_year);
         if(anos == null){
             this.posts.put(index_year, new HashMap<>());
@@ -35,8 +32,10 @@ public class Tardis {
             anos.put(index_mes, new ArrayList<>());
             posts = anos.get(index_mes);
         }
-        posts.add(tmp);
+
+        posts.add(o);
     }
+
 
     public TreeSet<Post> getAll(){
         return this.posts.values()
