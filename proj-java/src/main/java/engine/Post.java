@@ -15,6 +15,11 @@ public abstract class Post implements Comparable<Post> {
     private long score;
     private long n_comments;
 
+/**
+ * @brief Construtor parametrizado do Post
+ * @param ID id de um Post,owner_id ID do Post a que pertence,score,número de comentários e data de criação
+ */
+
     public Post(long id, long owner_id, long score, LocalDateTime creation_date, long n_comments){
         this.id = id;
         this.owner_id = owner_id;
@@ -23,6 +28,9 @@ public abstract class Post implements Comparable<Post> {
         this.n_comments = n_comments;
     }
 
+/**
+ * @brief Construtor por cópia do Post
+ */
 
     public Post(Post p){
         this.id = p.id;
@@ -31,6 +39,10 @@ public abstract class Post implements Comparable<Post> {
         this.creation_date = p.creation_date;
         this.n_comments = p.n_comments;
     }
+
+    /**
+     * @brief Métodos que devolvem getters de um Post para aceder às suas variáveis de instância
+     */
 
     public long getId(){
         return this.id;
@@ -52,6 +64,10 @@ public abstract class Post implements Comparable<Post> {
         return this.creation_date;
     }
 
+    /**
+     * @brief Método toString de um Post
+     */
+
     @Override
     public String toString(){
         return "Post{" +
@@ -62,6 +78,10 @@ public abstract class Post implements Comparable<Post> {
                ", n_comments=" + n_comments +
                '}';
     }
+
+    /**
+     * @brief Método boolean equals de um Post
+     */
 
     @Override
     public boolean equals(Object o){
@@ -80,10 +100,18 @@ public abstract class Post implements Comparable<Post> {
         return Objects.hash(id, creation_date, owner_id, score, n_comments);
     }
 
+    /**
+     * @brief Método clone de um Post
+     */
     @Override
     public abstract Post clone();
 
-    //TODO Isto é necessário?
+    /**
+     * @brief Compara a data de criação de um Post com a passada como parametro
+     * @param p Post
+     * @return True se for igual, False caso contrário
+     */
+
     public int compareTo(Post p){
         return this.creation_date.compareTo(p.getCreation_date());
     }

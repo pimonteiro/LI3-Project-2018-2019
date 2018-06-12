@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @brief Classe da Tardis, a nossa Estrutura das Datas
+ */
+
 public class Tardis {
 
     private Map<Long,Map<Long,List<Post>>> posts;

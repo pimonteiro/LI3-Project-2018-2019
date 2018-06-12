@@ -12,12 +12,20 @@ import java.util.HashMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+/**
+ * @brief Classe com a Estruta Principal como sendo 3 HashMaps para perfis,posts e tags e a Estrutura das Datas:Tardis.
+ */
+
 public class Main_Struct {
 
     private HashMap<Long,Profile> profiles;
     private HashMap<Long,Post> posts;
     private HashMap<String,Long> tags;
     private Tardis tardis64;
+
+    /**
+     * @brief Construtor vazio da Estrutura Principal
+     */
 
     public Main_Struct(){
         this.profiles = new HashMap<>();
@@ -26,12 +34,20 @@ public class Main_Struct {
         this.tardis64 = new Tardis();
     }
 
+/**
+ * @brief Construtor por cópia da Estrutura Principal
+ */
+
     public Main_Struct(Main_Struct ms){
         this.profiles = ms.getProfiles();
         this.posts = ms.getPosts();
         this.tags = ms.getTags();
         this.tardis64 = ms.tardis64;
     }
+
+    /**
+     * @brief Getters da Estrutura Principal
+     */
 
     public HashMap<Long,Profile> getProfiles(){
         HashMap<Long,Profile> ret = new HashMap<>();
@@ -83,6 +99,10 @@ public class Main_Struct {
         return this.tardis64.getAll();
     }
 
+    /**
+     * @brief Dado um post verifica se o mesmo está entre 2 datas
+     */
+
     public <T extends Post> TreeSet<? extends Post> getPostsBetweenDate(LocalDateTime start, LocalDateTime end,
                                                                         Comparator<Answer> an,
                                                                         Comparator<Question> ques, Class<T> type){
@@ -113,10 +133,21 @@ public class Main_Struct {
         return id;
     }
 
+    /**
+     * @brief Adiciona um perfil à HashMap de perfis.
+     * @param p Perfil a adicionar
+     */
+
     public void addProfile(Profile p){
         if(!this.profiles.containsKey(p.getId()))
             this.profiles.put(p.getId(), p);
     }
+
+
+    /**
+     * @brief Adiciona uma answer à HashMap de answers.
+     * @param a Answer a adicionar
+     */
 
     public void addAnswer(Answer a){
         if(!this.posts.containsKey(a.getId()))
@@ -134,6 +165,12 @@ public class Main_Struct {
 
     }
 
+
+    /**
+     * @brief Adiciona uma questão à HashMap de questões.
+     * @param q Questão a adicionar
+     */
+
     public void addQuestion(Question q){
         if(!this.posts.containsKey(q.getId()))
             this.posts.put(q.getId(), q);
@@ -145,6 +182,10 @@ public class Main_Struct {
             p.addPost(q);
 
     }
+
+    /**
+     * @brief Adiciona uma tag à HashMap de tags.
+     */
 
     public void addTag(long id, String s){
         if(!this.tags.containsKey(s))

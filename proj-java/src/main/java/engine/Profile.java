@@ -11,6 +11,7 @@ import java.util.TreeSet;
  * Possui um TreeSet de posts ordenados por data (descendente), a bio, o nome, o número de posts, o ID e a reputação
  * deste.
  */
+
 public class Profile {
 
     private TreeSet<Post> posts;
@@ -19,6 +20,13 @@ public class Profile {
     private long n_posts;
     private long id;
     private int reputation;
+
+
+/**
+ * @brief Construtor parametrizado do Perfil
+ * @param String a bio, name O nome, n_posts O número de posts, id o ID,reputation A reputação e posts TreeSet com os posts
+ * deste.
+ **/
 
     public Profile(String about_me, String name, long n_posts, long id, int reputation, TreeSet<Post> posts){
         this.setPosts(posts);
@@ -29,6 +37,10 @@ public class Profile {
         this.reputation = reputation;
     }
 
+/**
+ * @brief Construtor por cópia do Perfil
+ */
+
     public Profile(String about_me, String name, long id, int reputation){
         this.about_me = about_me;
         this.name = name;
@@ -37,6 +49,10 @@ public class Profile {
         this.posts = new TreeSet<>(new PostCreationDateComparator());
         this.n_posts = 0;
     }
+
+    /**
+     * @brief Construtor vazio do Perfil
+     */
 
     public Profile(){
         this.posts = new TreeSet<>(new PostCreationDateComparator());
@@ -47,6 +63,10 @@ public class Profile {
         this.reputation = 0;
     }
 
+/**
+ * @brief Construtor por cópia do Perfil
+ */
+
     public Profile(Profile p){
         this.setPosts(p.getPosts());
         this.about_me = p.getAbout_me();
@@ -55,6 +75,10 @@ public class Profile {
         this.id = p.getId();
         this.reputation = p.getReputation();
     }
+
+/**
+ * @brief Getters de um Perfil
+ */
 
     public TreeSet<Post> getPosts(){
         TreeSet<Post> ret = new TreeSet<>(new PostCreationDateComparator());
@@ -95,6 +119,10 @@ public class Profile {
         return this.reputation;
     }
 
+    /**
+     * @brief Setters de um Perfil
+     */
+
     public void setPosts(Set<Post> posts){
         this.posts = new TreeSet<>(new PostCreationDateComparator());
         posts.forEach(p -> this.posts.add(p.clone()));
@@ -124,10 +152,18 @@ public class Profile {
         this.reputation = reputation;
     }
 
+    /**
+     * @brief Método clone de um Perfil
+     */
+
     @Override
     public Profile clone(){
         return new Profile(this);
     }
+
+  /**
+   * @brief Método equals de um Perfil
+ */
 
     public boolean equals(Object o){
         if(o == this) return true;
@@ -140,6 +176,10 @@ public class Profile {
                this.id == p.getId();
     }
 
+    /**
+     * @brief Método toString de um Perfil
+     */
+
     public String toString(){
         return "Name: " + this.name + "AboutMe: " + this.about_me +
                "N_Posts: " + this.n_posts + "Reputation: " + this.reputation +
@@ -150,6 +190,7 @@ public class Profile {
      * @brief Adiciona um post ao Set de posts do utilizador.
      * @param a Post a adicionar
      */
+
     public void addPost(Post a){
         this.posts.add(a);
         ++(this.n_posts);

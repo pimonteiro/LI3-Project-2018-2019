@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
  * @brief Question que extende de Post.
  * Possui um Map com as respostas desta Question, titulo, lista de tags e número de respostas.
  */
+
 public class Question extends Post {
 
     private Map<Long,Answer> answers;
@@ -29,6 +30,11 @@ public class Question extends Post {
         return tmp;
     }
 
+ /** @brief Construtor parametrizado da Questão
+  *  @param id,owner_id,score,creation_date,comments,title Titulo de uma Questão, n_answers Número de respostas,
+  *  @param tags Tags, answersl HashMap com as respostas de uma dada Questão
+ */
+
     public Question(long id, long owner_id, long score, LocalDateTime creation_date, String title, long n_answers,
                     long comments, String tags, Map<Long,Answer> answersl){
 
@@ -43,6 +49,9 @@ public class Question extends Post {
         }
     }
 
+/**
+ * @brief Construtor por cópia de uma questão
+ */
 
     public Question(Question q){
         super(q);
@@ -56,6 +65,10 @@ public class Question extends Post {
         }
     }
 
+/**
+ *@brief Construtor parametrizado de uma Questão
+ */
+
     public Question(long id, long owner_id, long score, LocalDateTime creation_date, long n_comments, String title,
                     long n_answers, String tags){
         super(id, owner_id, score, creation_date, n_comments);
@@ -66,6 +79,9 @@ public class Question extends Post {
 
     }
 
+/**
+ * @brief Getters relativos às questões
+ */
 
     public Map<Long,Answer> getAnswers(){
         return answers;
@@ -83,13 +99,17 @@ public class Question extends Post {
         return n_answers;
     }
 
+/**
+ * @brief Setter da HashMap de answers
+ */
     public void setAnswers(Map<Long,Answer> ans){
         this.answers = new HashMap<>();
         ans.forEach((k,v) -> this.answers.put(k, v.clone()));
     }
 
-
-
+/**
+ * @brief Método equals de uma Questão
+ */
 
     @Override
     public boolean equals(Object o){
@@ -102,12 +122,19 @@ public class Question extends Post {
                Objects.equals(title, question.title) &&
                Objects.equals(tags, question.tags);
     }
+/**
+ * @brief Método HashCode para Questão
+ */
 
     @Override
     public int hashCode(){
 
         return Objects.hash(super.hashCode(), answers, title, tags, n_answers);
     }
+
+    /**
+     * @brief Método toString de uma Questão
+     */
 
     @Override
     public java.lang.String toString(){
@@ -119,17 +146,22 @@ public class Question extends Post {
                '}' + super.toString();
     }
 
+    /**
+     * @brief Método clone de uma Questão
+     */
+
     public Question clone(){
         return new Question(this);
     }
 
-    //TODO nao incrementas o n_answers ?
     /**
      * @brief Adiciona uma resposta á lista de respostas.
      * @param a
      */
+
     public void addAnswer(Answer a){
         this.answers.put(a.getId(), a);
+        ++(this.n_answers);
     }
 
 }

@@ -18,6 +18,10 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @brief Classe responsável pela inicialização,load da Estrutura Principal e pelas Queries
+ */
+
 public class TCDCommunity implements TADCommunity {
 
     //private MyLog qelog;
@@ -28,7 +32,7 @@ public class TCDCommunity implements TADCommunity {
     public void init() {
         this.qelog = new MyLog("queryengine");
     }
-    
+
 
     public void load(String dumpPath){
         this.data = SaxParser.multParse(dumpPath);
