@@ -10,11 +10,27 @@ import java.util.stream.Collectors;
 
 public class Query11 {
 
-    static List<Long> mostUsedBestRep(Main_Struct cum, int N, LocalDate begin, LocalDate end){
+    private Query11(){
+
+    }
+
+    /**
+     * @param com   Estrutura com os dados.
+     * @param N     Delimitador
+     * @param begin Data de começo
+     * @param end   Data de fim
+     * @return List de identificadores das tags
+     *
+     * @brief Seleciona os top N utilizadores, colhe os seus Posts, filtra-os pelas datas passadas, guarda todas as
+     * tags
+     * presentes juntamente com o numero de vezes que aparecem e por fim limita por N e converte para o identificador
+     * correspondente
+     */
+    static List<Long> mostUsedBestRep(Main_Struct com, int N, LocalDate begin, LocalDate end){
 
         TreeSet<Profile> topProfiles = new TreeSet<>(
                 Comparator.comparing(Profile::getReputation, Comparator.reverseOrder()));
-        topProfiles.addAll(cum.getProfiles().values());
+        topProfiles.addAll(com.getProfiles().values());
 
 
         return topProfiles.stream()
@@ -38,7 +54,7 @@ public class Query11 {
                           .map(Map.Entry::getKey)
                           .map(f -> {
                               try{
-                                  return cum.getTag(f);
+                                  return com.getTag(f);
                               }catch(NoTagFoundException e){
                                   return null;
                               }

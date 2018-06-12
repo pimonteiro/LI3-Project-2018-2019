@@ -6,6 +6,8 @@ import java.util.*;
 
 public class Query2 {
 
+    private Query2(){}
+
     /**
      * @param com Estrutura com os dados.
      * @param N   Número de perfis pretendidos.

@@ -6,6 +6,8 @@ import common.Pair;
 
 public class Query1 {
 
+    private Query1(){}
+
 
     /**
      * @param com Estrutura com os dados

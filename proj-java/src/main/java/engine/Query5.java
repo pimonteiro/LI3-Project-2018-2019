@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 public class Query5 {
 
+    private Query5(){}
     /**
      * @param com Estrutura com os dados.
      * @param id  ID do utilizador.

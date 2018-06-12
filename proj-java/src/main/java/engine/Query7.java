@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 public class Query7 {
 
+    private Query7(){}
+
     /**
      * @param q     Question a analisar
      * @param begin Data de inicio

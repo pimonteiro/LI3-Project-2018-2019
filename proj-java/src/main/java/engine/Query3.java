@@ -7,6 +7,8 @@ import java.time.LocalTime;
 
 public class Query3 {
 
+    private Query3(){}
+
     /**
      * @param com   Estrutura com os dados.
      * @param begin Data de inicio dos posts.

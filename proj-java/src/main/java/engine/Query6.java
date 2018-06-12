@@ -11,6 +11,7 @@ import java.util.TreeSet;
 
 public class Query6 {
 
+    private Query6(){}
     /**
      * @param com   Estrutura com os dados.
      * @param N     Número de Answers

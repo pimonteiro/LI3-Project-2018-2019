@@ -10,6 +10,8 @@ import java.util.Iterator;
 
 public class Query10 {
 
+    private Query10(){}
+
     /**
      * @param p Dono da Answer
      * @param a Answer a ser analisada

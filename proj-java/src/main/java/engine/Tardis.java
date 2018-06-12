@@ -5,18 +5,28 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * @brief Classe da Tardis, a nossa Estrutura das Datas
- */
 
+/**
+ * @brief Class usada para guardar os Posts tendo por base o tempo
+ */
 public class Tardis {
 
+    /**
+     * Variavel de instancia que guarda os posts
+     */
     private Map<Long,Map<Long,List<Post>>> posts;
 
+    /**
+     * Construtor vazio
+     */
     public Tardis(){
         this.posts = new HashMap<>();
     }
 
+    /**
+     * Insere um Post na estrutua
+     * @param o
+     */
     public void insert(Post o){
         long index_year = o.getCreation_date().getYear() - 2008;
         long index_mes = (o.getCreation_date().getDayOfMonth() - 1) + (31 * (o.getCreation_date().getMonthValue()
@@ -36,7 +46,10 @@ public class Tardis {
         posts.add(o);
     }
 
-
+    /**
+     * Retorna todos os posts
+     * @return TreeSet com os Posts
+     */
     public TreeSet<Post> getAll(){
         return this.posts.values()
                          .stream()
@@ -47,7 +60,16 @@ public class Tardis {
                          ).collect(Collectors.toCollection(TreeSet::new));
     }
 
-
+    /**
+     * Retorna TreeSets de Posts ou sub-classes de Post ordenados pelo comparator passado
+     * @param start Data de começo
+     * @param end Data de fim
+     * @param an Critério de comparação para as respostas
+     * @param ques Critério de comparação para as questões
+     * @param type Class que determina o tipo de TreeSet a ser devolvido
+     * @param <E> Genérico que restringe os tripos a Posts ou subclasses
+     * @return Coonjunto de Posts ordenados
+     */
     public <E extends Post> TreeSet<? extends Post> getBetweenBy(LocalDateTime start, LocalDateTime end,
                                                                  Comparator<Answer> an,
                                                                  Comparator<Question> ques, Class<E> type){

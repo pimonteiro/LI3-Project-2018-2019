@@ -7,6 +7,8 @@ import java.util.TreeSet;
 
 public class Query8 {
 
+    private Query8(){}
+
     /**
      * @param com  Estrutura com os dados.
      * @param N    Número de questoes.

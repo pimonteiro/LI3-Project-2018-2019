@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 public class Query4 {
 
+    private Query4(){}
     /**
      * @param com   Estrutura com os dados.
      * @param tag   Tag a ser procurada.

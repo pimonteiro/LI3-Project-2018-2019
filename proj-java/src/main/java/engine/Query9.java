@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 public class Query9 {
 
+    private Query9(){}
 
     /**
      * @param com Estrutura com os dados.
