@@ -128,6 +128,6 @@ public class TCDCommunity implements TADCommunity {
     }
 
     public void clear(){
-
+        System.out.println("Allons-y Alonso");
     }
 }
